@@ -1,6 +1,6 @@
 {{header}}
-{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
         <div class="h2">{{heading_title}}</div>
         {% if categories %}
           <p>
@@ -25,5 +25,5 @@
             <div class="pull-right"><a href="{{continue}}" class="btn btn-default">{{button_continue}}</a></div>
           </div>
         {% endif %}
-    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
 {{footer}}

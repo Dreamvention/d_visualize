@@ -1,6 +1,6 @@
 {{header}}
-{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
       <h1 class="h1">{{heading_title}}
         {% if weight %}
         &nbsp;({{weight}})
@@ -94,5 +94,5 @@
         <div class="pull-left"><a href="{{continue}}" class="btn btn-default">{{button_shopping}}</a></div>
         <div class="pull-right"><a href="{{checkout}}" class="btn btn-primary">{{button_checkout}}</a></div>
       </div>
-    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
 {{footer}}

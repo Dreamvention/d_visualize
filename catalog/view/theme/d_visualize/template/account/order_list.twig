@@ -1,6 +1,6 @@
 {{header}}
-{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
       <h1 class="h1">{{heading_title}}</h1>
       {% if orders %}
       <div class="table-responsive">
@@ -35,6 +35,6 @@
       {% else %}
       <p>{{text_empty}}</p>
       {% endif %}
-      {% include 'd_theme_twig/template/partial/d_button_continue.twig' %}
-    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+      {% include 'd_visualize/template/partial/d_button_continue.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
 {{footer}}

@@ -1,26 +1,26 @@
 {{header}}
-{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
       <div class="h2">{{heading_title}}</div>
       <p>{{text_account_already}}</p>
       <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset id="account">
           <legend>{{text_your_details}}</legend>
-          {% include 'd_theme_twig/template/partial/d_account_field.twig' with {form:'inline'} %}
+          {% include 'd_visualize/template/partial/d_account_field.twig' with {form:'inline'} %}
           {% for custom_field in custom_fields %}
             {% if custom_field.location == 'account' %}
               {% set custom_field = custom_field|merge({form:'inline'}) %}
-              {% include 'd_theme_twig/template/partial/d_custom_field.twig' with custom_field %}
+              {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
             {% endif %}
           {% endfor %}
         </fieldset>
         <fieldset id="address">
           <legend>{{text_your_address}}</legend>
-          {% include 'd_theme_twig/template/partial/d_address_field.twig' with {form:'inline'} %}
+          {% include 'd_visualize/template/partial/d_address_field.twig' with {form:'inline'} %}
           {% for custom_field in custom_fields %}
             {% if custom_field.location == 'address' %}
               {% set custom_field = custom_field|merge({form:'inline'}) %}
-              {% include 'd_theme_twig/template/partial/d_custom_field.twig' with custom_field %}
+              {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
             {% endif %}
           {% endfor %}
         </fieldset>
@@ -76,7 +76,7 @@
         </div>
         {% endif %}
       </form>
-    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
 {{footer}}
 <script type="text/javascript"><!--
 $(function(){

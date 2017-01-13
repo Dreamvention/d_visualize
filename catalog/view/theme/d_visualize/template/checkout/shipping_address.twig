@@ -20,12 +20,12 @@
   {% endif %}
   <br />
   <div id="shipping-new" style="display:{% if addresses %}none{% else %}block{% endif %};">
-    {% include 'd_theme_twig/template/partial/d_name_field.twig' with {form:'inline'} %}
-    {% include 'd_theme_twig/template/partial/d_address_field.twig' with {form:'inline'} %}
+    {% include 'd_visualize/template/partial/d_name_field.twig' with {form:'inline'} %}
+    {% include 'd_visualize/template/partial/d_address_field.twig' with {form:'inline'} %}
     {% for custom_field in custom_fields %}
       {% if custom_field.location == 'address' %}
         {% set custom_field = custom_field|merge({form:'inline', location:false}) %}
-        {% include 'd_theme_twig/template/partial/d_custom_field.twig' with custom_field %}
+        {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
       {% endif %}
     {% endfor %}
   </div>

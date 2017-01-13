@@ -1,17 +1,17 @@
 {{header}}
-{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
       <h1 class="h1">{{heading_title}}</h1>
       <p>{{text_account_already}}</p>
       <p>{{text_signup}}</p>
       <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
           <legend>{{text_your_details}}</legend>
-          {% include 'd_theme_twig/template/partial/d_account_field.twig' with { form: 'inline'} %}
+          {% include 'd_visualize/template/partial/d_account_field.twig' with { form: 'inline'} %}
         </fieldset>
         <fieldset>
           <legend>{{text_your_address}}</legend>
-          {% include 'd_theme_twig/template/partial/d_address_field.twig' with { form: 'inline'} %}
+          {% include 'd_visualize/template/partial/d_address_field.twig' with { form: 'inline'} %}
         </fieldset>
         <fieldset>
           <legend>{{text_payment}}</legend>
@@ -108,9 +108,9 @@
           </div>
         </fieldset>
         {{captcha}}
-        {% include 'd_theme_twig/template/partial/d_button.twig' %}
+        {% include 'd_visualize/template/partial/d_button.twig' %}
       </form>
-    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
 {{footer}}
 <script type="text/javascript"><!--
 $(function(){
