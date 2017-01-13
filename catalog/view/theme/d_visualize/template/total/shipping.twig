@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title"><a href="#collapse-shipping" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{heading_title}} <i class="fa fa-caret-down"></i></a></h4>
+  </div>
+  <div id="collapse-shipping" class="panel-collapse collapse">
+    <div class="panel-body">
+      <p>{{text_shipping}}</p>
+      <div class="form-horizontal">
+        <div class="form-group required">
+          <label class="col-sm-2 control-label" for="input-country">{{entry_country}}</label>
+          <div class="col-sm-10">
+            <select name="country_id" id="input-country" class="form-control">
+              <option value="">{{text_select}}</option>
+              {% for country in countries %}
+              	<option value="{{country.country_id}}" {% if country.country_id == country_id %}selected="selected"{% endif %}>{{country.name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-group required">
+          <label class="col-sm-2 control-label" for="input-zone">{{entry_zone}}</label>
+          <div class="col-sm-10">
+            <select name="zone_id" id="input-zone" class="form-control">
+            </select>
+          </div>
+        </div>
+        <div class="form-group required">
+          <label class="col-sm-2 control-label" for="input-postcode">{{entry_postcode}}</label>
+          <div class="col-sm-10">
+            <input type="text" name="postcode" value="{{postcode}}" placeholder="{{entry_postcode}}" id="input-postcode" class="form-control" />
+          </div>
+        </div>
+        <button type="button" id="button-quote" data-loading-text="{{text_loading}}" class="btn btn-primary">{{button_quote}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$(document).ready(function() {
+	Total_shipping.init({
+		shipping_method: '<?php echo $shipping_method; ?>',
+		text_shipping_method: '<?php echo $text_shipping_method; ?>',
+		text_loading: '<?php echo $text_loading; ?>',
+		button_cancel: '<?php echo $button_cancel; ?>',
+		button_shipping: '<?php echo $button_shipping; ?>'
+	});
+	d_address_field.init({
+        zone_id: '<?php echo $zone_id; ?>',
+        text_none: '<?php echo $text_none; ?>',
+        text_select: '<?php echo $text_select; ?>'
+    });
+});
+//--></script>

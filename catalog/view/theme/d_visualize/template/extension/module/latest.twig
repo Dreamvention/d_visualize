@@ -1,0 +1,6 @@
+<div class="h3">{{heading_title}}</div>
+<div class="row">
+  {% for product in products %}
+    {% include 'd_theme_twig/template/partial/product_thumb.twig' with product %}
+  {% endfor %}
+</div>

@@ -1,0 +1,22 @@
+{{header}}
+{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+      <div class="h2">{{text_address_book}}</div>
+      {% if addresses %}
+        <table class="table table-bordered table-hover">
+          {% for address in addresses %}
+          <tr>
+            <td class="text-left">{{address.address}}</td>
+            <td class="text-right"><a href="{{address.update}}" class="btn btn-info">{{button_edit}}</a> &nbsp; <a href="{{address.delete}}" class="btn btn-danger">{{button_delete}}</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      {% else %}
+        <p>{{text_empty}}</p>
+      {% endif %}
+      <div class="buttons clearfix">
+        <div class="pull-left"><a href="{{back}}" class="btn btn-default">{{button_back}}</a></div>
+        <div class="pull-right"><a href="{{add}}" class="btn btn-primary">{{button_new_address}}</a></div>
+      </div>
+    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+{{footer}}

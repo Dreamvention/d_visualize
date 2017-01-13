@@ -1,0 +1,44 @@
+{{header}}
+{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+      <h1 class="h1">{{heading_title}}</h1>
+      <p>{{text_total}} <b>{{total}}</b>.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <td class="text-left">{{column_date_added}}</td>
+              <td class="text-left">{{column_description}}</td>
+              <td class="text-right">{{column_points}}</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% if rewards %}
+            {% for reward in rewards %}
+            <tr>
+              <td class="text-left">{{reward.date_added}}</td>
+              <td class="text-left">
+                {% if reward.order_id %}
+                  <a href="{{reward.href}}">{{reward.description}}</a>
+                {% else %}
+                  {{description}}
+                {% endif %}
+              </td>
+              <td class="text-right">{{points}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+              <tr>
+                <td class="text-center" colspan="3">{{text_empty}}</td>
+              </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 text-left">{{pagination}}</div>
+        <div class="col-sm-6 text-right">{{results}}</div>
+      </div>
+      {% include 'd_theme_twig/template/partial/d_button_continue.twig' %}
+  {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+{{footer}}

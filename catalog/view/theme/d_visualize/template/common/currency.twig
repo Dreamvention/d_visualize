@@ -1,0 +1,37 @@
+{% if display_currencies %}
+<form action="{{action}}" method="post" enctype="multipart/form-data" id="currency" class="dropdown currency">
+    <a class="dropdown-toggle title" data-toggle="dropdown">
+      {% for currency in currencies %}
+        {% if currency.symbol_left %}
+          {% if currency.code == code %}
+          <strong>{{currency.symbol_left}}</strong>
+          {% endif %}
+        {% endif %}
+        {% if currency.symbol_right %}
+          {% if currency.code == code %}
+          <strong>{{symbol_right}}</strong>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <span class="hidden-xs hidden-sm hidden-md">{{text_currency}}</span> <i class="fa fa-caret-down"></i>
+    </a>
+    <ul class="dropdown-menu">
+      {% for currency in currencies %}
+        {% if currency.symbol_left %}
+          <li><a class="currency-select" data-code="{{currency.code}}">{{currency.symbol_left}} {{currency.title}}</a></li>
+        {% else %}
+          <li><a class="currency-select" data-code="{{currency.code}}">{{currency.symbol_right}} {{currency.title}}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  <input type="hidden" name="code" value="" />
+  <input type="hidden" name="redirect" value="{{redirect}}" />
+</form>
+{% endif %}
+<script>
+	$(document).on('click', '#currency .currency-select', function(e) {
+		$('#currency input[name=\'code\']').attr('value', $(this).data('code'));
+		$('#currency').submit();
+		e.preventDefault();
+	});
+</script>

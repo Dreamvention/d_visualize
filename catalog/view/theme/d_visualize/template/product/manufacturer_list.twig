@@ -1,0 +1,29 @@
+{{header}}
+{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+        <div class="h2">{{heading_title}}</div>
+        {% if categories %}
+          <p>
+            <strong>{{text_index}}</strong>
+            {% for category in categories %}
+              <a href="index.php?route=product/manufacturer#{{category.name}}">{{category.name}}</a>
+            {% endfor %}
+          </p>
+          {% for category in categories %}
+          <h2 id="{{category.name}}">{{category.name}}</h2>
+            {% if category.manufacturer %}
+            <div class="row">
+              {% for manufacturer in category.manufacturer %}
+              <div class="col-sm-3"><a href="{{manufacturer.href}}">{{manufacturer.name}}</a></div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          {% endfor %}
+        {% else %}
+          <p>{{text_empty}}</p>
+          <div class="buttons">
+            <div class="pull-right"><a href="{{continue}}" class="btn btn-default">{{button_continue}}</a></div>
+          </div>
+        {% endif %}
+    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+{{footer}}

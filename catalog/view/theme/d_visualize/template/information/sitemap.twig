@@ -1,0 +1,56 @@
+{{header}}
+  {% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
+  {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+      <div class="h1">{{heading_title}}</div>
+      <div class="row">
+        <div class="col-sm-6">
+          <ul>
+            {% for category in categories %}
+            <li><a href="{{category.href}}">{{category.name}}</a>
+              {% if category.children %}
+              <ul>
+                {% for children in category.children %}
+                <li><a href="{{children.href}}">{{children.name}}</a>
+                  {% if children.children %}
+                  <ul>
+                    {% child in children.children %}
+                    <li><a href="{{child.href}}">{{child.name}}</a></li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="col-sm-6">
+          <ul>
+            <li><a href="{{special}}">{{text_special}}</a></li>
+            <li><a href="{{account}}">{{text_account}}</a>
+              <ul>
+                <li><a href="{{edit}}">{{text_edit}}</a></li>
+                <li><a href="{{password}}">{{text_password}}</a></li>
+                <li><a href="{{address}}">{{text_address}}</a></li>
+                <li><a href="{{history}}">{{text_history}}</a></li>
+                <li><a href="{{download}}">{{text_download}}</a></li>
+              </ul>
+            </li>
+            <li><a href="{{cart}}">{{text_cart}}</a></li>
+            <li><a href="{{checkout}}">{{text_checkout}}</a></li>
+            <li><a href="{{search}}">{{text_search}}</a></li>
+            <li>{{text_information}}
+              <ul>
+                {% for information in informations %}
+                <li><a href="{{information.href}}">{{information.title}}</a></li>
+                {% endfor %}
+                <li><a href="{{contact}}">{{text_contact}}</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+  {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+{{footer}}

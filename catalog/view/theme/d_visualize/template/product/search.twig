@@ -1,0 +1,90 @@
+{{header}}
+{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+
+      <div class="h2">{{heading_title}}</div>
+
+      <label class="control-label" for="input-search">{{entry_search}}</label>
+      <div class="row">
+        <div class="col-sm-4">
+          <input type="text" name="search" value="{{search}}" placeholder="{{text_keyword}}" id="input-search" class="form-control" />
+        </div>
+        <div class="col-sm-3">
+          <select name="category_id" class="form-control">
+            <option value="0">{{text_category}}</option>
+            {% for category in categories %}
+              {% if category.category_id == category_id %}
+                <option value="{{category.category_id}}" selected="selected">{{category.name}}</option>
+              {% else %}
+                <option value="{{category.category_id}}">{{category.name}}</option>
+              {% endif %}
+
+              {% for child in children %}
+                {% if child.category_id == category_id %}
+                  <option value="{{child.category_id}}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
+                {% else %}
+                  <option value="{{child.category_id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
+                {% endif %}
+
+                {% for child in children %}
+                  {% if child.category_id == category_id %}
+                    <option value="{{child.category_id}}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
+                  {% else %}
+                    <option value="{{child.category_id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
+                  {% endif %}
+                {% endfor %}
+              {% endfor %}
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-sm-3">
+          <label class="checkbox-inline">
+            {% if sub_category %}
+              <input type="checkbox" name="sub_category" value="1" checked="checked" />
+            {% else %}
+              <input type="checkbox" name="sub_category" value="1" />
+            {% endif %}
+            {{text_sub_category}}</label>
+        </div>
+      </div>
+      <p>
+        <label class="checkbox-inline">
+          {% if description %}
+            <input type="checkbox" name="description" value="1" id="description" checked="checked" />
+          {% else %}
+            <input type="checkbox" name="description" value="1" id="description" />
+          {% endif %}
+          {{entry_description}}</label>
+      </p>
+      <input type="button" value="{{button_search}}" id="button-search" class="btn btn-primary" />
+
+        <div class="h2">{{text_search}}</div>
+        {% if products %}
+          {% include 'd_theme_twig/template/partial/d_product_sort.twig' %}
+          <div class="row">
+            {% for product in products %}
+              {% include 'd_theme_twig/template/partial/d_product_thumb.twig' with product %}
+            {% endfor %}
+          </div>
+          <div class="row">
+            <div class="col-sm-6 text-left">{{pagination}}</div>
+            <div class="col-sm-6 text-right">{{results}}</div>
+          </div>
+        {% endif %} {#-- products --#}
+
+        {% if not categories %}
+          {% if not products %}
+            <p>{{text_empty}}</p>
+            <div class="buttons">
+              <div class="pull-right"><a href="{{continue}}" class="btn btn-primary">{{button_continue}}</a></div>
+            </div>
+          {% endif %}
+        {% endif %}
+
+    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+{{footer}}
+<script type="text/javascript"><!--
+$(document).ready(function() {
+	Search.init();
+});
+--></script>

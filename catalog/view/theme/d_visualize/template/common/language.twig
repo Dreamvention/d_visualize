@@ -1,0 +1,27 @@
+{% if display_languages %}
+<form action="{{action}}" method="post" enctype="multipart/form-data" id="language" class="dropdown language">
+    <a class="dropdown-toggle title" data-toggle="dropdown">
+      {% for language in languages %}
+        {% if language.code == code %}
+          <img src="image/flags/{{language.image}}" alt="{{language.name}}" title="{{language.name}}">
+        {% endif %}
+      {% endfor %}
+      <span class="hidden-xs hidden-sm hidden-md">{{text_language}}</span> <i class="fa fa-caret-down"></i>
+    </a>
+
+    <ul class="dropdown-menu">
+      {% for language in languages %}
+        <li><a href="{{language.code}}" class="language-select"><img src="image/flags/{{language.image}}" alt="{{language.name}}" title="{{language.name}}" /> {{language.name}}</a></li>
+      {% endfor %}
+    </ul>
+  <input type="hidden" name="code" value="" />
+  <input type="hidden" name="redirect" value="{{redirect}}" />
+</form>
+{% endif %}
+<script type="text/javascript">
+	$(document).on('click', '#language .language-select', function(e) {
+		$('#language input[name=\'code\']').attr('value', $(this).attr('href'));
+		$('#language').submit();
+		e.preventDefault();
+	});
+</script>

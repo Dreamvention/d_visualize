@@ -1,0 +1,25 @@
+[class*="product-product-"]{
+	.product-images{
+		.thumbnails{
+			padding: 0px;
+			margin: 0px;
+			list-style: none;
+			.image-additional{
+				display: inline-block;
+			}
+		}
+	}
+}
+@media (min-width: 767px){
+	.product-list {
+		.product-thumb {
+			.image {
+			    float: left;
+			    padding: 0 15px;
+			}
+		}
+	}
+}
+#input-quantity{
+	text-align: center;
+}

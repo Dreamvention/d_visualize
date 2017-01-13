@@ -1,0 +1,19 @@
+{{header}}
+{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+      <h2 class="h2">{{text_my_account}}</h2>
+      <ul class="list-unstyled">
+        <li><a href="{{edit}}">{{text_edit}}</a></li>
+        <li><a href="{{password}}">{{text_password}}</a></li>
+        <li><a href="{{payment}}">{{text_payment}}</a></li>
+      </ul>
+      <h2 class="h2">{{text_my_tracking}}</h2>
+      <ul class="list-unstyled">
+        <li><a href="{{tracking}}">{{text_tracking}}</a></li>
+      </ul>
+      <h2>{{text_my_transactions}}</h2>
+      <ul class="list-unstyled">
+        <li><a href="{{transaction}}">{{text_transaction}}</a></li>
+      </ul>
+    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+{{footer}}

@@ -1,0 +1,23 @@
+$stars: 5;
+.rating{
+	&[class*="rating-"]{
+	    .fa-stack {
+	        .fa-star {
+	            display: none;
+	        }
+	        .fa-stack-1x{
+	        	width: 1em;
+	        	height: 1em;
+	        }
+	    }
+	}
+    @for $star from 1 through $stars {
+        &.rating-#{$star} {
+            .fa-stack:nth-child(-n+#{$star}) {
+                .fa-star {
+                    display: block
+                }
+            }
+        }
+    }
+}

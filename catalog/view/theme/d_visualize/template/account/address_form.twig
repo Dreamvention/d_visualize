@@ -1,0 +1,39 @@
+{{header}}
+{% include 'd_theme_twig/template/partial/d_breadcrumb.twig' %}
+    {% include 'd_theme_twig/template/partial/d_layout_open.twig' %}
+      <div class="h2">{{text_edit_address}}</div>
+      <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <fieldset>
+          {% include 'd_theme_twig/template/partial/d_name_field.twig' with { form:'inline'} %}
+          {% include 'd_theme_twig/template/partial/d_address_field.twig' with { form:'inline'} %}
+          {% for custom_field in custom_fields %}
+            {% if custom_field.location == 'address' %}
+              {% include 'd_theme_twig/template/partial/d_custom_field.twig' with { form:'inline'} %}
+            {% endif %}
+          {% endfor %}
+          <div class="form-group">
+            <label class="col-sm-2 control-label">{{entry_default}}</label>
+            <div class="col-sm-10">
+              <label class="radio-inline">
+                <input type="radio" name="default" value="1" {% if default %}checked="checked"{% endif %} />
+                {{text_yes}}</label>
+              <label class="radio-inline">
+                <input type="radio" name="default" value="0" {% if not default %}checked="checked"{% endif %} />
+                {{text_no}}</label>
+            </div>
+          </div>
+        </fieldset>
+        {% include 'd_theme_twig/template/partial/d_button_submit.twig' %}
+      </form>
+    {% include 'd_theme_twig/template/partial/d_layout_close.twig' %}
+{{footer}}
+<script type="text/javascript"><!--
+$(function(){
+    d_address_field.init({
+        zone_id: '{{zone_id}}',
+        text_none: '{{text_none}}',
+        text_select: '{{text_select}}'
+    });
+    d_custom_field.init();
+})
+//--></script>
