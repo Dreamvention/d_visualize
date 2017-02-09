@@ -40,7 +40,7 @@
         "catalog/controller/d_visualize/event.php",
         "catalog/controller/d_visualize/header.php",
         "catalog/controller/d_visualize/footer.php"
-    ],
+    ], 
     "dirs": [
         "catalog/view/theme/d_visualize"
     ],
