@@ -1,4 +1,6 @@
 {{header}}
+<link rel="stylesheet" type="text/css" href="catalog/view/javascript/library/d_bootstrap_rating/bootstrap-rating.css">
+<script src="catalog/view/javascript/library/d_bootstrap_rating/bootstrap-rating.js"></script>
 {% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
     {% include 'd_visualize/template/partial/d_layout_open.twig' %}
 
@@ -373,9 +375,9 @@
 <script type="text/javascript"><!--
 $(document).ready(function() {
 	Product.init({
-        product_id: '<?php echo $product_id; ?>',
+        product_id: '{{product_id}}',
         $quantity: $('#input-quantity'),
-        minimum: '<?php echo $minimum; ?>'
+        minimum: '{{minimum}}'
     });
 });
 //--></script>
