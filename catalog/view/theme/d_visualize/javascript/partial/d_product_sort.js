@@ -1,5 +1,10 @@
 $(document).ready(function() {
 	console.log('start d_product_sort');
+	var view = localStorage.getItem('display') == 'list'? 'grid' : 'list';
+	$('#content .product-layout').each(function(){
+		$(this).addClass('product-'+view);
+	});
+	
 // Product List
 	$(document).on('click', '#list-view', function() {
 		console.log('click list-view');
