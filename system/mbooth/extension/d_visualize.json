@@ -42,7 +42,8 @@
         "catalog/controller/d_visualize/footer.php"
     ], 
     "dirs": [
-        "catalog/view/theme/d_visualize"
+        "catalog/view/theme/d_visualize",
+	"system/config/d_visualize"
     ],
     "changelog": [
         {
