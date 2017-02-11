@@ -1,5 +1,5 @@
 {
-	"codename": "d_visualize",
+    "codename": "d_visualize",
     "version": "1.0.0",
     "name": "Twig library",
     "description": "Twig library for Opencart stores",
@@ -31,7 +31,7 @@
     },
     "required": {
         "d_shopunity": ">= 3.0.0",
-        "d_twig": ">= 1.0.0",
+        "d_twig_manager": ">= 1.0.0",
         "d_event_manager": ">= 1.0.0",
         "d_bootstrap_rating": ">= 1.0.0"
     },
