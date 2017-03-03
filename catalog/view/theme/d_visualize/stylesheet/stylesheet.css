@@ -23,6 +23,12 @@ body {
   padding: 10px 16px;
   font-size: 15px; }
 
+.btn-xs {
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px; }
+
 .btn-default {
   color: #777;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -52,8 +58,21 @@ label {
 .fa {
   font-size: 14px; }
 
+.fa-stack {
+  width: 1em;
+  height: 1em;
+  line-height: 1em; }
+
 a:hover {
   text-decoration: none; }
+
+.required .control-label:before {
+  content: '* ';
+  color: #F00;
+  font-weight: bold; }
+
+.form-control {
+  font-size: 12px; }
 
 .header .header-top > .wrapper {
   margin-bottom: 20px;
@@ -212,6 +231,13 @@ a:hover {
 
 .refine-search {
   margin-bottom: 10px; }
+
+.d_product_sort .col-md-3 {
+  padding: 7.5px 12px; }
+.d_product_sort .col-md-2 label {
+  padding: 7.5px 12px; }
+.d_product_sort .col-md-1 {
+  padding: 7.5px 12px; }
 
 .breadcrumb {
   margin: 0 0 20px 0;

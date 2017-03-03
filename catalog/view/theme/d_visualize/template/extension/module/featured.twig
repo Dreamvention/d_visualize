@@ -1,6 +1,8 @@
 <div class="h3">{{heading_title}}</div>
 <div class="row">
-  {% for product in products %}
-    {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
-  {% endfor %}
+    {% for product in products %}
+    <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+    </div>
+    {% endfor %}
 </div>

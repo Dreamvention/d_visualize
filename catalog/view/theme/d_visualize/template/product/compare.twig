@@ -2,13 +2,12 @@
 {% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
     {% include 'd_visualize/template/partial/d_layout_open.twig' %}
 
-        <div class="h2">{{heading_title}}</div>
-
-        {% if products %}
+    <div class="h2">{{heading_title}}</div>
+    {% if products %}
       <table class="table table-bordered">
         <thead>
           <tr>
-            <td colspan="{{products_count + 1}}"><strong>{{text_product}}</strong></td>
+            <td colspan="{{products|length + 1}}"><strong>{{text_product}}</strong></td>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +78,7 @@
           <tr>
             <td>{{text_summary}}</td>
             {% for product in products %}
-            <td class="description">{{description}}</td>
+            <td class="description">{{product.description}}</td>
             {% endfor %}
           </tr>
           <tr>
@@ -98,7 +97,7 @@
         {% for attribute_group in attribute_groups %}
         <thead>
           <tr>
-            <td colspan="{{products_count + 1}}"><strong>{{attribute_group.name}}</strong></td>
+            <td colspan="{{products|length + 1}}"><strong>{{attribute_group.name}}</strong></td>
           </tr>
         </thead>
           {% for key,attribute in attribute_group.attribute %}
@@ -106,8 +105,8 @@
             <tr>
               <td>{{attribute.name}}</td>
               {% for product in products %}
-                {% if product.attribute.key %}
-                <td>{{product.attribute.key}}</td>
+                {% if product.attribute[key] %}
+                <td>{{product.attribute[key]}}</td>
                 {% else %}
                 <td></td>
                 {% endif %}

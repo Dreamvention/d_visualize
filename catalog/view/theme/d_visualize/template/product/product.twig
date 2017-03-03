@@ -164,9 +164,8 @@
             <div class="h3">{{text_option}}</div>
 
             {% for option in options %}
-
-              {% if type == 'select' %}
-              <div class="form-group{% if required %} required{% endif %}">
+              {% if option.type == 'select' %}
+              <div class="form-group{% if option.required == 1 %} required{% endif %}">
                 <label class="control-label" for="input-option{{option.product_option_id}}">{{option.name}}</label>
                 <select name="option[{{option.product_option_id}}]" id="input-option{{option.product_option_id}}" class="form-control">
                   <option value="">{{text_select}}</option>
@@ -182,8 +181,8 @@
               {% endif %}
 
 
-              {% if type == 'radio'%}
-              <div class="form-group{% if required %} required{% endif %}">
+              {% if option.type == 'radio'%}
+              <div class="form-group{% if option.required == 1 %} required{% endif %}">
                 <label class="control-label">{{option.name}}</label>
                 <div id="input-option{{option.product_option_id}}">
                   {% for option_value in option.product_option_value %}
@@ -201,8 +200,8 @@
               </div>
               {% endif %}
 
-              {% if type == 'checkbox' %}
-              <div class="form-group{% if required %} required{% endif %}">
+              {% if option.type == 'checkbox' %}
+              <div class="form-group{% if option.required == 1 %} required{% endif %}">
                 <label class="control-label">{{option.name}}</label>
                 <div id="input-option{{option.product_option_id}}">
                   {% for option_value in option.product_option_value %}
@@ -220,8 +219,8 @@
               </div>
               {% endif %}
 
-              {% if type == 'image' %}
-              <div class="form-group{% if required %} required{% endif %}">
+              {% if option.type == 'image' %}
+              <div class="form-group{% if option.required == 1 %} required{% endif %}">
                 <label class="control-label">{{option.name}}</label>
                 <div id="input-option{{option.product_option_id}}">
                   {% for option_value in option.product_option_value %}
@@ -239,30 +238,30 @@
               </div>
               {% endif %}
 
-            {% if type == 'text' %}
-            <div class="form-group{% if required %} required{% endif %}">
+            {% if option.type == 'text' %}
+            <div class="form-group{% if option.required == 1 %} required{% endif %}">
               <label class="control-label" for="input-option{{option.product_option_id}}">{{option.name}}</label>
               <input type="text" name="option[{{option.product_option_id}}]" value="{{option.value}}" placeholder="{{option.name}}" id="input-option{{option.product_option_id}}" class="form-control" />
             </div>
             {% endif %}
 
-            {% if type == 'textarea' %}
-            <div class="form-group{% if required %} required{% endif %}">
+            {% if option.type == 'textarea' %}
+            <div class="form-group{% if option.required == 1 %} required{% endif %}">
               <label class="control-label" for="input-option{{option.product_option_id}}">{{option.name}}</label>
               <textarea name="option[{{option.product_option_id}}]" rows="5" placeholder="{{option.name}}" id="input-option{{option.product_option_id}}" class="form-control">{{option.value}}</textarea>
             </div>
             {% endif %}
 
-            {% if type == 'file' %}
-            <div class="form-group{% if required %} required{% endif %}">
+            {% if option.type == 'file' %}
+            <div class="form-group{% if option.required == 1 %} required{% endif %}">
               <label class="control-label">{{option.name}}</label>
               <button type="button" id="button-upload{{option.product_option_id}}" data-loading-text="{{text_loading}}" class="btn btn-default btn-block"><i class="fa fa-upload"></i> {{button_upload}}</button>
               <input type="hidden" name="option[{{option.product_option_id}}]" value="" id="input-option{{option.product_option_id}}" />
             </div>
             {% endif %}
 
-            {% if type == 'date' %}
-            <div class="form-group{% if required %} required{% endif %}">
+            {% if option.type == 'date' %}
+            <div class="form-group{% if option.required == 1 %} required{% endif %}">
               <label class="control-label" for="input-option{{option.product_option_id}}">{{option.name}}</label>
               <div class="input-group date">
                 <input type="text" name="option[{{option.product_option_id}}]" value="{{option.value}}" data-date-format="YYYY-MM-DD" id="input-option{{option.product_option_id}}" class="form-control" />
@@ -272,8 +271,8 @@
             </div>
             {% endif %}
 
-            {% if type == 'datetime' %}
-            <div class="form-group{% if required %} required{% endif %}">
+            {% if option.type == 'datetime' %}
+            <div class="form-group{% if option.required == 1 %} required{% endif %}">
               <label class="control-label" for="input-option{{option.product_option_id}}">{{option.name}}</label>
               <div class="input-group datetime">
                 <input type="text" name="option[{{option.product_option_id}}]" value="{{option.value}}" data-date-format="YYYY-MM-DD HH:mm" id="input-option{{option.product_option_id}}" class="form-control" />
@@ -283,8 +282,8 @@
             </div>
             {% endif %}
 
-            {% if type == 'time' %}
-            <div class="form-group{% if required %} required{% endif %}">
+            {% if option.type == 'time' %}
+            <div class="form-group{% if option.required == 1 %} required{% endif %}">
               <label class="control-label" for="input-option{{option.product_option_id}}">{{option.name}}</label>
               <div class="input-group time">
                 <input type="text" name="option[{{option.product_option_id}}]" value="{{option.value}}" data-date-format="HH:mm" id="input-option{{option.product_option_id}}" class="form-control" />
@@ -357,7 +356,17 @@
         <div class="h3">{{text_related}}</div>
         <div class="row">
           {% for product in products %}
+            {% if column_left and column_right %}
+                <div class="col-xs-8 col-sm-6">
+            {% else %}
+                {% if column_left or column_right %}
+                    <div class="col-xs-6 col-sm-4">
+                {% else %}
+                    <div class="col-xs-6 col-sm-3">
+                {% endif %}
+            {% endif %}
             {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+            </div>
           {% endfor %}
         </div>
         {% endif %}
@@ -374,7 +383,7 @@
 {{footer}}
 <script type="text/javascript"><!--
 $(document).ready(function() {
-	Product.init({
+        Product.init({
         product_id: '{{product_id}}',
         $quantity: $('#input-quantity'),
         minimum: '{{minimum}}'

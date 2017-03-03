@@ -13,7 +13,7 @@
                 <li><a href="{{children.href}}">{{children.name}}</a>
                   {% if children.children %}
                   <ul>
-                    {% child in children.children %}
+                    {% for child in children.children %}
                     <li><a href="{{child.href}}">{{child.name}}</a></li>
                     {% endfor %}
                   </ul>

@@ -17,7 +17,7 @@
 
         {% if categories %}
           <div class="h4">{{text_refine}}</div>
-          <div class="row">
+          <div class="row refine-search">
             {% for category in categories %}
               <div class="col-sm-3"><a href="{{category.href}}">{{category.name}}</a></div>
             {% endfor %}
@@ -27,7 +27,9 @@
           {% include 'd_visualize/template/partial/d_product_sort.twig' %}
           <div class="row">
             {% for product in products %}
+              <div class="product-layout product-list col-xs-12">
               {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+              </div>
             {% endfor %}
           </div>
           <div class="row">
