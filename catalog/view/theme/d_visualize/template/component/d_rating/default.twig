@@ -1,0 +1,11 @@
+<!-- > d_rating -->
+<div data-rating="{{rating}}" class="rating rating-{{rating}}">
+    {% for rating in [1,2,3,4,5] %}
+        {% if product.rating < rating %}
+			<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+        {% else %}
+			<span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+        {% endif %}
+    {% endfor %}
+</div>
+<!-- /> d_rating -->

@@ -1,0 +1,15 @@
+.desk {
+    border: $borderMain;
+    @include border-radius;
+    padding: rem(25px);
+    background: $colorMainLighten;
+    margin-bottom: rem(30px);
+    &_title {
+        display: block;
+        font-weight: $fontBold;
+        margin-bottom: 10px;
+    }
+    &_value {
+        margin-bottom: 0;
+    }
+}

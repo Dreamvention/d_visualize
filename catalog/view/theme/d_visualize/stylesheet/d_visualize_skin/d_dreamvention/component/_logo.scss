@@ -1,0 +1,18 @@
+.logo {
+    @include mq('tablet-wide') {
+        text-align: center;
+    }
+    a {
+        font-size: fz(30);
+        line-height: 1;
+        display: inline-block;
+        font-family: $fontSecondaryBold;
+        color: $p_black;
+        @include mq('tablet-wide') {
+            font-size: $fontSizeH1;
+        }
+        @include mq('phablet') {
+            font-size: fz(24px);
+        }
+    }
+}

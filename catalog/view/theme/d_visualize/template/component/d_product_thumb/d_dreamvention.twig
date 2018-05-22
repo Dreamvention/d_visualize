@@ -1,0 +1,80 @@
+<!-- > d_product_thumb -->
+<div class="product-thumb">
+    <div class="product-thumb_cover">
+        <a href="{{ href }}" class="image-wrap">
+            <img src="{{ thumb }}" class="product-thumb_image" alt="{{ name }}" title="{{ name }}">
+        </a>
+    </div>
+    {% if price|slice(1,price|length-1)|number_format == 0 %}
+        <div class="product-thumb_ribbon product-thumb_ribbon_free"></div>
+    {% endif %}
+    <div class="product-thumb_body">
+        <a href="{{ href }}" class="product-link">
+            <h3 class="heading-h3">{{ name }}</h3>
+        </a>
+        <div class="product-thumb_description"><p>{{description}}</p></div>
+        <div class="group">
+            <div class="block-left">
+                {% if price %}
+                    {% if price|slice(1,price|length-1)|number_format == 0 %}
+                        <span class="product-price product-price_actual like-heading-h3">Free</span>
+                    {% else %}
+                        {% if not special %}
+                            <span class="product-price product-price_actual like-heading-h3">{{ price }}</span>
+                        {% else %}
+                            <span class="product-price product-price_old like-heading-h3">{{ price }}</span>
+                            <span class="product-price product-price_actual">{{ special }}</span>
+                        {% endif %}
+                        {% if discounts %}
+                            {% for discount in discounts %}
+                                <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                <div class="product-rating">
+                    {% include 'd_visualize/template/partial/d_rating.twig' %}
+                </div>
+            </div>
+            <a type="button" onclick="cart.add('{{product_id}}');" class="btn btn-primary btn-md">Buy</a>
+        </div>
+    </div>
+</div>
+<!-- /> d_product_thumb -->
+
+{#<div class="product-thumb">
+    <h3 class="heading-h3">{{ name }}</h3>
+    <span class="product-thumb_subtitle">The heart of the SEO Module Ecosystem{{ subtitle }}</span>
+    {% if price|slice(1,price|length-1)|number_format == 0 %}
+        <div class="product-thumb_ribbon product-thumb_ribbon_free"></div>
+    {% endif %}
+    <a href="{{ href }}" class="image-wrap">
+        <img src="{{ thumb }}" class="product-thumb_image" alt="{{ name }}" title="{{ name }}">
+    </a>
+    <div class="product-thumb_content">
+        <div class="product-thumb_description">{{short_description}}</div>
+    </div>
+
+    <a href="{{ href }}" class="btn btn-primary btn-lg btn-fluid">Read more</a>
+</div>#}
+
+{#
+<div class="card card-default">
+    <div class="image-wrap">
+        <img src="{{ thumb }}" alt="{{ name }}" title="{{ name }}" class="product-image"/>
+        <div class="product-cover">
+            <h3 class="product-name">{{ name }}</h3>
+            <p class="product-description">Award winning SEO Modules in one awesome package</p>
+        </div>
+    </div>
+    <div class="product-extra-info">
+        <p class="product-subtitle">The heart of the SEO Module Ecosystem</p>
+        <ul class="product-capabilities">
+            <li>Implements the SEO Module API</li>
+            <li>Adds Target Keywords to Product,</li>
+            <li>Category, Manufacturer, information and static pages,</li>
+            <li>.htaccess file editor robots.txt file editor</li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-md">Read more</a>
+    </div>
+</div>#}

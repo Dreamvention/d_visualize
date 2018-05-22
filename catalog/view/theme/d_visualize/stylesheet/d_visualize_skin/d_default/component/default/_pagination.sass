@@ -1,0 +1,42 @@
+.pagination > li:first-child > a,
+.pagination > li:first-child > span,
+.pagination > li:last-child > a,
+.pagination > li:last-child > span
+  +border-radius(0)
+
+.pagination
+  margin-top: 40px
+  +border-radius(0)
+  line-height: 1
+  > li
+    $btnHeight: 46px
+    display: inline-block
+    width: 46px
+    height: $btnHeight
+    margin-left: -1px
+    > span, a
+      width: 100%
+      height: 100%
+      color: #000
+      text-align: center
+      font-weight: $fontBold
+      line-height: $btnHeight
+      padding: 0
+      border: $borderMain
+      +transition
+      &:hover
+        background: lighten($colorMain, 9)
+        border-color: lighten($colorMain, 9)
+        color: #fff
+        line-height: $btnHeight
+        z-index: 1
+      .fas
+        font-size: fz(18px)
+        line-height: 44px
+    &.active
+      > span, a
+        background: $colorMain
+        border-color: $colorMain
+        &:hover
+          background: $colorMain
+          border-color: $colorMain

@@ -1,0 +1,57 @@
+{% if review_status %}
+    <div id="reviews" class="comments-section">
+        <h2 class="like-heading-h5">Reviews</h2>
+        <form class="form-horizontal" id="form-review">
+            <div id="review" class="comments-list"></div>
+            <div id="new-comment" class="new-comment">
+                <h3 class="like-heading-h2">{{ text_write }}</h3>
+                {% if review_guest %}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group required">
+                            <div class="col-sm-12">
+                                <label class="field-label label-fluid"
+                                       for="input-name">{{ entry_name }}</label>
+                                <input type="text" name="name" value="" id="input-name"
+                                       class="field"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group required">
+                            <div class="col-sm-12">
+                                <label class="field-label label-fluid"><span>{{ entry_rating }}</span></label>
+                                <div class="rating">
+                                    <input type="hidden" id="review_rating" name="rating" data-start="0"
+                                           data-stop="5"
+                                           data-filled="fas fa-star"
+                                           data-empty="fas empty fa-star">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group required">
+                    <div class="col-sm-12">
+                        <label class="field-label label-fluid"
+                               for="input-review"><span>{{ entry_review }}</span></label>
+                        <textarea name="text" rows="5" id="input-review"
+                                  class="field field-area"></textarea>
+                        <div class="help-block">{{ text_note }}</div>
+                    </div>
+                </div>
+                {{ captcha }}
+                <div class="buttons clearfix">
+                    <div class="pull-right">
+                        <button type="button" id="button-review"
+                                data-loading-text="{{ text_loading }}"
+                                class="btn btn-primary">{{ button_send }}</button>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                {{ text_login }}
+            {% endif %}
+        </form>
+    </div>
+{% endif %}

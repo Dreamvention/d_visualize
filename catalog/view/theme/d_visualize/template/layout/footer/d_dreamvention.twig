@@ -1,0 +1,130 @@
+{% block footer %}
+    <footer class="footer" data-slideout-ignore>
+        <div class="footer-body">
+            <div class="container">
+                <div class="row">
+                    {% if informations %}
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <nav class="secondary-nav height">
+                                <span class="col-header">{{ text_information }}</span>
+                                <ul class="list-unstyled">
+                                    {% for information in informations %}
+                                        <li class="list-item"><a href="{{ information.href }}"
+                                                                 class="link">{{ information.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                        </div>
+                    {% endif %}
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <nav class="secondary-nav height">
+                            <span class="col-header">{{ text_service }}</span>
+                            <ul class="list-unstyled">
+                                <li class="list-item"><a href="{{ contact }}" class="link">{{ text_contact }}</a></li>
+                                <li class="list-item"><a href="https://dreamvention.zendesk.com/hc/en-us/requests/new" target="_blank"
+                                                         class="link">{{ text_support }}</a></li>
+                                <li class="list-item"><a href="{{ sitemap }}" class="link">{{ text_sitemap }}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <nav class="secondary-nav">
+                            <span class="col-header">{{ text_extra }}</span>
+                            <ul class="list-unstyled">
+                                <li class="list-item"><a href="{{ voucher }}" class="link">{{ text_voucher }}</a></li>
+                                <li class="list-item"><a href="affiliate-login" class="link">{{ text_affiliate }}</a>
+                                </li>
+                                <li class="list-item"><a href="{{ special }}" class="link">{{ text_special }}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-3">
+                        <nav class="secondary-nav mb-no-md">
+                            <span class="col-header">{{ text_account }}</span>
+                            <ul class="list-unstyled">
+                                <li class="list-item"><a href="{{ account }}" class="link">{{ text_account }}</a></li>
+                                <li class="list-item"><a href="{{ order }}" class="link">{{ text_order }}</a></li>
+                                <li class="list-item"><a href="{{ wishlist }}" class="link">{{ text_wishlist }}</a></li>
+                                <li class="list-item"><a href="{{ newsletter }}" class="link">{{ text_newsletter }}</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="copyright">{{ text_copyright }}</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+    {% for script in scripts %}
+        <script src="{{ script }}"></script>
+    {% endfor %}
+    <script type="text/javascript">
+        var slideout = new Slideout({
+            'panel': document.getElementById("main"),
+            'menu': document.getElementById('mobile_menu_left'),
+            'padding': 268,
+            'tolerance': 70,
+            'easing': 'ease-in-out',
+            'duration': 600
+        });
+        // Toggle button
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function () {
+            slideout.toggle();
+            $('#mobile_menu_left').css('z-index', 1);
+        });
+        var slideout_cart = new Slideout({
+            'panel': document.getElementById("main"),
+            'menu': document.getElementById('mobile_menu_right'),
+            'padding': 268,
+            'tolerance': 70,
+            'side': 'right',
+            'easing': 'ease-in-out',
+            'duration': 600
+        });
+        document.querySelector('.mobile-cart-toggle').addEventListener('click', function () {
+            slideout_cart.toggle();
+            $('#mobile_menu_left').css('z-index', 0);
+        });
+        var move = 0;
+        var trans = 0;
+        slideout.on('translate', function (translated) {
+            if (translated > move) {
+                $('#mobile_menu_left').css('z-index', 1);
+            } else {
+                trans = translated;
+            }
+            move = translated;
+        });
+        slideout.on('translateend', function () {
+            if (move == trans) {
+                $('#mobile_menu_leftmenu').css('z-index', 0);
+            }
+        });
+
+        // var myScroll = new IScroll('#context');
+    </script>
+{% endblock %}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_agree">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="../../../image/d_visualize_skin/d_dreamvention/Icon_delete.svg"></span></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

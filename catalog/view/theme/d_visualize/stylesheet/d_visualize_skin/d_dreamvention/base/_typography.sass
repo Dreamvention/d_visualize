@@ -1,0 +1,109 @@
+/**
+ * Including of the secondary font
+ */
++font-face($fontSecondary, $pathFont + 'blogger-sans/BloggerSans-Medium')
++font-face($fontSecondaryBold, $pathFont + 'blogger-sans/BloggerSans-Bold')
+
+/**
+ * Base
+ */
+html, body
+  font-family: $fontMain
+  font-size: $fontSizeBase
+  font-weight: $fontLight
+  color: $fontColorMain
+  +mq('tablet-wide')
+    font-size: 8px
+
+body
+  font-size: $fontSizeBase
+
+%heading
+  font-family: $fontSecondaryBold
+  line-height: $lineHeightBase
+  +mq('tablet')
+    text-align: center
+
+// generate styles of heading
+@for $i from 1 through 6
+  .heading-h#{$i}, html .bm .h#{$i}
+    @extend %heading
+    margin-top: 0
+    margin-bottom: rem(8px)
+    color: unset
+  .like-heading-h#{$i}
+    margin-top: 0
+    @extend %heading
+
+html .bm .h1,
+.heading-h1,
+.entry-description h1,
+.like-heading-h1
+  font-size: $fontSizeH1
+  line-height: lh($fontSizeH1, 54)
+  margin-bottom: rem(37px)
+
+.bm .post-thumb .post-thumb-heading .title a,
+html .bm .bm-post-content .form-review > .h2,
+.heading-h2,
+.entry-description h2,
+.like-heading-h2
+  font-size: $fontSizeH2
+  line-height: lh(42, $fontSizeH1)
+  margin-bottom: rem(25px)
+
+html .bm h3,
+.heading-h3,
+.entry-description h3,
+.like-heading-h3
+  font-family: $fontSecondary
+  font-size: $fontSizeH3
+  line-height: lh(33, $fontSizeH1)
+  margin-bottom: rem(10px)
+
+html .bm .h4,
+.heading-h4,
+.entry-description h4,
+.like-heading-h4
+  text-align: center
+  font-size: $fontSizeH4
+  line-height: lh(27, $fontSizeH1)
+  margin-bottom: rem(7px)
+
+.entry-description h4
+  text-align: left
+
+html .bm .h5,
+.heading-h5,
+.entry-description h5,
+.like-heading-h5
+  font-size: $fontSizeH5
+  line-height: lh($fontSizeH1, 47)
+  margin-bottom: rem(25px)
+
+ul
+  line-height: lh($fontSizeBase, 32)
+  li
+    line-height: lh(18, 22)
+
+.entry-description
+  margin-bottom: rem(30px)
+  &:last-of-type
+    margin-bottom: rem(60px)
+
+.entry-description a,
+.link
+  font-size: $fontSizeBase
+  color: $colorLink
+  +transition(border-color, .3s)
+  border-bottom: 1px solid $transparent
+  &:hover
+    color: lighten($colorLink, 8)
+    border-bottom: 1px solid lighten($colorLink, 8)
+  &:focus
+    text-decoration: none
+    outline: none
+
+.alloted
+
+.quote

@@ -1,0 +1,8 @@
+.featured-slider {
+    .product-thumb {
+        margin-bottom: 20px;
+    }
+    + .swiper-pagination {
+        bottom: -20px;
+    }
+}

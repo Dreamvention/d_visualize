@@ -1,0 +1,13 @@
+{% if products %}
+    {% include 'd_visualize/template/partial/d_product_sort.twig' %}
+    <div class="row products-list">
+        {% for product in products %}
+            <div class="product-layout product-list col-lg-{{ col ? 12 / col : 4 }} col-md-4 col-sm-6 col-xs-12">
+                {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <div class="col-sm-12 text-center-lg text-right">{{ pagination }}</div>
+    </div>
+{% endif %}

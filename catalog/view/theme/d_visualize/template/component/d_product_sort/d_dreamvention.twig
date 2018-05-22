@@ -1,0 +1,42 @@
+<!-- > d_product_sort -->
+<div class="d_product_sort">
+    <div class="row">
+        {#<div class="col-xs-6 col-sm-6 col-md-4 text-center-md">#}
+        <div class="col">
+            <label class="field-label" for="input-sort">{{ text_sort }}</label>
+        </div>
+        <div class="col">
+            <div class="select-container">
+                <select id="input-sort" class="field" onchange="location = this.value;">
+                    {% for sort in sorts %}
+                        {% if sort.value == sort_order %}
+                            <option value="{{ sort.href }}" selected="selected">{{ sort.text }}</option>
+                        {% else %}
+                            <option value="{{ sort.href }}">{{ sort.text }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {#</div>#}
+        {#<div class="col-xs-6 col-sm-6 col-md-4 text-center-md">#}
+        <div class="col">
+            <label class="field-label " for="input-limit">{{ text_limit }}</label>
+        </div>
+        <div class="col">
+            <div class="select-container">
+                <select id="input-limit" class="field" onchange="location = this.value;">
+                    {% for limit in limits %}
+                        {% if limit.value == limit %}
+                            <option value="{{ limit.href }}" selected="selected">{{ limit.text }}</option>
+                        {% else %}
+                            <option value="{{ limit.href }}">{{ limit.text }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {#</div>#}
+    </div>
+</div>
+<!-- /> d_product_sort -->

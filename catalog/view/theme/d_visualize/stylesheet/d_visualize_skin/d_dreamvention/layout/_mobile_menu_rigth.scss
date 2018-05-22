@@ -1,0 +1,26 @@
+.slideout-menu-right {
+    left: calc(100% - #{$slideoutMenuWidth});
+    background: $p_white;
+    .mobile-cart-content {
+        margin: 5px;
+        padding: 10px;
+        background: $p_white;
+        .product-name {
+            width: 55%;
+            margin-right: 10px;
+        }
+        .btn {
+            max-width: none;
+            &-success {
+                margin-bottom: 15px;
+            }
+        }
+    }
+    .mobile-menu-header {
+        background: $colorMain;
+        padding: 39px 30px;
+        @include mq('phablet') {
+            padding: 26px 30px;
+        }
+    }
+}

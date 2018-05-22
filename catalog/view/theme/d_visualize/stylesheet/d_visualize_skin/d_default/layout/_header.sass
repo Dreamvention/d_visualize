@@ -1,0 +1,89 @@
+.vd.vd
+  .info-panel
+    .block-content
+      display: flex
+      align-items: flex-end
+      flex-grow: 1
+      .block-inner
+        min-height: unset
+    .phone-number
+      display: block
+      font-weight: $fontMedium
+      font-size: fz(20px)
+      margin-bottom: 5px
+  .main-nav
+    background: $colorBgSecondary
+    .navbar
+      margin-bottom: 0
+    .mega-menu
+      width: 100%
+      padding: 0
+      .menu
+        border: none
+        &-item
+          border: none
+          .sub-menu
+            width: $containerWidth
+            +box-shadow('none')
+            padding: 60px 63px
+      a
+        color: $p_white
+        padding: rem(17px) 0
+        +transition
+        &:hover
+          background: none
+          color: #eb7363
+    li
+      margin-right: 58px
+      &:last-of-type
+        margin-right: 0
+      > a
+        color: $p_white
+        padding: rem(17px) 0
+        +transition
+        &:hover
+          background: none
+          color: #eb7363
+  .work-time
+    line-height: 1
+  .customer-menu
+    a
+      color: #000
+  .search-field
+    .form-control
+      height: 26px
+      padding-bottom: 12px
+      font-weight: $fontNormal
+      +placeholder
+        font-size: fz(14px)
+        font-weight: $fontNormal
+    .btn
+      position: absolute
+      right: 0
+      height: auto
+      line-height: 1
+      &:hover
+        background: none
+  .user-menu
+    a
+      color: #000
+  .cart-link
+    .btn
+      background: none
+      font-size: 15px
+      padding: 0
+      height: auto
+      line-height: 1
+      span
+        font-weight: $fontMedium
+        color: #000
+        text-transform: none
+
+#top
+  background: none
+  border-bottom: none
+
+.vd.vd
+  .navbar-collapse
+    padding-left: 0
+    padding-right: 0

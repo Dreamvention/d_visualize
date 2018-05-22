@@ -1,0 +1,25 @@
+{% if posts %}
+<div id="d_blog_module_latest_post" class="bm bm-module bm-post-module bm-latest-post">
+    <div class="bm-posts">
+        <div class="row">
+            {% for post in posts %}
+                {% include template('d_blog_module/post_thumb') with post %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        cols = $('#column-right, #column-left').length;
+        if (cols == 2) {
+            $('#content #d_blog_module_latest_post .post-layout').attr('class', 'post-layout post-grid col-lg-6 col-md-6 col-sm-12 col-xs-12');
+        } else if (cols == 1) {
+            $('#content #d_blog_module_latest_post .post-layout').attr('class', 'post-layout post-grid col-lg-4 col-md-4 col-sm-6 col-xs-12');
+        } else {
+            $('#content #d_blog_module_latest_post .post-layout').attr('class', 'post-layout post-grid col-lg-3 col-md-3 col-sm-6 col-xs-12');
+        }
+        $('#column-right #d_blog_module_latest_post .post-layout, #column-left #d_blog_module_latest_post .post-layout').attr('class', 'post-layout post-grid col-md-12');
+    })
+</script>
+{% endif %}

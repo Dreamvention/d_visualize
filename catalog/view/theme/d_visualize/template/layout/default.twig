@@ -1,0 +1,34 @@
+{{ header }}
+    {% block main_wrapper %}
+        <div class="main-wrapper container" data-slideout-ignore>
+            {% include partial.breadcrumb.template with partial.breadcrumb %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {#{% include partial.notification %}#}
+                    </div>
+                </div>
+            </div>
+            {% block before_content %}{% endblock %}
+            <div class="container">
+                <div class="row">{{ column_left }}
+                    {% if column_left and column_right %}
+                        {% set class = 'col-sm-6' %}
+                    {% elseif column_left or column_right %}
+                        {% set class = 'col-sm-9' %}
+                    {% else %}
+                        {% set class = 'col-sm-12' %}
+                    {% endif %}
+                    <main id="content" class="{{ class }}">
+                        {{ content_top }}
+                                {% block content %}{% endblock %}
+                        {{ content_bottom }}
+                    </main>
+                    {{ column_right }}
+                </div>
+            </div>
+            {% block after_content %}{% endblock %}
+        </div>
+    {% endblock %}
+{{ footer }}
+

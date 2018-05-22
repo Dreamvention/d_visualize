@@ -1,0 +1,13 @@
+<!-- > d_breadcrumb -->
+<div class="container">
+        <div class="row">
+                <div class="col-sm-12">
+                        <ul class="breadcrumb">
+                            {% for breadcrumb in breadcrumbs %}
+                                    <li><a href="{{breadcrumb.href}}">{{breadcrumb.text}}</a></li>
+                            {% endfor %}
+                        </ul>
+                </div>
+        </div>
+</div>
+<!-- /> d_breadcrumb -->

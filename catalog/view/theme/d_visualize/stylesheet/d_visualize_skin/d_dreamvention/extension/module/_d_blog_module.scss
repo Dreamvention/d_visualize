@@ -1,0 +1,116 @@
+html {
+    .bm {
+        .post-thumb .post-thumb-heading .title a,
+        h3,
+        p {
+            color: #000;
+        }
+        .radio-container {
+            .btn-primary,
+            .btn-primary.active,
+            .btn-primary:focus,
+            .btn-primary:active {
+                background: none;
+                border: none;
+                color: #000;
+                box-shadow: none;
+                &:hover {
+                    background: none;
+                    color: #000;
+                }
+            }
+            .btn {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        .file-drop-zone {
+            border: $borderMain;
+            border-style: dashed;
+            &-title {
+                color: $colorMainDarken;
+            }
+        }
+        .form-control {
+            display: block;
+            width: 100%;
+            height: $fieldHeightBase;
+            border: $borderMain;
+            @include border-radius;
+            padding: $fieldPaddingVertical $fieldPaddingHorizontal;
+            outline: none;
+            @include transition($value: .2s);
+            @include placeholder {
+                color: darken($colorMainDarken, 10);
+                font-weight: $fontNormal;
+                opacity: .5;
+            }
+        }
+        .btn {
+            @include transition;
+            font-size: fz(16px);
+            background: $colorMain;
+            border: 2px solid $colorMainDarken;
+            @include border-radius;
+            color: $p_white;
+            padding: $paddingVerticalButton $paddingHorizontalButton-md;
+            &:focus, &:active, &:active:hover, &:active:focus {
+                @include prefixes('box-shadow', 'none');
+            }
+            &:hover {
+                background: #dde4f2;
+                border-color: $colorMainDarken;
+                color: $p_white;
+            }
+            &:focus {
+                outline: none;
+                color: $p_white;
+            }
+            &-primary {
+                background: $colorMainButton;
+                border-color: darken($colorMainButton, 8);
+                &:hover {
+                    background: $colorMainButtonHover;
+                    border-color: darken($colorMainButton, 12);
+                }
+                &:focus, &:active, &:active:hover, &:active:focus {
+                    background: $colorMainButtonActive;
+                    border-color: darken($colorMainButton, 24);
+                    outline: none;
+                }
+            }
+            &-default {
+                background: $colorWarningButton;
+                border-color: darken($colorWarningButton, 10);
+                &:hover {
+                    background: $colorWarningButtonHover;
+                    border-color: darken($colorWarningButton, 15);
+                }
+                &:focus, &:active, &:active:hover, &:active:focus {
+                    background: $colorWarningButtonActive;
+                    border-color: darken($colorWarningButton, 22);
+                }
+            }
+            &.fileinput-remove {
+                background: $colorDangerButton;
+                border-color: darken($colorDangerButton, 9);
+                &:hover {
+                    background: $colorDangerButtonHover;
+                    border-color: darken($colorDangerButton, 11);
+                }
+                &:focus, &:active, &:active:hover, &:active:focus {
+                    background: $colorDangerButtonActive;
+                    border-color: darken($colorDangerButton, 20);
+                }
+            }
+        }
+        .input-group-btn {
+            .btn {
+                margin-left: -2px !important;
+            }
+        }
+        .rating[class*="rating-"] .fa-stack {
+            font-size: fz(11px);
+        }
+    }
+}

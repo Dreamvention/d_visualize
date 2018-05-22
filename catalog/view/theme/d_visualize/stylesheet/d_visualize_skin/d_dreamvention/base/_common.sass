@@ -1,0 +1,15 @@
+@import "../../../d_visualize_core/core/helper/mixins"
+
+body
+  +flex
+  min-height: 100vh
+  flex-direction: column
+
+.container
+  flex: 1
+
+.col
+  display: inline-block
+  padding: 0 15px
+  +mq('tablet-small')
+    display: block

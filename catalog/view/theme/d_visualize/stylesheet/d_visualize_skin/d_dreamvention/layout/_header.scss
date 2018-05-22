@@ -1,0 +1,89 @@
+.header {
+    background: $colorMain;
+    padding: rem(40px) 0;
+    
+    margin-bottom: rem(30px);
+    .cart {
+        float: right;
+        margin: 6px 0;
+        padding-right: 10px;
+        .dropdown-menu {
+            right: 10px;
+        }
+    }
+    .menu-item {
+        float: left;
+        margin-right: 45px;
+        font-size: fz($fontSize-sm);
+        padding: 10px 0 0;
+        &:last-of-type {
+            margin-right: 0;
+        }
+        a {
+            color: $p_black;
+            @include transition(color, .3s);
+            &:hover {
+                color: $p_fruit-salad;
+            }
+        }
+    }
+    .mobile-menu-toggle {
+        font-size: $fontSizeBase + 27; // 15px to 42px
+        z-index: z('mobile-menu-button');
+        @include mq('phablet') {
+            font-size: fz(24px);
+        }
+    }
+    .cart-icon {
+        position: relative;
+        display: inline-block;
+        width: 35px;
+        @include mq('tablet-wide') {
+            width: 50px;
+        }
+        @include mq('phablet') {
+            width: 27px;
+        }
+        &_mark {
+            position: relative;
+            &:after {
+                content: '';
+                display: none;
+                position: absolute;
+                top: 6px;
+                right: -4px;
+                width: 14px;
+                height: 14px;
+                background: $cartIconMark;
+                @include prefixes('border-radius', '50%');
+                @include mq('tablet-wide') {
+                    display: block;
+                }
+                @include mq('phablet') {
+                    top: 4px;
+                    right: -2px;
+                    width: 10px;
+                    height: 10px;
+                }
+            }
+        }
+        .cart-total {
+            position: absolute;
+            top: -5px;
+            right: -11px;
+            width: 26px;
+            height: 26px;
+            background: $p_white;
+            border: 3px solid $p_black;
+            text-align: center;
+            color: $p_black;
+            font-size: fz(13px);
+            line-height: rem(22px);
+            font-weight: $fontNormal;
+            @include border-radius(50%);
+            @include mq('tablet-wide') {
+                display: none;
+            }
+        }
+    }
+}

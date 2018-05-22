@@ -1,0 +1,115 @@
+.cart {
+    $product-image: 70px;
+    $product-image-indent: 10px;
+    $product-name: 40%;
+    $product-name-indent: 50px;
+
+    .cart_product {
+        @include clearfix;
+        margin-bottom: $indentBase / 2;
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+
+    .dropdown-menu {
+        min-width: 460px;
+        padding: 0;
+        margin-top: 15px;
+        @include border-radius(0);
+        @include prefixes('box-shadow', '0px 0px 35px 0px rgba(0, 0, 0, 0.13)');
+        border: none;
+        &:before {
+            @include triangle($p_white, up, 8px);
+            top: -8px;
+            right: 25px;
+        }
+    }
+    .product-image {
+        float: left;
+        width: $product-image;
+        height: $product-image;
+        margin-right: $product-image-indent;
+        @include border-radius;
+        .img-thumbnail {
+            border: none;
+        }
+        a {
+            display: inline-block;
+        }
+    }
+    .product-link {
+        display: block;
+    }
+    .btn-close {
+        display: inline-block;
+        float: right;
+        margin-top: 5px;
+    }
+    .product-name {
+        float: left;
+        width: $product-name;
+        margin-right: $product-name-indent;
+        font-size: fz(16px);
+        a {
+            color: $p_black;
+        }
+    }
+    .product-total {
+        float: left;
+        font-size: fz(19px);
+        font-weight: $fontMedium;
+    }
+    .cart-header {
+        padding: 30px;
+        border-bottom: 1px solid #e4eaf5;
+        @include clearfix;
+    }
+    .cart-body {
+        padding: 30px;
+    }
+    .table-total {
+        font-weight: $fontMedium;
+        width: 100%;
+        margin-bottom: 20px;
+        span {
+            display: inline-block;
+        }
+        td {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+        &_info {
+            width: 240px;
+            width: calc(#{$product-image} + #{$product-image-indent} + #{$product-name});
+            font-size: 16px;
+            padding-left: 80px;
+            margin-right: $product-name-indent;
+            text-align: right;
+        }
+        &_value {
+            font-size: 19px;
+        }
+    }
+    .btn {
+        max-width: 155px;
+        width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .btn-secondary {
+        float: left;
+    }
+    .btn-primary {
+        float: right;
+    }
+    .buttons-group {
+        @include clearfix;
+    }
+    .text-empty {
+        font-weight: normal;
+        margin-bottom: 0;
+        padding: 50px 0;
+        text-align: center;
+    }
+}

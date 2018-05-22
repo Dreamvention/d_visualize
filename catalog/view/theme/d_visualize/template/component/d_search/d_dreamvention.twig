@@ -1,0 +1,25 @@
+<div id="search" class="search input-group">
+    <input type="text" name="search" value="{{search}}" placeholder="{{text_search}}" class="form-control input-lg" />
+    <span class="input-group-btn">
+    <button type="button" class="btn btn-default btn-lg"><i class="fa fa-search"></i></button>
+  </span>
+</div>
+<script type="text/javascript">
+    /* Search */
+    $('#search input[name=\'search\']').parent().find('button').on('click', function() {
+        url = $('base').attr('href') + 'index.php?route=product/search';
+
+        var value = $('header input[name=\'search\']').val();
+
+        if (value) {
+            url += '&search=' + encodeURIComponent(value);
+        }
+
+        location = url;
+    });
+
+    $('#search input[name=\'search\']').on('keydown', function(e) {
+        if (e.keyCode == 13) {
+            $('header input[name=\'search\']').parent().find('button').trigger('click');
+        }
+    });</script>

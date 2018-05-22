@@ -1,0 +1,23 @@
+<div id="mobile_menu_left" class="hidden-md hidden-lg">
+    <div class="mobile-menu-header">
+        <span>Menu</span>
+    </div>
+    <ul class="mobile-menu-links">
+        <li class="menu-item">
+            <a href=index.php?route=product/category&path=59">Extension</a>
+        </li>
+        <li class="menu-item">
+            <a href="index.php?route=extension/d_blog_module/category&category_id=1">Blog</a>
+        </li>
+        <li class="menu-item">
+            <a href="index.php?route=account/account" data-href="my-account">My Account</a>
+        </li>
+        <li class="menu-item">
+            <a href="https://dreamvention.zendesk.com/hc/en-us/requests/new" data-href="support">Support</a>
+        </li>
+    </ul>
+</div>
+<div id="mobile_menu_right" class="hidden-md hidden-lg"></div>
+<script>
+    $('#mobile_menu_right').load('index.php?route=extension/d_visualize/mobile/cart');
+</script>

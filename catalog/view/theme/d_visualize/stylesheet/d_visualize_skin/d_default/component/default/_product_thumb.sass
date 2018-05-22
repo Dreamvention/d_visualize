@@ -1,0 +1,185 @@
+.products-list
+  position: relative
+  margin-top: -15px
+  z-index: z('product-thumb')
+html .main-wrapper .product-layout
+  height: 508px
+  padding: 0
+  &.product-list
+    height: 331px
+    .product-options_size,
+    .product-options_color
+      opacity: 1
+      visibility: visible
+    .additional-info
+      +flex
+      flex-direction: column-reverse
+      align-items: flex-start
+      order: 2
+    .btn
+      width: auto
+    .product_brand
+      font-size: fz(20px)
+    .product-price-block,
+    .product-price
+      font-size: fz(25px)
+
+.thumb-box
+  position: relative
+  height: 100%
+  margin-bottom: 50px
+
+.product-thumb
+  position: absolute
+  top: 0
+  left: 0
+  padding: 15px
+  width: 100%
+  background: #fff
+  +transition
+  +prefixes('transform', 'scale(1)')
+  &:hover
+    +box-shadow('0 3px 43px 0 rgba(0, 0, 0, 0.16)')
+    +prefixes('transform', 'scale(1.05)')
+    z-index: 1
+    .btn-buy
+      visibility: visible
+      opacity: 1
+      height: auto
+  &_image
+    position: relative
+    height: 207px
+    margin-bottom: 15px
+  .rating
+    $symbolSize: 10px
+    overflow: hidden
+    .fa-stack
+      width: $symbolSize
+      height: $symbolSize
+      margin-right: 3px
+    .fa-star
+      font-size: $symbolSize
+  .product-name
+    display: block
+    font-size: fz(16px)
+    height: 40px
+    margin-bottom: 11px
+    a
+      color: #000
+    + p
+      height: 70px
+  .product-description
+    font-size: fz(13px)
+    line-height: lh(fz(13px), 21)
+    display: none
+  .product_brand
+    display: block
+    font-size: fz(13px)
+    margin-bottom: 8px
+  .product-price-block
+    margin-bottom: 5px
+  .product-price
+    font-size: fz(16px)
+    margin-right: 14px
+    &:last-of-type
+      margin-right: 0
+  .add-to-fave
+    position: absolute
+    +flex
+    top: 19px
+    right: 15px
+    font-size: fz(18px)
+    color: $colorMain
+    cursor: pointer
+    &:not(.js--filled):hover
+      animation: PulseFadeOut .4s ease
+    .product-options_size
+      opacity: 0
+      visibility: hidden
+    button
+      background: none
+      height: auto
+      line-height: 1
+  .badge
+    top: 12px
+    left: 12px
+  .additional-info
+    margin-bottom: 20px
+    +flex
+    justify-content: space-between
+    align-items: flex-end
+  .product-options
+    font-size: fz(13px)
+    &_color
+      overflow: hidden
+      opacity: 0
+      line-height: 1
+    &_size
+      color: #949494
+    color: #656565
+  .btn-buy
+    visibility: hidden
+    opacity: 0
+    max-height: 100px
+    height: 0
+    order: 3
+    +transition
+
+.product-thumb
+  .rating
+    visibility: hidden
+    opacity: 0
+  &:hover
+    .rating,
+    .product-options_color
+      visibility: visible
+      opacity: 1
+
+.product-list
+  .product-thumb
+    +flex
+    margin-bottom: $indentBase
+    padding: 24px 24px 33px
+    &_image
+      margin-right: $indentBase
+      margin-bottom: 0
+      flex-shrink: 0
+    &_body
+      +flex
+      flex-direction: column
+      align-items: flex-start
+      padding-top: 25px
+    .product-name
+      font-size: fz(25px)
+      order: 0
+    .rating
+      display: block
+      visibility: visible
+      opacity: 1
+      margin-bottom: 15px
+      order: 1
+    .product_brand
+      order: 2
+    .product-description
+      display: block
+      order: 3
+      margin-bottom: 20px
+    .product-price-block
+      order: 2
+
+.product-grid
+  .product-thumb
+    &_image
+      height: 337px
+    .additional-info
+      float: left
+    .rating
+      float: right
+      margin-top: 20px
+
+html .main-wrapper .product-layout-sm
+  height: 344px
+  padding-left: 0
+  padding-right: 0
+  .product-name
+    font-size: fz(15px)

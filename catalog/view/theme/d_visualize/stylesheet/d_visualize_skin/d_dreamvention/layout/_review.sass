@@ -1,0 +1,40 @@
+.comments-section
+  .comment-header
+    +flex
+    align-items: center
+    margin-bottom: 10px
+  .rating
+    display: inline-block
+    margin-bottom: 0
+  .comment
+    +clearfix
+    $avatarIndent: $marginVerticalBase
+    $avatarSize: 65px
+    margin-bottom: rem(40px)
+    .avatar
+      float: left
+      width: $avatarSize
+      height: $avatarSize
+      background: $colorMain
+      +border-radius(50%)
+      margin-right: $avatarIndent
+    .comment-data
+      float: right
+      width: calc(100% - #{$avatarSize} - #{$avatarIndent})
+    .rating
+      $symbolSize: 16px
+      .fa
+        font-size: $symbolSize
+      .fa-stack
+        height: $symbolSize
+        width: $symbolSize
+  .author-name
+    font-weight: $fontBold
+    margin-right: 10px
+  .comment-date
+    color: $fontColorSecondary
+    font-size: $fontSize-xs
+    margin-right: 10px
+  .new-comment
+    .rating
+      margin-top: 13px

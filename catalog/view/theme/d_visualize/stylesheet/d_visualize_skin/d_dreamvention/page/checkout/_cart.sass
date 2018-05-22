@@ -1,0 +1,123 @@
+.cart-wrapper
+  margin-bottom: $indentBase
+
+.cart-info
+  width: 100%
+  border: 2px solid $colorMainDarken
+  +border-radius
+  border-collapse: separate
+  font-size: fz(16px)
+  margin-bottom: rem(30px)
+  overflow-x: auto
+  .col
+    &_product-image
+      width: 16%
+    &_product-name
+      width: 19%
+    &_product-quantity
+      width: 30%
+    &_product-total
+      width: 14%
+    &_product-price
+      width: 15%
+    &_close
+      width: 6%
+  .product-link
+    display: inline-block
+  thead
+    background: $colorMainLighten
+  tr
+    &:last-of-type
+      td
+        padding-bottom: 18px
+  td
+    padding: 18px 18px 28px
+    border-top: none
+    vertical-align: middle
+  a
+    color: $p_black
+    &:hover
+      text-decoration: underline
+  .input-group-btn
+    min-width: 40px
+    height: 40px
+    .btn
+      width: 100%
+  .form-control:focus
+    border-color: $colorMainDarken
+  .qc-product-qantity
+    width: 84px
+    height: 40px
+    font-size: 15px
+    margin: 0 -2px
+    +border-radius(0)
+  tbody
+    .qc-price,
+    .qc-total
+      font-size: fz(19px)
+      font-weight: $fontMedium
+  .btn-group,
+  .input-group
+    .btn
+      background: $colorMainLighten
+      height: 40px
+      +border-radius
+      border-color: $colorMainDarken
+      margin: 0
+      padding: 0
+      line-height: 36px
+      &:hover
+        background: #dde4f2
+  .btn
+    &-decrease
+      background: $p_black
+      +reset-brds-right
+    &-increase
+      +reset-brds-left
+  .field
+    height: 40px
+  .input-group
+    +flex
+    .field
+      text-align: center
+      +border-radius(0)
+      &-product-quantity
+        width: 85px
+        margin: 0 -2px
+  .cart-total-price,
+  .cart-unit-price
+    font-size: fz(19px)
+    font-weight: $fontMedium
+  +mq('tablet-small')
+    display: block
+
+.cart-info_totals
+  width: 100%
+  margin-bottom: rem(100px)
+  font-size: fz(19px)
+  font-weight: $fontMedium
+  td
+    padding: 18px
+  .cart-totals-total
+    width: 79%
+    padding-left: calc(65% + 18px)
+  @media (max-width: 991px)
+    .cart-totals-total
+      padding-left: 0
+    .cart-totals-price
+      width: 21%
+      padding: 18px
+
+.cart-buttons
+  +clearfix
+  .btn-success
+    float: left
+  .btn-primary
+    float: right
+  .btn
+    +mq('phablet')
+      display: block
+      float: none
+      margin: 0 auto 20px
+      &:last-of-type
+        margin-bottom: 0

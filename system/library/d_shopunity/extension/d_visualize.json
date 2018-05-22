@@ -1,0 +1,54 @@
+{
+  "codename": "d_visualize",
+  "version": "1.0.0",
+  "name": "Visualize",
+  "description": "Visualize theme",
+  "author": {
+    "name": "Dreamvention",
+    "email": "info@dreamvention.com",
+    "url": "https://dreamvention.com/"
+  },
+  "opencart_version": [
+    "3.0.0.0",
+    "3.0.2.0"
+  ],
+  "type": "module",
+  "license": {
+    "type": "free",
+    "url": "https://shopunity.net/licenses/free"
+  },
+  "install": {
+    "url": "extension/module/install&extension=d_visualize"
+  },
+  "uninstall": {
+    "url": "extension/module/uninstall&extension=d_visualize"
+  },
+  "support": {
+    "email": "support@dreamvention.com",
+    "url": "https://dreamvention.com/support"
+  },
+  "required": {
+    "d_shopunity": ">= 3.0.0",
+    "d_twig_manager": ">= 1.0.0",
+    "d_event_manager": ">= 1.0.0"
+  },
+  "files": [
+    "system/library/d_shopunity/extension/d_visualize.json",
+    "admin/controller/extension/module/d_visualize.php",
+    "admin/language/en-gb/extension/module/d_visualize.php",
+    "admin/view/template/extension/module/d_visualize.twig"
+  ],
+  "dirs": [
+    "system/config/d_visualize",
+    "catalog/controller/extension/d_visualize",
+    "catalog/view/javascript/d_visualize",
+    "catalog/view/theme/d_visualize",
+    "admin/model/extension/d_visualize"
+  ],
+  "changelog": [
+    {
+      "version":"1.0.0",
+      "change": "Add new Visualize theme "
+    }
+  ]
+}

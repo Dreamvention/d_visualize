@@ -1,0 +1,13 @@
+.dropdown-menu {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    @include transition;
+}
+
+.open {
+    .dropdown-menu {
+        visibility: visible;
+        opacity: 1;
+    }
+}

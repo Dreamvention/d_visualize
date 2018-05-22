@@ -1,0 +1,19 @@
+@import "../../../d_visualize_core/core/helper/mixins";
+
+body {
+    @include flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+.col {
+    display: inline-block;
+    padding: 0 15px;
+    @include mq('tablet-small') {
+        display: block;
+    }
+}

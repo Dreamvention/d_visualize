@@ -1,0 +1,56 @@
+.footer {
+	@include mq('tablet') {
+		text-align: center;
+	}
+	margin-top: rem(30px);
+	&-body {
+		background: $colorMain;
+		padding: $indentBase * 2 0;
+		.col-header {
+			display: block;
+			font-size: fz(14px);
+			line-height: 1;
+			text-transform: uppercase;
+			margin: 0 0 $indentBase;
+			font-weight: $fontMedium;
+		}
+	}
+	.list-item {
+		a {
+			display: inline-block;
+			margin-bottom: 10px;
+			color: $p_black;
+		}
+	}
+	.copyright {
+		font-size: $fontSize-xs;
+		font-weight: $fontNormal;
+		margin-bottom: 0;
+		padding: rem(40px) 0;
+		text-align: center;
+	}
+	.secondary-nav {
+		@include mq('tablet-wide') {
+			text-align: center;
+			&.height {
+				min-height: 255px;
+				margin-bottom: 30px;
+			}
+		}
+		@include mq('tablet') {
+			min-height: auto;
+			margin-bottom: 30px;
+			&.height {
+				min-height: auto;
+			}
+			&.last {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.link {
+		&:hover {
+			border-bottom-color: $transparent;
+		}
+	}
+}

@@ -1,0 +1,76 @@
+p
+  margin: 0
+
+ul
+  margin: 0
+  padding: 0
+  list-style: none
+  div
+    line-height: $lineHeightBase
+
+.list
+  font-size: fz(14px)
+  padding-left: 15px
+  list-style: disc
+  .list
+    list-style: circle
+    padding-left: rem(20px)
+  &-item
+    line-height: $fontSizeBase + 11px
+
+.thumbnail
+  border: none
+  padding: 0
+  margin: 0
+  +border-radius(0)
+
+.btn
+  +border-radius(unset)
+  border: none
+  &:hover
+    border-color: rgba(255, 255, 255, 0)
+
+button
+  outline: none
+
+a
+  &:hover
+    text-decoration: none
+
+label
+  font-weight: inherit
+  margin-bottom: 0
+
+select
+  +prefixes('appearance', 'none')
+
+.well
+  padding: 45px
+  border: none
+  +prefixes('box-shadow', 'none')
+  +border-radius(0)
+
+legend
+  font-size: $fontSize-lg
+  font-weight: $fontNormal
+  margin-bottom: rem(20px)
+  border-bottom: none
+  +mq('tablet')
+    text-align: center
+
+.group
+  +clearfix
+
+.container
+  max-width: 100%
+
+.table > tbody > tr > td, .table > tbody > tr > th,
+.table > tfoot > tr > td, .table > tfoot > tr > th,
+.table > thead > tr > td, .table > thead > tr > th
+  padding: 5px
+
+.table + .row
+  margin-bottom: 20px
+
+form
+  margin-bottom: 0

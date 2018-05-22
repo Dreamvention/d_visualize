@@ -1,0 +1,117 @@
+.btn {
+    @include transition;
+    font-size: fz(16px);
+    background: $colorMain;
+    border: 2px solid $colorMainDarken;
+    @include border-radius;
+    color: $p_white;
+    padding: $paddingVerticalButton $paddingHorizontalButton;
+    &:focus, &:active, &:active:hover, &:active:focus {
+        @include prefixes('box-shadow', 'none');
+    }
+    &:hover {
+        background: #dde4f2;
+        border-color: $colorMainDarken;
+        color: $p_white;
+    }
+    &:focus {
+        outline: none;
+        color: $p_white;
+    }
+    &-close {
+        width: 12px;
+        height: 12px;
+    }
+}
+
+.btn {
+    &-primary {
+        background: $colorMainButton;
+        border-color: darken($colorMainButton, 8);
+        &:hover {
+            background: $colorMainButtonHover;
+            border-color: darken($colorMainButton, 12);
+        }
+        &:focus, &:active, &:active:hover, &:active:focus {
+            background: $colorMainButtonActive;
+            border-color: darken($colorMainButton, 24);
+            outline: none;
+        }
+    }
+
+    &-secondary, &-success {
+        background: $colorSecondaryButton;
+        border-color: darken($colorSecondaryButton, 8);
+        &:hover {
+            background: $colorSecondaryButtonHover;
+            border-color: darken($colorSecondaryButton, 20);
+        }
+        &:focus, &:active, &:active:hover, &:active:focus  {
+            background: $colorSecondaryButtonActive;
+            border-color: darken($colorSecondaryButton, 22);
+        }
+    }
+
+    &-danger {
+        background: $colorDangerButton;
+        border-color: darken($colorDangerButton, 9);
+        &:hover {
+            background: $colorDangerButtonHover;
+            border-color: darken($colorDangerButton, 11);
+        }
+        &:focus, &:active, &:active:hover, &:active:focus {
+            background: $colorDangerButtonActive;
+            border-color: darken($colorDangerButton, 20);
+        }
+    }
+    &-warning, &-like-warning {
+        background: $colorWarningButton;
+        border-color: darken($colorWarningButton, 10);
+        &:hover {
+            background: $colorWarningButtonHover;
+            border-color: darken($colorWarningButton, 15);
+        }
+        &:focus, &:active, &:active:hover, &:active:focus {
+            background: $colorWarningButtonActive;
+            border-color: darken($colorWarningButton, 22);
+        }
+    }
+    &-default,
+    &[disabled] {
+        background: $colorDefaultButton;
+        border-color: darken($colorDefaultButton, 8);
+        &:hover {
+            background: $colorDefaultButtonHover;
+            border-color: darken($colorDefaultButton, 18);
+        }
+        &:focus, &:active, &:active:hover, &:active:focus {
+            background: $colorDefaultButtonActive;
+            border-color: darken($colorDefaultButton, 30);
+            color: $p_white;
+        }
+    }
+    &-ghost {
+        background: none;
+        &:hover {
+            background: $colorDefaultButtonHover;
+        }
+        &:focus, &:active, &:active:hover, &:active:focus {
+            background: $colorDefaultButtonActive;
+        }
+    }
+    &-info {
+        background: $colorInfoButton;
+        &:hover {
+            background: $colorInfoButtonHover;
+        }
+        &:focus, &:active, &:active:hover, &:active:focus {
+            background: $colorInfoButtonActive;
+        }
+    }
+}
+
+.buttons {
+    .btn-default {
+        margin-bottom: $indentBase / 2;
+    }
+}

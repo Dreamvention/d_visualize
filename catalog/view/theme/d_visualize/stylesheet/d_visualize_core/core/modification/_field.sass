@@ -1,0 +1,42 @@
+.form-group
+  // field required
+  &.required
+    position: relative
+    .field-label, .control-label
+      span
+        position: relative
+        display: inline-block
+        &:after
+          content: '*'
+          position: absolute
+          color: $colorDanger
+          top: -3px
+          right: -10px
+          font-weight: $fontBold
+          font-size: fz(12px)
+
+.field-label
+  &.label-fluid
+    display: block
+    padding: 0
+    margin-bottom: rem(10px)
+
+  &.label-text-right
+    display: block
+    text-align: right
+
+  &.checkbox-label,
+  &.radio-label,
+  &.radio-input
+    display: inline-block
+    padding: 0
+    cursor: pointer
+
++adaptive(label-right, 'min')
+  +align-middle
+  justify-content: flex-end
+  height: $fieldHeightBase
+  text-align: right
+
+.inline-block
+  display: inline-block !important
