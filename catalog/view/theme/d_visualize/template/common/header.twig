@@ -1,66 +1,90 @@
 <!doctype html>
 <!--[if IE]><![endif]-->
-<!--[if IE 8 ]><html dir="{{direction}}" lang="{{lang}}" class="ie8"><![endif]-->
-<!--[if IE 9 ]><html dir="{{direction}}" lang="{{lang}}" class="ie9"><![endif]-->
+<!--[if IE 8 ]>
+<html dir="{{direction}}" lang="{{lang}}" class="ie8"><![endif]-->
+<!--[if IE 9 ]>
+<html dir="{{direction}}" lang="{{lang}}" class="ie9"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
-<html dir="{{direction}}" lang="{{lang}}">
+<html dir="{{ direction }}" lang="{{ lang }}">
 <!--<![endif]-->
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{{title}}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <base href="{{base}}" />
-        {% if description %}
-        <meta name="description" content="{{description}}" />
-        {% endif %}
-        {% if keywords %}
-        <meta name="keywords" content= "{{keywords}}" />
-        {% endif %}
-        {% for meta in metas %}
-            <meta {{meta.property}}="{{meta.meta}}" content="{{meta.content}}"></meta>
-        {% endfor %}
+<head>
+    {#<!-- Google Tag Manager -->#}
+    {#<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':#}
+                {#new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],#}
+            {#j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=#}
+            {#'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);#}
+        {#})(window,document,'script','dataLayer','GTM-5BPMRG2');</script>#}
+    {#<!-- End Google Tag Manager -->#}
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#e6ecf7">
+    <base href="{{ base }}"/>
+    {% if description %}
+        <meta name="description" content="{{ description }}"/>
+    {% endif %}
+    {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}"/>
+    {% endif %}
+    {% for meta in metas %}
+        <meta {{ meta.property }}="{{ meta.meta }}" content="{{ meta.content }}"></meta>
+    {% endfor %}
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
-        {% for link in links %}
-            <link href="{{link.href}}" rel="{{link.rel}}" />
-        {% endfor %}
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Place favicon.ico in the root directory -->
+    {% for link in links %}
+        <link href="{{ link.href }}" rel="{{ link.rel }}"/>
+    {% endfor %}
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="catalog/view/theme/d_visualize/stylesheet/d_visualize_core/d_visualize_core.min.css">
+    <link rel="stylesheet" href="catalog/view/theme/d_visualize/stylesheet/d_visualize_skin/d_dreamvention/d_dreamvention_skin.min.css">
+    {% for style in styles %}
+        <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+    {% endfor %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script>try }
+            Modernizr
+        } catch (e) }
+            document.write('<script src="./assets/js/vendor/modernizr-2.8.3.min.js"><\/script>')
+        }
+    </script>
 
-        <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-        <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="catalog/view/theme/d_visualize/stylesheet/library/animate/animate.min.css">
-        <link rel="stylesheet" href="catalog/view/theme/d_visualize/stylesheet/stylesheet.css">
-        {% for style in styles %}
-            <link href="{{style.href}}" type="text/css" rel="{{style.rel}}" media="{{style.media}}" />
-        {% endfor %}
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js"><\/script>')</script>
+    <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.js"></script>
+    <script src="catalog/view/javascript/common.js"></script>
+    <script src="catalog/view/theme/d_visualize/javascript/d_visualize.js"></script>
+    <!-- temp skin scripts -->
+    <script src="catalog/view/theme/d_visualize/javascript/d_visualize_skin/d_dreamvention/visualize_controls.js"></script>
 
+    <!-- dynamic scripts -->
+    {% for script in scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-        <script>try{Modernizr} catch(e) {document.write('<script src="./assets/js/vendor/modernizr-2.8.3.min.js"><\/script>')}</script>
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script>window.jQuery || document.write('<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js"><\/script>')</script>
-        <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/cart.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/compare.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/voucher.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/wishlist.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/partial/d_product_sort.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/partial/d_address_field.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/partial/d_custom_field.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/checkout/checkout.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/product/product.js" type="text/javascript"></script>
-        <!-- dynamic scripts -->
-        {% for script in scripts %}
-            <script src="{{script}}" type="text/javascript"></script>
-        {% endfor %}
+    {% for analytic in analytics %}
+        {{ analytic }}
+    {% endfor %}
 
-        {% for analytic in analytics %}
-            {{analytic}}
-        {% endfor %}
-    </head>
-    <body class="{{class}}">
-        {{d_header}}
+</head>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div id="logo">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a>{% else %}
+                        <h1><a href="{{ home }}">{{ name }}</a></h1>
+                    {% endif %}</div>
+            </div>
+            <div class="col-sm-5">{{ search }}</div>
+            <div class="col-sm-3">{{ cart }}</div>
+        </div>
+    </div>
+</header>
+{{ menu }}

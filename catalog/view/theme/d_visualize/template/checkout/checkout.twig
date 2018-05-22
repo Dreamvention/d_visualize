@@ -1,6 +1,6 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
+{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
+
+{% block content %}
       <h1>{{heading_title}}</h1>
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
@@ -65,8 +65,6 @@
           </div>
         </div>
       </div>
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
 
 <script type="text/javascript"><!--
 $(function(){
@@ -90,3 +88,4 @@ $(function(){
     });
 })
 //--></script>
+{% endblock %}

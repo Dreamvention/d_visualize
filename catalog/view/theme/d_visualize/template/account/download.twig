@@ -1,37 +1,36 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <div class="h2">{{heading_title}}</div>
-      {% if downloads %}
-        <table class="table table-bordered table-hover">
-          <thead>
+{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
+{% block content %}
+    <div class="h2">{{ heading_title }}</div>
+    {% if downloads %}
+        <table class="table table-hover">
+            <thead>
             <tr>
-              <td class="text-right">{{column_order_id}}</td>
-              <td class="text-left">{{column_name}}</td>
-              <td class="text-left">{{column_size}}</td>
-              <td class="text-left">{{column_date_added}}</td>
-              <td></td>
+                <td class="text-right">{{ column_order_id }}</td>
+                <td class="text-left">{{ column_name }}</td>
+                <td class="text-left">{{ column_size }}</td>
+                <td class="text-left">{{ column_date_added }}</td>
+                <td></td>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             {% for download in downloads %}
-            <tr>
-              <td class="text-right">{{download.order_id}}</td>
-              <td class="text-left">{{download.name}}</td>
-              <td class="text-left">{{download.size}}</td>
-              <td class="text-left">{{download.date_added}}</td>
-              <td><a href="{{download.href}}" data-toggle="tooltip" title="{{button_download}}" class="btn btn-primary"><i class="fa fa-cloud-download"></i></a></td>
-            </tr>
+                <tr>
+                    <td class="text-right">{{ download.order_id }}</td>
+                    <td class="text-left">{{ download.name }}</td>
+                    <td class="text-left">{{ download.size }}</td>
+                    <td class="text-left">{{ download.date_added }}</td>
+                    <td><a href="{{ download.href }}" data-toggle="tooltip" title="{{ button_download }}"
+                           class="btn btn-like-warning btn-shrink"><i class="fa fa-cloud-download"></i></a></td>
+                </tr>
             {% endfor %}
-          </tbody>
+            </tbody>
         </table>
         <div class="row">
-          <div class="col-sm-6 text-left">{{pagination}}</div>
-          <div class="col-sm-6 text-right">{{results}}</div>
+            <div class="col-sm-6 text-left">{{ pagination }}</div>
+            <div class="col-sm-6 text-right">{{ results }}</div>
         </div>
-      {% else %}
-        <p>{{text_empty}}</p>
-      {% endif %}
-      {% include 'd_visualize/template/partial/d_button_continue.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    {% else %}
+        <p>{{ text_empty }}</p>
+    {% endif %}
+    {% include 'd_visualize/template/partial/d_button_continue.twig' %}
+{% endblock %}

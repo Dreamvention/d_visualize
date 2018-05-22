@@ -1,7 +1,6 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <h1 class="h1">{{heading_title}}</h1>
+{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
+{% block before_content %}
+      <h1 class="heading-h1">{{heading_title}}</h1>
       <p>{{text_description}}</p>
       <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
@@ -134,10 +133,10 @@
         {% include 'd_visualize/template/partial/d_button_submit.twig' %}
         {% endif %}
       </form>
-  {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+
 <script type="text/javascript"><!--
 $('.date').datetimepicker({
   pickTime: false
 });
 //--></script>
+{% endblock %}

@@ -1,49 +1,49 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
+{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
 
-      <div class="h2">{{heading_title}}</div>
-        {% if thumb or description %}
-          <div class="row">
+{% block content %}
+
+    <h1 class="header-h2">{{ heading_title }}</h1>
+    {% if thumb or description %}
+        <div class="row">
             {% if thumb %}
-            <div class="col-sm-2"><img src="{{thumb}}" alt="{{heading_title}}" title="{{heading_title}}" class="img-thumbnail" /></div>
+                <div class="col-sm-2"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}"
+                                           class="img-thumbnail"/></div>
             {% endif %}
             {% if description %}
-            <div class="col-sm-10">{{description}}</div>
+                <div class="col-sm-10">{{ description }}</div>
             {% endif %}
-          </div>
-          <hr>
-        {% endif %} {#-- category info --#}
+        </div>
+        <hr>
+    {% endif %} {#-- category info --#}
 
-        {% if categories %}
-          <div class="h4">{{text_refine}}</div>
-          <div class="row">
+    {% if categories %}
+        <div class="h4">{{ text_refine }}</div>
+        <div class="row">
             {% for category in categories %}
-              <div class="col-sm-3"><a href="{{categorty.href}}">{{category.name}}</a></div>
+                <div class="col-sm-3"><a href="{{ categorty.href }}">{{ category.name }}</a></div>
             {% endfor %}
-          </div>
-        {% endif %} {#-- categories --#}
-        {% if products %}
-          {% include 'd_visualize/template/partial/d_product_sort.twig' %}
-          <div class="row">
+        </div>
+    {% endif %} {#-- categories --#}
+    {% if products %}
+        <div class="row">
             {% for product in products %}
-              {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+                <div class="product-layout product-list col-xs-4">
+                    {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+                </div>
             {% endfor %}
-          </div>
-          <div class="row">
-            <div class="col-sm-6 text-left">{{pagination}}</div>
-            <div class="col-sm-6 text-right">{{results}}</div>
-          </div>
-        {% endif %} {#-- products --#}
+        </div>
+        <div class="row">
+            <div class="col-sm-6 text-left">{{ pagination }}</div>
+            <div class="col-sm-6 text-right">{{ results }}</div>
+        </div>
+    {% endif %} {#-- products --#}
 
-        {% if not categories %}
-          {% if not products %}
-            <p>{{text_empty}}</p>
+    {% if not categories %}
+        {% if not products %}
+            <p>{{ text_empty }}</p>
             <div class="buttons">
-              <div class="pull-right"><a href="{{continue}}" class="btn btn-primary">{{button_continue}}</a></div>
+                <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
             </div>
-          {% endif %}
         {% endif %}
-
-        {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    {% endif %}
+{% endblock %}

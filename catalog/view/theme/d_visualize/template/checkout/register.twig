@@ -2,10 +2,10 @@
   <div class="col-sm-6">
     <fieldset id="account">
       <legend>{{text_your_details}}</legend>
-      {% include 'd_visualize/template/partial/d_account_field.twig' %}
+      {% include 'd_visualize/template/component/d_account_field.twig' %}
       {% for custom_field in custom_fields %}
         {% if custom_field.location == 'account' %}
-          {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
+          {% include 'd_visualize/template/component/d_custom_field.twig' with custom_field %}
         {% endif %}
       {% endfor %}
     </fieldset>
@@ -24,10 +24,10 @@
   <div class="col-sm-6">
     <fieldset id="address">
       <legend>{{text_your_address}}</legend>
-      {% include 'd_visualize/template/partial/d_address_field.twig' %}
+      {% include 'd_visualize/template/component/d_address_field.twig' %}
       {% for custom_field in custom_fields %}
         {% if custom_field.location == 'address' %}
-          {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
+          {% include 'd_visualize/template/component/d_custom_field.twig' with custom_field %}
         {% endif %}
       {% endfor %}
     </fieldset>

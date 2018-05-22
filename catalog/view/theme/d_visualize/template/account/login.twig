@@ -1,34 +1,37 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="well">
-            <h2>{{text_new_customer}}</h2>
-            <p><strong>{{text_register}}</strong></p>
-            <p>{{text_register_account}}</p>
-            <a href="{{register}}" class="btn btn-primary">{{button_continue}}</a></div>
+{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
+{% block content %}
+    <div class="login-page">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="well">
+                    <h2 class="heading-h2">{{ text_new_customer }}</h2>
+                    <span class="heading-subtitle">{{ text_register }}</span>
+                    <p>{{ text_register_account }}</p>
+                    <a href="{{ register }}" class="btn btn-primary btn-shrink">{{ button_continue }}</a></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="well">
+                    <h2 class="heading-h2">{{ text_returning_customer }}</h2>
+                    <span class="heading-subtitle">{{ text_i_am_returning_customer }}</span>
+                    <form action="{{ action }}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label class="field-label label-fluid" for="input-email">{{ entry_email }}</label>
+                            <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}"
+                                   id="input-email" class="field"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="field-label label-fluid" for="input-password">{{ entry_password }}</label>
+                            <input type="password" name="password" value="{{ password }}"
+                                   placeholder="{{ entry_password }}"
+                                   id="input-password" class="field"/>
+                            <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a></div>
+                        <input type="submit" value="{{ button_login }}" class="btn btn-primary btn-shrink"/>
+                        {% if redirect %}
+                            <input type="hidden" name="redirect" value="{{ redirect }}"/>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6">
-          <div class="well">
-            <h2>{{text_returning_customer}}</h2>
-            <p><strong>{{text_i_am_returning_customer}}</strong></p>
-            <form action="{{action}}" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-                <label class="control-label" for="input-email">{{entry_email}}</label>
-                <input type="text" name="email" value="{{email}}" placeholder="{{entry_email}}" id="input-email" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="input-password">{{entry_password}}</label>
-                <input type="password" name="password" value="{{password}}" placeholder="{{entry_password}}" id="input-password" class="form-control" />
-                <a href="{{forgotten}}">{{text_forgotten}}</a></div>
-              <input type="submit" value="{{button_login}}" class="btn btn-primary" />
-              {% if redirect %}
-                <input type="hidden" name="redirect" value="{{redirect}}" />
-              {% endif %}
-            </form>
-          </div>
-        </div>
-      </div>
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    </div>
+{% endblock %}

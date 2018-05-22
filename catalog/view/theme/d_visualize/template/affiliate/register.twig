@@ -1,28 +1,27 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <h1 class="h1">{{heading_title}}</h1>
+{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
+{% block content %}
+      <h1 class="heading-h1">{{heading_title}}</h1>
       <p>{{text_account_already}}</p>
       <p>{{text_signup}}</p>
       <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
           <legend>{{text_your_details}}</legend>
-          {% include 'd_visualize/template/partial/d_account_field.twig' with { form: 'inline'} %}
+          {% include 'd_visualize/template/partial/d_account_field_affiliate.twig' with { form: 'inline'} %}
         </fieldset>
         <fieldset>
           <legend>{{text_your_address}}</legend>
-          {% include 'd_visualize/template/partial/d_address_field.twig' with { form: 'inline'} %}
+          {% include 'd_visualize/template/partial/d_address_field_affiliate.twig' with { form: 'inline'} %}
         </fieldset>
         <fieldset>
           <legend>{{text_payment}}</legend>
           <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-tax">{{entry_tax}}</label>
+            <label class="col-sm-2 field-label label-right-md" for="input-tax"><span>{{entry_tax}}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="tax" value="{{tax}}" placeholder="{{entry_tax}}" id="input-tax" class="form-control" />
+              <input type="text" name="tax" value="{{tax}}" id="input-tax" class="form-control" />
             </div>
           </div>
           <div class="form-group">
-            <label class="col-sm-2 control-label">{{entry_payment}}</label>
+            <label class="col-sm-2 field-label label-right-md"><span>{{entry_payment}}</span></label>
             <div class="col-sm-10">
               <div class="radio">
                 <label>
@@ -41,47 +40,50 @@
               </div>
             </div>
           </div>
-          <div class="form-group payment" id="payment-cheque">
-            <label class="col-sm-2 control-label" for="input-cheque">{{entry_cheque}}</label>
+          <div class="form-group payment required" id="payment-cheque">
+            <label class="col-sm-2 field-label label-right-md" for="input-cheque"><span>{{entry_cheque}}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="cheque" value="{{cheque}}" placeholder="{{entry_cheque}}" id="input-cheque" class="form-control" />
+              <input type="text" name="cheque" value="{{cheque}}" id="input-cheque" class="form-control" />
+                {% if error_cheque %}
+                  <div class="text-danger">{{error_cheque}}</div>
+                {% endif %}
             </div>
           </div>
           <div class="form-group payment" id="payment-paypal">
-            <label class="col-sm-2 control-label" for="input-paypal">{{entry_paypal}}</label>
+            <label class="col-sm-2 field-label label-right-md" for="input-paypal"><span>{{entry_paypal}}</span></label>
             <div class="col-sm-10">
-              <input type="text" name="paypal" value="{{paypal}}" placeholder="{{entry_paypal}}" id="input-paypal" class="form-control" />
+              <input type="text" name="paypal" value="{{paypal}}" id="input-paypal" class="form-control" />
             </div>
           </div>
           <div class="payment" id="payment-bank">
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-name">{{entry_bank_name}}</label>
+              <label class="col-sm-2 field-label label-right-md" for="input-bank-name"><span>{{entry_bank_name}}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="bank_name" value="{{bank_name}}" placeholder="{{entry_bank_name}}" id="input-bank-name" class="form-control" />
+                <input type="text" name="bank_name" value="{{bank_name}}" id="input-bank-name" class="form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-branch-number">{{entry_bank_branch_number}}</label>
+              <label class="col-sm-2 field-label label-right-md" for="input-bank-branch-number"><span>{{entry_bank_branch_number}}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="bank_branch_number" value="{{bank_branch_number}}" placeholder="{{entry_bank_branch_number}}" id="input-bank-branch-number" class="form-control" />
+                <input type="text" name="bank_branch_number" value="{{bank_branch_number}}" id="input-bank-branch-number" class="form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-swift-code">{{entry_bank_swift_code}}</label>
+              <label class="col-sm-2 field-label label-right-md" for="input-bank-swift-code"><span>{{entry_bank_swift_code}}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="bank_swift_code" value="{{bank_swift_code}}" placeholder="{{entry_bank_swift_code}}" id="input-bank-swift-code" class="form-control" />
+                <input type="text" name="bank_swift_code" value="{{bank_swift_code}}" id="input-bank-swift-code" class="form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-account-name">{{entry_bank_account_name}}</label>
+              <label class="col-sm-2 field-label label-right-md" for="input-bank-account-name"><span>{{entry_bank_account_name}}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="bank_account_name" value="{{bank_account_name}}" placeholder="{{entry_bank_account_name}}" id="input-bank-account-name" class="form-control" />
+                <input type="text" name="bank_account_name" value="{{bank_account_name}}" id="input-bank-account-name" class="form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label" for="input-bank-account-number">{{entry_bank_account_number}}</label>
+              <label class="col-sm-2 field-label label-right-md" for="input-bank-account-number"><span>{{entry_bank_account_number}}</span></label>
               <div class="col-sm-10">
-                <input type="text" name="bank_account_number" value="{{bank_account_number}}" placeholder="{{entry_bank_account_number}}" id="input-bank-account-number" class="form-control" />
+                <input type="text" name="bank_account_number" value="{{bank_account_number}}" id="input-bank-account-number" class="form-control" />
               </div>
             </div>
           </div>
@@ -89,18 +91,18 @@
         <fieldset>
           <legend>{{text_your_password}}</legend>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-password">{{entry_password}}</label>
+            <label class="col-sm-2 field-label label-right-md" for="input-password"><span>{{entry_password}}</span></label>
             <div class="col-sm-10">
-              <input type="password" name="password" value="{{password}}" placeholder="{{entry_password}}" id="input-password" class="form-control" />
+              <input type="password" name="password" value="{{password}}" id="input-password" class="form-control" />
               {% if error_password %}
               <div class="text-danger">{{error_password}}</div>
               {% endif %}
             </div>
           </div>
           <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-confirm">{{entry_confirm}}</label>
+            <label class="col-sm-2 field-label label-right-md" for="input-confirm"><span>{{entry_confirm}}</span></label>
             <div class="col-sm-10">
-              <input type="password" name="confirm" value="{{confirm}}" placeholder="{{entry_confirm}}" id="input-confirm" class="form-control" />
+              <input type="password" name="confirm" value="{{confirm}}" id="input-confirm" class="form-control" />
               {% if error_confirm %}
               <div class="text-danger">{{error_confirm}}</div>
               {% endif %}
@@ -108,10 +110,25 @@
           </div>
         </fieldset>
         {{captcha}}
-        {% include 'd_visualize/template/partial/d_button.twig' %}
+          {% if text_agree %}
+            <div class="buttons clearfix">
+              <div class="pull-right">
+                <label class="field-label checkbox-label">
+                    {{ text_agree }}
+                  <input type="checkbox" name="agree" value="1" {% if agree %}checked="checked"{% endif %} />
+                </label>
+                &nbsp;
+                <input type="submit" value="{{ button_continue }}" class="btn btn-primary btn-shrink"/>
+              </div>
+            </div>
+          {% else %}
+            <div class="buttons clearfix">
+              <div class="pull-right">
+                <input type="submit" value="{{ button_continue }}" class="btn btn-primary btn-shrink"/>
+              </div>
+            </div>
+          {% endif %}
       </form>
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
 <script type="text/javascript"><!--
 $(function(){
     d_address_field.init({
@@ -128,3 +145,4 @@ $('input[name=\'payment\']').on('change', function() {
 
 $('input[name=\'payment\']:checked').trigger('change');
 //--></script>
+{% endblock %}

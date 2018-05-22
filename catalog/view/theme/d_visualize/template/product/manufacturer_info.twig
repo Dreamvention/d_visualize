@@ -1,12 +1,14 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
+{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
+
+{% block content %}
         <div class="h2">{{heading_title}}</div>
         {% if products %}
-          {% include 'd_visualize/template/partial/d_product_sort.twig' %}
+          {% include 'd_visualize/template/partial/default.twig' %}
           <div class="row">
             {% for product in products %}
-              {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+              <div class="product-layout product-list col-xs-12">
+                {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+              </div>
             {% endfor %}
           </div>
           <div class="row">
@@ -20,5 +22,4 @@
             </div>
         {% endif %}
 
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+{% endblock %}
