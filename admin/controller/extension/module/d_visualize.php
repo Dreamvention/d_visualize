@@ -40,7 +40,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->document->setTitle($this->language->get('heading_title_main'));
 
 //        if ($this->d_shopunity) {
-//            $this->load->model('extension/d_shopunity/mbooth');
+//            $this->load->model('extension/d_sho   punity/mbooth');
 //            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
 //        }
         if($this->d_twig_manager){
