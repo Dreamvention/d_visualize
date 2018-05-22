@@ -4,6 +4,7 @@
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             {% include 'd_visualize/template/partial/d_name_field.twig' with { form:'inline'} %}
+
             {% include 'd_visualize/template/partial/d_address_field.twig' with { form:'inline'} %}
 
             {% for custom_field in custom_fields %}
