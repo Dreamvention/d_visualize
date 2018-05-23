@@ -1,0 +1,123 @@
+.vd button.btn,
+.btn,
+button
+  color: inherit
+  border: none
+  padding: 0
+  +border-radius(0)
+  height: $buttonHeight
+  line-height: $lineHeightButton
+  &:active
+    +box-shadow('none')
+  &:focus, &:active, &:active:hover, &:active:focus
+    outline: none
+
+.btn
+  font-size: fz(14px)
+  background: $colorMain
+  text-transform: uppercase
+  font-weight: $fontBold
+  color: $p_white
+  padding-left: $paddingHorizontalButton
+  padding-right: $paddingHorizontalButton
+  +transition
+  &:focus, &:active, &:active:hover, &:active:focus
+    +prefixes('box-shadow', 'none')
+    outline: none
+  &:hover
+    background: #dde4f2
+    color: $p_white
+  &:focus
+    outline: none
+    color: $p_white
+  &-close
+    width: 12px
+    height: 12px
+
+.btn
+  span
+    text-transform: uppercase
+    font-weight: $fontBold
+    color: $p_white
+  &:hover
+    span
+      color: $p_white
+
+.btn
+  &-primary
+    background: $colorMainButton
+    &:hover
+      background: $colorMainButtonHover
+      border-color: darken($colorMainButton, 12)
+    &:focus, &:active, &:active:hover, &:active:focus
+      background: $colorMainButtonActive
+      outline: none
+
+  &-secondary, &-success
+    background: $colorSecondaryButton
+    &:hover
+      background: $colorSecondaryButtonHover
+    &:focus, &:active, &:active:hover, &:active:focus
+      background: $colorSecondaryButtonActive
+
+  &-danger
+    background: $colorDangerButton
+    &:hover
+      background: $colorDangerButtonHover
+    &:focus, &:active, &:active:hover, &:active:focus
+      background: $colorDangerButtonActive
+  &-warning, &-like-warning
+    background: $colorWarningButton
+    &:hover
+      background: $colorWarningButtonHover
+    &:focus, &:active, &:active:hover, &:active:focus
+      background: $colorWarningButtonActive
+  &-default,
+  &[disabled]
+    background: $colorDefaultButton
+    color: #000
+    &:hover
+      background: $colorDefaultButtonHover
+      color: #000
+    &:focus, &:active, &:active:hover, &:active:focus
+      background: $colorDefaultButtonActive
+      color: $p_white
+  &-ghost
+    background: none
+    &:hover
+      background: $colorDefaultButtonHover
+    &:focus, &:active, &:active:hover, &:active:focus
+      background: $colorDefaultButtonActive
+  &-info
+    background: $colorInfoButton
+    &:hover
+      background: $colorInfoButtonHover
+    &:focus, &:active, &:active:hover, &:active:focus
+      background: $colorInfoButtonActive
+
+.buttons
+  .btn-default
+    margin-bottom: $indentBase / 2
+
+.btn-edit
+  top: -29px
+  &:hover
+    .btn
+      background: #fff
+      color: $colorMain
+      border-color: $colorMain
+    .fa
+      animation: Writing .7s ease infinite alternate
+  .btn
+    color: $colorMain
+    background: #fff
+    border: 1px solid $colorMain
+    text-transform: none
+    text-shadow: none
+    +box-shadow('none')
+    font-size: 0 !important
+    padding: 6px !important
+    height: auto
+    .fa
+      font-size: fz(12px)
+      +transition(1s)

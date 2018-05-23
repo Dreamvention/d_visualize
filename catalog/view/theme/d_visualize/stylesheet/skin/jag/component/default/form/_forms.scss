@@ -1,0 +1,29 @@
+.form-control {
+  border: $borderMain;
+  border-radius: 0;
+  padding:rem(22) rem(20);
+  font-size:$fontSizeInput;
+  line-height:($fontSizeInput,21);
+  &:focus{
+    border: $borderMain;
+    border-color: $borderColorFocus;
+    box-shadow: none;
+    background-color: $FormBackFocus;
+  }
+  &.active{
+    background: $FormBackActive;
+    border-color: $borderColorActive;
+  }
+}
+.form-group{
+  &.error{
+    .form-control{
+      border: $borderMain;
+      border-color: $borderColorError;
+      background: $FormBackError;
+    }
+    span{
+      color: $p_red;
+    }
+  }
+}

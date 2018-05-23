@@ -1,0 +1,27 @@
+.product-quantity
+  display: flex
+
+  .quantity-control
+    border: 1px solid #cbcfd8
+    width: 56px
+    height: 46px
+    text-align: center
+    padding: 0 10px
+    line-height: lh(15, 46)
+    i
+      line-height: inherit
+    &.decrement,
+    &.increment
+      cursor: pointer
+      +transition
+      &:hover
+        background: #cbcfd8
+    &.field
+      position: relative
+      margin: 0 -1px
+      +prefixes('appearance', 'none')
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button
+  +prefixes('appearance', 'none')

@@ -1,0 +1,47 @@
+.checkbox-container
+  input
+    &:checked + .checkbox-control
+      &:before, &:after
+        opacity: 1
+
+  .checkbox-input
+    position: relative
+    display: inline-block
+    width: 20px
+    height: 20px
+    margin-right: 10px
+    margin-left: 6px
+
+  .checkbox-control
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    border: 2px solid #c4d2ec
+    +border-radius(5px)
+    overflow: hidden
+    &:before
+      content: ''
+      position: absolute
+      background: #e6ecf7
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      opacity: 0
+      +transition(.1)
+
+    &:after
+      content: ''
+      position: absolute
+      top: 3px
+      left: 5px
+      +prefixes("transform", rotate(45deg))
+      width: 6px
+      height: 9px
+      border: 2px solid #82a0d7
+      border-top: 0
+      border-left: 0
+      opacity: 0
+      +transition(.3)
