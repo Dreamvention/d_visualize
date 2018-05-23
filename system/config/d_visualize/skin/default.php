@@ -8,7 +8,7 @@ $_['d_visualize_skin_default'] = array(
                 'template'        => 'd_visualize/template/layout/default.twig', // here can be custom settings for this template
                 'container_width' => '1024',
                 'partial'         => array(
-                    'breadcrumb'   => array(
+                    'breadcrumb'      => array(
                         'template'   => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
                         'components' => array(
                             'breadcrumb' => array(
@@ -16,7 +16,7 @@ $_['d_visualize_skin_default'] = array(
                             )
                         )
                     ),
-                    'd_product_sort'   => array(
+                    'd_product_sort'  => array(
                         'template'   => 'd_visualize/template/partial/d_product_sort.twig', // here can be custom settings for this template
                         'components' => array(
                             'd_product_sort' => array(
@@ -24,13 +24,13 @@ $_['d_visualize_skin_default'] = array(
                             )
                         )
                     ),
-                    'd_product_thumb'   => array(
+                    'd_product_thumb' => array(
                         'template'   => 'd_visualize/template/partial/d_product_thumb.twig', // here can be custom settings for this template
                         'components' => array(
                             'd_product_thumb' => array(
-                                'template' => 'd_visualize/template/component/d_product_thumb/default.twig',
-                                'partials'=>array('d_rating'),//may be if we want to insert component to component we have to just declare only name and can use in components.d_rating
-                                'components'=>array(
+                                'template'   => 'd_visualize/template/component/d_product_thumb/default.twig',
+                                'partials'   => array('d_rating'),//may be if we want to insert component to component we have to just declare only name and can use in components.d_rating
+                                'components' => array(
                                     'd_rating' => array(
                                         'template' => 'd_visualize/template/component/d_rating/default.twig'
                                     )
@@ -38,21 +38,21 @@ $_['d_visualize_skin_default'] = array(
                             )
                         )
                     ),
-                    'd_rating' => array(
-                        'template' => 'd_visualize/template/component/d_product_thumb/default.twig',
-                        'components'=>array(
+                    'd_rating'        => array(
+                        'template'   => 'd_visualize/template/component/d_rating/default.twig',
+                        'components' => array(
                             'd_rating' => array(
                                 'template' => 'd_visualize/template/component/d_rating/default.twig'
                             )
                         )
-                    ),
-                    'notification' => array(
-                        'template'   => 'default',
-                        'components' => array()
-
-                    ),
+                    )
+                ,
                 ),
-                'components'      => array(),
+                'components'      => array(
+                    'notification'        => array(
+                        'template'   => 'd_visualize/template/component/notification/default.twig',
+                    )
+                ),
             ),
             'blocks' => array('main_wrapper', 'before_content', 'content', 'after_content')
         ),
@@ -69,11 +69,11 @@ $_['d_visualize_skin_default'] = array(
             ),
         ),
     ),
-    'scripts' =>array(
-        'jquery'=>'2.1.1',
-    ),
-    'styles' =>array(
+    'events'      => array(),
 
-    ),
-    'events'=>array(),
+);
+$_['dependency'] = array(
+    "animate"   => "^1.0.0",
+    "bootstrap" => "^4.0.0-beta",
+    'jquery'    => '^2.1.1',
 );

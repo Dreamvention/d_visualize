@@ -37,15 +37,21 @@ class ControllerExtensionDVisualizeEvent extends Controller
 
     public function header_view_before_d_visualize(&$view, &$data,&$out)
     {
-        FB::log($this->config->get('theme_dependency'));
+
+        foreach ($this->config_skin['styles'] as $style){
+            $this->document->addStyle($style);
+        }
+        $this->document->addStyle('catalog/view/theme/'.$this->codename.'/stylesheet/skin/'.$this->config_visualize['active_skin'].'/stylesheet.css');
+        $data['styles']=$this->document->getStyles();
+        foreach ($this->config_skin['scripts'] as $script){
+            array_unshift($data['scripts'],$script);
+        }
+
 
     }
 
     public function footer(&$view, &$data, &$output)
     {
-//		$this->load->config( 'd_visualize/footer' );
-//		$setting = $this->config->get( 'd_visualize_footer' );
-//		$output  .= $this->load->controller( $setting['route'] );
     }
 
     public function view_product_category_before(&$view, &$data, &$output)

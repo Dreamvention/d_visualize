@@ -1,0 +1,43 @@
+// calculate rem to px
+@function rem($pixels, $context: 16px) {
+    @if (unitless($pixels)) {
+        $pixels: $pixels * 1px;
+    }
+
+    @if (unitless($context)) {
+        $context: $context * 1px;
+    }
+
+    @return $pixels / $context * 1rem;
+}
+
+// calculate px to factor
+@function lh($inputPixels, $outputPixels) {
+    @if (unitless($inputPixels)) {
+        $inputPixels: $inputPixels * 1px;
+    }
+
+    @if (unitless($outputPixels)) {
+        $outputPixels: $outputPixels * 1px;
+    }
+
+    @return $outputPixels / $inputPixels;
+}
+$fontSizeBase:  15px;
+// calculate $fontSizeBase to custom px
+@function fz($output) {
+    @if (unitless($output)) {
+        $output: $output * 1px;
+    }
+
+    @return $output - $fontSizeBase + $fontSizeBase;
+}
+// set tne z-index position
+@function z($name) {
+    @if index($z-indexes, $name) {
+        @return (length($z-indexes) - index($z-indexes, $name)) + 1;
+    } @else {
+        @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
+        @return null;
+    }
+}

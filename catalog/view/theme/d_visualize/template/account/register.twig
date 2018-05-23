@@ -1,4 +1,5 @@
-{% extends 'd_visualize/template/layout/base/' ~ layout.base.template ~ '.twig' %}
+{#it's mean in layout template#}
+{% extends template %}
 {% block before_content %}
     <div class="row">
         <div class="col-sm-12">
@@ -16,17 +17,17 @@
                 {% for custom_field in custom_fields %}
                     {% if custom_field.location == 'account' %}
                         {% set custom_field = custom_field|merge({form:'inline'}) %}
-                        {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
+                        {#{% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}#}
                     {% endif %}
                 {% endfor %}
             </fieldset>
             <fieldset id="address">
                 <legend>{{ text_your_address }}</legend>
-                {% include 'd_visualize/template/partial/d_address_field.twig' with {form:'inline'} %}
+                {#{% include 'd_visualize/template/partial/d_address_field.twig' with {form:'inline'} %}#}
                 {% for custom_field in custom_fields %}
                     {% if custom_field.location == 'address' %}
                         {% set custom_field = custom_field|merge({form:'inline'}) %}
-                        {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
+                        {#{% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}#}
                     {% endif %}
                 {% endfor %}
             </fieldset>

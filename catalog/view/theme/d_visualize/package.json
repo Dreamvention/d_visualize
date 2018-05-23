@@ -2,33 +2,21 @@
   "name": "d_visualize",
   "version": "1.0.0",
   "description": "",
-  "devDependencies": {
-    "browser-sync": "^2.12.5",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-cached": "^1.1.1",
-    "gulp-changed": "^3.1.0",
-    "gulp-clean-css": "^2.0.6",
-    "gulp-concat": "^2.6.0",
-    "gulp-jsbeautifier": "^2.1.1",
-    "gulp-notify": "^3.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-rigger": "^0.5.8",
-    "gulp-sass": "^3.1.0",
-    "gulp-uglify": "^2.0.0"
-  },
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "animate": "^1.0.0",
-    "bootstrap": "^4.0.0-beta",
-    "path": "^0.12.7",
-    "sass-convert": "^0.5.2",
-    "slideout": "^1.0.1",
-    "vinyl-fs": "^2.4.4"
-  }
+  "devDependencies": {
+    "browser-sync": "2.15.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-clean-css": "^2.0.12",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0"
+  },
+  "dependencies": {}
 }
