@@ -8,8 +8,8 @@ class ControllerExtensionDVisualizeEvent extends Controller
     private $route = 'extension/module/d_visualize';
     private $layout = 'd_visualize/template/layout/*.twig';
     private $partials = 'd_visualize/template/layout/*.twig';
-    private $config_visualize ;
-    private $config_skin ;
+    private $config_visualize;
+    private $config_skin;
 
     public function __construct($registry)
     {
@@ -23,30 +23,41 @@ class ControllerExtensionDVisualizeEvent extends Controller
 
     }
 
+    public function controller_all_before_d_visualize(&$view, &$data)
+    {
+        foreach ($this->config_skin['scripts'] as $script) {
+            array_unshift($data['scripts'], $script);
+        }
+    }
+
     public function view_all_before_d_visualize(&$view, &$data)
     {
         $data += $this->config_skin['page']['default']['layout'];
         if (in_array($view, array_keys($this->config_skin['page']))) {
-            if(isset($this->config_skin['page'][$view]['layout'])){
+            if (isset($this->config_skin['page'][$view]['layout'])) {
                 $data = array_replace_recursive($data, $this->config_skin['page'][$view]['layout']);
-
+                $html_dom = new d_simple_html_dom();
+                $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+                $scripts = '';
+                foreach ($this->config_skin['page'][$view]['scripts'] as $script) {
+                    $scripts .= '<script src="' . $script . '"type=\'text/javascript\'></script>\n';
+                }
+                $html_dom->find('head', 0)->innertext .= $scripts;
             }
         }
-
     }
 
-    public function header_view_before_d_visualize(&$view, &$data,&$out)
+    public function header_view_before_d_visualize(&$view, &$data, &$out)
     {
-
-        foreach ($this->config_skin['styles'] as $style){
+        foreach ($this->config_skin['styles'] as $style) {
             $this->document->addStyle($style);
         }
-        $this->document->addStyle('catalog/view/theme/'.$this->codename.'/stylesheet/skin/'.$this->config_visualize['active_skin'].'/stylesheet.css');
-        $data['styles']=$this->document->getStyles();
-        foreach ($this->config_skin['scripts'] as $script){
-            array_unshift($data['scripts'],$script);
+        $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/skin/' . $this->config_visualize['active_skin'] . '/stylesheet.css');
+        $data['styles'] = $this->document->getStyles();
+        foreach ($this->config_skin['scripts'] as $script) {
+            array_unshift($data['scripts'], $script);
         }
-
+        $data['custom_styles'] = $this->config_skin['custom_styles'];
 
     }
 

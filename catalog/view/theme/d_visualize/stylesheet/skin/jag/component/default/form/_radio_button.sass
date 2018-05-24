@@ -1,59 +1,6 @@
-.radio-container
-  position: relative
-  +inline-flex
-  align-items: center
-  padding-left: 0
-  cursor: pointer
-  label
-    &:hover
-      .radio-control:after
-        +prefixes("transform", scale(1))
+.custom-radio
+  &:before
+    border-radius: 100%
+[checked="checked"]
+  display: block !important
 
-  input
-    &:checked + .radio-control
-      &:after
-        +prefixes("transform", scale(1.5))
-        background: #324767
-
-
-
-  .radio-input
-    position: relative
-    display: inline-block
-    width: 22px
-    height: 22px
-    margin-right: 15px
-
-  .radio-control
-    position: absolute
-    width: 100%
-    height: 100%
-    top: 0
-    left: 0
-    +border-radius(50%)
-    border: 2px solid #cbcfd8
-    overflow: hidden
-    &:before
-      content: ''
-      position: absolute
-      top: 0
-      left: 0
-      width: 100%
-      height: 100%
-      +border-radius(4px)
-      +transition(.1)
-
-    &:after
-      content: ''
-      position: absolute
-      top: 50%
-      left: 50%
-      display: block
-      width: 6px
-      height: 6px
-      margin-top: -3px
-      margin-left: -3px
-      background: #324767
-      +border-radius(4px)
-      +prefixes("transform", scale(0))
-      +transition(.3)

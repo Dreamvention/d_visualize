@@ -102,7 +102,7 @@ $fontMain: 'Montserrat'
 $fontSecondary: 'Blogger Sans'
 $fontSecondaryBold: 'Blogger Sans Bold'
 +font-face($fontSecondary, '  ../../../../font/skin/jag/blogger-sans/BloggerSans-Bold')
-
+$line-height-base: 1
 // font color
 $fontColorMain: #000
 $fontColorSecondary: $p_waterloo
@@ -135,12 +135,28 @@ $fontSizeH5: fz(13)
 
 $fontSizeDate: $fontSize-xs
 
+$border-radius: 0
+$input-bg: rem(20)
 //Forms
 $FormBackFocus: #f9f9fc
 $FormBackActive: #f9fcfb
 $FormBackError: #fcf8f8
 $fontSizeInput: $fontSize-xs
-
+$custom-control-gutter: rem(10)
+$custom-control-spacer-x: rem(5)
+$custom-control-indicator-checked-color: $p_grey
+$custom-control-indicator-focus-box-shadow: darken($p_grey, 3)
+$custom-control-indicator-active-color: $p_grey
+$custom-control-indicator-active-bg: $p_white
+$custom-control-label-disabled-color: $p_alto-darken
+$custom-control-indicator-disabled-bg: darken($p_white ,3)
+$custom-control-indicator-size: rem(20)
+$custom-control-indicator-bg: $p_white
+//radio
+$radioBorderColor: $p_blue_light
+$radioInnerColor: $p_blue_dark
+$widhtControl: rem(20)
+$heightControl: rem(20)
 /**
  * Indent
  */
@@ -197,3 +213,4 @@ $pagination-border: $p_blue_light
 $pagination-active-color: $p_white
 $pagination-active-bg: $p_choral
 $pagination-active-border: $p_choral
+

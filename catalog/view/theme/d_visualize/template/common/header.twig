@@ -28,12 +28,8 @@
     {% for link in links %}
         <link href="{{ link.href }}" rel="{{ link.rel }}"/>
     {% endfor %}
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <!-- Place favicon.ico in the root directory -->
-    {#<link href="//fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">#}
-    {#<link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"/>#}
-    {#<link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>#}
-    {#<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css"/>#}
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     {#< script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>#}
     {#<script>try {#}
     {#Modernizr#}
@@ -42,11 +38,6 @@
     {#}
         </script>
 #}
-    {#<script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>#}
-    {#<script src="catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.js"></script>#}
-    {#<script src="catalog/view/javascript/common.js"></script>#}
-    {#<script src="catalog/view/theme/d_visualize/javascript/d_visualize.js"></script>#}
-    {#<script src="catalog/view/theme/d_visualize/javascript/d_visualize_skin/d_dreamvention/visualize_controls.js"></script>#}
     {% for analytic in analytics %}
         {{ analytic }}
     {% endfor %}
@@ -54,26 +45,15 @@
     {% for script in scripts %}
         <script src="{{ script }}" type="text/javascript"></script>
     {% endfor %}
-
     <link rel="stylesheet" href="catalog/view/theme/d_visualize/stylesheet/core/stylesheet.css">
     {% for style in styles %}
         <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
     {% endfor %}
+    {% for custom_style in custom_styles %}
+        <style>
+            {{ custom_style }}
+        </style>
+    {% endfor %}
+
 </head>
 <body>
-<header>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div id="logo">{% if logo %}<a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}"
-                                                                      alt="{{ name }}" class="img-responsive"/>
-                        </a>{% else %}
-                        <h1><a href="{{ home }}">{{ name }}</a></h1>
-                    {% endif %}</div>
-            </div>
-            <div class="col-sm-5">{{ search }}</div>
-            <div class="col-sm-3">{{ cart }}</div>
-        </div>
-    </div>
-</header>
-{{ menu }}
