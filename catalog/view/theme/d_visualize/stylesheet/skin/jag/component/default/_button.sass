@@ -1,23 +1,19 @@
-.vd button.btn,
-.btn,
-button
+.vd button.btn, button
   color: inherit
   border: none
-  padding: 0
+  padding: rem(10)
   +border-radius(0)
   height: $buttonHeight
-  line-height: $lineHeightButton
   &:active
     +box-shadow('none')
   &:focus, &:active, &:active:hover, &:active:focus
     outline: none
-
 .btn
   font-size: fz(14px)
+  color: $p_white
   background: $colorMain
   text-transform: uppercase
   font-weight: $fontBold
-  color: $p_white
   padding-left: $paddingHorizontalButton
   padding-right: $paddingHorizontalButton
   +transition
@@ -38,14 +34,15 @@ button
   span
     text-transform: uppercase
     font-weight: $fontBold
-    color: $p_white
+    //color: $p_white
   &:hover
     span
-      color: $p_white
+      //color: $p_white
 
 .btn
   &-primary
     background: $colorMainButton
+    //line-height: $lineHeightButton
     &:hover
       background: $colorMainButtonHover
       border-color: darken($colorMainButton, 12)

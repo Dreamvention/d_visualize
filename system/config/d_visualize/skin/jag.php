@@ -51,6 +51,9 @@ $_['d_visualize_skin_jag'] = array(
                 'components'      => array(
                     'notification' => array(
                         'template' => 'd_visualize/template/component/notification/default.twig',
+                    ),
+                    'product_section' => array(
+                        'template' => 'd_visualize/template/component/product_section/default.twig',
                     )
                 ),
             ),
@@ -71,14 +74,21 @@ $_['d_visualize_skin_jag'] = array(
             ),
         ),
         'product/product' => array(
+            'layout' => array(
+                'components'      => array(
+                    'product_section' => array(
+                        'template' => 'd_visualize/template/component/product_section/jag.twig',
+                    )
+                ),
+            ),
             'scripts' => array(
-//                'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-//                'https://code.jquery.com/jquery-2.1.1.min.js',
+                'catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js',
             )
         )
     ),
     'events'        => array(),
     'scripts'       => array(
+        'catalog/view/theme/d_visualize/javascript/skin/jag/d_default.js',
         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'https://code.jquery.com/jquery-2.1.1.min.js',
     ),
@@ -86,7 +96,7 @@ $_['d_visualize_skin_jag'] = array(
         'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
         'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap3/css/bootstrap.min.css',
         'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap4/bootstrap-grid.min.css',
-        'https://fonts.googleapis.com/css?family=Montserrat',
+        'https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,700,900&subset=cyrillic',
     ),
     'custom_styles' => array(
         ''

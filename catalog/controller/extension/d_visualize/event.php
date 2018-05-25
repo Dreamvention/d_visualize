@@ -36,13 +36,15 @@ class ControllerExtensionDVisualizeEvent extends Controller
         if (in_array($view, array_keys($this->config_skin['page']))) {
             if (isset($this->config_skin['page'][$view]['layout'])) {
                 $data = array_replace_recursive($data, $this->config_skin['page'][$view]['layout']);
-                $html_dom = new d_simple_html_dom();
-                $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-                $scripts = '';
-                foreach ($this->config_skin['page'][$view]['scripts'] as $script) {
-                    $scripts .= '<script src="' . $script . '"type=\'text/javascript\'></script>\n';
+                if (isset($this->config_skin['page'][$view]['scripts']) && !empty($this->config_skin['page'][$view]['scripts'])){
+                    $html_dom = new d_simple_html_dom();
+                    $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+                    $scripts = '';
+                    foreach ($this->config_skin['page'][$view]['scripts'] as $script) {
+                        $scripts .= '<script src="' . $script . '"type=\'text/javascript\'></script>\n';
+                    }
+                    $html_dom->find('head', 0)->innertext .= $scripts;
                 }
-                $html_dom->find('head', 0)->innertext .= $scripts;
             }
         }
     }

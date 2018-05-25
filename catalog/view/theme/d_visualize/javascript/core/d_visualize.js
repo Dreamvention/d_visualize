@@ -1114,10 +1114,10 @@ var wishlist = {
 	'remove': function remove() {}
 };
 $(document).ready(function () {
-	var rating = $('#review_rating').rating({
-		filled: 'fas fa-star',
-		empty: 'fas empty fa-star'
-	});
+	// var rating = $('#review_rating').rating({
+	// 	filled: 'fas fa-star',
+	// 	empty: 'fas empty fa-star'
+	// });
 });
 var d_address_field = {
 
@@ -1317,7 +1317,6 @@ var d_custom_field = {
 	}
 };
 $(document).ready(function () {
-	console.log('start d_product_sort');
 	// Product List
 	$(document).on('click', '#list-view', function () {
 		console.log('click list-view');
@@ -1356,7 +1355,6 @@ var Product = {
 		minimum: ''
 	},
 	init: function init(setting) {
-		console.log('start Product');
 		this.setting = $.extend({}, this.setting, setting);
 		this.render();
 	},
@@ -1573,7 +1571,7 @@ var Product = {
 
 		$('#review').load('index.php?route=product/product/review&product_id=' + that.setting.product_id);
 
-		$('input[name=\'rating\']').rating();
+		// $('input[name=\'rating\']').rating();
 
 		$('.date').datetimepicker({
 			pickTime: false

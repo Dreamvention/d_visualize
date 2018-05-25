@@ -29,6 +29,15 @@ gulp.task('sass', function () {
 		.pipe(gulp.dest('stylesheet/skin/'))
 		.pipe(browserSync.reload({stream: true}));
 });
+gulp.task('sass_dev_jag', function () {
+	return gulp.src('stylesheet/skin/jag/zhenia_latest/d_visualize_skin/d_default_skin.sass')
+		.pipe(autoprefixer(['last 15 versions']))
+		.pipe(sourcemaps.init())
+		.pipe(sass().on('error', sass.logError))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest('stylesheet/skin/'))
+		.pipe(browserSync.reload({stream: true}));
+});
 // Наблюдение за файлами
 gulp.task('watch', [ 'browser-sync'], function () {
 	gulp.watch('stylesheet/core/**/**/*.s*ss', ['sass-core']);

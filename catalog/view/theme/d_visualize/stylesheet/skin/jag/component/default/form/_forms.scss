@@ -3,7 +3,6 @@
   border-radius: 0;
   padding:rem(22) rem(20);
   font-size:$fontSizeInput;
-  line-height:($fontSizeInput,21);
   &:focus{
     border: $borderMain;
     border-color: $borderColorFocus;
@@ -26,4 +25,7 @@
       color: $p_red;
     }
   }
+}
+select.form-control{
+  padding: 0 rem(20);
 }
