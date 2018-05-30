@@ -3,7 +3,7 @@ $_['d_visualize_skin_jag'] = array(
     'name'          => 'Default skin',
     'description'   => 'Skin from default opencart',
     'page'          => array(
-        'default'         => array(
+        'default'          => array(
             'layout' => array(
                 'template'        => 'd_visualize/template/layout/default.twig', // here can be custom settings for this template
                 'container_width' => '1024',
@@ -20,7 +20,7 @@ $_['d_visualize_skin_jag'] = array(
                         'template'   => 'd_visualize/template/partial/d_product_sort.twig', // here can be custom settings for this template
                         'components' => array(
                             'd_product_sort' => array(
-                                'template' => 'd_visualize/template/component/d_product_sort/default.twig'
+                                'template' => 'd_visualize/template/component/d_product_sort/jag.twig'
                             )
                         )
                     ),
@@ -38,6 +38,14 @@ $_['d_visualize_skin_jag'] = array(
                             )
                         )
                     ),
+                    'd_product_list'  => array(
+                        'template'   => 'd_visualize/template/partial/d_product_list.twig', // here can be custom settings for this template
+                        'components' => array(
+                            'd_product_list' => array(
+                                'template' => 'd_visualize/template/component/d_product_list/jag.twig',
+                            )
+                        )
+                    ),
                     'd_rating'        => array(
                         'template'   => 'd_visualize/template/component/d_rating/default.twig',
                         'components' => array(
@@ -51,15 +59,12 @@ $_['d_visualize_skin_jag'] = array(
                 'components'      => array(
                     'notification' => array(
                         'template' => 'd_visualize/template/component/notification/default.twig',
-                    ),
-                    'product_section' => array(
-                        'template' => 'd_visualize/template/component/product_section/default.twig',
                     )
                 ),
             ),
             'blocks' => array('main_wrapper', 'before_content', 'content', 'after_content')
         ),
-        'common/home'     => array(
+        'common/home'      => array(
             'layout' => array(
                 'partial' => array(
                     'breadcrumb' => array(
@@ -73,20 +78,44 @@ $_['d_visualize_skin_jag'] = array(
                 )
             ),
         ),
-        'product/product' => array(
-            'layout' => array(
-                'components'      => array(
+        'product/product'  => array(
+            'layout'  => array(
+                'components' => array(
                     'product_section' => array(
                         'template' => 'd_visualize/template/component/product_section/jag.twig',
+
+                    ),
+                    'options' => array(
+                        'template' => 'd_visualize/template/component/product_options/jag.twig',
+
                     )
                 ),
             ),
             'scripts' => array(
                 'catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js',
             )
+        ),
+        'product/category' => array(
+            'layout'  => array(
+                'components' => array(
+                    'category_section' => array(
+                        'template' => 'd_visualize/template/component/category_section/jag.twig',
+                    )
+                ),
+            ),
+            'scripts' => array()
+        ),
+        'checkout/cart'    => array(
+            'layout'  => array(
+                'components' => array(
+                    'checkout_cart' => array(
+                        'template' => 'd_visualize/template/component/checkout_cart/jag.twig',
+                    )
+                ),
+            ),
+            'scripts' => array()
         )
     ),
-    'events'        => array(),
     'scripts'       => array(
         'catalog/view/theme/d_visualize/javascript/skin/jag/d_default.js',
         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
@@ -101,4 +130,7 @@ $_['d_visualize_skin_jag'] = array(
     'custom_styles' => array(
         ''
     )
+);
+$_['config_theme_jag'] = array(
+    'product_thumb_size' => array('width' => '707', 'height' => '707')
 );

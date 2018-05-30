@@ -1,0 +1,202 @@
+<div class="cart-wrapper">
+    <h1 class="heading-h1">{{ heading_title }}</h1>
+    <div class="row">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="col-md-12">
+
+            {#<table class="cart-info">#}
+            {#<thead>#}
+            {#<tr>#}
+            {#<td class="col_product-image">{{ column_image }}</td>#}
+            {#<td class="col_product-name">{{ column_name }}</td>#}
+            {#<td class="col_product-quantity">{{ column_quantity }}</td>#}
+            {#<td class="col_product-total">{{ column_total }}</td>#}
+            {#<td class="col_product-price hidden-xs">{{ column_price }}</td>#}
+            {#<td class="col_close hidden-xs"></td>#}
+            {#</tr>#}
+            {#</thead>#}
+            {#<tbody>#}
+            {#{% for product in products %}#}
+            {#<tr>#}
+            {#<td class="text-left">#}
+            {#{% if product.thumb %}#}
+            {#<a href="{{ product.href }}" class="product-link"><img src="{{ product.thumb }}"#}
+            {#alt="{{ product.name }}"#}
+            {#title="{{ product.name }}"#}
+            {#class="product-image"/></a>#}
+            {#{% endif %}#}
+            {#</td>#}
+            {#<td class="text-left table-product-name"><a href="{{ product.href }}">{{ product.name }}</a>#}
+            {#{% if not product.stock %}#}
+            {#<span class="text-danger">***</span>#}
+            {#{% endif %}#}
+            {#{% if product.option %}#}
+            {#{% for option in product.option %}#}
+            {#<br/>#}
+            {#<small>{{ option.name }}: {{ option.value }}</small>#}
+            {#{% endfor %}#}
+            {#{% endif %}#}
+            {#</td>#}
+            {#<td class="text-left table-product-quantity">#}
+            {#<div class="input-group">#}
+            {#<span class="input-group-btn">#}
+            {#<button type="button" title="{{ button_decrease }}"#}
+            {#class="btn btn-primary btn-decrease"><img#}
+            {#src="../../image/d_visualize_skin/d_dreamvention/minus.svg" alt=""></button>#}
+            {#</span>#}
+            {#<input type="text" name="quantity[{{ product.cart_id }}]"#}
+            {#value="{{ product.quantity }}" size="1"#}
+            {#class="field field-product-quantity"/>#}
+            {#<span class="input-group-btn">#}
+            {#<button type="button" title="{{ button_increase }}"#}
+            {#class="btn btn-primary btn-increase"><img#}
+            {#src="../../image/d_visualize_skin/d_dreamvention/plus.svg" alt=""></button>#}
+            {#</span>#}
+            {#</div>#}
+            {#</td>#}
+            {#<td class="text-left cart-total-price">{{ product.total }}</td>#}
+            {#<td class="text-left cart-unit-price hidden-xs">{{ product.price }}</td>#}
+            {#<td class="text-center cart-delete hidden-xs">#}
+            {#<a href="" type="button" title="{{ button_remove }}" class="cart-delete-product"#}
+            {#onclick="cart_remove('{{ product.cart_id }}');"><img#}
+            {#src="../../image/d_visualize_skin/d_dreamvention/Icon_delete.svg"></a>#}
+            {#</td>#}
+            {#</tr>#}
+            {#{% endfor %}#}
+            {#</tbody>#}
+            {#</table>#}
+            <div class="row cart">
+                <div class="col-md-12 cart_header">
+                    <div class="row">
+                        <div class="col-md-1 cart_cell cart_cell--image cart_cell--image-text">
+                            <span>{{ column_image }}</span></div>
+                        <div class="col-md-2 cart_cell cart_cell--description cart_cell--description-text">
+                            <span>{{ column_name }}</span></div>
+                        <div class="col-md-1 cart_cell cart_cell--size cart_cell--size-text"><span>Размер</span></div>
+                        <div class="col-md-6 cart_cell cart_cell--quantity cart_cell--quantity-text">
+                            <span>{{ column_quantity }}</span></div>
+                        <div class="col-md-2 cart_cell cart_cell--price cart_cell--price-text">{{ column_price }}</div>
+                    </div>
+                </div>
+                <div class="col-md-12 cart_body">
+                    {% for product in products %}
+                        <div class="row cart_item">
+                            <div class="col-md-1 cart_cell cart_cell--image pl-0">
+                                {% if product.thumb %}
+                                    <a href="{{ product.href }}" class="image-wrap">
+                                        <img src="{{ product.thumb }}" alt="{{ product.name }}"
+                                             title="{{ product.name }}" class="image">
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-2 cart_cell cart_cell--description">
+                                <a href="{{ product.href }}">{{ product.name }}</a>
+                                {% if not product.stock %}
+                                    <span class="text-danger">***</span>
+                                {% endif %}
+                                {% if product.option %}
+                                    {% for option in product.option %}
+                                        <br/>
+                                        <small>{{ option.name }}: {{ option.value }}</small>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-1 cart_cell cart_cell--size">
+                                <input type="number" name="size" value="1" size="1" class="field">
+                            </div>
+                            <div class="col-md-6 cart_cell cart_cell--quantity">
+                                <div class="product-quantity">
+                                    <div data-prop="decrement" class="quantity-control decrement"><i
+                                                class="far fa-minus"></i></div>
+                                    <input type="number" name="quantity" value="1" size="1" id="input-quantity"
+                                           class="field quantity-control">
+                                    <div data-prop="increment" class="quantity-control increment"><i
+                                                class="far fa-plus"></i></div>
+                                </div>
+                                <a href="" type="button" title="{{ button_remove }}" class="cart-delete-product"
+                                   onclick="cart_remove('{{ product.cart_id }}');">
+                                    <i class="far fa-close"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-2 cart_cell cart_cell--price">
+                                <div class="price-wrapper">
+                                    <span class="item_price item_price--old"></span>
+                                    <span class="item_price item_price--actual">{{ product.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-12 cart_totals totals">
+                    {% for total in totals %}
+                        <div class="row">
+                            <div class="col-md-10 text-right">
+                                <span class="text-left totals_total">{{ total.title }}:</span>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="text-left totals_price item_price item_price--total">{{ total.text }}</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {# <button type="submit" class="btn hidden btn-submit"></button> #}
+        </form>
+    </div>
+    {% if coupon or voucher or reward or shipping %}
+        <div class="row">
+            <h2>{{ text_next }}</h2>
+            <p>{{ text_next_choice }}</p>
+            <div class="panel-group" id="accordion">{{ coupon }}{{ voucher }}{{ reward }}{{ shipping }}</div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {# <div class="pull-left"><a href="{{continue}}" class="btn btn-default">{{button_shopping}}</a></div>
+        <div class="pull-right"><a href="{{checkout}}" class="btn btn-primary">{{button_checkout}}</a></div> #}
+        <div class="btn-group flex-right">
+            <button type="button" class="btn btn-default btn-lg"
+                    onclick="window.location='{{ continue }}';">{{ button_shopping }}</button>
+            <button type="button" class="btn btn-primary btn-lg"
+                    onclick="window.location='{{ checkout }}';">{{ button_checkout }}</button>
+        </div>
+    </div>
+</div>
+<script>
+	$(document).on('click', '.btn-increase', function (e) {
+		var $input = $(this).parent().parent().find('input');
+		var quantity = parseInt($input.attr('value')) + 1;
+		$input.attr('value', quantity);
+		$('.cart-wrapper form').submit();
+	});
+	$(document).on('click', '.btn-decrease', function (e) {
+		var $input = $(this).parent().parent().find('input');
+		var quantity = parseInt($input.attr('value')) - 1;
+		if (quantity < 0) {
+			quantity = 0;
+		}
+		$input.attr('value', quantity);
+		$('.cart-wrapper form').submit();
+	});
+
+	function cart_remove(product_id) {
+		$.ajax({
+			url: 'index.php?route=checkout/cart/remove',
+			type: 'post',
+			data: 'key=' + product_id,
+			dataType: 'json',
+			beforeSend: function () {
+				$('#cart > button').button('loading');
+			},
+			complete: function () {
+				$('#cart > button').button('reset');
+			},
+			success: function (json) {
+				// Need to set timeout otherwise it wont update the total
+				window.location.reload();
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	}
+</script>

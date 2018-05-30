@@ -23,14 +23,19 @@ class ControllerExtensionModuleDVisualize extends Controller
         if ($this->d_admin_style) {
             $this->load->model('extension/d_admin_style/style');
         }
-        $this->d_shopunity = (file_exists(  DIR_SYSTEM . 'library/d_shopunity/extension/d_shopunity.json'));
+        $this->d_shopunity = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_shopunity.json'));
         $this->d_opencart_patch = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_opencart_patch.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
-        $this->d_twig_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_twig_manager.json'));
-        $this->d_event_manager = (file_exists(DIR_SYSTEM.'library/d_shopunity/extension/d_event_manager.json')); $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
+        $this->d_twig_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_twig_manager.json'));
+        $this->d_event_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_event_manager.json'));
+        $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
 
         $this->config->load($this->codename . '/' . $this->codename);
         $this->config_visualize = $this->config->get($this->codename);
+        $this->config->load($this->codename . '/skin/' . $this->config_visualize['active_skin']);
+        $this->config_theme = $this->config->get('config_theme_visualize');
+        $this->config_active_skin_theme = $this->config->get('config_theme_' . $this->config_visualize['active_skin']);
+
     }
 
     public function index()
@@ -43,7 +48,7 @@ class ControllerExtensionModuleDVisualize extends Controller
 //            $this->load->model('extension/d_sho   punity/mbooth');
 //            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
 //        }
-        if($this->d_twig_manager){
+        if ($this->d_twig_manager) {
             $this->load->model('extension/module/d_twig_manager');
             $this->model_extension_module_d_twig_manager->installCompatibility();
         }
@@ -116,8 +121,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         } else {
             $this->uninstallTheme();
         }
-        $this->config->load($this->codename . '/skin/' . $this->config_visualize['active_skin']);
-        $config_active_skit = $this->config->get($this->codename . '_skin_' . $this->config_visualize['active_skin']);
         // Breadcrumbs
         $data['breadcrumbs'] = array();
         $data['breadcrumbs'][] = array(
@@ -145,22 +148,19 @@ class ControllerExtensionModuleDVisualize extends Controller
     public function uninstallTheme()
     {
         $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
-//        $setting['theme_default_directory'] = $this->session->data['previous_theme']; // 32 work
-        $setting['theme_default_directory'] = 'default'; // 32 work
+        $setting['theme_default_directory'] = 'default';
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
         $this->uninstallEvents();
     }
 
     public function installTheme()
     {
-//        $setting = $this->model_extension_d_opencart_patch_setting->getSetting('config');
-//        $setting['config_theme'] = $this->codename;//21 and lower
-//        $this->model_extension_d_opencart_patch_setting->editSetting('config',$setting);
         $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
         $this->session->data['previous_theme'] = $setting['theme_default_directory'];
         $setting['theme_default_directory'] = $this->codename; // 32 work
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
         $this->installEvents();
+        $this->installConfigTheme();
 
     }
 
@@ -178,8 +178,6 @@ class ControllerExtensionModuleDVisualize extends Controller
             //foreach components events or partials events
         }
     }
-
-
 
     public function uninstallEvents()
     {
@@ -211,6 +209,20 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $this->response->redirect($this->model_extension_d_opencart_patch_url->getExtensionLink('module'));
 
+    }
+
+    public function installConfigTheme()
+    {
+        $this->load->model('setting/setting');
+
+        if (VERSION > '3.0.0.0') {
+            foreach ($this->config_theme['size'] as $key => $size) {
+                $this->model_setting_setting->editSettingValue(
+                    'theme_default', 'theme_default_' . $key . '_width', $size['width'], $this->store_id);
+                $this->model_setting_setting->editSettingValue(
+                    'theme_default', 'theme_default_' . $key . '_height', $size['height'], $this->store_id);
+            }
+        }
     }
 }
 

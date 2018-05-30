@@ -36,6 +36,10 @@ html .main-wrapper .product-layout
   padding: 15px
   width: 100%
   background: #fff
+  .img-responsive
+    width: 100%
+    max-width: 100%
+    height: auto
   +transition
   +prefixes('transform', 'scale(1)')
   &:hover
@@ -45,7 +49,7 @@ html .main-wrapper .product-layout
     .btn-buy
       visibility: visible
       opacity: 1
-      height: auto
+      height: rem(55)
   &_image
     position: relative
     height: 207px
@@ -88,7 +92,7 @@ html .main-wrapper .product-layout
     top: 19px
     right: 15px
     font-size: fz(18px)
-    color: $colorMain
+    color: $p_choral
     cursor: pointer
     &:not(.js--filled):hover
       animation: PulseFadeOut .4s ease

@@ -1,35 +1,5 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-    <h1 class="heading-h1">{{ heading_title }}</h1>
-    {% if categories %}
-        <div class="h4">{{ text_refine }}</div>
-        <div class="row refine-search">
-            {% for category in categories %}
-                <div class="col-sm-3"><a href="{{ category.href }}">{{ category.name }}</a></div>
-            {% endfor %}
-        </div>
-    {% endif %} {#-- categories --#}
-    {% if products %}
-        {% include partial.d_product_sort.template with partial.d_product_sort %}
-        <div class="row">
-            {% for product in products %}
-                    <div class="product-layout product-list col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        {% include partial.d_product_thumb.template with product %}
-                    </div>
-            {% endfor %}
-        </div>
-        <div class="row">
-            <div class="col-sm-12 text-center-lg">{{ pagination }}</div>
-        </div>
-    {% endif %} {#-- products --#}
-
-    {% if not categories %}
-        {% if not products %}
-            <p>{{ text_empty }}</p>
-            <div class="buttons">
-                <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary" data-loading-text="{{ text_loading }}">{{ button_continue }}</a></div>
-            </div>
-        {% endif %}
-    {% endif %}
+    {% include components.category_section.template %}
 {% endblock %}

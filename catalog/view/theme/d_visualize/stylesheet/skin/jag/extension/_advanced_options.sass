@@ -6,7 +6,7 @@
 .options
   display: flex
 
-input[type=radio]
+input[type=radio], input[type=checkbox]
   position: absolute
   opacity: 0
   cursor: pointer
@@ -22,7 +22,6 @@ input[type=radio]
     cursor: pointer
     &:last-of-type
       margin-right: 0
-
     img
       position: absolute
       top: 0
@@ -51,7 +50,8 @@ input[type=radio]
       border-color: #000
       box-shadow: inset 0 0 0 3px #000
 
-  input[type=radio]
+.options
+  input[type=radio], input[type=checkbox]
     &:checked
       + .product-color
         box-shadow: inset 0 0 0 3px #fff
@@ -67,7 +67,8 @@ input[type=radio]
         &--black
           border-color: #000
           background: darken(saturate(#000, 22), 19)
-
+      ~ img
+        box-shadow: inset 0 0 0 3px $p_choral
 .options--size
   .custom-control
     width: 54px
@@ -91,6 +92,8 @@ input[type=radio]
         + .custom-control
           border-color: #bd6356
           box-shadow: inset 0 0 0 2px #bd6356
+        ~ img
+          box-shadow: inset 0 0 0 3px $p_choral
       &[disabled]
         + .custom-control
           position: relative
