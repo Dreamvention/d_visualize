@@ -47,10 +47,18 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_rating'        => array(
-                        'template'   => 'd_visualize/template/component/d_rating/default.twig',
+                        'template'   => 'd_visualize/template/partial/d_rating.twig',
                         'components' => array(
                             'd_rating' => array(
                                 'template' => 'd_visualize/template/component/d_rating/default.twig'
+                            )
+                        )
+                    ),
+                    'd_review'        => array(
+                        'template'   => 'd_visualize/template/partial/d_review.twig',
+                        'components' => array(
+                            'd_review' => array(
+                                'template' => 'd_visualize/template/component/d_review/jag.twig'
                             )
                         )
                     )

@@ -10,6 +10,8 @@ $_['events'] = array(
 $_['config_theme_visualize'] = array(
     'size'=>array(
         'image_thumb'=>array('width'=>'707','height'=>'707'),
-        'image_additional'=>array('width'=>'115','height'=>'115')
+        'image_additional'=>array('width'=>'115','height'=>'115'),
+        'image_related'=>array('width'=>'218','height'=>'218'),
+        'image_category'=>array('width'=>'218','height'=>'218')
     )
     );

@@ -2,9 +2,9 @@
 <div data-rating="{{rating}}" class="rating rating-{{rating}}">
     {% for rating in [1,2,3,4,5] %}
         {% if product.rating < rating %}
-			<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+			<span class="fa-stack"><i class="fas empty fa-star"></i></span>
         {% else %}
-			<span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+			<span class="fa-stack"><i class="fas fa-star"></i><i class="fas empty fa-star"></i></span>
         {% endif %}
     {% endfor %}
 </div>

@@ -56,6 +56,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         }
         $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/skin/' . $this->config_visualize['active_skin'] . '/stylesheet.css');
         $data['styles'] = $this->document->getStyles();
+
         foreach ($this->config_skin['scripts'] as $script) {
             array_unshift($data['scripts'], $script);
         }

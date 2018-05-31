@@ -86,23 +86,7 @@ html .main-wrapper .product-layout
     margin-right: 14px
     &:last-of-type
       margin-right: 0
-  .add-to-fave
-    position: absolute
-    +flex
-    top: 19px
-    right: 15px
-    font-size: fz(18px)
-    color: $p_choral
-    cursor: pointer
-    &:not(.js--filled):hover
-      animation: PulseFadeOut .4s ease
-    .product-options_size
-      opacity: 0
-      visibility: hidden
-    button
-      background: none
-      height: auto
-      line-height: 1
+
   .badge
     top: 12px
     left: 12px
@@ -186,3 +170,6 @@ html .main-wrapper .product-layout-sm
   padding-right: 0
   .product-name
     font-size: fz(15px)
+.product-thumb .add-to-fave
+  position: absolute
+

@@ -116,10 +116,10 @@ class ControllerExtensionModuleDVisualize extends Controller
         $data['setting'] = array_replace_recursive($this->config_visualize, $data['setting']);
 
         $status = $this->codename . '_status';
+
+        $this->uninstallTheme();
         if ($data[$status]) {
             $this->installTheme();
-        } else {
-            $this->uninstallTheme();
         }
         // Breadcrumbs
         $data['breadcrumbs'] = array();
@@ -159,6 +159,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->session->data['previous_theme'] = $setting['theme_default_directory'];
         $setting['theme_default_directory'] = $this->codename; // 32 work
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
+        $this->uninstallEvents();
         $this->installEvents();
         $this->installConfigTheme();
 

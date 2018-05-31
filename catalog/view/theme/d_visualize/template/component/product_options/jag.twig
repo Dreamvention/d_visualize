@@ -1,4 +1,5 @@
 {% if options %}
+    <div class="options-wrap">
     {% for option in options %}
         {% if option.type == 'select' %}
             <div class="form-group{% if option.required %} required {% endif %}">
@@ -29,12 +30,18 @@
                             {% if option_value.image %}
                                 <div class="product-option"></div>
                                 <img src="{{ option_value.image }}"
-                                     alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}"
-                                     class="img-thumbnail" />{% endif %}
-                            {{ option_value.name }}
-                            {% if option_value.price %}
-                                ({{ option_value.price_prefix }}{{ option_value.price }})
+                                     alt="{{ option_value.name }}
+                                {% if option_value.price %}
+                                    {{ option_value.price_prefix }} {{ option_value.price }}
+                                {% endif %}"
+                                     class="img-thumbnail"/>
+                            {% else %}
+                                {{ option_value.name }}
+                                {% if option_value.price %}
+                                    ({{ option_value.price_prefix }}{{ option_value.price }})
+                                {% endif %}
                             {% endif %}
+
                         </label>
                     {% endfor %}
                 </div>
@@ -45,17 +52,23 @@
                 <label class="control-label">{{ option.name }}</label>
                 <div id="input-option{{ option.product_option_id }}" class="options">
                     {% for option_value in option.product_option_value %}
-                            <label class="product-option-wrap">
-                                <input type="checkbox"
-                                       name="option[{{ option.product_option_id }}][]"
-                                       value="{{ option_value.product_option_value_id }}"/>
-                                {% if option_value.image %} <img src="{{ option_value.image }}"
-                                                                 alt="{{ option_value.name }} {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }} {% endif %}"
-                                                                 class="img-thumbnail"/> {% endif %}
+                        <label class="product-option-wrap">
+                            <input type="checkbox"
+                                   name="option[{{ option.product_option_id }}][]"
+                                   value="{{ option_value.product_option_value_id }}"/>
+                            {% if option_value.image %}
+                                <img src="{{ option_value.image }}"
+                                     alt="{{ option_value.name }}
+                                    {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }}
+                                    {% endif %}"
+                                     class="img-thumbnail"/>
+                            {% else %}
                                 {{ option_value.name }}
                                 {% if option_value.price %}
                                     ({{ option_value.price_prefix }}{{ option_value.price }})
-                                {% endif %} </label>
+                                {% endif %}
+                            {% endif %}
+                        </label>
                     {% endfor %} </div>
             </div>
         {% endif %}
@@ -132,4 +145,4 @@
             </div>
         {% endif %}
     {% endfor %}
-{% endif %}
+    </div>{% endif %}

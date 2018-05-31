@@ -1,0 +1,34 @@
+{% if review_status %}
+    <div class="tab-pane" id="tab-review">
+        <form class="form-horizontal" id="form-review">
+            <div id="review"></div>
+            <h2>{{ text_write }}</h2>
+            {% if review_guest %}
+                <div class="form-group required">
+                    <div class="col-sm-12">
+                        <label class="control-label" for="input-name">{{ entry_name }}</label>
+                        <input type="text" name="name" value="{{ customer_name }}" id="input-name" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group required">
+                    <div class="col-sm-12">
+                        <label class="control-label" for="input-review">{{ entry_review }}</label>
+                        <textarea name="text" rows="5" id="input-review" class="form-control"></textarea>
+                        <div class="help-block">{{ text_note }}</div>
+                    </div>
+                </div>
+
+                {% include partial.d_rating.template with partial.d_rating %}
+
+                {{ captcha }}
+                <div class="buttons clearfix">
+                    <div class="pull-right">
+                        <button type="button" id="button-review" data-loading-text="{{ text_loading }}" class="btn btn-primary">{{ button_continue }}</button>
+                    </div>
+                </div>
+            {% else %}
+                {{ text_login }}
+            {% endif %}
+        </form>
+    </div>
+{% endif %}

@@ -337,7 +337,7 @@ $(document).ready(function () {
     }, 1500);
 });
 $(document).ready(function () {
-    $('.product-quantity .quantity-control').on('click', function () {
+    $(document).on('click','.product-quantity .quantity-control', function () {
         var parent = $(this).closest('.product-quantity');
         var input = parent.find('#input-quantity');
         var inputVal = +input.val();
@@ -349,6 +349,7 @@ $(document).ready(function () {
         }
 
         if ($(this).data('prop') === 'increment') {
+            console.log(inputVal)
             input.val(inputVal + 1);
         }
     });
