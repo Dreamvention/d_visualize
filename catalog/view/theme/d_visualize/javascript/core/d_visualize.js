@@ -1114,10 +1114,12 @@ var wishlist = {
 	'remove': function remove() {}
 };
 $(document).ready(function () {
-	// var rating = $('#review_rating').rating({
-	// 	filled: 'fas fa-star',
-	// 	empty: 'fas empty fa-star'
-	// });
+	if ($().rating){
+		var rating = $('.rating').rating({
+			filled: 'fas fa-star',
+			empty: 'fas empty fa-star'
+		});
+		}
 });
 var d_address_field = {
 

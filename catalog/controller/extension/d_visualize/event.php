@@ -26,8 +26,8 @@ class ControllerExtensionDVisualizeEvent extends Controller
     public function controller_all_before_d_visualize(&$view, &$data)
     {
         foreach ($this->config_skin['scripts'] as $script) {
-            array_unshift($data['scripts'], $script);
-        }
+//            array_unshift($data['scripts'], $script);
+            }
     }
 
     public function view_all_before_d_visualize(&$view, &$data)
@@ -41,9 +41,15 @@ class ControllerExtensionDVisualizeEvent extends Controller
                     $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
                     $scripts = '';
                     foreach ($this->config_skin['page'][$view]['scripts'] as $script) {
-                        $scripts .= '<script src="' . $script . '"type=\'text/javascript\'></script>\n';
+                        $scripts .= '<script src="' . $script . '"type=\'text/javascript\'></script>';
+                    }
+                    $styles= '';
+                    foreach ($this->config_skin['page'][$view]['styles'] as $style) {
+                        $styles .= '<link rel="stylesheet" href="'.$style.'">';
                     }
                     $html_dom->find('head', 0)->innertext .= $scripts;
+                    $html_dom->find('head', 0)->innertext .= $styles;
+                    $data['header'] = (string)$html_dom;
                 }
             }
         }

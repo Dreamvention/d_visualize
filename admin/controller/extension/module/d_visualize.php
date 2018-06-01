@@ -225,6 +225,9 @@ class ControllerExtensionModuleDVisualize extends Controller
             }
         }
     }
+    public function install(){
+
+    }
 }
 
 ?>

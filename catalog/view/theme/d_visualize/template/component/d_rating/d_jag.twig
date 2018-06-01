@@ -1,0 +1,12 @@
+<div class="inline-block rating">
+    <input  value="2.5" class="rating-loading">
+</div>
+<script>
+	$(document).on('ready', function(){
+		$('.rating-loading').rating({
+			step: 1,
+			filled: 'fas fa-star',
+			empty: 'fas empty fa-star'
+		});
+	});
+</script>

@@ -28,7 +28,7 @@
     "url": "https://dreamvention.com/support"
   },
   "required": {
-    "d_shopunity": ">= 3.0.0",
+    "d_opencart_patch": ">= 3.0.0",
     "d_twig_manager": ">= 1.0.0",
     "d_event_manager": ">= 1.0.0",
     "d_visual_designer_header": ">=1.0.0"

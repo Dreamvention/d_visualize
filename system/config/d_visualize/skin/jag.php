@@ -1,6 +1,7 @@
 <?php
 $_['d_visualize_skin_jag'] = array(
-    'name'          => 'Default skin',
+    'name'          => 'Jag skin',
+    'codename'          => 'd_jag',
     'description'   => 'Skin from default opencart',
     'page'          => array(
         'default'          => array(
@@ -50,7 +51,7 @@ $_['d_visualize_skin_jag'] = array(
                         'template'   => 'd_visualize/template/partial/d_rating.twig',
                         'components' => array(
                             'd_rating' => array(
-                                'template' => 'd_visualize/template/component/d_rating/default.twig'
+                                'template' => 'd_visualize/template/component/d_rating/d_jag.twig'
                             )
                         )
                     ),
@@ -70,7 +71,7 @@ $_['d_visualize_skin_jag'] = array(
                     )
                 ),
             ),
-            'blocks' => array('main_wrapper', 'before_content', 'content', 'after_content')
+            'block' => array('main_wrapper', 'before_content', 'content', 'after_content')
         ),
         'common/home'      => array(
             'layout' => array(
@@ -100,7 +101,11 @@ $_['d_visualize_skin_jag'] = array(
                 ),
             ),
             'scripts' => array(
+                'catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.min.js',
                 'catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js',
+            ),
+            'styles' => array(
+                'catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.css',
             )
         ),
         'product/category' => array(
