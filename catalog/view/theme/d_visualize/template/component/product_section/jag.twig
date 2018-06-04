@@ -75,16 +75,7 @@
                 <div id="product" class="product-info hidden-xs hidden-sm">
                 {% if review_status %}
                     <div class="product-rating">
-                        {% include partial.d_rating.template  with partial.d_rating %}
-
-                        {#<div class="rating" style="cursor: default">#}
-                            {#{% for i in 1..5 %}#}
-                                {#{% if rating < i %}<span class="fa-stack"><i#}
-                                            {#class="fas empty fa-star"></i></span>{% else %}<span#}
-                                        {#class="fa-stack"><i class="fas fa-star"></i><i#}
-                                            {#class="fas empty fa-star"></i></span>{% endif %}#}
-                            {#{% endfor %}#}
-                        {#</div>#}
+                        {% include partial.d_rating.template with partial.d_rating|merge({rating:rating}) %}
                         <div class="review-link">
                             <a href="" data-anchor="#reviews" class="link js-anchor">{{ reviews }}</a>
                         </div>
