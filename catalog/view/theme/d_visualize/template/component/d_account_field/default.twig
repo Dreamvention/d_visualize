@@ -13,7 +13,7 @@
   </div>
 </div>
 {% endif %}
-{% include 'd_visualize/template/partial/d_name_field.twig' with {form:form} %}
+{% include partial.d_name_field.template with  partial.d_name_field|merge({form:form}) %}
 <div class="form-group required">
   <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-email"><span>{{entry_email}}</span></label>
   <div class="{% if form %}col-sm-10{% endif %}">

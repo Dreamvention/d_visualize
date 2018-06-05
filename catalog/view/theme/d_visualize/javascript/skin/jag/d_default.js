@@ -336,6 +336,9 @@ $(document).ready(function () {
         $('.af-wrapper').TrackpadScrollEmulator({ autoHide: false });
     }, 1500);
 });
+$(document).on('ready', function(){
+
+});
 $(document).ready(function () {
     $(document).on('click','.product-quantity .quantity-control', function () {
         var parent = $(this).closest('.product-quantity');
@@ -432,20 +435,46 @@ $(document).ready(function () {
     };
 })(jQuery);
 
-/*
+//
 $(document).ready(function () {
-    $('body').click(function () {
-        $('input[type="checkbox"]').each(function() {
-            if ($(this).parents('.ajax-filter').length === 0) {
-                $(this).visualizeControls();
-            }
-        });
+	Product.init = function init(setting) {
+		this.setting = $.extend({}, this.setting, setting);
+		this.render();
+		$('.rating-loading').rating({
+			step: 1,
+			filled: 'fas fa-star',
+			empty: 'fas empty fa-star'
+		});
+	}
+	Product.sendReview = function () {
+		var that = this;
+		$.ajax({
+			url: 'index.php?route=product/product/write&product_id=' + that.setting.product_id,
+			type: 'post',
+			dataType: 'json',
+			data: $("#form-review").serialize(),
+			beforeSend: function beforeSend() {
+				$('#button-review').button('loading');
+			},
+			complete: function complete() {
+				$('#button-review').button('reset');
+			},
+			success: function success(json) {
+				$('.alert-success, .alert-danger').remove();
 
-        $('input[type="radio"]').each(function() {
-            if ($(this).parents('.ajax-filter').length === 0) {
-                $(this).visualizeControls();
-            }
-        });
+				if (json['error']) {
+					$('#write_review_modal .modal-body').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+				}
 
-    });
-});*/
+				if (json['success']) {
+                    $('#write_review_modal .modal-body').after('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+					$('input[name=\'name\']').val('');
+					$('textarea[name=\'text\']').val('');
+					$('input[name=\'rating\']:checked').prop('checked', false);
+				}
+			}
+		});
+	}
+
+});

@@ -13,21 +13,21 @@
         <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
             <fieldset id="account">
                 <legend>{{ text_your_details }}</legend>
-                {% include 'd_visualize/template/partial/d_account_field.twig' with {form:'inline'} %}
+                {% include partial.d_account_field.template with partial.d_account_field|merge({form:'inline'}) %}
                 {% for custom_field in custom_fields %}
                     {% if custom_field.location == 'account' %}
                         {% set custom_field = custom_field|merge({form:'inline'}) %}
-                        {#{% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}#}
+                        {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
                     {% endif %}
                 {% endfor %}
             </fieldset>
             <fieldset id="address">
                 <legend>{{ text_your_address }}</legend>
-                {#{% include 'd_visualize/template/partial/d_address_field.twig' with {form:'inline'} %}#}
+                {% include partial.d_address_field.template with partial.d_address_field|merge({form:'inline'})  %}
                 {% for custom_field in custom_fields %}
                     {% if custom_field.location == 'address' %}
                         {% set custom_field = custom_field|merge({form:'inline'}) %}
-                        {#{% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}#}
+                        {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
                     {% endif %}
                 {% endfor %}
             </fieldset>

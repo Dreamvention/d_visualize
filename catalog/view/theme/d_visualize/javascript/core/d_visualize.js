@@ -3,13 +3,13 @@
 var Checkout = {
 
 	/**
-  * Setting:
-  * 	When starting checout app, you must pass all
-  * 	of the following setting lets, substituting the 'text_...'
-  * 	with php <?php echo $text_... ; ?>
-  *
-  * @type {Object}
-  */
+	 * Setting:
+	 *    When starting checout app, you must pass all
+	 *    of the following setting lets, substituting the 'text_...'
+	 *    with php <?php echo $text_... ; ?>
+	 *
+	 * @type {Object}
+	 */
 	setting: {
 		account: 'guest',
 		shipping_required: true,
@@ -31,11 +31,11 @@ var Checkout = {
 	},
 
 	/**
-  * initate your app with this function
-  *
-  * @param  {[type]} setting [description]
-  * @return {[type]}         [description]
-  */
+	 * initate your app with this function
+	 *
+	 * @param  {[type]} setting [description]
+	 * @return {[type]}         [description]
+	 */
 	init: function init(setting) {
 		console.log('start Checkout');
 		this.setting = $.extend({}, this.setting, setting);
@@ -56,8 +56,8 @@ var Checkout = {
 		this.render();
 	},
 	/**
-  * Setter: account
-  */
+	 * Setter: account
+	 */
 	setAccount: function setAccount() {
 		if (this.setting.account !== 'logged') {
 			this.setting.account = $('input[name=\'account\']:checked').prop('value');
@@ -65,25 +65,25 @@ var Checkout = {
 		console.log(this.setting.account);
 	},
 	/**
-  * Error handler
-  * @param  {[type]} xhr         [description]
-  * @param  {[type]} ajaxOptions [description]
-  * @param  {[type]} thrownError [description]
-  * @return {[type]}             [description]
-  */
+	 * Error handler
+	 * @param  {[type]} xhr         [description]
+	 * @param  {[type]} ajaxOptions [description]
+	 * @param  {[type]} thrownError [description]
+	 * @return {[type]}             [description]
+	 */
 	errorHandler: function errorHandler(xhr, ajaxOptions, thrownError) {
 		alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 	},
 	/**
-  * Action: changing step. It includes 6 steps:
-  * 'account', 'payment_address', 'shipping_address',
-  * 'shipping_method', 'payment_method', 'confirm'
-  *
-  * every step will unfold the body of step container.
-  *
-  * @param  {[type]} step [description]
-  * @return {[type]}      [description]
-  */
+	 * Action: changing step. It includes 6 steps:
+	 * 'account', 'payment_address', 'shipping_address',
+	 * 'shipping_method', 'payment_method', 'confirm'
+	 *
+	 * every step will unfold the body of step container.
+	 *
+	 * @param  {[type]} step [description]
+	 * @return {[type]}      [description]
+	 */
 	changeStep: function changeStep(step) {
 		this.setting.step = step;
 		if (this.setting.step === 'account') {
@@ -118,9 +118,9 @@ var Checkout = {
 		console.log(this.setting.step);
 	},
 	/**
-  * Action: changing account. Fires when client picks one of the account types: register or guest
-  * @return {[type]} [description]
-  */
+	 * Action: changing account. Fires when client picks one of the account types: register or guest
+	 * @return {[type]} [description]
+	 */
 	changeAccount: function changeAccount() {
 		this.setAccount();
 		var that = this;
@@ -141,17 +141,17 @@ var Checkout = {
 	},
 
 	/**
-  *
-  *
-  * 		VIEWS
-  *
-  *
-  */
+	 *
+	 *
+	 *        VIEWS
+	 *
+	 *
+	 */
 	/**
-  * Returns the view of Login
-  * @param  {Function} callback
-  * @return {[type]}
-  */
+	 * Returns the view of Login
+	 * @param  {Function} callback
+	 * @return {[type]}
+	 */
 	getLoginView: function getLoginView(callback) {
 
 		var that = this;
@@ -171,12 +171,12 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Register. If the client is not logged in
-  * and has selected account option 'register'
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Register. If the client is not logged in
+	 * and has selected account option 'register'
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getRegisterView: function getRegisterView(callback) {
 		var that = this;
 		$.ajax({
@@ -206,12 +206,12 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Guest. If the client is not logged in
-  * and has selected account option 'guest'
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Guest. If the client is not logged in
+	 * and has selected account option 'guest'
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getGuestView: function getGuestView(callback) {
 		var that = this;
 		$.ajax({
@@ -240,11 +240,11 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Payment Address. If the client is logged in.
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Payment Address. If the client is logged in.
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getPaymentAddressView: function getPaymentAddressView(callback) {
 		var that = this;
 		$.ajax({
@@ -265,12 +265,12 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Shipping Address. If the client is logged in
-  * or if he is not logged in but has selected 'register' account option
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Shipping Address. If the client is logged in
+	 * or if he is not logged in but has selected 'register' account option
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getShippingAddressView: function getShippingAddressView(callback) {
 		var that = this;
 		$.ajax({
@@ -290,12 +290,12 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Shipping Address for Guest.
-  * If the client is not logged in has selected 'guest' account option
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Shipping Address for Guest.
+	 * If the client is not logged in has selected 'guest' account option
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getGuestShippingAddressView: function getGuestShippingAddressView(callback) {
 		var that = this;
 		$.ajax({
@@ -314,11 +314,11 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Shipping Method.
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Shipping Method.
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getShippingMethodView: function getShippingMethodView(callback) {
 		var that = this;
 		$.ajax({
@@ -337,11 +337,11 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Payment Method.
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Payment Method.
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getPaymentMethodView: function getPaymentMethodView(callback) {
 		var that = this;
 		$.ajax({
@@ -360,11 +360,11 @@ var Checkout = {
 	},
 
 	/**
-  * Returns the view of Confirm.
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Returns the view of Confirm.
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	getConfirmView: function getConfirmView(callback) {
 		var that = this;
 		$.ajax({
@@ -386,17 +386,17 @@ var Checkout = {
 	},
 
 	/**
-  *
-  *
-  * 		CLICKS
-  *
-  *
-  */
+	 *
+	 *
+	 *        CLICKS
+	 *
+	 *
+	 */
 	/**
-  * Ajax request for saving the login values and validating them.
-  *
-  * @return {[type]} [description]
-  */
+	 * Ajax request for saving the login values and validating them.
+	 *
+	 * @return {[type]} [description]
+	 */
 	clickLogin: function clickLogin() {
 		var that = this;
 		$.ajax({
@@ -431,13 +431,13 @@ var Checkout = {
 	},
 
 	/**
-  * Ajax request for saving register values and validating them.
-  * Only if the customer is not logged in and
-  * selected 'register' as account option.
-  *
-  * @param  {Function} callback [description]
-  * @return {[type]}            [description]
-  */
+	 * Ajax request for saving register values and validating them.
+	 * Only if the customer is not logged in and
+	 * selected 'register' as account option.
+	 *
+	 * @param  {Function} callback [description]
+	 * @return {[type]}            [description]
+	 */
 	clickRegister: function clickRegister(callback) {
 		var that = this;
 		$.ajax({
@@ -1018,7 +1018,7 @@ var compare = {
 
 					$('#compare-total').html(json['total']);
 
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
+					$('html, body').animate({scrollTop: 0}, 'slow');
 				}
 			},
 			error: function error(xhr, ajaxOptions, thrownError) {
@@ -1026,10 +1026,12 @@ var compare = {
 			}
 		});
 	},
-	'remove': function remove() {}
+	'remove': function remove() {
+	}
 };
 var voucher = {
-	'add': function add() {},
+	'add': function add() {
+	},
 	'remove': function remove(key) {
 		$.ajax({
 			url: 'index.php?route=checkout/cart/remove',
@@ -1111,7 +1113,8 @@ var wishlist = {
 			}
 		});
 	},
-	'remove': function remove() {}
+	'remove': function remove() {
+	}
 };
 $(document).ready(function () {
 
@@ -1196,8 +1199,8 @@ var d_custom_field = {
 			success: function success(json) {
 				$('.custom-field').hide();
 				$('.custom-field').removeClass('required');
-
-				for (i = 0; i < json.length; i++) {
+				var i = 0;
+				for (i < json.length; i++;) {
 					var custom_field = json[i];
 
 					$('#custom-field' + custom_field['custom_field_id']).show();
@@ -1441,7 +1444,7 @@ var Product = {
 
 					$('#cart > button').html('<i class="fa fa-shopping-cart"></i> ' + json['total']);
 
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
+					$('html, body').animate({scrollTop: 0}, 'slow');
 
 					$('#cart > ul').load('index.php?route=common/cart/info ul li');
 				}
@@ -1687,7 +1690,7 @@ var Total_coupon = {
 				if (json['error']) {
 					$('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
+					$('html, body').animate({scrollTop: 0}, 'slow');
 				}
 
 				if (json['redirect']) {
@@ -1728,7 +1731,7 @@ var Total_reward = {
 				if (json['error']) {
 					$('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
+					$('html, body').animate({scrollTop: 0}, 'slow');
 				}
 
 				if (json['redirect']) {
@@ -1780,7 +1783,7 @@ var Total_shipping = {
 					if (json['error']['warning']) {
 						$('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-						$('html, body').animate({ scrollTop: 0 }, 'slow');
+						$('html, body').animate({scrollTop: 0}, 'slow');
 					}
 
 					if (json['error']['country']) {
@@ -1873,7 +1876,7 @@ var Total_shipping = {
 				if (json['error']) {
 					$('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
+					$('html, body').animate({scrollTop: 0}, 'slow');
 				}
 
 				if (json['redirect']) {
@@ -1919,7 +1922,7 @@ var Total_voucher = {
 				if (json['error']) {
 					$('.breadcrumb').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
+					$('html, body').animate({scrollTop: 0}, 'slow');
 				}
 
 				if (json['redirect']) {
