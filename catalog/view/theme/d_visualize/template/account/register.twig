@@ -12,44 +12,50 @@
         <p>{{ text_account_already }}</p>
         <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
             <fieldset id="account">
-                <legend>{{ text_your_details }}</legend>
-                {% include partial.d_account_field.template with partial.d_account_field|merge({form:'inline'}) %}
+                <h3>{{ text_your_details }}</h3>
+                <div class="">
+
+                {% include partial.d_account_field.template with partial.d_account_field|merge({form:''}) %}
                 {% for custom_field in custom_fields %}
                     {% if custom_field.location == 'account' %}
                         {% set custom_field = custom_field|merge({form:'inline'}) %}
                         {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
                     {% endif %}
                 {% endfor %}
+                </div>
+
             </fieldset>
-            <fieldset id="address">
-                <legend>{{ text_your_address }}</legend>
-                {% include partial.d_address_field.template with partial.d_address_field|merge({form:'inline'})  %}
-                {% for custom_field in custom_fields %}
-                    {% if custom_field.location == 'address' %}
-                        {% set custom_field = custom_field|merge({form:'inline'}) %}
-                        {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
-                    {% endif %}
-                {% endfor %}
-            </fieldset>
+            {% if constant('VERSION') < '3.0.0.0' %}
+                <fieldset id="address">
+                    <h3>{{ text_your_address }}</h3>
+                    {% include partial.d_address_field.template with partial.d_address_field|merge({form:'inline'})  %}
+                    {% for custom_field in custom_fields %}
+                        {% if custom_field.location == 'address' %}
+                            {% set custom_field = custom_field|merge({form:'inline'}) %}
+                            {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
+                        {% endif %}
+                    {% endfor %}
+                </fieldset>
+            {% endif %}
             <fieldset>
-                <legend>{{ text_your_password }}</legend>
+                <h3>{{ text_your_password }}</h3>
                 <div class="form-group required">
-                    <label class=" col-sm-2 field-label label-right-md"
+                    <label class="field-label label-right-md"
                            for="input-password"><span>{{ entry_password }}</span></label>
-                    <div class="col-sm-10">
+                    <div class="">
                         <input type="password" name="password" value="{{ password }}"
-                               id="input-password" class="field"/>
+                               id="input-password" class="field form-control"/>
                         {% if error_password %}
                             <div class="text-danger">{{ error_password }}</div>
                         {% endif %}
                     </div>
                 </div>
                 <div class="form-group required">
-                    <label class="col-sm-2 field-label label-right-md"
+                    <label class="field-label label-right-md"
                            for="input-confirm"><span>{{ entry_confirm }}</span></label>
-                    <div class="col-sm-10">
+                    <div class="">
                         <input type="password" name="confirm" value="{{ confirm }}"
-                               id="input-confirm" class="field"/>
+                               id="input-confirm" class="field form-control"/>
                         {% if error_confirm %}
                             <div class="text-danger">{{ error_confirm }}</div>
                         {% endif %}
@@ -57,20 +63,20 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>{{ text_newsletter }}</legend>
+                <h3>{{ text_newsletter }}</h3>
                 <div class="form-group">
-                    <div class="col-xs-5 col-sm-2 text-right">
+                    <div class="">
                         <label class="field-label radio-label">{{ entry_newsletter }}</label>
                     </div>
-                    <div class="col-xs-7 col-sm-10">
-                        <label>
-                            <input type="radio" name="newsletter" value="1"
-                                   {% if newsletter %}checked="checked"{% endif %} />
-                            {{ text_yes }}</label>
-                        <label>
-                            <input type="radio" name="newsletter" value="0"
-                                   {% if not newsletter %}checked="checked"{% endif %} />
-                            {{ text_no }}</label>
+                    <div class="">
+                        <span class="custom-control custom-radio">
+                            <input type="radio" name="newsletter" value="1" class="custom-control-input"  {% if newsletter %}checked="checked"{% endif %}>
+                            <label class="custom-control-label" for="customRadio1">{{ text_yes }}</label>
+                        </span>
+                        <span class="custom-control custom-radio">
+                            <input type="radio" name="newsletter" value="0" class="custom-control-input"  {% if not newsletter %}checked="checked"{% endif %}>
+                            <label class="custom-control-label" for="customRadio1">{{ text_no }}</label>
+                        </span>
                     </div>
                 </div>
             </fieldset>
@@ -89,7 +95,7 @@
             {% else %}
                 <div class="buttons clearfix">
                     <div class="pull-right">
-                        <input type="submit" value="{{ button_continue }}" class="btn btn-primary btn-shrink"/>
+                        <input type="submit" value="{{ button_continue }}" class="btn btn-primary "/>
                     </div>
                 </div>
             {% endif %}

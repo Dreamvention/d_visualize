@@ -63,7 +63,7 @@
                         <div class="product-rating">
                             {#{% include 'd_visualize/template/partial/d_rating.twig' %}#}
                             <div class="review-link">
-                                <a href="" data-anchor="#reviews" class="link js-anchor">{{ reviews }}</a>
+                                <a href="" data-anchor="#review" class="link js-anchor">{{ reviews }}</a>
                                 / <a href="" data-anchor="#new-comment" class="link js-anchor">{{ text_write }}</a>
                             </div>
                         </div>
@@ -77,14 +77,14 @@
                         <div class="product-rating">
                             <div class="rating">
                                 {% for i in 1..5 %}
-                                    {% if review.rating < i %} <span class="fa fa-stack"><i
+                                    {% if rating < i %} <span class="fa fa-stack"><i
                                                 class="empty fa fa-star fa-stack-2x"></i></span> {% else %} <span
                                             class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i
                                                 class="fa fa-star-o fa-stack-2x"></i></span> {% endif %}
                                 {% endfor %}
                             </div>
                             <div class="review-link">
-                                <a href="" data-anchor="#reviews" class="link js-anchor">{{ reviews }}</a>
+                                <a href="" data-anchor="#review" class="link js-anchor">{{ reviews }}</a>
                             </div>
                         </div>
                     {% endif %}
@@ -112,7 +112,7 @@
                         {% endif %}
                     {% endif %}
                     {# *** OPTIONS *** #}
-                    {% include components.product_options.template %}
+                    {% include component.product_options.template %}
                     {# *** END OPTIONS *** #}
                     <h3>{{ entry_qty }}</h3>
                     <div class="form-group">
@@ -162,7 +162,7 @@
                 <div class="accordion">
                     <div data-tab="description" class="accordion_tab">
                         <div data-toggle="collapse" data-target="#collapseDescription" aria-expanded="true"
-                             aria-controls="collapseCharacteristics" class="accordion_tab-title">{{ tab_attribute }}
+                             aria-controls="collapseCharacteristics" class="accordion_tab-title">{{ tab_description }}
                             <i class="far fa-angle-right tab_angle"></i>
                         </div>
                         <div id="collapseDescription"

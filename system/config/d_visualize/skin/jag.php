@@ -75,7 +75,7 @@ $_['d_visualize_skin_jag'] = array(
                         'template'   => 'd_visualize/template/partial/d_name_field.twig',
                         'component' => array(
                             'd_name_field' => array(
-                                'template' => 'd_visualize/template/component/d_name_field/default.twig'
+                                'template' => 'd_visualize/template/component/d_name_field/jag.twig'
                             )
                         )
                     ),

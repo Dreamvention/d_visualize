@@ -3,7 +3,7 @@
     <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-company"><span>{{ entry_company }}</span></label>
     <div class="{% if form %}col-sm-10{% endif %}">
         <input type="text" name="company" value="{{ company }}" id="input-company"
-               class="field"/>
+               class="field form-control"/>
     </div>
 </div>
 {% if entry_website %}
@@ -11,7 +11,7 @@
         <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-website"><span>{{ entry_website }}</span></label>
         <div class="{% if form %}col-sm-10{% endif %}">
             <input type="text" name="website" value="{{ website }}" id="input-website"
-                   class="field"/>
+                   class="field form-control"/>
         </div>
     </div>
 {% endif %}

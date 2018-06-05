@@ -1,0 +1,20 @@
+<!-- > d_name_field -->
+<div class="form-group required">
+    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-firstname"><span>{{entry_firstname}}</span></label>
+    <div class="{% if form %}col-sm-10{% endif %}">
+        <input type="text" name="firstname" value="{{firstname}}" id="input-firstname" class="field form-control" />
+        {% if error_firstname %}
+            <div class="text-danger">{{error_firstname}}</div>
+        {% endif %}
+    </div>
+</div>
+<div class="form-group required">
+    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-lastname"><span>{{entry_lastname}}</span></label>
+    <div class="{% if form %}col-sm-10{% endif %}">
+        <input type="text" name="lastname" value="{{lastname}}" id="input-lastname" class="field form-control" />
+        {% if error_lastname %}
+            <div class="text-danger">{{error_lastname}}</div>
+        {% endif %}
+    </div>
+</div>
+<!-- /> d_name_field -->

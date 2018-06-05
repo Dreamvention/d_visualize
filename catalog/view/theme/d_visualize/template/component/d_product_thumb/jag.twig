@@ -32,16 +32,9 @@
                 </div>
             {% endif %}
             <div class="additional-info">
-                <div class="product-options">
-                    <div class="product-options_size">
-                        <span>36 37 38 39</span>
-                    </div>
-                    <div class="product-options_color">
-                        <span>6 цветов</span>
-                    </div>
-                </div>
+
             </div>
-            {#{% include 'd_visualize/template/partial/d_rating.twig' %}#}
+            {% include partial.d_rating.template with  partial.d_rating|merge({rating:5}) %}
             <button type="button" class="btn btn-secondary btn-buy btn-block" onclick="cart.add('{{ product.product_id }}', '{{ product.minimum }}');">{{ button_cart }}</button>
         </div>
     </div>

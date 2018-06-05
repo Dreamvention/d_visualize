@@ -340,22 +340,22 @@ $(document).on('ready', function(){
 
 });
 $(document).ready(function () {
-    $(document).on('click','.product-quantity .quantity-control', function () {
-        var parent = $(this).closest('.product-quantity');
-        var input = parent.find('#input-quantity');
-        var inputVal = +input.val();
-
-        if ($(this).data('prop') === 'decrement') {
-            if (inputVal >= 2) {
-                input.val(inputVal - 1);
-            }
-        }
-
-        if ($(this).data('prop') === 'increment') {
-            console.log(inputVal)
-            input.val(inputVal + 1);
-        }
-    });
+    // $(document).on('click','.product-quantity .quantity-control', function () {
+    //     var parent = $(this).closest('.product-quantity');
+    //     var input = parent.find('#input-quantity');
+    //     var inputVal = +input.val();
+    //
+    //     if ($(this).data('prop') === 'decrement') {
+    //         if (inputVal >= 2) {
+    //             input.val(inputVal - 1);
+    //         }
+    //     }
+    //
+    //     if ($(this).data('prop') === 'increment') {
+    //         console.log(inputVal)
+    //         input.val(inputVal + 1);
+    //     }
+    // });
 });
 // const swiper = require('swiper');
 // $('#featured').swiper({

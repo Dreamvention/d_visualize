@@ -17,7 +17,7 @@
 <div class="form-group required">
   <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-email"><span>{{entry_email}}</span></label>
   <div class="{% if form %}col-sm-10{% endif %}">
-    <input type="text" name="email" value="{{email}}" id="input-email" class="field" />
+    <input type="text" name="email" value="{{email}}" id="input-email" class="field form-control" />
     {% if error_email %}
     <div class="text-danger">{{error_email}}</div>
     {% endif %}
@@ -26,16 +26,18 @@
 <div class="form-group required">
   <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-telephone"><span>{{entry_telephone}}</span></label>
   <div class="{% if form %}col-sm-10{% endif %}">
-    <input type="text" name="telephone" value="{{telephone}}" id="input-telephone" class="field" />
+    <input type="text" name="telephone" value="{{telephone}}" id="input-telephone" class="field form-control" />
     {% if error_telephone %}
     <div class="text-danger">{{error_telephone}}</div>
     {% endif %}
   </div>
 </div>
+{% if constant('VERSION') < '3.0.0.0' %}
 <div class="form-group">
   <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-fax"><span>{{entry_fax}}</span></label>
   <div class="{% if form %}col-sm-10{% endif %}">
-    <input type="text" name="fax" value="{{fax}}" id="input-fax" class="field" />
+    <input type="text" name="fax" value="{{fax}}" id="input-fax" class="field form-control" />
   </div>
 </div>
+{% endif %}
 <!-- /> d_account_field -->
