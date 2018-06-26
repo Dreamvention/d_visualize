@@ -1,10 +1,10 @@
-<div class="product-section">
+<div class="product-product">
     <div class="row">
         {% if column_left or column_right %}
         <div class="col-sm-6">
             {% else %}
-            <div class="col-sm-12 col-md-6">
-                {% endif %}
+        <div class="col-sm-12 col-md-6">
+        {% endif %}
                 {% if thumb or images %}
                     <div class="product-images">
                         {% if thumb %}
@@ -24,55 +24,10 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                <div class="col-sm-12 hidden-md hidden-lg product-info">
-                    {% if price %}
-                        <div class="product-price-block">
-                            <div class="price-label">Price:</div>
-                            {% if not special %}
-                                <span class="product-price product-price_actual">{{ price }}</span>
-                            {% else %}
-                                <span class="product-price product-price_old">{{ price }}</span>
-                                <span class="product-price product-price_actual">{{ special }}</span>
-                            {% endif %}
-                            {% if discounts %}
-                                {% for discount in discounts %}
-                                    <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
-                    {% endif %}
-                    <div class="form-group">
-                        <input type="hidden" name="product_id" value="{{ product_id }}"/>
-                        <input type="hidden" name="quantity" value="{{ minimum }}" size="1" id="input-quantity"
-                               class="field"/>
-                        <button type="button" id="button-cart" data-loading-text="{{ text_loading }}"
-                                class="btn btn-primary">{{ button_cart }}</button>
-                    </div>
-                    {% if manufacturer %}
-                        <table class="product_attributes">
-                            <tr>
-                                <td class="product_attributes_name">{{ text_manufacturer }}</td>
-                                <td class="product_attributes_value">{{ manufacturer }}</td>
-                            </tr>
-                        </table>
-                    {% endif %}
-                    {% if minimum > 1 %}
-                        <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
-                    {% endif %}
-                    {% if review_status %}
-                        <div class="product-rating">
-                            {#{% include 'd_visualize/template/partial/d_rating.twig' %}#}
-                            <div class="review-link">
-                                <a href="" data-anchor="#review" class="link js-anchor">{{ reviews }}</a>
-                                / <a href="" data-anchor="#new-comment" class="link js-anchor">{{ text_write }}</a>
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-sm-6">
+        </div>
+            <div class="col-12 col-sm-6">
                 <h1 class="heading-h1">{{ heading_title }}</h1>
-                <div id="product" class="product-info hidden-xs hidden-sm">
+                <div id="product" class="product-info">
                     {% if review_status %}
                         <div class="product-rating">
                             <div class="rating">
@@ -90,7 +45,7 @@
                     {% endif %}
                     <span>{{ text_model }} {{ model }}</span>
                     {% if manufacturer %}
-                        <div class="product_brand">
+                        <div class="product_brand heading-h3">
                             <span class="product_brand_value">{{ manufacturer }}</span>
                         </div>
                     {% endif %}
@@ -155,7 +110,10 @@
     </div>
     <div class="row" style="margin-top: 9rem">
         <div class="col-12 col-sm-6">
-            {% include partial.d_review.template with partial.d_review %}
+            <div class="review-wrap">
+                <h3>{{ tab_review }}</h3>
+                {% include partial.d_review.template with partial.d_review %}
+            </div>
         </div>
         <div class="col-12 col-sm-6">
             <div class="product-description">
@@ -211,7 +169,7 @@
     <div class="row products-list">
         {% for product in products %}
             <div class="product-layout product-grid col-sm-3 col-xs-6">
-                {% include partial.d_product_thumb.template with partial.d_product_thumb %}
+                {% include partial.d_product_thumb.template with partial.d_product_thumb|merge(product) %}
 
             </div>
         {% endfor %}

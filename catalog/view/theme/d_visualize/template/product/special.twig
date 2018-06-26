@@ -1,7 +1,6 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-
     <h1 class="header-h2">{{ heading_title }}</h1>
     {% if thumb or description %}
         <div class="row">
@@ -28,7 +27,7 @@
         <div class="row">
             {% for product in products %}
                 <div class="product-layout product-list col-xs-4">
-                    {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
+                    {% include partial.d_product_thumb.template with partial.d_product_thumb|merge(product) %}
                 </div>
             {% endfor %}
         </div>

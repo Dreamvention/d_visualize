@@ -4,18 +4,21 @@
   padding: rem(10)
   +border-radius(0)
   height: $buttonHeight
+  background: transparent
   &:active
     +box-shadow('none')
   &:focus, &:active, &:active:hover, &:active:focus
     outline: none
-.btn
+
+.btn,.vd button.btn:not(.btn-default)
   font-size: fz(14px)
   color: $p_white
-  background: $colorMain
+  background: $p_choral
   text-transform: uppercase
   font-weight: $fontBold
-  padding-left: $paddingHorizontalButton
-  padding-right: $paddingHorizontalButton
+  &-default
+    padding-left: $paddingHorizontalButton
+    padding-right: $paddingHorizontalButton
   +transition
   &:focus, &:active, &:active:hover, &:active:focus
     +prefixes('box-shadow', 'none')

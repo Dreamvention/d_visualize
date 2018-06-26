@@ -6,7 +6,6 @@ ul {
         line-height: 1;
     }
 }
-
 .list {
     font-size: fz(14px);
     padding-left: 15px;
@@ -55,13 +54,12 @@ select {
 }
 
 .well {
-    padding: 45px;
-    background: #6A6A6A;
+    //padding: 45px;
+    //background: #6A6A6A;
     border: none;
     @include prefixes('box-shadow', 'none');
     @include border-radius(4px);
 }
-
 legend {
     font-size: 16px;
     font-weight: normal;

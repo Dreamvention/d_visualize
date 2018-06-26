@@ -25,6 +25,10 @@
       color: $p_red;
     }
   }
+  label, .field{
+    //for checkout view
+    width: 100%;
+  }
 }
 select.form-control{
   padding: 0 rem(20);

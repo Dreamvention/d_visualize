@@ -173,7 +173,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             $route_info = $this->{'model_extension_' . $this->codename . '_theme'}->getRoute();
             if (!empty($route_info['events'])) {
                 foreach ($route_info['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action);
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action,1,999);
                 }
             }
             //foreach components events or partials events

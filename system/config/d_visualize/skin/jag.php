@@ -10,7 +10,7 @@ $_['d_visualize_skin_jag'] = array(
                 'container_width' => '1024',
                 'partial'         => array(
                     'breadcrumb'      => array(
-                        'template'   => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
+                        'template'  => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
                         'component' => array(
                             'breadcrumb' => array(
                                 'template' => 'd_visualize/template/component/d_breadcrumb/default.twig'
@@ -18,7 +18,7 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_product_sort'  => array(
-                        'template'   => 'd_visualize/template/partial/d_product_sort.twig', // here can be custom settings for this template
+                        'template'  => 'd_visualize/template/partial/d_product_sort.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_sort' => array(
                                 'template' => 'd_visualize/template/component/d_product_sort/jag.twig'
@@ -26,11 +26,11 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_product_thumb' => array(
-                        'template'   => 'd_visualize/template/partial/d_product_thumb.twig', // here can be custom settings for this template
+                        'template'  => 'd_visualize/template/partial/d_product_thumb.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_thumb' => array(
-                                'template'   => 'd_visualize/template/component/d_product_thumb/jag.twig',
-                                'partials'   => array('d_rating'),//may be if we want to insert component to component we have to just declare only name and can use in component.d_rating
+                                'template'  => 'd_visualize/template/component/d_product_thumb/jag.twig',
+                                'partials'  => array('d_rating'),//may be if we want to insert component to component we have to just declare only name and can use in component.d_rating
                                 'component' => array(
                                     'd_rating' => array(
                                         'template' => 'd_visualize/template/component/d_rating/default.twig'
@@ -40,7 +40,7 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_product_list'  => array(
-                        'template'   => 'd_visualize/template/partial/d_product_list.twig', // here can be custom settings for this template
+                        'template'  => 'd_visualize/template/partial/d_product_list.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_list' => array(
                                 'template' => 'd_visualize/template/component/d_product_list/jag.twig',
@@ -48,7 +48,7 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_rating'        => array(
-                        'template'   => 'd_visualize/template/partial/d_rating.twig',
+                        'template'  => 'd_visualize/template/partial/d_rating.twig',
                         'component' => array(
                             'd_rating' => array(
                                 'template' => 'd_visualize/template/component/d_rating/d_jag.twig'
@@ -56,7 +56,7 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_account_field' => array(
-                        'template'   => 'd_visualize/template/partial/d_account_field.twig',
+                        'template'  => 'd_visualize/template/partial/d_account_field.twig',
                         'component' => array(
                             'd_account_field' => array(
                                 'template' => 'd_visualize/template/component/d_account_field/default.twig'
@@ -64,23 +64,23 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_address_field' => array(
-                        'template'   => 'd_visualize/template/partial/d_address_field.twig',
+                        'template'  => 'd_visualize/template/partial/d_address_field.twig',
                         'component' => array(
                             'd_address_field' => array(
                                 'template' => 'd_visualize/template/component/d_address_field/default.twig'
                             )
                         )
                     ),
-                    'd_name_field' => array(
-                        'template'   => 'd_visualize/template/partial/d_name_field.twig',
+                    'd_name_field'    => array(
+                        'template'  => 'd_visualize/template/partial/d_name_field.twig',
                         'component' => array(
                             'd_name_field' => array(
                                 'template' => 'd_visualize/template/component/d_name_field/jag.twig'
                             )
                         )
                     ),
-                    'd_custom_field' => array(
-                        'template'   => 'd_visualize/template/partial/d_custom_field.twig',
+                    'd_custom_field'  => array(
+                        'template'  => 'd_visualize/template/partial/d_custom_field.twig',
                         'component' => array(
                             'd_custom_field' => array(
                                 'template' => 'd_visualize/template/component/d_custom_field/default.twig'
@@ -88,7 +88,7 @@ $_['d_visualize_skin_jag'] = array(
                         )
                     ),
                     'd_review'        => array(
-                        'template'   => 'd_visualize/template/partial/d_review.twig',
+                        'template'  => 'd_visualize/template/partial/d_review.twig',
                         'component' => array(
                             'd_review' => array(
                                 'template' => 'd_visualize/template/component/d_review/jag.twig'
@@ -97,7 +97,7 @@ $_['d_visualize_skin_jag'] = array(
                     )
                 ,
                 ),
-                'component'      => array(
+                'component'       => array(
                     'notification'   => array(
                         'template' => 'd_visualize/template/component/notification/default.twig',
                     ),
@@ -113,7 +113,7 @@ $_['d_visualize_skin_jag'] = array(
             'layout' => array(
                 'partial' => array(
                     'breadcrumb' => array(
-                        'template'   => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
+                        'template'  => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
                         'component' => array(
                             'breadcrumb' => array(
                                 'template' => 'd_visualize/template/component/d_breadcrumb/empty.twig'
@@ -126,8 +126,8 @@ $_['d_visualize_skin_jag'] = array(
         'product/product'  => array(
             'layout'  => array(
                 'component' => array(
-                    'product_section' => array(
-                        'template' => 'd_visualize/template/component/product_section/jag.twig',
+                    'product_product' => array(
+                        'template' => 'd_visualize/template/component/product_product/jag.twig',
 
                     ),
 
@@ -166,15 +166,20 @@ $_['d_visualize_skin_jag'] = array(
             'scripts' => array()
         )
     ),
-    'scripts'       => array(
-        'catalog/view/theme/d_visualize/javascript/skin/jag/d_default.js',
+    'pre_scripts'       => array(
         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'https://code.jquery.com/jquery-2.1.1.min.js',
     ),
-    'styles'        => array(
+    'post_scripts'       => array(
+        'catalog/view/theme/d_visualize/javascript/skin/jag/d_default.js',
+    ),
+    'post_styles'        => array(
+
+    ),
+    'pre_styles'        => array(
         'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
-        'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap3/css/bootstrap.min.css',
-        'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap4/bootstrap-grid.min.css',
+        'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap3/stylesheets/bootstrap.css',
+        'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap4/bootstrap-grid.css',
         'https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,700,900&subset=cyrillic',
     ),
     'custom_styles' => array(
