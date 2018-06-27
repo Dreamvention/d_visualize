@@ -1,19 +1,11 @@
-.alert:not(.alert-warning)
-  position: fixed
-  max-width: 450px
-  bottom: 20px
-  right: -9999px
-#write_review_modal
-  .alert
-    position: relative
-    right: 0
-    max-width: 100%
-    margin: 0 rem(20)
 .alert
   padding-right: 40px
   margin-bottom: 0
   z-index: z('alert')
   border-radius: 0
+  position: relative
+  margin-bottom: rem(20)
+  margin-top: rem(-60)
   .close
     position: absolute
     width: 20px
@@ -21,3 +13,9 @@
     right: 10px
     top: 16px
 
+#write_review_modal
+  .alert
+    position: relative
+    right: 0
+    max-width: 100%
+    margin: 0 rem(20)

@@ -1,16 +1,14 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-    <div class="h2">{{ text_edit_address }}</div>
+    <div class="h2">{{ text_add_address }}</div>
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
-            {% include 'd_visualize/template/partial/d_name_field.twig' with { form:'inline'} %}
-
-            {% include 'd_visualize/template/partial/d_address_field.twig' with { form:'inline'} %}
-
+            {% include partial.d_name_field.template with  partial.d_name_field %}
+            {% include partial.d_address_field.template with  partial.d_address_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'address' %}
-                    {% include 'd_visualize/template/partial/d_custom_field.twig' with { form:'inline'} %}
+                    {% include partial.d_custom_field.template with  partial.d_custom_field %}
                 {% endif %}
             {% endfor %}
             <div class="form-group">
@@ -31,7 +29,7 @@
                 </div>
             </div>
         </fieldset>
-        {% include 'd_visualize/template/partial/d_button_submit.twig' %}
+        {% include partial.d_button_submit.template with  partial.d_button_submit %}
     </form>
     <script type="text/javascript"><!--
         $(function () {

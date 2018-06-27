@@ -27,6 +27,7 @@ input[type=checkbox], input[type=radio]{
   width: $widhtControl;
   height:$heightControl;
   z-index:2;
+  position: absolute;
   &:checked ~ .custom-control-label{
     margin-left: 0;
   }

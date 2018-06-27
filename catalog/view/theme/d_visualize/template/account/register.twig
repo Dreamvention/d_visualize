@@ -1,34 +1,28 @@
 {#it's mean in layout template#}
 {% extends template %}
-{% block before_content %}
-    <div class="row">
-        <div class="col-sm-12">
-            <h1 class="heading-h1">{{ heading_title }}</h1>
-        </div>
-    </div>
-{% endblock %}
 {% block content %}
     <div class="register-page">
+        <h1 class="heading-h1">{{ heading_title }}</h1>
         <p>{{ text_account_already }}</p>
         <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
             <fieldset id="account">
                 <h3>{{ text_your_details }}</h3>
                 <div class="">
 
-                {% include partial.d_account_field.template with partial.d_account_field|merge({form:''}) %}
-                {% for custom_field in custom_fields %}
-                    {% if custom_field.location == 'account' %}
-                        {% set custom_field = custom_field|merge({form:'inline'}) %}
-                        {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
-                    {% endif %}
-                {% endfor %}
+                    {% include partial.d_account_field.template with partial.d_account_field|merge({form:''}) %}
+                    {% for custom_field in custom_fields %}
+                        {% if custom_field.location == 'account' %}
+                            {% set custom_field = custom_field|merge({form:'inline'}) %}
+                            {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
             </fieldset>
             {% if constant('VERSION') < '3.0.0.0' %}
                 <fieldset id="address">
                     <h3>{{ text_your_address }}</h3>
-                    {% include partial.d_address_field.template with partial.d_address_field|merge({form:'inline'})  %}
+                    {% include partial.d_address_field.template with partial.d_address_field|merge({form:'inline'}) %}
                     {% for custom_field in custom_fields %}
                         {% if custom_field.location == 'address' %}
                             {% set custom_field = custom_field|merge({form:'inline'}) %}
@@ -62,19 +56,19 @@
                     </div>
                 </div>
             </fieldset>
-            <fieldset>
+            <fieldset class="NEWSLETTER">
                 <h3>{{ text_newsletter }}</h3>
                 <div class="form-group">
-                    <div class="">
-                        <label class="field-label radio-label">{{ entry_newsletter }}</label>
-                    </div>
-                    <div class="">
+                    <label class="field-label radio-label">{{ entry_newsletter }}</label>
+                    <div class="n-wrap">
                         <span class="custom-control custom-radio">
-                            <input type="radio" name="newsletter" value="1" class="custom-control-input"  {% if newsletter %}checked="checked"{% endif %}>
+                            <input type="radio" name="newsletter" value="1" class="custom-control-input"
+                                   {% if newsletter %}checked="checked"{% endif %}>
                             <label class="custom-control-label" for="customRadio1">{{ text_yes }}</label>
                         </span>
                         <span class="custom-control custom-radio">
-                            <input type="radio" name="newsletter" value="0" class="custom-control-input"  {% if not newsletter %}checked="checked"{% endif %}>
+                            <input type="radio" name="newsletter" value="0" class="custom-control-input"
+                                   {% if not newsletter %}checked="checked"{% endif %}>
                             <label class="custom-control-label" for="customRadio1">{{ text_no }}</label>
                         </span>
                     </div>
@@ -103,16 +97,16 @@
 
 
         <script type="text/javascript"><!--
-            $(function () {
-                d_address_field.init({
-                    zone_id: '{{ zone_id }}',
-                    text_none: '{{ text_none }}',
-                    text_select: '{{ text_select }}'
-                });
-                d_custom_field.init();
-            })
+			$(function () {
+				d_address_field.init({
+					zone_id: '{{ zone_id }}',
+					text_none: '{{ text_none }}',
+					text_select: '{{ text_select }}'
+				});
+				d_custom_field.init();
+			});
 
-            //--></script>
+			//--></script>
     </div>
 
 {% endblock %}

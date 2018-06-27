@@ -9,7 +9,7 @@
                     <h5 class="heading-subtitle">{{ text_register }}</h5>
                     <p>{{ text_register_account }}</p>
                     <div class="d-flex justify-content-end">
-                        <a href="{{ register }}" class="btn">{{ button_continue }}</a></div>
+                        <a href="{{ register }}" class="btn btn-primary btn-shrink">{{ button_continue }}</a></div>
                     </div>
             </div>
             <div class="col-sm-6 ">
@@ -30,7 +30,7 @@
                             <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a></div>
 
                         <div class="d-flex justify-content-end">
-                            <input type="submit" value="{{ button_login }}" class="btn btn-primary btn-shrink"/>
+                            <input type="submit" value="{{ button_login }}" class="btn btn-primary btn-shrink "/>
                         </div>
                         {% if redirect %}
                             <input type="hidden" name="redirect" value="{{ redirect }}"/>

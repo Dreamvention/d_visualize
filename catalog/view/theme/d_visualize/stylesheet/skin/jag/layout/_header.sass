@@ -78,6 +78,7 @@
         font-weight: $fontMedium
         color: #000
         text-transform: none
+
 #top
   background: none
   border-bottom: none
@@ -86,20 +87,25 @@
   .navbar-collapse
     padding-left: 0
     padding-right: 0
+
 #search
   .btn
     padding: 0
+
 #menu .open > a,
 #menu .dropdown-menu
   background-color: $colorMain
   color: $p_white
+
 #menu .dropdown-menu
   padding: rem(10)
   li
     margin: rem(10) 0
+
 #logo
   img
     margin: auto
+
 #form-currency
   .btn
     background-color: transparent
@@ -112,5 +118,10 @@
     &:hover
       text-decoration: none
   .dropdown-menu
+    li
+      padding: rem(2) rem(20)
+    .btn
+      text-align: left
+      text-transform: none
     li:hover
       background-color: $p_grey_currency

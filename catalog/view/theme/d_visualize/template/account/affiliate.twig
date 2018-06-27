@@ -1,0 +1,176 @@
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+    <h1>{{ heading_title }}</h1>
+    <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <fieldset>
+            <legend>{{ text_my_affiliate }}</legend>
+            <div class="form-group">
+                <label class="field-label label-right-md" for="input-company">{{ entry_company }}</label>
+                <div class="">
+                    <input type="text" name="company" value="{{ company }}" placeholder="{{ entry_company }}"
+                           id="input-company" class="field"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="field-label label-right-md" for="input-website">{{ entry_website }}</label>
+                <div class="">
+                    <input type="text" name="website" value="{{ website }}" placeholder="{{ entry_website }}"
+                           id="input-website" class="field"/>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>{{ text_payment }}</legend>
+            <div class="form-group">
+                <label class=" field-label label-right-md" for="input-tax">{{ entry_tax }}</label>
+                <div class="">
+                    <input type="text" name="tax" value="{{ tax }}" placeholder="{{ entry_tax }}" id="input-tax"
+                           class="field"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="field-label label-right-md">{{ entry_payment }}</label>
+                <div class="">
+                    <div class="radio">
+                        <label>{% if payment == 'cheque' %}
+                                <input type="radio" name="payment" value="cheque" checked="checked"/>
+                            {% else %}
+                                <input type="radio" name="payment" value="cheque"/>
+                            {% endif %}
+                            {{ text_cheque }}</label>
+                    </div>
+                    <div class="radio">
+                        <label>{% if payment == 'paypal' %}
+                                <input type="radio" name="payment" value="paypal" checked="checked"/>
+                            {% else %}
+                                <input type="radio" name="payment" value="paypal"/>
+                            {% endif %}
+                            {{ text_paypal }}</label>
+                    </div>
+                    <div class="radio">
+                        <label>{% if payment == 'bank' %}
+                                <input type="radio" name="payment" value="bank" checked="checked"/>
+                            {% else %}
+                                <input type="radio" name="payment" value="bank"/>
+                            {% endif %}
+                            {{ text_bank }}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group payment" id="payment-cheque">
+                <label class=" field-label label-right-md" for="input-cheque">{{ entry_cheque }}</label>
+                <div class="">
+                    <input type="text" name="cheque" value="{{ cheque }}" placeholder="{{ entry_cheque }}"
+                           id="input-cheque" class="field"/>
+                    {% if error_cheque %}
+                        <div class="text-danger">{{ error_cheque }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group payment" id="payment-paypal">
+                <label class=" field-label label-right-md" for="input-paypal">{{ entry_paypal }}</label>
+                <div class="">
+                    <input type="text" name="paypal" value="{{ paypal }}" placeholder="{{ entry_paypal }}"
+                           id="input-paypal" class="field"/>
+                    {% if error_paypal %}
+                        <div class="text-danger">{{ error_paypal }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="payment" id="payment-bank">
+                <div class="form-group">
+                    <label class="col-sm-2 field-label label-right-md" for="input-bank-name">{{ entry_bank_name }}</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="bank_name" value="{{ bank_name }}" placeholder="{{ entry_bank_name }}"
+                               id="input-bank-name" class="field"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 field-label label-right-md"
+                           for="input-bank-branch-number">{{ entry_bank_branch_number }}</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="bank_branch_number" value="{{ bank_branch_number }}"
+                               placeholder="{{ entry_bank_branch_number }}" id="input-bank-branch-number"
+                               class="field"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 field-label label-right-md"
+                           for="input-bank-swift-code">{{ entry_bank_swift_code }}</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="bank_swift_code" value="{{ bank_swift_code }}"
+                               placeholder="{{ entry_bank_swift_code }}" id="input-bank-swift-code"
+                               class="field"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 field-label label-right-md"
+                           for="input-bank-account-name">{{ entry_bank_account_name }}</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="bank_account_name" value="{{ bank_account_name }}"
+                               placeholder="{{ entry_bank_account_name }}" id="input-bank-account-name"
+                               class="field"/>
+                        {% if error_bank_account_name %}
+                            <div class="text-danger">{{ error_bank_account_name }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 field-label label-right-md"
+                           for="input-bank-account-number">{{ entry_bank_account_number }}</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="bank_account_number" value="{{ bank_account_number }}"
+                               placeholder="{{ entry_bank_account_number }}" id="input-bank-account-number"
+                               class="field"/>
+                        {% if error_bank_account_number %}
+                            <div class="text-danger">{{ error_bank_account_number }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% for custom_field in custom_fields %}
+                {% if custom_field.location == 'affiliate' %}
+                    {% include partial.d_custom_field.template with  partial.d_custom_field %}
+                {% endif %}
+            {% endfor %}
+
+        </fieldset>
+
+        {% if text_agree %}
+            <div class="buttons clearfix">
+                <div class="pull-right">{{ text_agree }}
+                    {% if agree %}
+                        <input type="checkbox" name="agree" value="1" checked="checked"/>
+                    {% else %}
+                        <input type="checkbox" name="agree" value="1"/>
+                    {% endif %}
+                    &nbsp;
+                    <input type="submit" value="{{ button_continue }}" class="btn btn-primary"/>
+                </div>
+            </div>
+        {% else %}
+            <div class="buttons clearfix">
+                <div class="pull-right">
+                    <input type="submit" value="{{ button_continue }}" class="btn btn-primary"/>
+                </div>
+            </div>
+        {% endif %}
+    </form>
+    <script type="text/javascript"><!--
+		$(function () {
+			d_address_field.init({
+				zone_id: '{{ zone_id }}',
+				text_none: '{{ text_none }}',
+				text_select: '{{ text_select }}'
+			});
+		});
+		$('input[name=\'payment\']').on('change', function () {
+			$('.payment').hide();
+
+			$('#payment-' + this.value).show();
+		});
+
+		$('input[name=\'payment\']:checked').trigger('change');
+		//--></script>
+{% endblock %}

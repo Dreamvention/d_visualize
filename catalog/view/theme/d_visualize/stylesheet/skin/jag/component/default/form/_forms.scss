@@ -1,39 +1,53 @@
-.form-control ,.field{
+.form-control, .field {
   border: $borderMain;
   border-radius: 0;
-  padding:rem(22) rem(20);
-  font-size:$fontSizeInput;
-  &:focus{
+  padding: rem(22) rem(20);
+  font-size: $fontSizeInput;
+  &:focus {
     border: $borderMain;
     border-color: $borderColorFocus;
     box-shadow: none;
     background-color: $FormBackFocus;
   }
-  &.active{
+  &.active {
     background: $FormBackActive;
     border-color: $borderColorActive;
   }
 }
-.form-group{
-  &.error{
-    .form-control,.field{
+
+.form-group {
+  &.required{
+    label:after{
+      content: '*';
+    }
+  }
+  &.has-error {
+    .form-control, .field {
       border: $borderMain;
       border-color: $borderColorError;
       background: $FormBackError;
     }
-    span{
+    span, label{
       color: $p_red;
     }
   }
-  label, .field{
+  label, .field {
     //for checkout view
     width: 100%;
   }
 }
-select.form-control{
+
+select.form-control {
   padding: 0 rem(20);
 }
 
-.form-horizontal .form-group{
-  margin:0;
+.form-horizontal .form-group {
+  margin: 0;
+  margin-bottom: rem(35);
+}
+
+.text-danger {
+  font-size: $fontSize-xs;
+  color: $colorDanger;
+  margin-top: 4px;
 }

@@ -1,22 +1,22 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-      <h1 class="heading-h1">{{heading_title}}</h1>
-      <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <h1 class="heading-h1">{{ heading_title }}</h1>
+    <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
-          <legend>{{text_your_details}}</legend>
-          {% include 'd_visualize/template/partial/d_account_field.twig' with {form:'inline'} %}
-          {% for custom_field in custom_fields %}
-            {% if custom_field.location == 'account' %}
-              {% include 'd_visualize/template/partial/d_custom_field.twig' with {form:'inline'} %}
-            {% endif %}
-          {% endfor %}
+            <legend>{{ text_your_details }}</legend>
+            {% include partial.d_account_field.template with  partial.d_account_field %}
+            {% for custom_field in custom_fields %}
+                {% if custom_field.location == 'account' %}
+                    {% include partial.d_custom_field.template with  partial.d_custom_field %}
+                {% endif %}
+            {% endfor %}
         </fieldset>
-        {% include 'd_visualize/template/partial/d_button_submit.twig' %}
-      </form>
-<script type="text/javascript"><!--
-$(function(){
-    d_custom_field.init();
-})
-//--></script>
+        {% include partial.d_button_submit.template with  partial.d_button_submit %}
+    </form>
+    <script type="text/javascript"><!--
+		$(function () {
+			d_custom_field.init();
+		});
+		//--></script>
 {% endblock %}

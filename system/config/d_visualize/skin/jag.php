@@ -63,6 +63,14 @@ $_['d_visualize_skin_jag'] = array(
                             )
                         )
                     ),
+                    'd_account_field_affiliate' => array(
+                        'template'  => 'd_visualize/template/partial/d_account_field_affiliate.twig',
+                        'component' => array(
+                            'd_account_field_affiliate' => array(
+                                'template' => 'd_visualize/template/component/d_account_field_affiliate/default.twig'
+                            )
+                        )
+                    ),
                     'd_address_field' => array(
                         'template'  => 'd_visualize/template/partial/d_address_field.twig',
                         'component' => array(
@@ -75,7 +83,7 @@ $_['d_visualize_skin_jag'] = array(
                         'template'  => 'd_visualize/template/partial/d_name_field.twig',
                         'component' => array(
                             'd_name_field' => array(
-                                'template' => 'd_visualize/template/component/d_name_field/jag.twig'
+                                'template' => 'd_visualize/template/component/d_name_field/default.twig'
                             )
                         )
                     ),
@@ -87,6 +95,30 @@ $_['d_visualize_skin_jag'] = array(
                             )
                         )
                     ),
+                    'd_button' => array(
+                        'template'  => 'd_visualize/template/partial/d_button.twig',
+                        'component' => array(
+                            'd_button' => array(
+                                'template' => 'd_visualize/template/component/d_button/default.twig'
+                            )
+                        )
+                    ),
+                    'd_button_submit' => array(
+                        'template'  => 'd_visualize/template/partial/d_button_submit.twig',
+                        'component' => array(
+                            'd_button_submit' => array(
+                                'template' => 'd_visualize/template/component/d_button_submit/default.twig'
+                            )
+                        )
+                    ),
+                    'd_button_continue' => array(
+                        'template'  => 'd_visualize/template/partial/d_button_continue.twig',
+                        'component' => array(
+                            'd_button_continue' => array(
+                                'template' => 'd_visualize/template/component/d_button_continue/default.twig'
+                            )
+                        )
+                    ),
                     'd_review'        => array(
                         'template'  => 'd_visualize/template/partial/d_review.twig',
                         'component' => array(
@@ -94,13 +126,17 @@ $_['d_visualize_skin_jag'] = array(
                                 'template' => 'd_visualize/template/component/d_review/jag.twig'
                             )
                         )
+                    ),
+                    'd_notification'  => array(
+                        'template'  => 'd_visualize/template/partial/d_notification.twig',
+                        'component' => array(
+                            'd_notification' => array(
+                                'template' => 'd_visualize/template/component/d_notification/default.twig',
+                            ),)
                     )
                 ,
                 ),
                 'component'       => array(
-                    'notification'   => array(
-                        'template' => 'd_visualize/template/component/notification/default.twig',
-                    ),
                     'product_review' => array(
                         'template' => 'd_visualize/template/component/product_review/jag.twig',
 
@@ -166,17 +202,15 @@ $_['d_visualize_skin_jag'] = array(
             'scripts' => array()
         )
     ),
-    'pre_scripts'       => array(
+    'pre_scripts'   => array(
         'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
         'https://code.jquery.com/jquery-2.1.1.min.js',
     ),
-    'post_scripts'       => array(
-        'catalog/view/theme/d_visualize/javascript/skin/jag/d_default.js',
+    'post_scripts'  => array(
+        'catalog/view/theme/d_visualize/javascript/skin/jag/jag.js',
     ),
-    'post_styles'        => array(
-
-    ),
-    'pre_styles'        => array(
+    'post_styles'   => array(),
+    'pre_styles'    => array(
         'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
         'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap3/stylesheets/bootstrap.css',
         'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap4/bootstrap-grid.css',

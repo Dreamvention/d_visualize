@@ -1,4 +1,4 @@
-<!-- > d_account_field -->
+<!-- > d_account_field_default -->
 {% if customer_groups %}
 <div class="form-group required" style="display: {% if customer_groups|length > 1 %}block{% else %}none{% endif %};">
   <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md"><span>{{entry_customer_group}}</span></label>
@@ -13,7 +13,7 @@
   </div>
 </div>
 {% endif %}
-{% include partial.d_name_field.template with  partial.d_name_field|merge({form:form}) %}
+{% include partial.d_name_field.template with  partial.d_name_field %}
 <div class="form-group required">
   <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-email"><span>{{entry_email}}</span></label>
   <div class="{% if form %}col-sm-10{% endif %}">
@@ -40,4 +40,4 @@
   </div>
 </div>
 {% endif %}
-<!-- /> d_account_field -->
+<!-- /> d_account_field_default -->
