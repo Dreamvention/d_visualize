@@ -10,3 +10,18 @@ footer
     margin: 0 rem(10)
     &:first-child
       margin-left: 0
+footer
+  p
+    margin-bottom: 0
+  +mq('tablet-wide')
+    h2
+      font-size: rem(20px)
+  +mq('tablet')
+    p, h2
+      text-align: center !important
+      width: 100%
+    .footer-telephone
+  +mq('tablet')
+    .footer-bottom
+      .h5, ul
+        text-align: center !important
