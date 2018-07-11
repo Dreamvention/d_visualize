@@ -1,6 +1,6 @@
 {
   "codename": "d_visualize",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "name": "Visualize",
   "description": "Visualize theme",
   "author": {
@@ -9,6 +9,15 @@
     "url": "https://dreamvention.com/"
   },
   "opencart_version": [
+    "2.0.0.0",
+    "2.0.1.1",
+    "2.0.1.1",
+    "2.0.2.0",
+    "2.0.3.1",
+    "2.1.0.1",
+    "2.1.0.2",
+    "2.2.0.0",
+    "2.3.0.2",
     "3.0.0.0",
     "3.0.2.0"
   ],
@@ -169,7 +178,6 @@
     "catalog/view/theme/d_visualize/template/extension/module/special.twig",
     "catalog/view/theme/d_visualize/template/extension/module/store.twig",
     "catalog/view/theme/d_visualize/template/extension/payment/amazon_login_pay_address.tpl",
-    "catalog/view/theme/d_visualize/template/extension/payment/amazont.tpl",
     "catalog/view/theme/d_visualize/template/extension/payment/authorizenet_aim.tpl",
     "catalog/view/theme/d_visualize/template/extension/payment/authorizenet_sim.tpl",
     "catalog/view/theme/d_visualize/template/extension/payment/bank_transfer.tpl",

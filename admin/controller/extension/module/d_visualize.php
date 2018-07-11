@@ -43,13 +43,21 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $this->document->setTitle($this->language->get('heading_title_main'));
 
+        if ($this->d_shopunity) {
+            $this->load->model('extension/d_shopunity/mbooth');
+            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
+        }
+
+        if ($this->d_event_manager) {
+            $this->load->model('extension/module/d_event_manager');
+            if (!$this->model_extension_module_d_event_manager->isCompatible()) {
+                $this->model_extension_module_d_event_manager->installCompatibility();
+            }
+        }
+
         if ($this->d_twig_manager) {
             $this->load->model('extension/module/d_twig_manager');
             $this->model_extension_module_d_twig_manager->installCompatibility();
-        }
-        if ($this->d_event_manager) {
-            $this->load->model('extension/module/d_event_manager');
-            $this->model_extension_module_d_event_manager->installCompatibility();
         }
 
 
@@ -168,7 +176,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             $route_info = $this->{'model_extension_' . $this->codename . '_theme'}->getRoute();
             if (!empty($route_info['events'])) {
                 foreach ($route_info['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action,1,999);
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action, 1, 999);
                 }
             }
             //foreach components events or partials events
@@ -220,8 +228,18 @@ class ControllerExtensionModuleDVisualize extends Controller
             }
         }
     }
-    public function install(){
 
+    public function install()
+    {
+        if ($this->d_shopunity) {
+            $this->load->model('extension/d_shopunity/mbooth');
+            $this->model_extension_d_shopunity_mbooth->installDependencies($this->codename);
+        }
+    }
+
+    public function uninstall()
+    {
+        $this->uninstallTheme();
     }
 }
 
