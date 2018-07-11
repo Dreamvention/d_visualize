@@ -202,7 +202,7 @@
     @content;
     @each $class, $screen in (xs, 'phone'), (sm, 'phablet'), (md, 'tablet'), (lg, 'desktop'), (xl, 'desktop-wide') {
       @if ($type == 'min') {
-        @include mq($screen, 'min') {
+        @include mq($sc reen, 'min') {
           &-#{$class} {
             @content;
           }
@@ -222,6 +222,14 @@
   @include flex;
   align-items: center;
   flex-grow: 1;
+}
+@mixin vd($el) {
+  @each $class in $el{
+    //,.vd-#{$class}
+    [data-is='vd-block-#{$class}']{
+      @content;
+    }
+  }
 }
 
 // todo sprite

@@ -7,7 +7,7 @@ $_['d_visualize_skin_jag'] = array(
         'default'          => array(
             'layout' => array(
                 'template'        => 'd_visualize/template/layout/default.twig', // here can be custom settings for this template
-                'container_width' => '1024',
+                'container_width' => '1440',
                 'partial'         => array(
                     'breadcrumb'      => array(
                         'template'  => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
@@ -203,13 +203,14 @@ $_['d_visualize_skin_jag'] = array(
         )
     ),
     'pre_scripts'   => array(
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
-        'https://code.jquery.com/jquery-2.1.1.min.js',
+        'catalog/view/javascript/bootstrap/js/bootstrap.min.js',
+        'catalog/view/javascript/jquery/jquery-2.1.1.min.js',
     ),
     'post_scripts'  => array(
         'catalog/view/theme/d_visualize/javascript/skin/jag/jag.js',
     ),
-    'post_styles'   => array(),
+    'post_styles'   => array(
+    ),
     'pre_styles'    => array(
         'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
         'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap3/stylesheets/bootstrap.css',

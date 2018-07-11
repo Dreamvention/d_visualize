@@ -33,20 +33,6 @@
     {% for analytic in analytics %}
         {{ analytic }}
     {% endfor %}
-
-    <!-- scripts start -->
-
-    {% for script in pre_scripts %}
-        <script src="{{ script }}" type="text/javascript"></script>
-    {% endfor %}
-
-    <script src="catalog/view/theme/d_visualize/javascript/core/d_visualize.js" type="text/javascript"></script>
-
-    <!-- dynamic scripts from  -->
-    {% for script in scripts %}
-        <script src="{{ script }}" type="text/javascript"></script>
-    {% endfor %}
-
     <!-- styles start -->
 
     {% for style in pre_styles %}
@@ -69,6 +55,29 @@
             {{ custom_style }}
         </style>
     {% endfor %}
+    <!-- scripts start -->
+    {#d_visualize_pre_scripts#}
+    {% for script in pre_scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+
+    <script src="catalog/view/theme/d_visualize/javascript/core/d_visualize.js" type="text/javascript"></script>
+
+    {# default_scripts #}
+
+    <!-- dynamic scripts from modules -->
+    {% for script in scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+
+
 
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+    </div>
+</div>
+

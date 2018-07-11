@@ -13,7 +13,6 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         parent::__construct($registry);
         $this->load->language($this->route);
-//        $this->load->model($this->route);
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->model('extension/d_opencart_patch/url');
         $this->load->model('extension/d_opencart_patch/load');
@@ -44,10 +43,6 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $this->document->setTitle($this->language->get('heading_title_main'));
 
-//        if ($this->d_shopunity) {
-//            $this->load->model('extension/d_sho   punity/mbooth');
-//            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
-//        }
         if ($this->d_twig_manager) {
             $this->load->model('extension/module/d_twig_manager');
             $this->model_extension_module_d_twig_manager->installCompatibility();
