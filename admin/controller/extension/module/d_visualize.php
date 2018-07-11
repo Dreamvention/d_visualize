@@ -27,6 +27,10 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
         $this->d_twig_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_twig_manager.json'));
         $this->d_event_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_event_manager.json'));
+        $this->d_visual_designer = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer.json'));
+        $this->d_visual_designer_header = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer_header.json'));
+        $this->d_visual_designer_footer = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer_footer.json'));
+
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
 
         $this->config->load($this->codename . '/' . $this->codename);
@@ -164,10 +168,26 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
         $this->uninstallEvents();
         $this->installEvents();
+        $this->installVD();
         $this->installConfigTheme();
 
     }
 
+    public function installVD(){
+        if ($this->d_visual_designer){
+            $this->load->model('extension/d_visual_designer/designer');
+            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_header')){
+                $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_header');
+            };
+            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')){
+                $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
+            };
+            //todo switch on vd-header get default template
+            //todo switch template to skin if need
+            //todo disable bootsrap
+
+        }
+    }
     public function installEvents()
     {
         if ($this->d_event_manager) {
