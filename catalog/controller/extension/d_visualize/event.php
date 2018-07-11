@@ -40,7 +40,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         if (in_array($view, array_keys($this->config_skin['page']))) {
             if (isset($this->config_skin['page'][$view]['layout'])) {
                 $data = array_replace_recursive($data, $this->config_skin['page'][$view]['layout']);
-                if (isset($this->config_skin['page'][$view]['cripts']) && !empty($this->config_skin['page'][$view]['scripts'])) {
+                if (isset($this->config_skin['page'][$view]['scripts']) && !empty($this->config_skin['page'][$view]['scripts'])) {
                     $html_dom = new d_simple_html_dom();
                     $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
                     foreach ($this->config_skin['page'][$view]['scripts'] as $script) {
