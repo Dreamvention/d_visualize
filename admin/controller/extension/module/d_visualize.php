@@ -199,7 +199,14 @@ class ControllerExtensionModuleDVisualize extends Controller
                     $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action, 1, 999);
                 }
             }
-            //foreach components events or partials events
+            $route_info_active_skin = $this->{'model_extension_'
+            . $this->codename . '_theme'}->getRoute('skin/'.$route_info[$this->codename]['active_skin']);
+            if (!empty($route_info_active_skin['events'])) {
+                foreach ($route_info_active_skin['events'] as $trigger => $action) {
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename.'_skin_'.$route_info[$this->codename]['active_skin'], $trigger, $action, 1,1);
+                }
+            }
+
         }
     }
 

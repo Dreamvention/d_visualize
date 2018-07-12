@@ -20,6 +20,7 @@ gulp.task('sass-core', function () {
 		.pipe(gulp.dest('stylesheet/core/'))
 		.pipe(browserSync.stream({match: '**/*.css'}));
 });
+
 gulp.task('sass-bots3', function () {
 	return gulp.src('stylesheet/core/lib/bootstrap3/stylesheets/bootstrap.scss')
 		.pipe(sass({outputStyle: "compressed"}).on('error', sass.logError))
@@ -45,6 +46,15 @@ gulp.task('sass', function () {
 			browsers: ["last 15 versions"]
 		}))
 		.pipe(gulp.dest('stylesheet/skin'))
+		.pipe(browserSync.stream({match: '**/*.css'}));
+});
+gulp.task('sass-ajax_filter', function () {
+	return gulp.src('stylesheet/extension/skin/**/d_ajax_filter/d_ajax_filter.scss')
+		.pipe(sass().on('error', sass.logError))
+		.pipe(autoprefixer({
+			browsers: ["last 15 versions"]
+		}))
+		.pipe(gulp.dest('stylesheet/extension/skin'))
 		.pipe(browserSync.stream({match: '**/*.css'}));
 });
 
