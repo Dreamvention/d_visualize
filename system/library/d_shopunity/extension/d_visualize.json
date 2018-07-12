@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "name": "Visualize",
   "description": "Visualize theme",
+  "index": "extension/module/d_visualize",
   "author": {
     "name": "Dreamvention",
     "email": "info@dreamvention.com",
@@ -27,10 +28,10 @@
     "url": "https://shopunity.net/licenses/free"
   },
   "install": {
-    "url": "extension/module/install&extension=d_visualize"
+    "url": "extension/extension/module/install&extension=d_visualize"
   },
   "uninstall": {
-    "url": "extension/module/uninstall&extension=d_visualize"
+    "url": "extension/extension/module/uninstall&extension=d_visualize"
   },
   "support": {
     "email": "support@dreamvention.com",
@@ -294,6 +295,10 @@
     "catalog/view/theme/d_visualize/javascript/core"
   ],
   "changelog": [
+    {
+      "version":"2.0.0",
+      "change": "New Visualize theme editor"
+    },
     {
       "version":"1.0.0",
       "change": "Add new Visualize theme "
