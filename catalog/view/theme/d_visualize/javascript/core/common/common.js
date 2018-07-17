@@ -8,24 +8,6 @@ $(document).ready(function () {
 		}
 	});
 
-	// Currency
-	$('#form-currency .currency-select').on('click', function(e) {
-		e.preventDefault();
-
-		$('#form-currency input[name=\'code\']').val($(this).attr('name'));
-
-		$('#form-currency').submit();
-	});
-
-	// Language
-	$('#form-language .language-select').on('click', function(e) {
-		e.preventDefault();
-
-		$('#form-language input[name=\'code\']').val($(this).attr('name'));
-
-		$('#form-language').submit();
-	});
-
 	/* Search */
 	$('#search input[name=\'search\']').parent().find('button').on('click', function() {
 		var url = $('base').attr('href') + 'index.php?route=product/search';
@@ -46,17 +28,6 @@ $(document).ready(function () {
 	});
 
 	// Menu
-	$('#menu .dropdown-menu').each(function() {
-		var menu = $('#menu').offset();
-		var dropdown = $(this).parent().offset();
-
-		var i = (dropdown.left + $(this).outerWidth()) - (menu.left + $('#menu').outerWidth());
-
-		if (i > 0) {
-			$(this).css('margin-left', '-' + (i + 10) + 'px');
-		}
-	});
-
 	if (localStorage.getItem('display') == 'list') {
 		$('#list-view').trigger('click');
 		$('#list-view').addClass('active');
@@ -80,8 +51,11 @@ $(document).ready(function () {
 		$('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
 	});
 
-});
 
+	$('input[name=\'rating\']').rating();
+
+
+});
 // Autocomplete */
 
 (function($) {
