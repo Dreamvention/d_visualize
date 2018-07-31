@@ -12,7 +12,6 @@ gulp.task('browser-sync', function () {
 		proxy: 'http://localhost/302/d_visualize/'
 	});
 });
-// will compille styles in dark and light folders
 gulp.task('sass-core', function () {
 	return gulp.src('stylesheet/core/stylesheet.s*ss')
 		.pipe(sass().on('error', sass.logError))
