@@ -222,13 +222,13 @@
   align-items: center;
   flex-grow: 1;
 }
-@mixin vd($el) {
-  @each $class in $el{
-    //,.vd-#{$class}
-    [data-is='vd-block-#{$class}']{
-      @content;
-    }
-  }
+@mixin full-space{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 // todo sprite

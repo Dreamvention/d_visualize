@@ -169,8 +169,24 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->uninstallEvents();
         $this->installEvents();
         $this->installVD();
-        $this->installConfigTheme();
 
+        $this->installDependencyModules($this->config_visualize['active_skin']);
+
+        $this->installConfigThemeDefaults();
+
+        $this->installSkinThemeDefaults($this->config_visualize['active_skin']);
+
+    }
+    private function installDependencyModules($active_skin)
+    {
+        $installed_skin_extensions = $this->{'model_extension_module_' . $this->codename}->getSkinExtensions($active_skin);
+
+        foreach ($installed_skin_extensions as $skin_extensions) {
+            $this->load->model($skin_extensions['index']);
+            if (!$this->{$skin_extensions['index']}->checkConfig($skin_extensions['codename'])){
+                $this->{$skin_extensions['index']}->installConfig($skin_extensions['codename']);
+            };
+        }
     }
 
     public function installVD(){
@@ -242,7 +258,10 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     }
 
-    public function installConfigTheme()
+    public function installSkinThemeDefaults($active_skin){
+
+    }
+    public function installConfigThemeDefaults()
     {
         $this->load->model('setting/setting');
 
@@ -268,6 +287,7 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         $this->uninstallTheme();
     }
+
 }
 
 ?>
