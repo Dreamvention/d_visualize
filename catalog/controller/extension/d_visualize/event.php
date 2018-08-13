@@ -36,21 +36,24 @@ class ControllerExtensionDVisualizeEvent extends Controller
     // here we add this from config our active skin
     public function view_all_before_d_visualize(&$view, &$data)
     {
+        $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
+
         $data += $this->config_skin['page']['default']['layout'];
-        if (in_array($view, array_keys($this->config_skin['page']))) {
-            if (isset($this->config_skin['page'][$view]['layout'])) {
-                $data = array_replace_recursive($data, $this->config_skin['page'][$view]['layout']);
-                if (isset($this->config_skin['page'][$view]['scripts']) && !empty($this->config_skin['page'][$view]['scripts'])) {
+        if (in_array($view_route, array_keys($this->config_skin['page']))) {
+            if (isset($this->config_skin['page'][$view_route]['layout'])) {
+
+                $data = array_replace_recursive($data, $this->config_skin['page'][$view_route]['layout']);
+                if (isset($this->config_skin['page'][$view_route]['scripts']) && !empty($this->config_skin['page'][$view_route]['scripts'])) {
                     $html_dom = new d_simple_html_dom();
                     $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-                    foreach ($this->config_skin['page'][$view]['scripts'] as $script) {
+                    foreach ($this->config_skin['page'][$view_route]['scripts'] as $script) {
                         if (!$html_dom->find('head', 0)->find('script[src="' . $script . '"]')) {
                             $html_dom->find('head > script', -1)->outertext .= '<script src="' . $script . '" type="text/javascript"></script>';
                         }
                     }
-                    foreach ($this->config_skin['page'][$view]['styles'] as $style) {
+                    foreach ($this->config_skin['page'][$view_route]['styles'] as $style) {
                         if (!$html_dom->find('head', 0)->find('link[href="' . $style . '"]')) {
-                            $html_dom->find('head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
+                            $html_dom->find('\head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
                         }
                     }
                     $data['header'] = (string)$html_dom;
@@ -82,5 +85,104 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $data['custom_styles'] = $this->config_skin['custom_styles'];
 
     }
+    /*
+        public function footer(&$view, &$data, &$output)
+        {
+        }
 
+        public function view_product_category_before(&$view, &$data, &$output)
+        {
+
+        }
+
+        public function view_product_product_before(&$view, &$data, &$output)
+        {
+            if (isset($this->request->get['product_id'])) {
+                $product_id = (int)$this->request->get['product_id'];
+            } else {
+                $product_id = 0;
+            }
+            $this->load->model('catalog/product');
+            $product_info = $this->model_catalog_product->getProduct($product_id);
+            $this->load->model('tool/image');
+            $results = $this->model_catalog_product->getProductImages($product_id);
+
+            if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
+                if ($product_info['price'] > 0) {
+                    $data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+                } else {
+                    $data['price'] = 'Free';
+                }
+            } else {
+                $data['price'] = false;
+            }
+
+            if (!empty($results)) {
+                if (VERSION >= '3.0.0.0') {
+                    $data['thumb'] = $this->model_tool_image->resize($results[0]['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height'));
+                    $data['popup'] = $this->model_tool_image->resize($results[0]['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height'));
+                } else if (VERSION >= '2.2.0.0') {
+                    $data['thumb'] = $this->model_tool_image->resize($results[0]['image'], $this->config->get($this->config->get('config_theme') . '_image_thumb_width'), $this->config->get($this->config->get('config_theme') . '_image_thumb_height'));
+                    $data['popup'] = $this->model_tool_image->resize($results[0]['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height'));
+                } else {
+                    $data['thumb'] = $this->model_tool_image->resize($results[0]['image'], $this->config->get('config_image_thumb_width'), $this->config->get('config_image_thumb_height'));
+                    $data['popup'] = $this->model_tool_image->resize($results[0]['image'], $this->config->get('config_image_popup_width'), $this->config->get('config_image_popup_height'));
+                }
+
+                if (empty($data['thumb'])) {
+                    $data['thumb'] = '';
+                }
+                if (empty($data['popup'])) {
+                    $data['popup'] = '';
+                }
+                unset($results[0]);
+                $data['images'] = array();
+                foreach ($results as $result) {
+                    if (VERSION >= '3.0.0.0') {
+                        $data['images'][] = array(
+                            'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_popup_height')),
+                            'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_additional_height'))
+                        );
+                    } else if (VERSION >= '2.2.0.0') {
+                        $data['images'][] = array(
+                            'popup' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_popup_width'), $this->config->get($this->config->get('config_theme') . '_image_popup_height')),
+                            'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
+                        );
+                    } else {
+                        $data['images'][] = array(
+                            'popup' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_popup_width'), $this->config->get('config__image_popup_height')),
+                            'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get('config_image_additional_width'), $this->config->get('config__image_additional_height'))
+                        );
+                    }
+                }
+            }
+        }
+
+        public function view_common_header_before(&$view, &$data, &$output)
+        {
+            $data['mobile'] = $this->load->controller('extension/d_visualize/mobile');
+        }
+
+        public function get_countries_list_before(&$view, &$data, &$output)
+        {
+            $this->load->model('localisation/country');
+            $data['countries'] = $this->model_localisation_country->getCountries();
+        }
+
+        public function add_checkout_cart_heading_before(&$view, &$data)
+        {
+            if (isset($this->request->get['route']) && $this->request->get['route'] == 'checkout/cart') {
+                $this->load->language('checkout/cart');
+                $data['heading_title'] = $this->language->get('heading_title');
+            }
+        }
+
+        public function add_checkout_checkout_heading_before(&$view, &$data)
+        {
+            if (isset($this->request->get['route']) && $this->request->get['route'] == 'checkout/checkout') {
+                $this->load->language('checkout/checkout');
+                $data['heading_title'] = $this->language->get('heading_title');
+            }
+        }
+        */
 }

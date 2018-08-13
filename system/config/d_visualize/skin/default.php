@@ -45,8 +45,15 @@ $_['d_visualize_skin_default'] = array(
                                 'template' => 'd_visualize/template/component/d_rating/default.twig'
                             )
                         )
-                    )
-                ,
+                    ),
+                    'd_post_thumh'        => array(
+                        'template'   => 'd_visualize/template/component/d_rating/default.twig',
+                        'components' => array(
+                            'd_rating' => array(
+                                'template' => 'd_visualize/template/component/d_rating/default.twig'
+                            )
+                        )
+                    ),
                 ),
                 'components'      => array(
                     'notification'        => array(

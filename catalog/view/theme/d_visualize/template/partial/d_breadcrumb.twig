@@ -1,1 +1,5 @@
-{% include component.breadcrumb.template with component.breadcrumb %}
+{% if not component.breadcrumb.template  %}
+    {% include partial.breadcrumb.component.breadcrumb.template with partial.breadcrumb.component.breadcrumb %}
+{% else %}
+    {% include component.breadcrumb.template with component.breadcrumb %}
+{% endif %}

@@ -1,20 +1,23 @@
 <!-- > d_name_field_default -->
-<div class="form-group required">
-  <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-firstname"><span>{{entry_firstname}}</span></label>
-  <div class="{% if form %}col-sm-10{% endif %}">
-    <input type="text" name="firstname" value="{{firstname}}" id="input-firstname" class="field form-control" />
-    {% if error_firstname %}
-    <div class="text-danger">{{error_firstname}}</div>
-    {% endif %}
-  </div>
-</div>
-<div class="form-group required">
-  <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-lastname"><span>{{entry_lastname}}</span></label>
-  <div class="{% if form %}col-sm-10{% endif %}">
-    <input type="text" name="lastname" value="{{lastname}}" id="input-lastname" class="field form-control" />
-    {% if error_lastname %}
-    <div class="text-danger">{{error_lastname}}</div>
-    {% endif %}
-  </div>
-</div>
+
+{% include partial.form_group.template with partial.form_group|merge({
+type:'text',
+id:'input-firstname',
+name:'firstname',
+required:true,
+value:firstname,
+text_input:entry_firstname ,
+placeholder:entry_firstname ,
+error:error_firstname
+}) %}
+{% include partial.form_group.template with partial.form_group|merge({
+type:'text',
+id:'input-lastname',
+name:'lastname',
+required:true,
+value:lastname,
+text_input:entry_lastname ,
+placeholder:entry_lastname ,
+error:error_lastname
+}) %}
 <!-- /> d_name_field -->

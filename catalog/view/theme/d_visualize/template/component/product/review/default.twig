@@ -1,0 +1,21 @@
+{% if reviews %}
+    {% for review in reviews %}
+        <div class="comment">
+            <div class="avatar"></div>
+            <div class="comment-data">
+                <div class="comment-header">
+                    <div class="wrap">
+                        <span class="author-name">{{ review.author }}
+                            {% include partial.d_rating.template with  partial.d_rating|merge({rating:review.rating ,static_rating:true}) %}
+</span>
+                        <span class="comment-date">{{ review.date_added }}</span>
+                    </div>
+                </div>
+                <p class="comment-text">{{ review.text }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="text-right">{{ pagination }}</div>
+{% else %}
+    <p>{{ text_no_reviews }}</p>
+{% endif %}

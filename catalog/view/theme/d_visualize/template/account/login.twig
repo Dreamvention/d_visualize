@@ -9,29 +9,46 @@
                     <h5 class="heading-subtitle">{{ text_register }}</h5>
                     <p>{{ text_register_account }}</p>
                     <div class="d-flex justify-content-end">
-                        <a href="{{ register }}" class="btn btn-primary btn-shrink">{{ button_continue }}</a></div>
+                        {% include partial.button.template with partial.button|merge({
+                        link:register ,
+                        style:'primary',
+                        classes:'btn-shrink',
+                        text_button:button_continue,
+                        }) %}
+                        </div>
                     </div>
             </div>
-            <div class="col-sm-6 ">
+            <div class="col-sm-6">
                 <div class="well">
                     <h3 class="heading-h3">{{ text_returning_customer }}</h3>
                     <h5 class="heading-h5">{{ text_i_am_returning_customer }}</h5>
                     <form action="{{ action }}" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label class="field-label " for="input-email">{{ entry_email }}</label>
-                            <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}"
-                                   id="input-email" class="field"/>
-                        </div>
-                        <div class="form-group">
-                            <label class="field-label label-fluid" for="input-password">{{ entry_password }}</label>
-                            <input type="password" name="password" value="{{ password }}"
-                                   placeholder="{{ entry_password }}"
-                                   id="input-password" class="field"/>
-                            <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a></div>
+                        {% include partial.form_group.template with partial.form_group|merge({
+                        type:'email',
+                        id:'input-email',
+                        name:'email',
+                        value:email,
+                        placeholder:entry_email,
+                        classes:'',
+                        text_input:entry_email,
+                        }) %}
 
-                        <div class="d-flex justify-content-end">
-                            <input type="submit" value="{{ button_login }}" class="btn btn-primary btn-shrink "/>
-                        </div>
+                        {% include partial.form_group.template with partial.form_group|merge({
+                        type:'password',
+                        id:'input-password',
+                        name:'password',
+                        value:password,
+                        placeholder:entry_password,
+                        classes:'',
+                        text_input:entry_password,
+                        }) %}
+
+                        <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
+
+                        {% include partial.d_button_submit.template with partial.d_button_submit|merge({
+                            button_continue:button_login
+                        }) %}
+
                         {% if redirect %}
                             <input type="hidden" name="redirect" value="{{ redirect }}"/>
                         {% endif %}

@@ -12,7 +12,6 @@ var Search = {
 		if (search) {
 			url += '&search=' + encodeURIComponent(search);
 		}
-
 		var category_id = $('#content select[name=\'category_id\']').prop('value');
 
 		if (category_id > 0) {

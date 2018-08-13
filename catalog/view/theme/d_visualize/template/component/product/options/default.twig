@@ -1,0 +1,165 @@
+{% if options %}
+    <div class="options-wrap">
+    {% for option in options %}
+        {% if option.type == 'select' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label"
+                       for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                <select name="option[{{ option.product_option_id }}]"
+                        id="input-option{{ option.product_option_id }}" class="form-control">
+                    <option value="">{{ text_select }}</option>
+                    {% for option_value in option.product_option_value %}
+                        <option value="{{ option_value.product_option_value_id }}">{{ option_value.name }}
+                            {% if option_value.price %}
+                                ({{ option_value.price_prefix }} {{ option_value.price }} )
+                            {% endif %} </option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+        {% if option.type == 'radio' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label">{{ option.name }}</label>
+                <div id="input-option{{ option.product_option_id }}"
+                     class="options">
+                    {% for option_value in option.product_option_value %}
+                        <label class="product-option-wrap">
+                            <input type="radio" name="option[{{ option.product_option_id }}]"
+                                   value="{{ option_value.product_option_value_id }}"
+                                   class="field field--radio"/>
+                            {% if option_value.image %}
+                                <div class="product-option"></div>
+                                <img src="{{ option_value.image }}"
+                                     alt="{{ option_value.name }}
+                                {% if option_value.price %}
+                                    {{ option_value.price_prefix }} {{ option_value.price }}
+                                {% endif %}"
+                                     class="img-thumbnail"/>
+                            {% else %}
+                                {{ option_value.name }}
+                                {% if option_value.price %}
+                                    ({{ option_value.price_prefix }}{{ option_value.price }})
+                                {% endif %}
+                            {% endif %}
+
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {% if option.type == 'checkbox' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label">{{ option.name }}</label>
+                <div id="input-option{{ option.product_option_id }}" class="options">
+                    {% for option_value in option.product_option_value %}
+                        <label class="product-option-wrap">
+
+                            {% include partial.input.template with partial.input|merge({
+                            type:'checkbox',
+                            name:'option[' ~ option.product_option_id ~ '][]',
+                            value:option_value.product_option_value_id ,
+                            }) %}
+
+                            {% if option_value.image %}
+                                <img src="{{ option_value.image }}"
+                                     alt="{{ option_value.name }}
+                                    {% if option_value.price %} {{ option_value.price_prefix }} {{ option_value.price }}
+                                    {% endif %}"
+                                     class="img-thumbnail"/>
+                            {% else %}
+                                {{ option_value.name }}
+                                {% if option_value.price %}
+                                    ({{ option_value.price_prefix }}{{ option_value.price }})
+                                {% endif %}
+                            {% endif %}
+                        </label>
+                    {% endfor %} </div>
+            </div>
+        {% endif %}
+        {% if option.type == 'text' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label"
+                       for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                {% include partial.input.template with partial.input|merge({
+                type:'text',
+                id:'input-option'~option.product_option_id,
+                name:'option[' ~ option.product_option_id ~ ']',
+                value:option.value ,
+                placeholder:option.name
+                }) %}
+            </div>
+        {% endif %}
+        {% if option.type == 'textarea' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label"
+                       for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                {% include partial.input.template with partial.input|merge({
+                type:'textarea',
+                id:'input-option'~option.product_option_id,
+                name:'option[' ~ option.product_option_id ~ ']',
+                value:option.value ,
+                }) %}
+
+            </div>
+        {% endif %}
+        {% if option.type == 'file' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label">{{ option.name }}</label>
+                {% include component.button.template with({
+                button: true,
+                id:'button-upload'~ option.product_option_id ,
+                style:'default',
+                classes:'btn-block',
+                text_button:'<i
+                            class="fa fa-upload"></i> '~ button_upload ,
+                title:"",
+                }) %}
+                {#<button type="button" id="button-upload{{ option.product_option_id }}"#}
+                {#data-loading-text="{{ text_loading }}"#}
+                {#class="btn btn-vis btn-default btn-block"><i#}
+                {#class="fa fa-upload"></i> {{ button_upload }}</button>#}
+                {##}
+                <input type="hidden" name="option[{{ option.product_option_id }}]" value=""
+                       id="input-option{{ option.product_option_id }}"/>
+            </div>
+        {% endif %}
+        {% if option.type == 'date' %}
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'date',
+            id:'input-option'~option.product_option_id,
+            name:'option[' ~ option.product_option_id ~ ']',
+            value:option.value,
+            text_input:option.name,
+            classes:'',
+            }) %}
+        {% endif %}
+        {% if option.type == 'datetime' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label"
+                       for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                <div class="input-group datetime">
+                    <input type="text" name="option[{{ option.product_option_id }}]"
+                           value="{{ option.value }}" data-date-format="YYYY-MM-DD HH:mm"
+                           id="input-option{{ option.product_option_id }}"
+                           class="form-control"/>
+                    <span class="input-group-btn">
+                <button type="button" class="btn btn-vis btn-default"><i class="fa fa-calendar"></i></button>
+                </span></div>
+            </div>
+        {% endif %}
+        {% if option.type == 'time' %}
+            <div class="form-group{% if option.required %} required {% endif %}">
+                <label class="control-label"
+                       for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
+                <div class="input-group time">
+                    <input type="text" name="option[{{ option.product_option_id }}]"
+                           value="{{ option.value }}" data-date-format="HH:mm"
+                           id="input-option{{ option.product_option_id }}"
+                           class="form-control"/>
+                    <span class="input-group-btn">
+                <button type="button" class="btn btn-vis btn-default"><i class="fa fa-calendar"></i></button>
+                </span></div>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>{% endif %}

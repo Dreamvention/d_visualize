@@ -1,0 +1,35 @@
+{% set btn_classes = 'btn d-vis' %}
+{% if classes %}
+    {% set btn_classes = btn_classes ~ ' ' ~ classes %}
+{% endif %}
+{% if style %}
+    {% set btn_classes = btn_classes ~ ' btn-' ~ style %}
+{% endif %}
+{% if data_loading %}
+    {% set text_loading = data_loading %}
+{% endif %}
+{% if not type %}
+    {% set type = 'button' %}
+{% endif %}
+{% if button %}
+    <button
+            {% if id  %}
+                id='{{ id }}'
+            {% endif %}
+            class="{{ btn_classes }}"
+            onclick="{{ button|raw }}"
+            {% if type  %}
+                type='{{ type }}'
+            {% endif %}
+            title="{{ title_button }}"
+            data-loading-text="{{ text_loading }}"
+    >{{ text_button|raw }}</button>
+{% elseif link %}
+    <a href="{{ link }}"
+        {% if id  %}
+            id='{{ id }}'
+        {% endif %}
+       class="{{ btn_classes }}"
+       data-loading-text="{{ text_loading }}"
+    >{{ text_button|raw }}</a>
+{% endif %}

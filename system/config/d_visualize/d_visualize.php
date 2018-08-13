@@ -14,5 +14,6 @@ $_['config_theme_visualize'] = array(
         'image_related'    => array('width' => '218', 'height' => '218'),
         'image_category'   => array('width' => '218', 'height' => '218'),
         'image_popup'      => array('width' => '900', 'height' => '900'),
+        'image_cart_width'    => array('width' => '150', 'height' => '150'),
     )
 );

@@ -230,5 +230,15 @@
   top: 0;
   bottom: 0;
 }
-
+@mixin vd($el) {
+  @each $class in $el{
+    //.vd-#{$class},
+    [data-is='vd-block-#{$class}']{
+      @content;
+    }
+  }
+}
+.modal-open{
+  overflow: hidden !important;
+}
 // todo sprite

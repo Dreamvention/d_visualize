@@ -26,7 +26,6 @@ $(document).ready(function () {
 			$('header #search input[name=\'search\']').parent().find('button').trigger('click');
 		}
 	});
-
 	// Menu
 	if (localStorage.getItem('display') == 'list') {
 		$('#list-view').trigger('click');

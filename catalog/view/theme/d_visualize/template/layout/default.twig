@@ -6,18 +6,20 @@
                 {% include partial.breadcrumb.template with partial.breadcrumb %}
                 {% include partial.d_notification.template with partial.d_notification %}
             {% endblock %}
+            {% block container_classes %}
             <div class="container">
                 <div class="row">{{ column_left }}
                     {% if column_left and column_right %}
-                        {% set class = 'col-sm-6' %}
+                        {% set class = columns.main.three_col %}
                     {% elseif column_left or column_right %}
-                        {% set class = 'col-sm-9' %}
+                        {% set class = columns.main.two_col %}
                     {% else %}
-                        {% set class = 'col-sm-12' %}
+                        {% set class = columns.main.one_col %}
                     {% endif %}
                     <main id="content" class="{{ class }}">
                         {{ content_top }}
-                                {% block content %}{% endblock %}
+            {% endblock %}
+                        {% block content %}{% endblock %}
                         {{ content_bottom }}
                     </main>
                     {{ column_right }}

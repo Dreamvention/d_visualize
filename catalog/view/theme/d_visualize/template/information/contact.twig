@@ -10,7 +10,8 @@
                 <div class="col-sm-3"><img src="{{ image }}" alt="{{ store }}" title="{{ store }}"
                                            class="img-thumbnail"/></div>
             {% endif %}
-            <div class="col-sm-3"><span class="desk_title">{{ store }}</span>
+            <div class="col-sm-3">
+                <span class="desk_title">{{ store }}</span>
                 <address class="desk_value">
                     {{ address }}
                 </address>
@@ -19,7 +20,8 @@
                        class="btn btn-info"><i class="fa fa-map-marker"></i> {{ button_map }}</a>
                 {% endif %}
             </div>
-            <div class="col-sm-3"><span class="desk_title">{{ text_telephone }}</span>
+            <div class="col-sm-3">
+                <span class="desk_title">{{ text_telephone }}</span>
                 <span class="desk_value">{{ telephone }}</span>
                 {% if fax %}
                     <span class="desk_title">{{ text_fax }}</span>
@@ -45,9 +47,10 @@
             {% for location in locations %}
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><a href="#collapse-location{{ location.location_id }}"
-                                                   class="accordion-toggle" data-toggle="collapse"
-                                                   data-parent="#accordion">{{ location.name }} <i
+                        <h4 class="panel-title">
+                            <a href="#collapse-location{{ location.location_id }}"
+                               class="accordion-toggle" data-toggle="collapse"
+                               data-parent="#accordion">{{ location.name }} <i
                                         class="fa fa-caret-down"></i></a></h4>
                     </div>
                     <div class="panel-collapse collapse" id="collapse-location{{ location.location_id }}">
@@ -98,41 +101,44 @@
             <h2 class="like-heading-h3">
                 <legend>{{ text_contact }}</legend>
             </h2>
-            <div class="form-group required">
-                <label class="col-sm-2 field-label label-right-md" for="input-name"><span>{{ entry_name }}</span></label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" value="{{ name }}" id="input-name" class="field"/>
-                    {% if error_name %}
-                        <div class="text-danger">{{ error_name }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="form-group required">
-                <label class="col-sm-2 field-label label-right-md" for="input-email"><span>{{ entry_email }}</span></label>
-                <div class="col-sm-10">
-                    <input type="text" name="email" value="{{ email }}" id="input-email" class="field"/>
-                    {% if error_email %}
-                        <div class="text-danger">{{ error_email }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="form-group required">
-                <label class="col-sm-2 field-label label-right-md"
-                       for="input-enquiry"><span>{{ entry_enquiry }}</span></label>
-                <div class="col-sm-10">
-                    <textarea name="enquiry" rows="10" id="input-enquiry"
-                              class="textarea field">{{ enquiry }}</textarea>
-                    {% if error_enquiry %}
-                        <div class="text-danger">{{ error_enquiry }}</div>
-                    {% endif %}
-                </div>
-            </div>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-name',
+            name:'name',
+            required: true,
+            value:name,
+            placeholder:entry_name,
+            classes:'',
+            text_input:entry_name,
+            error:error_name,
+            }) %}
+            
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'email',
+            id:'input-email',
+            name:'email',
+            required: true,
+            value:email,
+            placeholder:entry_email,
+            classes:'',
+            text_input:entry_email,
+            error:error_email,
+            }) %}
+            
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'textarea',
+            id:'input-enquiry',
+            name:'enquiry',
+            value:enquiry,
+            placeholder:entry_enquiry,
+            classes:'',
+            text_input:entry_enquiry,
+            error:error_enquiry,
+            }) %}
             {{ captcha }}
         </fieldset>
-        <div class="buttons">
-            <div class="pull-right fl-no-sm">
-                <input class="btn btn-primary btn-block-sm" type="submit" value="{{ button_submit }}"/>
-            </div>
-        </div>
+        {% include partial.d_button_submit.template with partial.d_button_submit|merge({
+        button_continue:button_submit
+        }) %}
     </form>
 {% endblock %}

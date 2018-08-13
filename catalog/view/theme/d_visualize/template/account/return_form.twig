@@ -1,143 +1,148 @@
 {#it's mean in layout template#}
 {% extends template %}
-{% block before_content %}
-      <h1 class="heading-h1">{{heading_title}}</h1>
-      <p>{{text_description}}</p>
-      <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+{% block content %}
+    <h1 class="heading-h1">{{ heading_title }}</h1>
+    <p>{{ text_description }}</p>
+    <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <legend>{{ text_order }}</legend>
         <fieldset>
-          <legend>{{text_order}}</legend>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-firstname">{{entry_firstname}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="firstname" value="{{firstname}}" placeholder="{{entry_firstname}}" id="input-firstname" class="form-control" />
-              {% if error_firstname %}
-              <div class="text-danger">{{error_firstname}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-lastname">{{entry_lastname}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="lastname" value="{{lastname}}" placeholder="{{entry_lastname}}" id="input-lastname" class="form-control" />
-              {% if error_lastname %}
-              <div class="text-danger">{{error_lastname}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-email">{{entry_email}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="email" value="{{email}}" placeholder="{{entry_email}}" id="input-email" class="form-control" />
-              {% if error_email %}
-              <div class="text-danger">{{error_email}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-telephone">{{entry_telephone}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="telephone" value="{{telephone}}" placeholder="{{entry_telephone}}" id="input-telephone" class="form-control" />
-              {% if error_telephone %}
-              <div class="text-danger">{{error_telephone}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-order-id">{{entry_order_id}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="order_id" value="{{order_id}}" placeholder="{{entry_order_id}}" id="input-order-id" class="form-control" />
-              {% if error_order_id %}
-              <div class="text-danger">{{error_order_id}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-date-ordered">{{entry_date_ordered}}</label>
-            <div class="col-sm-3">
-              <div class="input-group date"><input type="text" name="date_ordered" value="{{date_ordered}}" placeholder="{{entry_date_ordered}}" data-date-format="YYYY-MM-DD" id="input-date-ordered" class="form-control" /><span class="input-group-btn">
-                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                </span></div>
-            </div>
-          </div>
+            {% include partial.d_name_field.template with  partial.d_name_field %}
+
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'email',
+            id:'input-email',
+            name:'email',
+            required: true,
+            value:email,
+            placeholder:entry_email,
+            classes:'',
+            text_input:entry_email,
+            error:error_email,
+            }) %}
+
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-telephone',
+            name:'telephone',
+            required: true,
+            value:telephone,
+            placeholder:entry_telephone,
+            classes:'',
+            text_input:entry_telephone,
+            error:error_telephone,
+            }) %}
+
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-order-id',
+            name:'order_id',
+            required: true,
+            value:order_id,
+            placeholder:entry_order_id,
+            classes:'',
+            text_input:entry_order_id,
+            error:error_order_id,
+            }) %}
+
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'date',
+            id:'input-date-ordered',
+            name:'date_ordered',
+            value:date_ordered,
+            placeholder:entry_date_ordered,
+            text_input:entry_date_ordered,
+            classes:'',
+            }) %}
         </fieldset>
         <fieldset>
-          <legend>{{text_product}}</legend>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-product">{{entry_product}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="product" value="{{product}}" placeholder="{{entry_product}}" id="input-product" class="form-control" />
-              {% if error_product %}
-              <div class="text-danger">{{error_product}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-model">{{entry_model}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="model" value="{{model}}" placeholder="{{entry_model}}" id="input-model" class="form-control" />
-              {% if error_model %}
-              <div class="text-danger">{{error_model}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-quantity">{{entry_quantity}}</label>
-            <div class="col-sm-10">
-              <input type="text" name="quantity" value="{{quantity}}" placeholder="{{entry_quantity}}" id="input-quantity" class="form-control" />
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label">{{entry_reason}}</label>
-            <div class="col-sm-10">
-              {% for return_reason in return_reasons %}
+            <legend>{{ text_product }}</legend>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-product',
+            name:'product',
+            required: true,
+            value:product,
+            placeholder:entry_product,
+            classes:'',
+            text_input:entry_product,
+            error:error_product,
+            }) %}
+             
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-model',
+            name:'model',
+            required: true,
+            value:model,
+            placeholder:entry_model,
+            classes:'',
+            text_input:entry_model,
+            error:error_model,
+            }) %} 
 
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="return_reason_id" value="{{return_reason.return_reason_id}}" {% if return_reason.return_reason_id == return_reason_id %}checked="checked"{% endif %} />
-                    {{return_reason.name}}</label>
-                </div>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-quantity',
+            name:'quantity',
+            value:quantity,
+            placeholder:entry_quantity,
+            classes:'',
+            text_input:entry_quantity,
+            error:error_quantity,
+            }) %}
 
-              {% endfor %}
-              {% if error_reason %}
-              <div class="text-danger">{{error_reason}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label">{{entry_opened}}</label>
-            <div class="col-sm-10">
-              <label class="radio-inline">
-                <input type="radio" name="opened" value="1" {% if opened %}checked="checked"{% endif %} />
-                {{text_yes}}</label>
-              <label class="radio-inline">
-                <input type="radio" name="opened" value="0" {% if not opened %}checked="checked"{% endif %} />
-                {{text_no}}</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="input-comment">{{entry_fault_detail}}</label>
-            <div class="col-sm-10">
-              <textarea name="comment" rows="10" placeholder="{{entry_fault_detail}}" id="input-comment" class="form-control">{{comment}}</textarea>
-            </div>
-          </div>
-          {{captcha}}
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'radio',
+            id:'input-reason',
+            name:'return_reason_id',
+            required: true,
+            radio_values:return_reasons,
+            radio_values_val:'return_reason_id',
+            radio_values_check: return_reason_id,
+            radio_values_name: 'name',
+            placeholder:entry_reason,
+            classes:'',
+            text_input:entry_reason,
+            error:error_reason,
+            }) %}
+
+
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'radio',
+            id:'input-opened',
+            name:'opened',
+            required: true,
+            radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
+            radio_values_val:'val',
+            radio_values_check: opened,
+            radio_values_name: 'name',
+            placeholder:entry_opened,
+            classes:'',
+            text_input:entry_opened,
+            error:error_opened,
+            }) %}
+
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'textarea',
+            id:'input-comment',
+            name:'comment',
+            value:comnent,
+            placeholder:entry_fault_detail,
+            classes:'',
+            text_input:entry_fault_detail,
+            }) %}
+            {{ captcha }}
         </fieldset>
         {% if text_agree %}
-        <div class="buttons clearfix">
-          <div class="pull-left"><a href="{{back}}" class="btn btn-danger">{{button_back}}</a></div>
-          <div class="pull-right">{{text_agree}}
-            <input type="checkbox" name="agree" value="1" {% if agree %}checked="checked"{% endif %} />
-            <input type="submit" value="{{button_submit}}" class="btn btn-primary" />
-          </div>
-        </div>
+            {% include partial.d_button.template with  partial.d_button %}
         {% else %}
             {% include partial.d_button_submit.template with  partial.d_button_submit %}
         {% endif %}
-      </form>
+    </form>
 
-<script type="text/javascript"><!--
-$('.date').datetimepicker({
-  pickTime: false
-});
-//--></script>
+    <script type="text/javascript"><!--
+		$('.date').datetimepicker({
+			pickTime: false
+		});
+		//--></script>
 {% endblock %}

@@ -11,23 +11,28 @@
                     {% include partial.d_custom_field.template with  partial.d_custom_field %}
                 {% endif %}
             {% endfor %}
-            <div class="form-group">
-                <label class="col-sm-2 field-label label-text-right radio-label">{{ entry_default }}</label>
-                <div class="col-sm-10">
-                    <label class="radio-input">
-                        <span class="radio-container">
-                            <input type="radio" name="default" value="1" {% if default %}checked="checked"{% endif %} />
-                            <span class="input-circle"></span>
-                        </span>
-                        {{ text_yes }}</label>
-                    <label class="radio-input">
-                        <span class="radio-container">
-                            <input type="radio" name="default" value="0" {% if not default %}checked="checked"{% endif %} />
-                            <span class="input-circle"></span>
-                        </span>
-                        {{ text_no }}</label>
-                </div>
-            </div>
+             <div class="form-group">
+                <label class="field-label label-text-right radio-label">{{ entry_default }}</label>
+                <div class="">
+                        <div class="default-wrap">
+                            {% include partial.input.template with partial.input|merge({
+                                type:'radio',
+                                name:'default',
+                                value:'1',
+                                checked:default,
+                                text_input:text_yes }) %}
+
+                            {% include partial.input.template with partial.input|merge({
+                                type:'radio',
+                                name:'default',
+                                value:'0',
+                                checked:not default,
+                                text_input:text_no }) %}
+
+                        </div>
+
+                 </div>
+               </div>
         </fieldset>
         {% include partial.d_button_submit.template with  partial.d_button_submit %}
     </form>

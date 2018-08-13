@@ -1,5 +1,11 @@
 <!-- > d_button_continue -->
 <div class="buttons">
-	<div class="pull-right fl-no-sm"><a href="{{continue}}" class="btn btn-primary btn-shrink btn-block-sm">{{button_continue}}</a></div>
+	<div class="vis-forward">
+		{% include partial.button.template with partial.button|merge({
+		link:continue ,
+		style:'primary',
+		classes:'btn-shrink btn-block-sm',
+		text_button:button_continue,
+		}) %}
 </div>
 <!-- /> d_button_continue -->

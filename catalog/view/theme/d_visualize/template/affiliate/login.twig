@@ -9,13 +9,31 @@
                 <div class="well">
                     <h2 class="heading-h2">{{ text_new_affiliate }}</h2>
                     <p>{{ text_register_account }}</p>
-                    <a class="btn btn-primary btn-shrink" href="{{ register }}">{{ button_continue }}</a></div>
+                    {% include partial.button.template with partial.button|merge({
+                    link: register,
+                    style:'primary',
+                    classes:'btn-shrink',
+                    text_button:button_continue,
+                    }) %}
+                    {#<a class="btn btn-primary btn-shrink" href="{{ register }}">{{ button_continue }}</a></div>#}
             </div>
             <div class="col-sm-6">
                 <div class="well">
                     <h2 class="heading-h2">{{ text_returning_affiliate }}</h2>
                     <span class="heading-subtitle">{{ text_i_am_returning_affiliate }}</span>
                     <form action="{{ action }}" method="post" enctype="multipart/form-data">
+                        {% include partial.form_group.template with partial.form_group|merge({
+                        type:'email',
+                        id:'input-email',
+                        name:'email',
+                        required: true,
+                        value:email,
+                        placeholder:entry_email,
+                        classes:'',
+                        text_input:entry_email,
+                        error:error_email,
+                        }) %}
+
                         <div class="form-group">
                             <label class="field-label label-fluid" for="input-email">{{ entry_email }}</label>
                             <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}"

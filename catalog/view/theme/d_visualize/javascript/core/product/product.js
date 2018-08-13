@@ -12,11 +12,10 @@ var Product = {
     },
 
     increaseQuantity: function(){
-    	console.log(this.setting.$quantity);
     	this.setting.$quantity.val(parseInt(this.setting.$quantity.val())+1);
     },
 
-	decreaseQuanityt: function(){
+	decreaseQuantity: function(){
 		if(this.setting.$quantity.val() <= this.setting.minimum){
 			this.setting.$quantity.val(this.setting.minimum);
 		}else{

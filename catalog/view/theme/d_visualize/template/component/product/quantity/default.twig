@@ -1,0 +1,18 @@
+<div class="product-quantity">
+    <div onclick="cart.decreaseQuantity('{{ product_id }}','{{ minimum }}');" class="quantity-control decrement">
+        <i class="fas fa-minus"></i></div>
+    <input type="number" name="quantity" value="{{ quantity }}" size="1"
+           class="field quantity-control input-quantity-{{ product_id }}"/>
+    <div onclick="cart.increaseQuantity('{{ product_id }}');" class="quantity-control increment">
+        <i class="fas fa-plus"></i></div>
+</div>
+<script>
+    {% if cart_page %}
+    $(document).on('cart/increaseQuantity', function (action, data) {
+	    window.location.reload();
+    });
+    $(document).on('cart/decreaseQuantity', function (action, data) {
+	    window.location.reload();
+    });
+    {% endif %}
+</script>

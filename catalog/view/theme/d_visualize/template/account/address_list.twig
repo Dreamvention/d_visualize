@@ -18,12 +18,11 @@
         {% else %}
             <p>{{ text_empty }}</p>
         {% endif %}
-        <div class="buttons clearfix">
-            <div class="pull-left fl-no-sm"><a href="{{ back }}"
-                                      class="btn btn-default btn-shrink btn-block-sm">{{ button_back }}</a></div>
-            <div class="pull-right fl-no-sm"><a href="{{ add }}"
-                                       class="btn btn-primary btn-shrink btn-block-sm">{{ button_new_address }}</a>
-            </div>
-        </div>
+        {% include partial.d_button.template with partial.d_button|merge({
+            continue:add,
+            button_continue:button_new_address,
+            button_submit:''
+        }) %}
+
     </div>
 {% endblock %}

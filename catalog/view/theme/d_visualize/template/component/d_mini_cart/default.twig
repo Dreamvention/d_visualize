@@ -1,0 +1,78 @@
+{% if products or vouchers %}
+    <li>
+        <table class="table">
+            {% for product in products %}
+                <tr>
+                    <td class="text-center">{% if product.thumb %} <a href="{{ product.href }}"><img
+                                    src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
+                                    class="img-thumbnail"/></a> {% endif %}</td>
+                    <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
+                        {% if product.option %}
+                            {% for option in product.option %} <br/>
+                                -
+                                <small>{{ option.name }} {{ option.value }}</small> {% endfor %}
+                        {% endif %}
+                        {% if product.recurring %} <br/>
+                            -
+                            <small>{{ text_recurring }} {{ product.recurring }}</small> {% endif %}
+                        <div class="d-flex product-quantity-wrap no-gutters align-items-center">
+                            <div class="col">
+                                {% include component.product_quantity.template with({product_id:product.cart_id,quantity:product.quantity,minimum:1}) %}
+                            </div>
+                            <div class="col-auto">
+                                {% include component.product_remove.template with({product_id:product.cart_id}) %}
+                            </div>
+                        </div>
+
+                    </td>
+                    <td class="text-right total"><b>{{ product.total }}</b></td>
+                </tr>
+            {% endfor %}
+            {% for voucher in vouchers %}
+                <tr>
+                    <td class="text-center"></td>
+                    <td class="text-left">{{ voucher.description }}</td>
+                    <td class="text-right">x&nbsp;1</td>
+                    <td class="text-right">{{ voucher.amount }}</td>
+                    <td class="text-center">
+                        {% include partial.component.button.template with partial.component({
+                        button:'voucher.remove('~ product.cart_id ~ ')',
+                        style:'ghost',
+                        text_button:'<i class="fal fa-times"></i>',
+                        title:button_remove
+                        }) %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </li>
+    <li>
+        <div>
+            <table class="table table-total">
+                {% for total in totals %}
+                    <tr>
+                        <td class="text-right">{{ total.title }}</td>
+                        <td class="text-right"><strong>{{ total.text }}</strong></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="checkout-cart-btn-wrap d-flex ">
+                {% include partial.button.template  with partial.button|merge({
+                link:cart,
+                style:'default',
+                text_button:text_cart
+                }) %}
+                {% include partial.button.template  with partial.button|merge({
+                link:checkout,
+                style:'primary',
+                text_button:text_checkout
+                }) %}
+            </div>
+        </div>
+    </li>
+{% else %}
+    <li>
+        <p class="text-center">{{ text_empty }}</p>
+    </li>
+{% endif %}
+{% include component.d_loader %}

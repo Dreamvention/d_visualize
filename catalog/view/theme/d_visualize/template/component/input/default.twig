@@ -1,0 +1,79 @@
+{% set input_classes = 'form-control d-vis' %}
+{% if classes %}
+    {% set input_classes = input_classes ~ ' ' ~ classes %}
+{% endif %}
+{% if type=='button' %}
+    {% set button = true %}
+{% endif %}
+{% if button %}
+    {% set input_classes = input_classes ~ ' btn d-vis btn-' ~ style %}
+{% endif %}
+{% if not type %}
+    {% set type = 'text' %}
+{% endif %}
+{#{% if not value %}#}
+    {#{% set value = 1 %}#}
+{#{% endif %}#}
+{% if type=='checkbox' %}
+    <label class="{{ type }} d-vis">
+        <input type="{{ type }}"
+               class="{{ classes }} "
+               name="{{ name }}"
+               value="{{ value }}"
+               {% if checked %}checked="checked"{% endif %}
+        />
+        <div class="{{ type }}-text">{{ text_input }}</div>
+    </label>
+{% elseif type=='select' %}
+    <label class="{{ type }}" for="{{ id }}">{{ text_input }}</label>
+    <div class="{{  classes }} select-container">
+        <select name="{{ name }}" id="{{ id }}" class="{{ input_classes }}" onchange="{{ on_change }}">
+        {% for option in select_values %}
+            <option value="{{ option[select_values_val] }}"
+                    {% if option[select_values_check_val] == select_values_check %} selected="selected" {% endif %}>
+                {{ option[select_values_name] }}
+            </option>
+        {% endfor %}
+        </select>
+    </div>
+{% elseif type=='radio' %}
+    <label class="{{ type }} d-vis" id="{{ id }}">
+        <input type="{{ type }}"
+               id="{{ id }}"
+               class="{{ classes }} "
+               name="{{ name }}"
+               value="{{ value }}"
+               {% if checked %}checked="checked"{% endif %}
+        />
+        <div class="{{ type }}-text"><span></span>{{ text_input }}</div>
+    </label>
+{% elseif type=='button' %}
+    <input type="{{ type }}"
+           id="{{ id }}"
+           class="{{ input_classes }}"
+           value="{{ value }}"
+    />
+{% elseif type=='textarea' %}
+    <textarea
+            type="{{ type }}"
+           id="{{ id }}"
+           name="{{ name }}"
+           class="{{ input_classes }}" rows="10"
+    >
+        {{ value }}
+    </textarea>
+{% elseif type=='submit' %}
+    <input type="{{ type }}"
+           id="{{ id }}"
+           class="{{ input_classes }}"
+           value="{{ value }}"
+    />
+{% elseif type=='email' or type=='text' or type=='submit' or type=='password' %}
+    <input type="{{ type }}"
+           id="{{ id }}"
+           name="{{ name }}"
+           placeholder="{{ placeholder }}"
+           class="{{ input_classes }}"
+           value="{{ value }}"
+    />
+{% endif %}

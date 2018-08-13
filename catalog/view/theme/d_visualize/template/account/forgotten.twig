@@ -8,10 +8,15 @@
       <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
           <legend>{{text_your_email}}</legend>
-          <div class="form-group required">
-            <label class="field-label" for="input-email"><span>{{entry_email}}</span></label>
-              <input type="text" name="email" value="" placeholder="{{entry_email}}" id="input-email" class="field" />
-          </div>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'email',
+            id:'input-email',
+            name:'email',
+            value:email,
+            placeholder:entry_email,
+            classes:'',
+            text_input:entry_email,
+            }) %}
         </fieldset>
           {% include partial.d_button_submit.template with partial.d_button_submit %}
       </form>

@@ -1,1 +1,5 @@
-{% include component.d_notification.template with component.d_notification %}
+{% if not component.d_notification.template  %}
+    {% include partial.d_notification.component.d_notification.template  %}
+{% else %}
+    {% include component.d_notification.template with component.d_notification %}
+{% endif %}

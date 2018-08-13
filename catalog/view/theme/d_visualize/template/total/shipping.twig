@@ -38,16 +38,16 @@
 <script type="text/javascript"><!--
 $(document).ready(function() {
 	Total_shipping.init({
-		shipping_method: '<?php echo $shipping_method; ?>',
-		text_shipping_method: '<?php echo $text_shipping_method; ?>',
-		text_loading: '<?php echo $text_loading; ?>',
-		button_cancel: '<?php echo $button_cancel; ?>',
-		button_shipping: '<?php echo $button_shipping; ?>'
+		shipping_method: '{{shipping_method}}',
+		text_shipping_method: '{{text_shipping_method}}',
+		text_loading: '{{text_loading}}',
+		button_cancel: '{{button_cancel}}',
+		button_shipping: '{{button_shipping}}'
 	});
 	d_address_field.init({
-        zone_id: '<?php echo $zone_id; ?>',
-        text_none: '<?php echo $text_none; ?>',
-        text_select: '<?php echo $text_select; ?>'
+        zone_id: '{{zone_id}}',
+        text_none: '{{text_none}}',
+        text_select: '{{text_select}}'
     });
 });
 //--></script>

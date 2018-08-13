@@ -1,5 +1,12 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-    {% include component.category_section.template %}
+    {% include component.product_category.template %}
+{% endblock %}
+
+{% block after_content %}
+
+    {% if component.product_category.description_after %}
+            {% include component.product_category.description.template %}
+    {% endif %}
 {% endblock %}

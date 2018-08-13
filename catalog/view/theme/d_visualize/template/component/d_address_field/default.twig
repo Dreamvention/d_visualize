@@ -1,81 +1,89 @@
 <!-- > d_address_field_default -->
-<div class="form-group">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-company"><span>{{ entry_company }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
-        <input type="text" name="company" value="{{ company }}" id="input-company"
-               class="field form-control"/>
-    </div>
-</div>
-{% if entry_website %}
-    <div class="form-group">
-        <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-website"><span>{{ entry_website }}</span></label>
-        <div class="{% if form %}col-sm-10{% endif %}">
-            <input type="text" name="website" value="{{ website }}" id="input-website"
-                   class="field form-control"/>
-        </div>
-    </div>
-{% endif %}
-<div class="form-group required">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-address-1"><span>{{ entry_address_1 }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
-        <input type="text" name="address_1" value="{{ address_1 }}" id="input-address-1" class="field"/>
-        {% if error_address_1 %}
-            <div class="text-danger">{{ error_address_1 }}</div>
-        {% endif %}
-    </div>
-</div>
-<div class="form-group">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-address-2"><span>{{ entry_address_2 }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
-        <input type="text" name="address_2" value="{{ address_2 }}" id="input-address-2" class="field"/>
-    </div>
-</div>
-<div class="form-group required">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-city"><span>{{ entry_city }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
-        <input type="text" name="city" value="{{ city }}" id="input-city" class="field"/>
-        {% if error_city %}
-            <div class="text-danger">{{ error_city }}</div>
-        {% endif %}
-    </div>
-</div>
-<div class="form-group required">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-postcode"><span>{{ entry_postcode }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
-        <input type="text" name="postcode" value="{{ postcode }}" id="input-postcode"
-               class="field"/>
-        {% if error_postcode %}
-            <div class="text-danger">{{ error_postcode }}</div>
-        {% endif %}
-    </div>
-</div>
-<div class="form-group required">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-country"><span>{{ entry_country }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
-        <div class="select-container">
-            <select name="country_id" id="input-country" class="field">
-                <option value="">{{ text_select }}</option>
-                {% for country in countries %}
-                    <option value="{{ country.country_id }}"
-                            {% if country.country_id == country_id %}selected="selected"{% endif %}>{{ country.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        {% if error_country %}
-            <div class="text-danger">{{ error_country }}</div>
-        {% endif %}
-    </div>
-</div>
-<div class="form-group required">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-zone"><span>{{ entry_zone }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
-        <div class="select-container">
-            <select name="zone_id" id="input-zone" class="field">
-            </select>
-        </div>
-        {% if error_zone %}
-            <div class="text-danger">{{ error_zone }}</div>
-        {% endif %}
-    </div>
-</div>
+
+{% include partial.input.template with partial.input|merge({
+type:'text',
+id:'input-company',
+name:'company',
+value:company,
+placeholder:entry_company ,
+}) %}
+{#<div class="form-group">#}
+    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-company"><span>{{ entry_company }}</span></label>#}
+    {#<div class="{% if form %}col-sm-10{% endif %}">#}
+        {#<input type="text" name="company" value="{{ company }}" id="input-company"#}
+               {#class="field form-control"/>#}
+    {#</div>#}
+{#</div>#}
+{#{% if entry_website %}#}
+    {#<div class="form-group">#}
+        {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-website"><span>{{ entry_website }}</span></label>#}
+        {#<div class="{% if form %}col-sm-10{% endif %}">#}
+            {#<input type="text" name="website" value="{{ website }}" id="input-website"#}
+                   {#class="field form-control"/>#}
+        {#</div>#}
+    {#</div>#}
+{#{% endif %}#}
+{#<div class="form-group required">#}
+    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-address-1"><span>{{ entry_address_1 }}</span></label>#}
+    {#<div class="{% if form %}col-sm-10{% endif %}">#}
+        {#<input type="text" name="address_1" value="{{ address_1 }}" id="input-address-1" class="field"/>#}
+        {#{% if error_address_1 %}#}
+            {#<div class="text-danger">{{ error_address_1 }}</div>#}
+        {#{% endif %}#}
+    {#</div>#}
+{#</div>#}
+{#<div class="form-group">#}
+    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-address-2"><span>{{ entry_address_2 }}</span></label>#}
+    {#<div class="{% if form %}col-sm-10{% endif %}">#}
+        {#<input type="text" name="address_2" value="{{ address_2 }}" id="input-address-2" class="field"/>#}
+    {#</div>#}
+{#</div>#}
+{#<div class="form-group required">#}
+    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-city"><span>{{ entry_city }}</span></label>#}
+    {#<div class="{% if form %}col-sm-10{% endif %}">#}
+        {#<input type="text" name="city" value="{{ city }}" id="input-city" class="field"/>#}
+        {#{% if error_city %}#}
+            {#<div class="text-danger">{{ error_city }}</div>#}
+        {#{% endif %}#}
+    {#</div>#}
+{#</div>#}
+{#<div class="form-group required">#}
+    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-postcode"><span>{{ entry_postcode }}</span></label>#}
+    {#<div class="{% if form %}col-sm-10{% endif %}">#}
+        {#<input type="text" name="postcode" value="{{ postcode }}" id="input-postcode"#}
+               {#class="field"/>#}
+        {#{% if error_postcode %}#}
+            {#<div class="text-danger">{{ error_postcode }}</div>#}
+        {#{% endif %}#}
+    {#</div>#}
+{#</div>#}
+{#<div class="form-group required">#}
+    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-country"><span>{{ entry_country }}</span></label>#}
+    {#<div class="{% if form %}col-sm-10{% endif %}">#}
+        {#<div class="select-container">#}
+            {#<select name="country_id" id="input-country" class="field">#}
+                {#<option value="">{{ text_select }}</option>#}
+                {#{% for country in countries %}#}
+                    {#<option value="{{ country.country_id }}"#}
+                            {#{% if country.country_id == country_id %}selected="selected"{% endif %}>{{ country.name }}</option>#}
+                {#{% endfor %}#}
+            {#</select>#}
+        {#</div>#}
+        {#{% if error_country %}#}
+            {#<div class="text-danger">{{ error_country }}</div>#}
+        {#{% endif %}#}
+    {#</div>#}
+{#</div>#}
+{#<div class="form-group required">#}
+    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-zone"><span>{{ entry_zone }}</span></label>#}
+    {#<div class="{% if form %}col-sm-10{% endif %}">#}
+        {#<div class="select-container">#}
+            {#<select name="zone_id" id="input-zone" class="field">#}
+            {#</select>#}
+        {#</div>#}
+        {#{% if error_zone %}#}
+            {#<div class="text-danger">{{ error_zone }}</div>#}
+        {#{% endif %}#}
+    {#</div>#}
+{#</div>#}
 <!-- /> d_address_field_default -->

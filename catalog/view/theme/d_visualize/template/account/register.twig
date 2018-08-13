@@ -1,4 +1,3 @@
-{#it's mean in layout template#}
 {% extends template %}
 {% block content %}
     <div class="register-page">
@@ -8,7 +7,6 @@
             <fieldset id="account">
                 <h3>{{ text_your_details }}</h3>
                 <div class="">
-
                     {% include partial.d_account_field.template with partial.d_account_field|merge({form:''}) %}
                     {% for custom_field in custom_fields %}
                         {% if custom_field.location == 'account' %}
@@ -33,66 +31,42 @@
             {% endif %}
             <fieldset>
                 <h3>{{ text_your_password }}</h3>
-                <div class="form-group required">
-                    <label class="field-label label-right-md"
-                           for="input-password"><span>{{ entry_password }}</span></label>
-                    <div class="">
-                        <input type="password" name="password" value="{{ password }}"
-                               id="input-password" class="field form-control"/>
-                        {% if error_password %}
-                            <div class="text-danger">{{ error_password }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="form-group required">
-                    <label class="field-label label-right-md"
-                           for="input-confirm"><span>{{ entry_confirm }}</span></label>
-                    <div class="">
-                        <input type="password" name="confirm" value="{{ confirm }}"
-                               id="input-confirm" class="field form-control"/>
-                        {% if error_confirm %}
-                            <div class="text-danger">{{ error_confirm }}</div>
-                        {% endif %}
-                    </div>
-                </div>
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'password',
+                id:'input-password',
+                name:'password',
+                value:password,
+                placeholder:entry_password,
+                classes:'',
+                text_input:entry_password,
+                }) %}
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'password',
+                id:'input-confirm',
+                name:'confirm',
+                value:password,
+                placeholder:entry_confirm,
+                classes:'',
+                text_input:entry_confirm,
+                }) %}
+
             </fieldset>
-            <fieldset class="NEWSLETTER">
+            <fieldset class="newslatter">
                 <h3>{{ text_newsletter }}</h3>
-                <div class="form-group">
-                    <label class="field-label radio-label">{{ entry_newsletter }}</label>
-                    <div class="n-wrap">
-                        <span class="custom-control custom-radio">
-                            <input type="radio" name="newsletter" value="1" class="custom-control-input"
-                                   {% if newsletter %}checked="checked"{% endif %}>
-                            <label class="custom-control-label" for="customRadio1">{{ text_yes }}</label>
-                        </span>
-                        <span class="custom-control custom-radio">
-                            <input type="radio" name="newsletter" value="0" class="custom-control-input"
-                                   {% if not newsletter %}checked="checked"{% endif %}>
-                            <label class="custom-control-label" for="customRadio1">{{ text_no }}</label>
-                        </span>
-                    </div>
-                </div>
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'radio',
+                name:'newsletter',
+                form:'inline',
+                radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
+                radio_values_val:'val',
+                radio_values_check: newsletter,
+                radio_values_name: 'name',
+                text_input:entry_newsletter,
+                }) %}
+
             </fieldset>
             {{ captcha }}
-            {% if text_agree %}
-                <div class="buttons clearfix">
-                    <div class="pull-right">
-                        <label class="field-label checkbox-label">
-                            {{ text_agree }}
-                            <input type="checkbox" name="agree" value="1" {% if agree %}checked="checked"{% endif %} />
-                        </label>
-                        &nbsp;
-                        <input type="submit" value="{{ button_continue }}" class="btn btn-primary btn-shrink"/>
-                    </div>
-                </div>
-            {% else %}
-                <div class="buttons clearfix">
-                    <div class="pull-right">
-                        <input type="submit" value="{{ button_continue }}" class="btn btn-primary "/>
-                    </div>
-                </div>
-            {% endif %}
+            {% include partial.d_button_submit.template with partial.d_button_submit %}
         </form>
 
 
