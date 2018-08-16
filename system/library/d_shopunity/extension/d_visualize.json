@@ -261,6 +261,7 @@
     "catalog/view/theme/d_visualize/template/partial/d_button_submit.twig",
     "catalog/view/theme/d_visualize/template/partial/d_cart.twig",
     "catalog/view/theme/d_visualize/template/partial/d_custom_field.twig",
+    "catalog/view/theme/d_visualize/template/partial/d_mini_cart.twig",
     "catalog/view/theme/d_visualize/template/partial/d_empty.twig",
     "catalog/view/theme/d_visualize/template/partial/d_layout_close.twig",
     "catalog/view/theme/d_visualize/template/partial/d_layout_open.twig",
