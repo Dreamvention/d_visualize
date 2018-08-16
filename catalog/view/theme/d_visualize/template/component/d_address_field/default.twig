@@ -1,62 +1,80 @@
 <!-- > d_address_field_default -->
 
-{% include partial.input.template with partial.input|merge({
+{% include partial.form_group.template with partial.form_group|merge({
 type:'text',
 id:'input-company',
 name:'company',
+required:true,
 value:company,
+text_input:entry_company ,
 placeholder:entry_company ,
+error:error_company
 }) %}
-{#<div class="form-group">#}
-    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-company"><span>{{ entry_company }}</span></label>#}
-    {#<div class="{% if form %}col-sm-10{% endif %}">#}
-        {#<input type="text" name="company" value="{{ company }}" id="input-company"#}
-               {#class="field form-control"/>#}
-    {#</div>#}
-{#</div>#}
-{#{% if entry_website %}#}
-    {#<div class="form-group">#}
-        {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-website"><span>{{ entry_website }}</span></label>#}
-        {#<div class="{% if form %}col-sm-10{% endif %}">#}
-            {#<input type="text" name="website" value="{{ website }}" id="input-website"#}
-                   {#class="field form-control"/>#}
-        {#</div>#}
-    {#</div>#}
-{#{% endif %}#}
-{#<div class="form-group required">#}
-    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-address-1"><span>{{ entry_address_1 }}</span></label>#}
-    {#<div class="{% if form %}col-sm-10{% endif %}">#}
-        {#<input type="text" name="address_1" value="{{ address_1 }}" id="input-address-1" class="field"/>#}
-        {#{% if error_address_1 %}#}
-            {#<div class="text-danger">{{ error_address_1 }}</div>#}
-        {#{% endif %}#}
-    {#</div>#}
-{#</div>#}
-{#<div class="form-group">#}
-    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-address-2"><span>{{ entry_address_2 }}</span></label>#}
-    {#<div class="{% if form %}col-sm-10{% endif %}">#}
-        {#<input type="text" name="address_2" value="{{ address_2 }}" id="input-address-2" class="field"/>#}
-    {#</div>#}
-{#</div>#}
-{#<div class="form-group required">#}
-    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-city"><span>{{ entry_city }}</span></label>#}
-    {#<div class="{% if form %}col-sm-10{% endif %}">#}
-        {#<input type="text" name="city" value="{{ city }}" id="input-city" class="field"/>#}
-        {#{% if error_city %}#}
-            {#<div class="text-danger">{{ error_city }}</div>#}
-        {#{% endif %}#}
-    {#</div>#}
-{#</div>#}
-{#<div class="form-group required">#}
-    {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-postcode"><span>{{ entry_postcode }}</span></label>#}
-    {#<div class="{% if form %}col-sm-10{% endif %}">#}
-        {#<input type="text" name="postcode" value="{{ postcode }}" id="input-postcode"#}
-               {#class="field"/>#}
-        {#{% if error_postcode %}#}
-            {#<div class="text-danger">{{ error_postcode }}</div>#}
-        {#{% endif %}#}
-    {#</div>#}
-{#</div>#}
+
+{% if entry_website %}
+
+    {% include partial.form_group.template with partial.form_group|merge({
+    type:'text',
+    id:'input-website',
+    name:'website',
+    value:website,
+    text_input:entry_website ,
+    placeholder:entry_website ,
+    }) %}
+
+{% endif %}
+
+{% include partial.form_group.template with partial.form_group|merge({
+type:'text',
+id:'input-address_1',
+name:'address_1',
+required:true,
+value:address_1,
+text_input:entry_address_1 ,
+placeholder:entry_address_1 ,
+error:error_address_1
+}) %}
+{% include partial.form_group.template with partial.form_group|merge({
+type:'text',
+id:'input-address_2',
+name:'address_2',
+value:address_2,
+text_input:entry_address_2 ,
+placeholder:entry_address_2 ,
+}) %}
+{% include partial.form_group.template with partial.form_group|merge({
+type:'text',
+id:'input-city',
+name:'city',
+required:true,
+value:city,
+text_input:entry_city ,
+placeholder:entry_city ,
+error:error_city
+}) %}
+{% include partial.form_group.template with partial.form_group|merge({
+type:'text',
+id:'input-postcode',
+name:'postcode',
+required:true,
+value:postcode,
+text_input:entry_postcode ,
+placeholder:entry_postcode ,
+error:error_postcode
+}) %}
+{% include partial.form_group.template with partial.form_group|merge({
+type:'select',
+id:'country_id',
+name:'country_id',
+required: true,
+select_values:countries,
+select_values_val:'country_id',
+select_values_check: country_id,
+select_values_name: 'name',
+placeholder:text_select,
+text_input:entry_country,
+error:error_country,
+}) %}
 {#<div class="form-group required">#}
     {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-country"><span>{{ entry_country }}</span></label>#}
     {#<div class="{% if form %}col-sm-10{% endif %}">#}
@@ -74,6 +92,19 @@ placeholder:entry_company ,
         {#{% endif %}#}
     {#</div>#}
 {#</div>#}
+{% include partial.form_group.template with partial.form_group|merge({
+type:'select',
+id:'zone_id',
+name:'zone_id',
+required: true,
+select_values:countries,
+select_values_val:'zone_id',
+select_values_check: zone_id,
+select_values_name: 'name',
+placeholder:text_select,
+text_input:entry_zone,
+error:error_zone,
+}) %}
 {#<div class="form-group required">#}
     {#<label class="{% if form %}col-sm-2{% endif %} field-label label-right-md" for="input-zone"><span>{{ entry_zone }}</span></label>#}
     {#<div class="{% if form %}col-sm-10{% endif %}">#}

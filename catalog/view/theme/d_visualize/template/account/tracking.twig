@@ -4,28 +4,28 @@
     <h1 class="heading-h1">{{ heading_title }}</h1>
     <p>{{ text_description }}</p>
     <form class="form-horizontal">
-        <div class="form-group">
-            <label class="  field-label label-right-md" for="input-code">{{ entry_code }}</label>
-            <div class="">
-                <textarea cols="40" rows="5" placeholder="{{ entry_code }}" id="input-code"
-                          class="field">{{ code }}</textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="  field-label label-right-md" for="input-generator"><span data-toggle="tooltip"
-                                                                              title="{{ help_generator }}">{{ entry_generator }}</span></label>
-            <div class="">
-                <input type="text" name="product" value="" placeholder="{{ entry_generator }}" id="input-generator"
-                       class="field"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="  field-label label-right-md" for="input-link">{{ entry_link }}</label>
-            <div class="">
-                <textarea name="link" cols="40" rows="5" placeholder="{{ entry_link }}" id="input-link"
-                          class="field"></textarea>
-            </div>
-        </div>
+        {% include partial.form_group.template with partial.form_group|merge({
+        type:'textarea',
+        id:'input-code',
+        value:code,
+        text_input:entry_code ,
+        placeholder:entry_code ,
+        }) %}
+        {% include partial.form_group.template with partial.form_group|merge({
+        type:'text',
+        id:'input-generator',
+        name:'product',
+        value:generator,
+        text_input:entry_generator ,
+        placeholder:entry_generator ,
+        }) %}
+        {% include partial.form_group.template with partial.form_group|merge({
+        type:'textarea',
+        id:'input-link',
+        name:'link',
+        text_input:entry_link ,
+        placeholder:entry_link ,
+        }) %}
     </form>
 
     {% include partial.d_button_continue.template with partial.d_button_continue %}

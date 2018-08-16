@@ -41,22 +41,23 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $data += $this->config_skin['page']['default']['layout'];
         if (in_array($view_route, array_keys($this->config_skin['page']))) {
             if (isset($this->config_skin['page'][$view_route]['layout'])) {
-
                 $data = array_replace_recursive($data, $this->config_skin['page'][$view_route]['layout']);
                 if (isset($this->config_skin['page'][$view_route]['scripts']) && !empty($this->config_skin['page'][$view_route]['scripts'])) {
-                    $html_dom = new d_simple_html_dom();
-                    $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-                    foreach ($this->config_skin['page'][$view_route]['scripts'] as $script) {
-                        if (!$html_dom->find('head', 0)->find('script[src="' . $script . '"]')) {
-                            $html_dom->find('head > script', -1)->outertext .= '<script src="' . $script . '" type="text/javascript"></script>';
+                    if ($view==$view_route){
+                        $html_dom = new d_simple_html_dom();
+                        $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+                        foreach ($this->config_skin['page'][$view_route]['scripts'] as $script) {
+                            if (!$html_dom->find('head', 0)->find('script[src="' . $script . '"]')) {
+                                $html_dom->find('head > script', -1)->outertext .= '<script src="' . $script . '" type="text/javascript"></script>';
+                            }
                         }
-                    }
-                    foreach ($this->config_skin['page'][$view_route]['styles'] as $style) {
-                        if (!$html_dom->find('head', 0)->find('link[href="' . $style . '"]')) {
-                            $html_dom->find('\head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
+                        foreach ($this->config_skin['page'][$view_route]['styles'] as $style) {
+                            if (!$html_dom->find('head', 0)->find('link[href="' . $style . '"]')) {
+                                $html_dom->find('\head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
+                            }
                         }
+                        $data['header'] = (string)$html_dom;
                     }
-                    $data['header'] = (string)$html_dom;
                 }
             }
         }

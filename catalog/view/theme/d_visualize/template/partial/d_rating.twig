@@ -1,1 +1,5 @@
-{% include component.d_rating.template with component.d_rating|merge({rating:rating}) %}
+{% if component.d_rating.template %}
+    {% include component.d_rating.template with component.d_rating %}
+{% else %}
+    {% include partial.d_rating.component.d_rating.template with partial.d_rating.component.d_rating %}
+{% endif %}

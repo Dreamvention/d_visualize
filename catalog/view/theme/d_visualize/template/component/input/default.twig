@@ -11,9 +11,6 @@
 {% if not type %}
     {% set type = 'text' %}
 {% endif %}
-{#{% if not value %}#}
-    {#{% set value = 1 %}#}
-{#{% endif %}#}
 {% if type=='checkbox' %}
     <label class="{{ type }} d-vis">
         <input type="{{ type }}"
@@ -22,18 +19,24 @@
                value="{{ value }}"
                {% if checked %}checked="checked"{% endif %}
         />
-        <div class="{{ type }}-text">{{ text_input }}</div>
+        <div class="{{ type }}-text"></div>
+        {{ text_input }}
     </label>
 {% elseif type=='select' %}
-    <label class="{{ type }}" for="{{ id }}">{{ text_input }}</label>
-    <div class="{{  classes }} select-container">
+    {% if text_input %}
+        <label class="{{ type }}" for="{{ id }}">{{ text_input }}</label>
+    {% endif %}
+    <div class="{{ classes }} select-container">
         <select name="{{ name }}" id="{{ id }}" class="{{ input_classes }}" onchange="{{ on_change }}">
-        {% for option in select_values %}
-            <option value="{{ option[select_values_val] }}"
-                    {% if option[select_values_check_val] == select_values_check %} selected="selected" {% endif %}>
-                {{ option[select_values_name] }}
-            </option>
-        {% endfor %}
+            {% if placeholder %}
+                <option value="">{{ placeholder }}</option>
+            {% endif %}
+            {% for option in select_values %}
+                <option value="{{ option[select_values_val] }}"
+                        {% if option[select_values_check_val] == select_values_check %} selected="selected" {% endif %}>
+                    {{ option[select_values_name] }}
+                </option>
+            {% endfor %}
         </select>
     </div>
 {% elseif type=='radio' %}
@@ -56,9 +59,9 @@
 {% elseif type=='textarea' %}
     <textarea
             type="{{ type }}"
-           id="{{ id }}"
-           name="{{ name }}"
-           class="{{ input_classes }}" rows="10"
+            id="{{ id }}"
+            name="{{ name }}"
+            class="{{ input_classes }}" rows="10"
     >
         {{ value }}
     </textarea>

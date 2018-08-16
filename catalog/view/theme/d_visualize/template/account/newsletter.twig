@@ -6,12 +6,12 @@
         <fieldset>
             {% include partial.form_group.template with partial.form_group|merge({
             type:'radio',
-            id:'input-newslatter',
+            id:'input-newsletter',
             name:'newsletter',
             required: true,
             radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
             radio_values_val:'val',
-            radio_values_check: newslatter,
+            radio_values_check: newsletter,
             radio_values_name: 'name',
             placeholder:entry_newslatter,
             classes:'',

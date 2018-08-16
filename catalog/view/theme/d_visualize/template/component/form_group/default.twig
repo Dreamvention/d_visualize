@@ -1,4 +1,4 @@
-{% set form_group_class = 'form-group d-vis vis-' ~  type  %}
+{% set form_group_class = 'form-group d-vis vis-' ~  type %}
 {% set form_group_label_class = 'control-label vis-' ~  type %}
 {% set form_group_input_class = 'form-control d-vis vis-' ~  type %}
 {% set form_group_div_class = '' %}
@@ -9,7 +9,9 @@
 {% if required %}
     {% set form_group_class = form_group_class ~ ' required' %}
 {% endif %}
-
+{% if error %}
+    {% set form_group_class = form_group_class ~ ' has-error' %}
+{% endif %}
 {% if form == 'inline' %}
     {% set form_group_class = form_group_class ~ ' row' %}
     {% set form_group_label_class = form_group_label_class ~ ' col-sm-2' %}
@@ -60,18 +62,39 @@
         <label class="{{ form_group_label_class }} "
                for="{{ id }}"><span>{{ text_input }}</span></label>
         <div class="{{ form_group_div_class }}">
-        {% for radio in radio_values %}
+            {% for radio in radio_values %}
+                {% include partial.input.template with partial.input|merge({
+                type:type,
+                name: name,
+                value: radio[radio_values_val] ,
+                checked: radio[radio_values_val] == radio_values_check,
+                text_input:radio[radio_values_name]
+                }) %}
+            {% endfor %}
+            {% if error %}
+                <div class="text-danger">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% elseif type=='select' %}
+    <div class="{{ form_group_class }} ">
+        <label class="{{ form_group_label_class }} "
+               for="{{ id }}"><span>{{ text_input }}</span></label>
+        <div class="{{ form_group_div_class }}">
             {% include partial.input.template with partial.input|merge({
-            type:type,
-            name: name,
-            value: radio[radio_values_val] ,
-            checked: radio[radio_values_val] == radio_values_check,
-            text_input:radio[radio_values_name]
+            type:'select',
+            id:id,
+            select_values:select_values,
+            select_values_val:select_values_val,
+            select_values_check_val: select_values_check,
+            select_values_check: select_values_check,
+            select_values_name: select_values_name,
+            placeholder:placeholder,
+            text_input:'',
             }) %}
-        {% endfor %}
-        {% if error %}
-            <div class="text-danger">{{ error }}</div>
-        {% endif %}
+            {% if error %}
+                <div class="text-danger">{{ error }}</div>
+            {% endif %}
         </div>
     </div>
 {% elseif type=='textarea' %}

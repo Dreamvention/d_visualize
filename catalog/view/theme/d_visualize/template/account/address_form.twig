@@ -11,28 +11,17 @@
                     {% include partial.d_custom_field.template with  partial.d_custom_field %}
                 {% endif %}
             {% endfor %}
-             <div class="form-group">
-                <label class="field-label label-text-right radio-label">{{ entry_default }}</label>
-                <div class="">
-                        <div class="default-wrap">
-                            {% include partial.input.template with partial.input|merge({
-                                type:'radio',
-                                name:'default',
-                                value:'1',
-                                checked:default,
-                                text_input:text_yes }) %}
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'radio',
+            name:'default',
+            form:'inline',
+            radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
+            radio_values_val:'val',
+            radio_values_check: default,
+            radio_values_name: 'name',
+            text_input:entry_default,
+            }) %}
 
-                            {% include partial.input.template with partial.input|merge({
-                                type:'radio',
-                                name:'default',
-                                value:'0',
-                                checked:not default,
-                                text_input:text_no }) %}
-
-                        </div>
-
-                 </div>
-               </div>
         </fieldset>
         {% include partial.d_button_submit.template with  partial.d_button_submit %}
     </form>

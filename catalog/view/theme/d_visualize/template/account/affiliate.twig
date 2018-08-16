@@ -5,129 +5,117 @@
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <legend>{{ text_my_affiliate }}</legend>
-            <div class="form-group">
-                <label class="field-label label-right-md" for="input-company">{{ entry_company }}</label>
-                <div class="">
-                    <input type="text" name="company" value="{{ company }}" placeholder="{{ entry_company }}"
-                           id="input-company" class="field"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="field-label label-right-md" for="input-website">{{ entry_website }}</label>
-                <div class="">
-                    <input type="text" name="website" value="{{ website }}" placeholder="{{ entry_website }}"
-                           id="input-website" class="field"/>
-                </div>
-            </div>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-company',
+            name:'company',
+            required:true,
+            value:company,
+            text_input:entry_company ,
+            placeholder:entry_company ,
+            error:error_company
+            }) %}
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-website',
+            name:'website',
+            value:website,
+            text_input:entry_website ,
+            placeholder:entry_website ,
+            }) %}
         </fieldset>
         <fieldset>
+            
             <legend>{{ text_payment }}</legend>
-            <div class="form-group">
-                <label class=" field-label label-right-md" for="input-tax">{{ entry_tax }}</label>
-                <div class="">
-                    <input type="text" name="tax" value="{{ tax }}" placeholder="{{ entry_tax }}" id="input-tax"
-                           class="field"/>
-                </div>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-tax',
+            name:'tax',
+            value:tax,
+            text_input:entry_tax,
+            placeholder:entry_tax,
+            }) %}
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'radio',
+            id:'input-payment',
+            name:'payment',
+            radio_values: [{ 'val':'cheque','name': text_cheque},{'val':'paypal','name':text_paypal},{'val':'bank','name':text_bank}],
+            radio_values_val:'val',
+            radio_values_check: payment,
+            radio_values_name: 'name',
+            text_input:entry_payment,
+            error:error_payment,
+            }) %}
+            <div class="payment" id="payment-cheque">
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'text',
+                id:'input-cheque',
+                name:'cheque',
+                required:true,
+                value:cheque,
+                text_input:entry_cheque ,
+                placeholder:entry_cheque ,
+                error:error_cheque
+                }) %}
             </div>
-            <div class="form-group">
-                <label class="field-label label-right-md">{{ entry_payment }}</label>
-                <div class="">
-                    <div class="radio">
-                        <label>{% if payment == 'cheque' %}
-                                <input type="radio" name="payment" value="cheque" checked="checked"/>
-                            {% else %}
-                                <input type="radio" name="payment" value="cheque"/>
-                            {% endif %}
-                            {{ text_cheque }}</label>
-                    </div>
-                    <div class="radio">
-                        <label>{% if payment == 'paypal' %}
-                                <input type="radio" name="payment" value="paypal" checked="checked"/>
-                            {% else %}
-                                <input type="radio" name="payment" value="paypal"/>
-                            {% endif %}
-                            {{ text_paypal }}</label>
-                    </div>
-                    <div class="radio">
-                        <label>{% if payment == 'bank' %}
-                                <input type="radio" name="payment" value="bank" checked="checked"/>
-                            {% else %}
-                                <input type="radio" name="payment" value="bank"/>
-                            {% endif %}
-                            {{ text_bank }}</label>
-                    </div>
-                </div>
+            <div class="payment" id="payment-paypal">
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'text',
+                id:'input-paypal',
+                name:'paypal',
+                required:true,
+                value:paypal,
+                text_input:entry_paypal ,
+                placeholder:entry_paypal ,
+                error:error_paypal
+                }) %}
             </div>
-            <div class="form-group payment" id="payment-cheque">
-                <label class=" field-label label-right-md" for="input-cheque">{{ entry_cheque }}</label>
-                <div class="">
-                    <input type="text" name="cheque" value="{{ cheque }}" placeholder="{{ entry_cheque }}"
-                           id="input-cheque" class="field"/>
-                    {% if error_cheque %}
-                        <div class="text-danger">{{ error_cheque }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="form-group payment" id="payment-paypal">
-                <label class=" field-label label-right-md" for="input-paypal">{{ entry_paypal }}</label>
-                <div class="">
-                    <input type="text" name="paypal" value="{{ paypal }}" placeholder="{{ entry_paypal }}"
-                           id="input-paypal" class="field"/>
-                    {% if error_paypal %}
-                        <div class="text-danger">{{ error_paypal }}</div>
-                    {% endif %}
-                </div>
-            </div>
+
             <div class="payment" id="payment-bank">
-                <div class="form-group">
-                    <label class="col-sm-2 field-label label-right-md" for="input-bank-name">{{ entry_bank_name }}</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="bank_name" value="{{ bank_name }}" placeholder="{{ entry_bank_name }}"
-                               id="input-bank-name" class="field"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 field-label label-right-md"
-                           for="input-bank-branch-number">{{ entry_bank_branch_number }}</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="bank_branch_number" value="{{ bank_branch_number }}"
-                               placeholder="{{ entry_bank_branch_number }}" id="input-bank-branch-number"
-                               class="field"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 field-label label-right-md"
-                           for="input-bank-swift-code">{{ entry_bank_swift_code }}</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="bank_swift_code" value="{{ bank_swift_code }}"
-                               placeholder="{{ entry_bank_swift_code }}" id="input-bank-swift-code"
-                               class="field"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 field-label label-right-md"
-                           for="input-bank-account-name">{{ entry_bank_account_name }}</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="bank_account_name" value="{{ bank_account_name }}"
-                               placeholder="{{ entry_bank_account_name }}" id="input-bank-account-name"
-                               class="field"/>
-                        {% if error_bank_account_name %}
-                            <div class="text-danger">{{ error_bank_account_name }}</div>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 field-label label-right-md"
-                           for="input-bank-account-number">{{ entry_bank_account_number }}</label>
-                    <div class="col-sm-10">
-                        <input type="text" name="bank_account_number" value="{{ bank_account_number }}"
-                               placeholder="{{ entry_bank_account_number }}" id="input-bank-account-number"
-                               class="field"/>
-                        {% if error_bank_account_number %}
-                            <div class="text-danger">{{ error_bank_account_number }}</div>
-                        {% endif %}
-                    </div>
-                </div>
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'text',
+                id:'input-bank-name',
+                name:'bank_name',
+                value:bank_branch_name,
+                text_input:entry_bank_name ,
+                placeholder:entry_bank_name ,
+                }) %}
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'text',
+                id:'input-bank-branch-number',
+                name:'bank_branch_number',
+                value:bank_branch_number,
+                text_input:entry_bank_branch_number ,
+                placeholder:entry_bank_branch_number ,
+                }) %}
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'text',
+                id:'input-bank-swift-code',
+                name:'bank_swift_code',
+                value:bank_swift_code,
+                text_input:entry_bank_swift_code ,
+                placeholder:entry_bank_swift_code ,
+                }) %}
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'text',
+                id:'input-bank-account-name',
+                name:'bank_account_name',
+                required:true,
+                value:bank_account_name,
+                text_input:entry_bank_account_name ,
+                placeholder:entry_bank_account_name ,
+                error:error_bank_account_name ,
+                }) %}
+                {% include partial.form_group.template with partial.form_group|merge({
+                type:'text',
+                id:'input-bank-account-number',
+                name:'bank_account_number',
+                required:true,
+                value:bank_account_number,
+                text_input:entry_bank_account_name ,
+                placeholder:entry_bank_account_number ,
+                error:error_bank_account_number ,
+                }) %}
             </div>
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'affiliate' %}
@@ -136,26 +124,7 @@
             {% endfor %}
 
         </fieldset>
-
-        {% if text_agree %}
-            <div class="buttons clearfix">
-                <div class="pull-right">{{ text_agree }}
-                    {% if agree %}
-                        <input type="checkbox" name="agree" value="1" checked="checked"/>
-                    {% else %}
-                        <input type="checkbox" name="agree" value="1"/>
-                    {% endif %}
-                    &nbsp;
-                    <input type="submit" value="{{ button_continue }}" class="btn btn-primary"/>
-                </div>
-            </div>
-        {% else %}
-            <div class="buttons clearfix">
-                <div class="pull-right">
-                    <input type="submit" value="{{ button_continue }}" class="btn btn-primary"/>
-                </div>
-            </div>
-        {% endif %}
+        {% include partial.d_button_submit.template with  partial.d_button_submit %}
     </form>
     <script type="text/javascript"><!--
 		$(function () {

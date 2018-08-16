@@ -2,32 +2,40 @@
   <div class="col-sm-6">
     <h2>{{text_new_customer}}</h2>
     <p>{{text_checkout}}</p>
-    <div class="radio">
-      <label>
-        <input type="radio" name="account" value="register" {% if account == 'register' %}checked="checked"{% endif %} />
-        {{text_register}}</label>
-    </div>
-    {% if checkout_guest %}
-    <div class="radio">
-      <label>
-        <input type="radio" name="account" value="guest" {% if account == 'guest' %}checked="checked"{% endif %} />
-        {{text_guest}}</label>
-    </div>
-    {% endif %}
+      {% include partial.form_group.template with partial.form_group|merge({
+      type:'radio',
+      name:'account',
+      radio_values: [{ 'val':'register','name': text_register},{'val':'guest','name':text_guest}],
+      radio_values_val:'val',
+      radio_values_check: account,
+      radio_values_name: 'name',
+      }) %}
     <p>{{text_register_account}}</p>
-    <input type="button" value="{{button_continue}}" id="button-account" data-loading-text="{{text_loading}}" class="btn btn-primary" />
+    <input type="button" value="{{button_continue}}" id="button-account" data-loading-text="{{text_loading}}" class="btn d-vis btn-primary" />
   </div>
   <div class="col-sm-6">
     <h2>{{text_returning_customer}}</h2>
     <p>{{text_i_am_returning_customer}}</p>
-    <div class="form-group">
-      <label class="control-label" for="input-email">{{entry_email}}</label>
-      <input type="text" name="email" value="" placeholder="{{entry_email}}" id="input-email" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="input-password">{{entry_password}}</label>
-      <input type="password" name="password" value="" placeholder="{{entry_password}}" id="input-password" class="form-control" />
-      <a href="{{forgotten}}">{{text_forgotten}}</a></div>
-    <input type="button" value="{{button_login}}" id="button-login" data-loading-text="{{text_loading}}" class="btn btn-primary" />
+      {% include partial.form_group.template with partial.form_group|merge({
+      type:'email',
+      id:'input-email',
+      name:'email',
+      value:email,
+      placeholder:entry_email,
+      classes:'',
+      text_input:entry_email,
+      }) %}
+
+      {% include partial.form_group.template with partial.form_group|merge({
+      type:'password',
+      id:'input-password',
+      name:'password',
+      value:password,
+      placeholder:entry_password,
+      classes:'',
+      text_input:entry_password,
+      }) %}
+    <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
+    <input type="button" value="{{button_login}}" id="button-login" data-loading-text="{{text_loading}}" class="btn d-vis btn-primary" />
   </div>
 </div>

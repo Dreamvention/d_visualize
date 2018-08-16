@@ -59,9 +59,7 @@
 
     "catalog/view/theme/d_visualize/stylesheet/d_ajax_filter/d_ajax_filter.css",
     "catalog/view/theme/d_visualize/stylesheet/d_ajax_filter/la-ball-scale-ripple-multiple.css",
-    "catalog/view/theme/d_visualize/stylesheet/d_blog_module/theme/default.css",
     "catalog/view/theme/d_visualize/stylesheet/d_blog_module/bootstrap.css",
-    "catalog/view/theme/d_visualize/stylesheet/d_blog_module/d_blog_module.css",
 
     "catalog/view/theme/d_visualize/template/account/account.twig",
     "catalog/view/theme/d_visualize/template/account/address_form.twig",
@@ -166,7 +164,6 @@
     "catalog/view/theme/d_visualize/template/extension/module/category.twig",
     "catalog/view/theme/d_visualize/template/extension/module/d_blog_module_latest_posts.twig",
     "catalog/view/theme/d_visualize/template/extension/module/d_blog_module_related_post.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/d_visual_designer_header.twig",
     "catalog/view/theme/d_visualize/template/extension/module/ebay_listing.twig",
     "catalog/view/theme/d_visualize/template/extension/module/featured.twig",
     "catalog/view/theme/d_visualize/template/extension/module/filter.twig",

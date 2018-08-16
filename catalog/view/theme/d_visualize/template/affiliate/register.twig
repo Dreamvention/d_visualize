@@ -7,20 +7,21 @@
       <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
           <legend>{{text_your_details}}</legend>
-          {% include 'd_visualize/template/partial/d_account_field_affiliate.twig' with { form: 'inline'} %}
+          {#{% include parital.d_account_field_affiliate with parital.d_account_field_affiliate %}#}
         </fieldset>
         <fieldset>
           <legend>{{text_your_address}}</legend>
-          {% include 'd_visualize/template/partial/d_address_field_affiliate.twig' with { form: 'inline'} %}
+            {#{% include parital.d_address_field_affiliate with parital.d_address_field_affiliate %}#}
         </fieldset>
         <fieldset>
           <legend>{{text_payment}}</legend>
-          <div class="form-group">
-            <label class="col-sm-2 field-label label-right-md" for="input-tax"><span>{{entry_tax}}</span></label>
-            <div class="col-sm-10">
-              <input type="text" name="tax" value="{{tax}}" id="input-tax" class="form-control" />
-            </div>
-          </div>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-tax',
+            name:'tax',
+            value:tax,
+            text_input:entry_tax,
+            }) %}
           <div class="form-group">
             <label class="col-sm-2 field-label label-right-md"><span>{{entry_payment}}</span></label>
             <div class="col-sm-10">
@@ -91,44 +92,29 @@
         </fieldset>
         <fieldset>
           <legend>{{text_your_password}}</legend>
-          <div class="form-group required">
-            <label class="col-sm-2 field-label label-right-md" for="input-password"><span>{{entry_password}}</span></label>
-            <div class="col-sm-10">
-              <input type="password" name="password" value="{{password}}" id="input-password" class="form-control" />
-              {% if error_password %}
-              <div class="text-danger">{{error_password}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 field-label label-right-md" for="input-confirm"><span>{{entry_confirm}}</span></label>
-            <div class="col-sm-10">
-              <input type="password" name="confirm" value="{{confirm}}" id="input-confirm" class="form-control" />
-              {% if error_confirm %}
-              <div class="text-danger">{{error_confirm}}</div>
-              {% endif %}
-            </div>
-          </div>
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'password',
+            id:'input-password',
+            required:true,
+            name:'password',
+            value:password,
+            placeholder:entry_password,
+            classes:'',
+            text_input:entry_password,
+            }) %}
+            {% include partial.form_group.template with partial.form_group|merge({
+            type:'password',
+            id:'input-confirm',
+            name:'confirm',
+            required:true,
+            value:password,
+            placeholder:entry_confirm,
+            classes:'',
+            text_input:entry_confirm,
+            }) %}
         </fieldset>
         {{captcha}}
-          {% if text_agree %}
-            <div class="buttons clearfix">
-              <div class="pull-right">
-                <label class="field-label checkbox-label">
-                    {{ text_agree }}
-                  <input type="checkbox" name="agree" value="1" {% if agree %}checked="checked"{% endif %} />
-                </label>
-                &nbsp;
-                <input type="submit" value="{{ button_continue }}" class="btn btn-primary btn-shrink"/>
-              </div>
-            </div>
-          {% else %}
-            <div class="buttons clearfix">
-              <div class="pull-right">
-                <input type="submit" value="{{ button_continue }}" class="btn btn-primary btn-shrink"/>
-              </div>
-            </div>
-          {% endif %}
+          {% include partial.d_button_submit.template with partial.d_button_submit %}
       </form>
 <script type="text/javascript"><!--
 $(function(){
