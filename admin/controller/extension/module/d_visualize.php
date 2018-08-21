@@ -13,16 +13,16 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         parent::__construct($registry);
         $this->load->language($this->route);
+        $this->load->model($this->route);
+        $this->load->model('extension/' . $this->codename . '/theme');
+
         $this->load->model('extension/d_opencart_patch/module');
         $this->load->model('extension/d_opencart_patch/url');
         $this->load->model('extension/d_opencart_patch/load');
         $this->load->model('extension/d_opencart_patch/user');
         $this->load->model('extension/d_opencart_patch/setting');
-        $this->d_admin_style = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_admin_style.json'));
-        if ($this->d_admin_style) {
-            $this->load->model('extension/d_admin_style/style');
-        }
         $this->d_shopunity = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_shopunity.json'));
+        $this->d_admin_style = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_admin_style.json'));
         $this->d_opencart_patch = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_opencart_patch.json'));
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
         $this->d_twig_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_twig_manager.json'));
@@ -33,11 +33,17 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
 
-        $this->config->load($this->codename . '/' . $this->codename);
-        $this->config_visualize = $this->config->get($this->codename);
-        $this->config->load($this->codename . '/skin/' . $this->config_visualize['active_skin']);
+        $this->config->load($this->codename);
+        $this->config_visualize = $this->config->get($this->codename . '_setting');
+        $this->setting_visualize = array();
+
+        $this->config->load($this->codename . '/template/' . $this->config_visualize['active_template']);
+        $this->config_active_template = $this->config->get($this->codename . '_template_' . $this->config_visualize['active_template']);
+        $this->setting_active_template = array();
+
+        //default theme overwriting values
         $this->config_theme = $this->config->get('config_theme_visualize');
-        $this->config_active_skin_theme = $this->config->get('config_theme_' . $this->config_visualize['active_skin']);
+        $this->config_active_template_theme = $this->config->get('config_theme_' . $this->config_visualize['active_template']);
 
     }
 
@@ -64,6 +70,15 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->model_extension_module_d_twig_manager->installCompatibility();
         }
 
+        if ($this->d_admin_style) {
+            $this->load->model('extension/d_admin_style/style');
+            $themes = $this->model_extension_d_admin_style_style->getAvailableThemes();
+            foreach ($themes as $theme) {
+                if ($theme == 'light') {
+                    $this->model_extension_d_admin_style_style->getAdminStyle($theme);
+                }
+            }
+        }
 
         // Multistore
         if (isset($this->request->get['store_id'])) {
@@ -91,12 +106,12 @@ class ControllerExtensionModuleDVisualize extends Controller
         } else {
             $data[$this->codename . '_status'] = $this->config->get($this->codename . '_status');
         }
-
         // Url
         $url = '';
         if (isset($this->request->get['store_id'])) {
             $url .= '&store_id=' . $store_id;
         }
+
         // Variable
         $data['id'] = $this->codename;
         $data['route'] = $this->route;
@@ -115,17 +130,27 @@ class ControllerExtensionModuleDVisualize extends Controller
         if ($this->model_extension_d_opencart_patch_setting->getSetting($this->codename)) {
             $setting = $this->model_extension_d_opencart_patch_setting->getSetting($this->codename);
             $data['setting'] = ($setting) ? $setting : array();
+
         } else {
             $data['setting'] = array();
         }
 
         //inherit users data
         $data['setting'] = array_replace_recursive($this->config_visualize, $data['setting']);
-
+        $this->setting_visualize = $data['setting'];
         $status = $this->codename . '_status';
 
         $this->uninstallTheme();
         if ($data[$status]) {
+            //check template settings
+            if ($this->model_extension_d_opencart_patch_setting->getSetting($this->codename . '_template_' . $this->setting_visualize['active_template'])) {
+                $setting = $this->model_extension_d_opencart_patch_setting->getSetting($this->codename);
+                $data['template_setting'] = ($setting) ? $setting : array();
+            } else {
+                $data['template_setting'] = array();
+            }
+            $data['template_setting'] = array_replace_recursive($this->config_active_template_theme, $data['template_setting']);
+            $this->setting_active_template_theme = $data['template_setting'];
             $this->installTheme();
         }
         // Breadcrumbs
@@ -144,12 +169,76 @@ class ControllerExtensionModuleDVisualize extends Controller
             'href' => $this->model_extension_d_opencart_patch_url->link($this->route)
         );
 
-        $this->model_extension_d_admin_style_style->getAdminStyle('light');
+        //Vue JS with Vuex and
+        $this->document->addScript("view/javascript/d_vue/vue.min.js");
+        $this->document->addScript("view/javascript/d_vuex/vuex.min.js");
+        $this->document->addScript("view/javascript/d_vue_i18n/vue-i18n.min.js");
+//        $this->document->addScript('view/javascript/d_mega_menu/library/VueOptions.js');
+
+        //Alertify
+        $this->document->addScript('view/javascript/d_alertify/alertify.min.js');
+        $this->document->addStyle('view/javascript/d_alertify/css/alertify.css');
+        $this->document->addStyle('view/javascript/d_alertify/css/themes/bootstrap.css');
+
+        //Other libraries
+        $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
+
+
+        // Module data
+
+        $data['vueTemplates'] = $this->{'model_extension_module_'.$this->codename}->getVueTemplates();
+        $view_scripts = $this->{'model_extension_module_'.$this->codename}->getVueScripts();
+
+        foreach ($view_scripts as $script) {
+            $this->document->addScript($script);
+        }
+
+        $data['language_id'] = $this->config->get('config_language_id');
+
+        $data['local'] = $this->prepareLocal();
+
+
+        if (!$this->{'model_extension_module_' . $this->codename}->checkInstallModule()) {
+            $data['text_welcome_title'] = $this->language->get('text_welcome_title');
+            $data['text_welcome_description'] = $this->language->get('text_welcome_description');
+            $data['features'][] = array(
+                'text' => $this->language->get('text_welcome_visualize'),
+                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
+            );
+            $data['features'][] = array(
+                'text' => $this->language->get('text_welcome_building_blocks'),
+                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
+            );
+            $data['features'][] = array(
+                'text' => $this->language->get('text_welcome_mobile_ready'),
+                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
+            );
+            $data['features'][] = array(
+                'text' => $this->language->get('text_welcome_increase_sales'),
+                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
+            );
+            $data['text_button_setup'] = $this->language->get('button_setup');
+            $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setup');
+            $data['header'] = $this->load->controller('common/header');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['footer'] = $this->load->controller('common/footer');
+            $this->response->setOutput($this->model_extension_d_admin_style_style->getWelcomeView($this->route, $data));
+            return;
+        }
+
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view($this->route, $data));
+        $template = $this->load->view($this->route, $data);
+        $this->response->setOutput($template);
+    }
+
+    public function setup()
+    {
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->{'model_extension_module_' . $this->codename}->installConfig();
+        $this->response->redirect($this->model_extension_d_opencart_patch_url->ajax($this->route));
     }
 
     public function uninstallTheme()
@@ -162,64 +251,70 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     public function installTheme()
     {
+        //change opencart directory
         $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
-        $this->session->data['previous_theme'] = $setting['theme_default_directory'];
         $setting['theme_default_directory'] = $this->codename; // 32 work
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
+
         $this->uninstallEvents();
         $this->installEvents();
         $this->installVD();
 
-        $this->installDependencyModules($this->config_visualize['active_skin']);
+        $this->installDependencyModules($this->setting_visualize['active_template']);
 
         $this->installConfigThemeDefaults();
 
-        $this->installSkinThemeDefaults($this->config_visualize['active_skin']);
+        $this->installTemplateThemeDefaults($this->setting_visualize['active_template']);
 
     }
-    private function installDependencyModules($active_skin)
-    {
-        $installed_skin_extensions = $this->{'model_extension_module_' . $this->codename}->getSkinExtensions($active_skin);
 
-        foreach ($installed_skin_extensions as $skin_extensions) {
-            $this->load->model($skin_extensions['index']);
-            if (!$this->{$skin_extensions['index']}->checkConfig($skin_extensions['codename'])){
-                $this->{$skin_extensions['index']}->installConfig($skin_extensions['codename']);
-            };
+    private function installDependencyModules($active_template)
+    {
+        //no need to validate if it's loaded in DB
+        if (!in_array($active_template, $this->setting_visualize['available_templates']))
+            $installed_template_extensions = $this->{'model_extension_' . $this->codename . '_theme'}->getTemplateExtensions($active_template);
+        if (!empty($installed_template_extensions)) {
+            foreach ($installed_template_extensions as $template_extensions) {
+                $this->load->model($template_extensions['index']);
+                if (!$this->{$template_extensions['index']}->checkConfig($template_extensions['codename'])) {
+                    $this->{$template_extensions['index']}->installConfig($template_extensions['codename']);
+                };
+            }
         }
     }
 
-    public function installVD(){
-        if ($this->d_visual_designer){
+    public function installVD()
+    {
+        if ($this->d_visual_designer) {
             $this->load->model('extension/d_visual_designer/designer');
-            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_header')){
+            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_header')) {
                 $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_header');
             };
-            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')){
+            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')) {
                 $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
             };
             //todo switch on vd-header get default template
-            //todo switch template to skin if need
+            //todo switch template to template if need
             //todo disable bootsrap
 
         }
     }
+
     public function installEvents()
     {
         if ($this->d_event_manager) {
             $this->load->model('extension/module/d_event_manager');
-            $this->load->model('extension/' . $this->codename . '/theme');
             $route_info = $this->{'model_extension_' . $this->codename . '_theme'}->getRoute();
             if (!empty($route_info['events'])) {
                 foreach ($route_info['events'] as $trigger => $action) {
                     $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action, 1, 999);
                 }
             }
-            $route_info_active_skin = $this->{'model_extension_'
-            . $this->codename . '_theme'}->getRoute('skin/'.$route_info[$this->codename]['active_skin']);
-            if (!empty($route_info_active_skin['events'])) {
-                foreach ($route_info_active_skin['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename.'_skin_'.$route_info[$this->codename]['active_skin'], $trigger, $action, 1,1);
+            $route_info_active_template = $this->{'model_extension_'
+            . $this->codename . '_theme'}->getRoute('template/' . $route_info[$this->codename . '_setting']['active_template']);
+            if (!empty($route_info_active_template['events'])) {
+                foreach ($route_info_active_template['events'] as $trigger => $action) {
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename]['active_template'], $trigger, $action, 1, 1);
                 }
             }
 
@@ -231,6 +326,15 @@ class ControllerExtensionModuleDVisualize extends Controller
         if ($this->d_event_manager) {
             $this->load->model('extension/module/d_event_manager');
             $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
+            $route_info = $this->{'model_extension_' . $this->codename . '_theme'}->getRoute();
+            $route_info_active_template = $this->{'model_extension_'
+            . $this->codename . '_theme'}->getRoute('template/' . $route_info[$this->codename . '_setting']['active_template']);
+            if (!empty($route_info_active_template['events'])) {
+                foreach ($route_info_active_template['events'] as $trigger => $action) {
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename]['active_template'], $trigger, $action, 1, 1);
+                }
+            }
+
         }
     }
 
@@ -258,15 +362,17 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     }
 
-    public function installSkinThemeDefaults($active_skin){
-
+    public function installTemplateThemeDefaults()
+    {
+        $this->installConfigThemeDefaults('config_active_template_theme');
     }
-    public function installConfigThemeDefaults()
+
+    public function installConfigThemeDefaults($config_theme = 'config_theme')
     {
         $this->load->model('setting/setting');
 
         if (VERSION > '3.0.0.0') {
-            foreach ($this->config_theme['size'] as $key => $size) {
+            foreach ($this->{$config_theme}['size'] as $key => $size) {
                 $this->model_setting_setting->editSettingValue(
                     'theme_default', 'theme_default_' . $key . '_width', $size['width'], $this->store_id);
                 $this->model_setting_setting->editSettingValue(

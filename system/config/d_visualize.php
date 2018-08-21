@@ -1,8 +1,10 @@
 <?php
-$_['d_visualize'] = array(
-    'active_skin' => 'jag',
+$_['d_visualize_setting'] = array(
+    'active_template' => 'default',
+    'available_templates' => array('default','jag'),
     'status'      => 1,
 );
+
 $_['events'] = array(
     'catalog/view/*/*/before'           => 'extension/d_visualize/event/view_all_before_d_visualize',
     'catalog/view/common/header/before' => 'extension/d_visualize/event/header_view_before_d_visualize  ',
