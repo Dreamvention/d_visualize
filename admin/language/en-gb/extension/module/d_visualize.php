@@ -10,3 +10,7 @@ $_['text_edit']                 = 'Edit visualize settings';
 $_['text_module']               = 'Modules';
 
 
+
+$_['error_load_content']               = 'Error load content';
+
+

@@ -1,7 +1,7 @@
 <?php
 $_['d_visualize_template_default'] = array(
     'name'          => 'default skin',
-    'codename'      => 'd_default',
+    'codename'      => 'default',
     'description'   => 'Skin from default opencart',
     'page'          => array(
         'default'          => array(

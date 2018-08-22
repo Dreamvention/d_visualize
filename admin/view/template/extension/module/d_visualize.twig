@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    {{tabs}}
+                    {{ tabs }}
                     <div class="row">
                         <div class="col-md-12">
                             <div id="visualize">
@@ -60,35 +60,36 @@
     </div>
 
 </div>
-
-{% for vueTemplate in vueTemplates  %}
-    {{ content(vueTemplate,'vue') }}
+{% for vueTemplate in vueTemplates %}
+    {{ content(vueTemplate,'.vue') }}
 {% endfor %}
 <script type="text/javascript">
-	$(function () {
+	$(document).ready(function () {
+		d_visualize.initState({{ state|json_encode }});
+		Vue.use(Vuex);
+		console.log(d_visualize)
+		var store = new Vuex.Store(d_visualize);
+		var local = {{ local|json_encode }}
+		app = new Vue({
+			store,
+			i18n: new VueI18n({
+				locale: '{{ language_id }}',
+				messages: local
+			})
+
+		}).$mount('#visualize');
+
+		store.dispatch('LOAD_CONTENT');
+
 		$("[type='checkbox']").bootstrapSwitch({
 			'onColor': 'success',
-			'onText': 'YES',
-			'offText': 'NO',
+			'onText': '{{ text_yes }}',
+			'offText': '{{ text_no }}',
 		});
 
 		$('body').on('click', '#save_and_stay', function () {
-			$.ajax({
-				type: 'post',
-				url: $('#form').attr('action') + '&save',
-				data: $('#form').serialize(),
-				beforeSend: function () {
-					$('#form').fadeTo('slow', 0.5);
-				},
-				complete: function () {
-					$('#form').fadeTo('slow', 1);
-				},
-				success: function (response) {
-				}
-			});
+			store.dispatch('SAVE_CONTENT');
 		});
-
-		;
 	});
 </script>
 {{ footer }}

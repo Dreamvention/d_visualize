@@ -1,7 +1,7 @@
 <?php
 $_['d_visualize_template_jag'] = array(
     'name'          => 'Jag skin',
-    'codename'      => 'd_jag',
+    'codename'      => 'jag',
     'description'   => 'Skin from default opencart',
     'page'          => array(
         'default'          => array(

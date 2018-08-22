@@ -1,5 +1,5 @@
-<template id="visualize">
+<template id="t-visualize">
     <div class="vis content">
-        <wrapper-blocks class="mm-designer" :blockId="activeId" :level="1" v-if="activeId"></wrapper-blocks>
+    <home></home>
     </div>
 </template>

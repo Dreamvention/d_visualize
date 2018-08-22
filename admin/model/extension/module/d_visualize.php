@@ -58,17 +58,22 @@ class ModelExtensionModuleDVisualize extends Model
         }
     }
     public function getVueTemplates() {
-        $files = glob(DIR_TEMPLATE.'extension/'.$this->codename.'/**/*.vue');
-        foreach ($files as $key => $file) {
-            $files[$key] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
-        }
 
-        return $files;
+        $result =array();
+        $files = glob(DIR_TEMPLATE.'extension/'.$this->codename.'/**/*.vue',GLOB_BRACE );
+        foreach ($files as $key => $file) {
+            $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
+        }
+        $files = glob(DIR_TEMPLATE.'extension/'.$this->codename.'/*.vue');
+        foreach ($files as $key => $file) {
+            $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
+        }
+        return $result;
     }
 
     public function getVueScripts() {
         $results = array();
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/model/**/*.js');
+        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/components/**/*.js');
         foreach ($files as $file) {
             $results[] = str_replace(DIR_APPLICATION, '', $file);
         }
@@ -78,12 +83,20 @@ class ModelExtensionModuleDVisualize extends Model
             $results[] = str_replace(DIR_APPLICATION, '', $file);
         }
 
+        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/components/*.js');
+        foreach ($files as $file) {
+            $results[] = str_replace(DIR_APPLICATION, '', $file);
+        }
         $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/actions/*.js');
         foreach ($files as $file) {
             $results[] = str_replace(DIR_APPLICATION, '', $file);
         }
 
         $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/mutations/*.js');
+        foreach ($files as $file) {
+            $results[] = str_replace(DIR_APPLICATION, '', $file);
+        }
+        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/getters/*.js');
         foreach ($files as $file) {
             $results[] = str_replace(DIR_APPLICATION, '', $file);
         }
