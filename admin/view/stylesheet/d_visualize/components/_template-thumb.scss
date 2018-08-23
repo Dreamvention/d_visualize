@@ -1,0 +1,8 @@
+.vis-template-thumb{
+  padding: $default-padding;
+  max-width: 250px;
+
+  &.active{
+    border: 1px solid red;
+  }
+}

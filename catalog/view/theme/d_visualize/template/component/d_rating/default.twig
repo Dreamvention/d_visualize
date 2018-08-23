@@ -1,11 +1,10 @@
-<!-- > d_rating -->
-<div data-rating="{{rating}}" class="rating rating-{{rating}}">
-    {% for rating in [1,2,3,4,5] %}
-        {% if product.rating < rating %}
-			<span class="fa-stack"><i class="fas empty fa-star"></i></span>
-        {% else %}
-			<span class="fa-stack"><i class="fas fa-star"></i><i class="fas empty fa-star"></i></span>
-        {% endif %}
-    {% endfor %}
+<div class="rating">
+	<input value="{{ rating }}" name="rating"
+		   class="rating-loading" data-filled="fas fa-star" data-empty="fas fa-star empty"
+            {% if static_rating %} data-readonly{% endif %}>
 </div>
-<!-- /> d_rating -->
+<script>
+
+	$('input[name=\'rating\']').rating();
+
+</script>

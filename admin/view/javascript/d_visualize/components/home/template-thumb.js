@@ -16,6 +16,13 @@ Vue.component('template-thumb', {
 	computed: {
 		activeThumb: function () {
 			return this.item.codename == this.$store.getters.active_template;
+		},
+	},
+	methods: {
+		handleChange: function (e) {
+			console.log(e.currentTarget.attributes.index)
+			this.$store.dispatch('CHANGE_TEMPLATE',e.currentTarget.attributes);
+
 		}
 	}
 });

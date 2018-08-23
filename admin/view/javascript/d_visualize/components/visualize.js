@@ -1,23 +1,29 @@
 Vue.component('visualize', {
 	template: '#t-visualize',
-	data: function () {
-		return {
-			message: '15px',
-			classes: 'xx    ',
-		};
-	},
 	computed: {
-		moder: function () {
-			if (this.message == '12px') {
-				return 'moders';
-			} else {
-				return 'moders2';
-
-			}
+		status: function () {
+			return this.$store.getters.status;
 		},
+		loading_first: function () {
+			return this.$store.getters.loading_first;
+		},
+		loading: function () {
+			return this.$store.getters.loading;
+		}
 	},
 	methods: {
-		createElement: function () {
+		change_status: function () {
+			this.$store.dispatch('CHANGE_STATUS');
+		},
+		save_stay: function () {
+			this.$store.dispatch('SAVE_CONTENT');
+		},
+		save: function () {
+			this.$store.dispatch('SAVE_CONTENT', {
+				callback: function () {
+					window.locaion = this.$o('action.cancel');
+				}
+			});
 		}
 	}
 });

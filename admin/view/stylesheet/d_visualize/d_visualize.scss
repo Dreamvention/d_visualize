@@ -1,0 +1,8 @@
+@import "lib/bootstrap4/bootstrap-grid.css";
+@import "base/import";
+
+.visualize {
+  @import "common/import";
+  @import "component/import";
+  @import "components/import";
+}

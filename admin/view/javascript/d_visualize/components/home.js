@@ -8,4 +8,10 @@ Vue.component('home', {
 			return this.$store.getters.active_template;
 		}
 	},
+	methods: {
+		changeTemplate: function (e) {
+			console.log(e)
+
+		}
+	}
 });

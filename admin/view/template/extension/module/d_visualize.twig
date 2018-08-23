@@ -1,64 +1,9 @@
 {# location: admin/view #}
 {{ header }}{{ column_left }}
 <div id="content">
-    <div class="page-header">
-        <div class="container-fluid">
-            <div class="form-inline pull-right">
-                {% if (stores) %}
-                    <select id="store" onChange="location = '{{ module_link }}&store_id=' + $('#store').val();"
-                            class="form-control">
-                        {% for store in stores %}
-                            <option value="{{ store['store_id'] }}" {{ store['store_id'] == store_id ? 'selected="selected"' : '' }}>{{ store['name'] }}</option>
-                        {% endfor %}
-                    </select>
-                {% endif %}
-                <button id="save_and_stay" data-toggle="tooltip" title="{{ button_save_and_stay }}"
-                        class="btn btn-success"><i class="fa fa-save"></i></button>
-                <button type="submit" form="form" data-toggle="tooltip" title="{{ button_save }}"
-                        class="btn btn-primary"><i class="fa fa-save"></i></button>
-                <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i
-                            class="fa fa-reply"></i></a></div>
-            <h1>{{ heading_title }} {{ version }}</h1>
-            <ul class="breadcrumb">
-                {% for breadcrumb in breadcrumbs %}
-                    <li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
+    <div id="visualize">
+        <visualize></visualize>
     </div>
-    <div class="container-fluid">
-        {% if (error_warning) %}
-            <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-            </div>
-        {% endif %}
-        <div class="panel panel-default panel-resizable">
-            <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form"
-                  class="form-horizontal">
-                <div class="panel-heading">
-                    <h3 class="panel-title "><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
-                    <div class="status-wrap pull-right d-inline-block">
-                        <label class="" for="input_status">{{ entry_status }}</label>
-                        <input type="hidden" name="{{ id }}_status" value="0"/>
-                        <input type="checkbox" name="{{ id }}_status" class="switcher"
-                               id="input_status" {{ d_visualize_status ? 'checked="checked"' : '' }}
-                               value="1"/>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    {{ tabs }}
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="visualize">
-                                <visualize></visualize>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
 </div>
 {% for vueTemplate in vueTemplates %}
     {{ content(vueTemplate,'.vue') }}
@@ -67,26 +12,23 @@
 	$(document).ready(function () {
 		d_visualize.initState({{ state|json_encode }});
 		Vue.use(Vuex);
-		console.log(d_visualize)
+		Vue.use(new VueOptions({{ options|json_encode }}));
 		var store = new Vuex.Store(d_visualize);
 		var local = {{ local|json_encode }}
-		app = new Vue({
-			store,
-			i18n: new VueI18n({
-				locale: '{{ language_id }}',
-				messages: local
-			})
+			app = new Vue({
+				store,
+				i18n: new VueI18n({
+					locale: '{{ language_id }}',
+					messages: local
+				}),
+				methods: {
+					o: function (value) {
+						return value;
+					}
+				}
 
-		}).$mount('#visualize');
-
+			}).$mount('#visualize');
 		store.dispatch('LOAD_CONTENT');
-
-		$("[type='checkbox']").bootstrapSwitch({
-			'onColor': 'success',
-			'onText': '{{ text_yes }}',
-			'offText': '{{ text_no }}',
-		});
-
 		$('body').on('click', '#save_and_stay', function () {
 			store.dispatch('SAVE_CONTENT');
 		});

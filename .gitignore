@@ -407,3 +407,4 @@ system/modification.xml
 system/startup.php
 /admin/view/template/catalog/
 /admin/view/template/common/
+/admin/view/template/extension/module/ebay_listing.twig

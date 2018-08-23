@@ -1,43 +1,50 @@
-<!-- > d_product_thumb -->
-<div class="product-thumb">
-    <div class="product-thumb_cover">
-        <a href="{{ href }}" class="image-wrap">
-            <img src="{{ thumb }}" class="product-thumb_image" alt="{{ name }}" title="{{ name }}">
-        </a>
-    </div>
-    {% if price|slice(1,price|length-1)|number_format == 0 %}
-        <div class="product-thumb_ribbon product-thumb_ribbon_free"></div>
-    {% endif %}
-    <div class="product-thumb_body">
-        <a href="{{ href }}" class="product-link">
-            <h3 class="heading-h3">{{ name }}</h3>
-        </a>
-        <div class="product-thumb_description"><p>{{description}}</p></div>
-        <div class="group">
-            <div class="block-left">
-                {% if price %}
-                    {% if price|slice(1,price|length-1)|number_format == 0 %}
-                        <span class="product-price product-price_actual like-heading-h3">Free</span>
-                    {% else %}
-                        {% if not special %}
-                            <span class="product-price product-price_actual like-heading-h3">{{ price }}</span>
-                        {% else %}
-                            <span class="product-price product-price_old like-heading-h3">{{ price }}</span>
-                            <span class="product-price product-price_actual">{{ special }}</span>
-                        {% endif %}
-                        {% if discounts %}
-                            {% for discount in discounts %}
-                                <li>{{ discount.quantity }}{{ text_discount }}{{ discount.price }}</li>
-                            {% endfor %}
-                        {% endif %}
-                    {% endif %}
-                {% endif %}
-                <div class="product-rating">
-                    {% include  components.d_rating.template %}
-                </div>
+<div class="thumb-box">
+    <div class="product-thumb vis-product-thumb">
+        <div class="product-thumb_image">
+            {% if special %}
+                {% set priceInt = price|replace({"$": ""}) %}
+                {% set specialInt = special|replace({"$": ""}) %}
+                <div class="badge">-{{ 100 - (specialInt|number_format * 100 / priceInt|number_format)|number_format(0) }}%</div>
+            {% endif %}
+            <div class="add-to-fave">
+                <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}"
+                        onclick="wishlist.add('{{ product_id }}');"><i class="fas fa-heart"></i></button>
             </div>
-            <a type="button" onclick="cart.add('{{product_id}}');" class="btn btn-primary btn-md">Buy</a>
+            <a href="{{ href }}">
+                <img src="{{ thumb }}"
+                     alt="{{ name }}"
+                     title="{{ name }}"
+                     class="img-responsive"/>
+            </a>
+        </div>
+        <div class="product-thumb_body">
+            <span class="product-name"><a href="{{ href }}">{{ name|length > 30 ? name|slice(0, 30) ~ '...' : name  }}</a></span>
+            {% if brand %}
+                <div class="product_brand">
+                    <span class="product_brand_value">{{ brand }}</span>
+                </div>
+            {% endif %}
+            <p class="product-description">{{ description }}</p>
+            {% if price %}
+                <div class="product-price-block">
+                    {% if not special %}
+                        {{ price }}
+                    {% else %} <span class="product-price product-price_actual">{{ special }}</span> <span
+                            class="product-price product-price_old">{{ price }}</span> {% endif %}
+                </div>
+            {% endif %}
+            <div class="additional-info">
+
+            </div>
+            {% include partial.d_rating.template with  partial.d_rating|merge({rating:rating,static_rating:true}) %}
+
+            {% include partial.button.template with partial.button|merge({
+            button:'cart.add('~ product_id ~', '~ minimum ~')',
+            style:'secondary',
+            classes:'btn-buy',
+            text_button:button_cart
+            }) %}
+            {#<button type="button" class="btn btn-vis btn-secondary btn-buy" onclick="cart.add('{{ product_id }}', '{{ minimum }}');">{{ button_cart }}</button>#}
         </div>
     </div>
 </div>
-<!-- /> d_product_thumb -->

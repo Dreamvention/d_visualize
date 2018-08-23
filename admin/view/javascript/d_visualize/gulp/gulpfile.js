@@ -25,7 +25,7 @@ gulp.task('sass', function () {
 });
 
 gulp.task('sass:watch', function () {
-    gulp.watch([sassDest + '*.scss', sassDest + 'core/*.scss'], ['sass']);
+    gulp.watch([sassDest + '*.scss', sassDest + '**/*.scss'], ['sass']);
 });
 gulp.task("browser_sync_init", function () {
     if (typeof process.env.HOST !== "undefined") {
@@ -34,7 +34,7 @@ gulp.task("browser_sync_init", function () {
         });
     }
 })
-gulp.task('build_sass', ["browser_sync_init"], function () {
+gulp.task('default', ["browser_sync_init"], function () {
     if (typeof process.env.HOST !== "undefined") {
         gulp.watch([
             baseDir + "/controller/extension/**/**/*.php",

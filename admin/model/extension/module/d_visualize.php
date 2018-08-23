@@ -87,7 +87,10 @@ class ModelExtensionModuleDVisualize extends Model
         foreach ($files as $file) {
             $results[] = str_replace(DIR_APPLICATION, '', $file);
         }
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/actions/*.js');
+        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/elements/*.js');
+        foreach ($files as $file) {
+            $results[] = str_replace(DIR_APPLICATION, '', $file);
+        }$files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/actions/*.js');
         foreach ($files as $file) {
             $results[] = str_replace(DIR_APPLICATION, '', $file);
         }

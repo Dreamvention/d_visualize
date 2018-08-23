@@ -9,23 +9,47 @@ class ControllerExtensionDVisualizeEvent extends Controller
     private $layout = 'd_visualize/template/layout/*.twig';
     private $partials = 'd_visualize/template/layout/*.twig';
     private $config_visualize;
-    private $config_template;
+    private $config_active_template;
 
     public function __construct($registry)
     {
         parent::__construct($registry);
 
-        $this->config->load($this->codename . '/' . $this->codename);
-        $this->config_visualize = $this->config->get($this->codename);
+        $this->config->load($this->codename);
+        $this->config_visualize = $this->config->get($this->codename . '_setting');
+        $this->setting_visualize = $this->loadSetting();
 
         $this->config->load($this->codename . '/template/' . $this->config_visualize['active_template']);
-        $this->config_template = $this->config->get($this->codename . '_template_' . $this->config_visualize['active_template']);
+        $this->config_active_template = $this->config->get($this->codename . '_template_' . $this->config_visualize['active_template']);
+        $this->setting_active_template = array();
+
+        //default theme overwriting values
+        $this->config_theme = $this->config->get('config_theme_visualize');
+        $this->config_active_template_theme = $this->config->get('config_theme_' . $this->config_visualize['active_template']);
+
+    }
+    public function loadSetting()
+    {
+        //check if exist config in db
+        $this->load->model('setting/setting');
+
+        if ($this->model_setting_setting->getSetting($this->codename)) {
+            $setting = $this->model_setting_setting->getSetting($this->codename);
+            $data['setting'] = ($setting) ? $setting : array();
+
+        } else {
+            $data['setting'] = array();
+        }
+
+        //inherit users data
+        $data['setting'] = array_replace_recursive($this->config_visualize, $data['setting']);
+        return $data['setting'];
 
     }
 
     public function controller_all_before_d_visualize(&$view, &$data)
     {
-        foreach ($this->config_template['scripts'] as $script) {
+        foreach ($this->config_active_template['scripts'] as $script) {
 //            array_unshift($data['scripts'], $script);
         }
     }
@@ -37,21 +61,20 @@ class ControllerExtensionDVisualizeEvent extends Controller
     public function view_all_before_d_visualize(&$view, &$data)
     {
         $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
-
-        $data += $this->config_template['page']['default']['layout'];
-        if (in_array($view_route, array_keys($this->config_template['page']))) {
-            if (isset($this->config_template['page'][$view_route]['layout'])) {
-                $data = array_replace_recursive($data, $this->config_template['page'][$view_route]['layout']);
-                if (isset($this->config_template['page'][$view_route]['scripts']) && !empty($this->config_template['page'][$view_route]['scripts'])) {
+        $data += $this->config_active_template['page']['default']['layout'];
+        if (in_array($view_route, array_keys($this->config_active_template['page']))) {
+            if (isset($this->config_active_template['page'][$view_route]['layout'])) {
+                $data = array_replace_recursive($data, $this->config_active_template['page'][$view_route]['layout']);
+                if (isset($this->config_active_template['page'][$view_route]['scripts']) && !empty($this->config_active_template['page'][$view_route]['scripts'])) {
                     if ($view==$view_route){
                         $html_dom = new d_simple_html_dom();
                         $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-                        foreach ($this->config_template['page'][$view_route]['scripts'] as $script) {
+                        foreach ($this->config_active_template['page'][$view_route]['scripts'] as $script) {
                             if (!$html_dom->find('head', 0)->find('script[src="' . $script . '"]')) {
                                 $html_dom->find('head > script', -1)->outertext .= '<script src="' . $script . '" type="text/javascript"></script>';
                             }
                         }
-                        foreach ($this->config_template['page'][$view_route]['styles'] as $style) {
+                        foreach ($this->config_active_template['page'][$view_route]['styles'] as $style) {
                             if (!$html_dom->find('head', 0)->find('link[href="' . $style . '"]')) {
                                 $html_dom->find('\head > link', -1)->outertext .= '<link href="' . $style . '" rel="stylesheet" type="text/css"></script>';
                             }
@@ -66,10 +89,10 @@ class ControllerExtensionDVisualizeEvent extends Controller
     public function header_view_before_d_visualize(&$view, &$data, &$out)
     {
         //pre style for lib like bootstrap etc for overwriting them by modules and theme
-        $data['pre_styles'] = $this->config_template['pre_styles'];
+        $data['pre_styles'] = $this->config_active_template['pre_styles'];
         // post style for overwriting styles
 
-        foreach ($this->config_template['post_styles'] as $style) {
+        foreach ($this->config_active_template['post_styles'] as $style) {
             $this->document->addStyle($style);
         }
         $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/template/' . $this->config_visualize['active_template'] . '/stylesheet.css');
@@ -77,13 +100,13 @@ class ControllerExtensionDVisualizeEvent extends Controller
 
 
         $data['pre_scripts'] = array();
-        foreach ($this->config_template['pre_scripts'] as $script) {
+        foreach ($this->config_active_template['pre_scripts'] as $script) {
             array_unshift($data['pre_scripts'], $script);//default place for scripts our will be latest
         }
-        foreach ($this->config_template['post_scripts'] as $script) {
+        foreach ($this->config_active_template['post_scripts'] as $script) {
             array_unshift($data['scripts'], $script);//default place for scripts our will be latest
         }
-        $data['custom_styles'] = $this->config_template['custom_styles'];
+        $data['custom_styles'] = $this->config_active_template['custom_styles'];
 
     }
     /*
