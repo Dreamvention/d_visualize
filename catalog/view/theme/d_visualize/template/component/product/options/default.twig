@@ -55,9 +55,9 @@
                         <label class="product-option-wrap">
 
                             {% include partial.input.template with partial.input|merge({
-                            type:'checkbox',
-                            name:'option[' ~ option.product_option_id ~ '][]',
-                            value:option_value.product_option_value_id ,
+                                type:'checkbox',
+                                name:'option[' ~ option.product_option_id ~ '][]',
+                                value:option_value.product_option_value_id ,
                             }) %}
 
                             {% if option_value.image %}
@@ -81,11 +81,11 @@
                 <label class="control-label"
                        for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
                 {% include partial.input.template with partial.input|merge({
-                type:'text',
-                id:'input-option'~option.product_option_id,
-                name:'option[' ~ option.product_option_id ~ ']',
-                value:option.value ,
-                placeholder:option.name
+                    type:'text',
+                    id:'input-option'~option.product_option_id,
+                    name:'option[' ~ option.product_option_id ~ ']',
+                    value:option.value ,
+                    placeholder:option.name
                 }) %}
             </div>
         {% endif %}
@@ -94,10 +94,10 @@
                 <label class="control-label"
                        for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
                 {% include partial.input.template with partial.input|merge({
-                type:'textarea',
-                id:'input-option'~option.product_option_id,
-                name:'option[' ~ option.product_option_id ~ ']',
-                value:option.value ,
+                    type:'textarea',
+                    id:'input-option'~option.product_option_id,
+                    name:'option[' ~ option.product_option_id ~ ']',
+                    value:option.value ,
                 }) %}
 
             </div>
@@ -105,14 +105,14 @@
         {% if option.type == 'file' %}
             <div class="form-group{% if option.required %} required {% endif %}">
                 <label class="control-label">{{ option.name }}</label>
-                {% include component.button.template with({
-                button: true,
-                id:'button-upload'~ option.product_option_id ,
-                style:'default',
-                classes:'btn-block',
-                text_button:'<i
+                {% include partial.button.template with partial.button|merge({
+                    button: true,
+                    id:'button-upload'~ option.product_option_id ,
+                    style:'default',
+                    classes:'btn-block',
+                    text_button:'<i
                             class="fa fa-upload"></i> '~ button_upload ,
-                title:"",
+                    title:"",
                 }) %}
                 {#<button type="button" id="button-upload{{ option.product_option_id }}"#}
                 {#data-loading-text="{{ text_loading }}"#}
@@ -125,12 +125,12 @@
         {% endif %}
         {% if option.type == 'date' %}
             {% include partial.form_group.template with partial.form_group|merge({
-            type:'date',
-            id:'input-option'~option.product_option_id,
-            name:'option[' ~ option.product_option_id ~ ']',
-            value:option.value,
-            text_input:option.name,
-            classes:'',
+                type:'date',
+                id:'input-option'~option.product_option_id,
+                name:'option[' ~ option.product_option_id ~ ']',
+                value:option.value,
+                text_input:option.name,
+                classes:'',
             }) %}
         {% endif %}
         {% if option.type == 'datetime' %}
