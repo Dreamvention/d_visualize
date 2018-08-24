@@ -408,3 +408,4 @@ system/startup.php
 /admin/view/template/catalog/
 /admin/view/template/common/
 /admin/view/template/extension/module/ebay_listing.twig
+/admin/model/extension/d_blog_module/

@@ -3,6 +3,7 @@ $_['d_visualize_template_default'] = array(
     'name'        => 'default template',
     'codename'    => 'default',
     'description' => 'template from default opencart',
+    'debug' => 1,
     'page'        => array(
         'default'                      => array(
             'layout' => array(
@@ -171,7 +172,7 @@ $_['d_visualize_template_default'] = array(
                         'template'  => 'd_visualize/template/partial/d_notification.twig',
                         'component' => array(
                             'd_notification' => array(
-                                'template' => 'd_visualize/template/component/d_notification/default.twig',
+                                'template' => 'd_visualize/template/component/d_notification/default2.twig',
                             ),)
                     )
                 ,
@@ -190,7 +191,7 @@ $_['d_visualize_template_default'] = array(
                         'template' => 'd_visualize/template/component/product/remove/default.twig',
                     ),
                     'd_loader'         => array(
-                        'template' => 'd_visualize/template/component/d_loader/d_fade_rotation.twig'
+                        'template' => 'd_visualize/template/component/product/remove/default.twig'
                     ),
 
                 ),

@@ -1,8 +1,11 @@
 .vis-template-thumb{
   padding: $default-padding;
   max-width: 250px;
+  &:not(:last-child()){
+    margin-right:  rem(20);
+  }
 
   &.active{
-    border: 1px solid red;
+    outline: 1px solid red;
   }
 }

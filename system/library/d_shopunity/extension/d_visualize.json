@@ -301,7 +301,9 @@
   ],
   "dirs": [
     "catalog/view/theme/d_visualize/stylesheet/core",
-    "catalog/view/theme/d_visualize/javascript/core"
+    "catalog/view/theme/d_visualize/javascript/core",
+    "admin/view/javascript/d_visualize",
+    "admin/view/stylesheet/d_visualize"
   ],
   "changelog": [
     {

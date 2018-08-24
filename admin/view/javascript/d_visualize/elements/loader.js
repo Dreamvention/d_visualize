@@ -1,20 +1,17 @@
 Vue.component('d-loader', {
 	template: '#t-loader',
 	props: {
-		name: {
+        size: {
 			type: String,
 			default () {
-				return ''
-			}
-		},
-		value: {
-			type: String,
-			default () {
-				return ''
+				return 'normal'
 			}
 		}
 	},
 	computed:{
+		auto_save:function () {
+			return this.$store.getters.setting.auto_save
+        },
 		loading:function () {
 			return this.$store.getters.loading;
 		}

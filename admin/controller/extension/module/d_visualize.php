@@ -81,11 +81,6 @@ class ControllerExtensionModuleDVisualize extends Controller
             }
         }
 
-        $status = $this->codename . '_status';
-        $this->uninstallTheme();
-        if ($this->setting_visualize[$status]) {
-            $this->installTheme();
-        }
 //        if ($this->setting_visualize[$status]) {
 //            check template settings
 //            if ($this->model_extension_d_opencart_patch_setting->getSetting($this->codename . '_template_' . $this->setting_visualize['active_template'])) {
@@ -165,6 +160,11 @@ class ControllerExtensionModuleDVisualize extends Controller
             return;
         }
 
+        $status = $this->codename . '_status';
+        $this->uninstallTheme();
+        if ($this->setting_visualize['status']) {
+            $this->installTheme();
+        }
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
@@ -173,64 +173,79 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->response->setOutput($template);
     }
 
+    public function save()
+    {
+        try {
+            $this->uninstallTheme();
+            if ($this->request->post['status']) {
+                $this->installTheme();
+            }
+            // 3.x fix
+            if (VERSION >= '3.0.0.0') {
+                $sl_post_array = array();
+                $sl_post_array['module_' . $this->codename . '_status'] = $this->request->post['status'];
+                $this->model_extension_d_opencart_patch_setting->editSetting('module_' . $this->codename, $sl_post_array, $this->store_id);
+            }
+            $new_post = array();
+            foreach ($this->request->post as $k => $v) {
+                $new_post[$this->codename . '_' . $k] = $v;
+            }
+            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $new_post, $this->store_id);
+            $this->session->data['success'] = $this->language->get('text_success');
+            $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
+        } catch (Exception $e) {
+            $this->session->data['error'] = $e;
+            $this->response->setOutput(json_encode(array('error' => $this->session->data['error'])));
+        }
+    }
+
+    public function loadStateAjax()
+    {
+        $json = array();
+
+        $json['setting'] = $setting = array();
+        foreach ($this->setting_visualize['available_templates'] as $template) {
+            $image = $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $template . '.png') ? 'catalog/' . $this->codename . '/template/' . $template . '.png' : "no_image.png"), 300, 400);
+            // maybe it will fluence on perfomance
+            $this->config->load($this->codename . '/template/' . $template);
+            $config_template = $this->config->get($this->codename . '_template_' . $template);
+
+            $setting['available_templates'][] = array(
+                'img' => $image,
+                'title' => $config_template['name'],
+                'description' => $config_template['description'],
+                'codename' => $config_template['codename'],
+            );
+        }
+        $setting['active_template'] = $this->setting_visualize['active_template'];
+        $setting['auto_save'] = $this->setting_visualize['auto_save'];
+        $setting['status'] = (int)$this->setting_visualize['status'];
+        $json['setting'] = $setting;
+        $json['success'] = $this->language->get('text_success');
+        $this->response->setOutput(json_encode($json));
+    }
+
     public function loadSetting()
     {
         //check if exist config in db
         if ($this->model_extension_d_opencart_patch_setting->getSetting($this->codename)) {
             $setting = $this->model_extension_d_opencart_patch_setting->getSetting($this->codename);
             $data['setting'] = ($setting) ? $setting : array();
-
         } else {
             $data['setting'] = array();
         }
-
+        $new_setting = array();
+        foreach ($this->config_visualize as $k => $v) {
+            $new_setting[$this->codename . '_' . $k] = $v;
+        }
+        $data['setting'] = array_replace_recursive($new_setting, $data['setting']);
+        $new_setting = array();
         //inherit users data
-        $data['setting'] = array_replace_recursive($this->config_visualize, $data['setting']);
-        return $data['setting'];
-
-    }
-
-    public function loadStateAjax()
-    {
-        if (isset($this->request->post['type'])) {
-            $type = $this->request->post['type'];
+        foreach ($data['setting'] as $k => $v) {
+            $new_setting[str_replace($this->codename . '_', '', $k)] = $v;
         }
-        if (isset($this->request->post['id'])) {
-            $id = $this->request->post['id'];
-        }
+        return $new_setting;
 
-        $json = array();
-
-        if (isset($type) && isset($id)) {
-            $json['setting'] = $setting = array();
-            foreach ($this->setting_visualize['available_templates'] as $template) {
-                $image = $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $template . '.png') ? 'catalog/' . $this->codename . '/template/' . $template . '.png' : "no_image.png"), 300, 400);
-                // maybe it will fluence on perfomance
-                $this->config->load($this->codename . '/template/' . $template);
-                $config_template = $this->config->get($this->codename . '_template_' . $template);
-
-                $setting['available_templates'][] = array(
-                    'img'         => $image,
-                    'title'       => $config_template['name'],
-                    'description' => $config_template['description'],
-                    'codename'    => $config_template['codename'],
-                );
-            }
-            $setting['active_template'] = $this->setting_visualize['active_template'];
-            $json['setting'] = $setting;
-            $json['status'] = (int)$this->setting_visualize[$this->codename . '_status'];
-            $json['success'] = 'success';
-        } else {
-            $json['error'] = 'error';
-        }
-        $this->response->setOutput(json_encode($json));
-    }
-
-    public function setup()
-    {
-        $this->load->model('extension/d_opencart_patch/url');
-        $this->{'model_extension_module_' . $this->codename}->installConfig();
-        $this->response->redirect($this->model_extension_d_opencart_patch_url->ajax($this->route));
     }
 
     public function prepareLocal()
@@ -247,6 +262,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['text_no'] = $this->language->get('text_no');
         $local['common']['text_enabled'] = $this->language->get('text_enabled');
         $local['common']['entry_status'] = $this->language->get('entry_status');
+
+        $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');
@@ -265,19 +282,19 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['common']['breadcrumbs'] = array();
         $option['common']['breadcrumbs'][] = array(
             'text' => $this->language->get('text_home'),
-            'href' => $this->model_extension_d_opencart_patch_url->link('common/home')
+            'href' => $this->model_extension_d_opencart_patch_url->ajax('common/home')
         );
 
         $option['common']['breadcrumbs'][] = array(
             'text' => $this->language->get('text_module'),
-            'href' => $this->model_extension_d_opencart_patch_url->getExtensionLink('module')
+            'href' => $this->model_extension_d_opencart_patch_url->getExtensionAjax('module')
         );
 
         $option['common']['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title_main'),
-            'href' => $this->model_extension_d_opencart_patch_url->link($this->route)
+            'href' => $this->model_extension_d_opencart_patch_url->ajax($this->route)
         );
-        $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionLink('module');
+        $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         // Variable
         $option['common']['id'] = $this->codename;
         $option['common']['route'] = $this->route;
@@ -304,6 +321,13 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
 
         return $option;
+    }
+
+    public function setup()
+    {
+        $this->load->model('extension/d_opencart_patch/url');
+        $this->{'model_extension_module_' . $this->codename}->installConfig();
+        $this->response->redirect($this->model_extension_d_opencart_patch_url->ajax($this->route));
     }
 
     public function uninstallTheme()
@@ -341,10 +365,10 @@ class ControllerExtensionModuleDVisualize extends Controller
         if (!empty($installed_template_extensions)) {
             foreach ($installed_template_extensions as $template_extensions) {
                 $this->load->model($template_extensions['index']);
-                $this->load->controller($template_extensions['index']);
-                if (!$this->{}->checkConfig($template_extensions['codename'])) {
-                    $this->{$template_extensions['index']}->installConfig($template_extensions['codename']);
-                };
+                $this->load->controller($template_extensions['index'] . '/setup');
+//                if (!$this->{}->checkConfig($template_extensions['codename'])) {
+//                    $this->{$template_extensions['index']}->installConfig($template_extensions['codename']);
+//                };
             }
         }
     }
@@ -380,7 +404,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             . $this->codename . '_theme'}->getRoute('template/' . $route_info[$this->codename . '_setting']['active_template']);
             if (!empty($route_info_active_template['events'])) {
                 foreach ($route_info_active_template['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename.'_setting']['active_template'], $trigger, $action, 1, 1);
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
                 }
             }
 
@@ -397,36 +421,10 @@ class ControllerExtensionModuleDVisualize extends Controller
             . $this->codename . '_theme'}->getRoute('template/' . $route_info[$this->codename . '_setting']['active_template']);
             if (!empty($route_info_active_template['events'])) {
                 foreach ($route_info_active_template['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename.'_setting']['active_template'], $trigger, $action, 1, 1);
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
                 }
             }
 
-        }
-    }
-
-    public function save()
-    {
-        try {
-            $this->uninstallTheme();
-            if ($this->request->post[$this->codename . '_status']) {
-                $this->installTheme();
-            }
-            // 3.x fix
-            if (VERSION >= '3.0.0.0') {
-                $sl_post_array = array();
-                if ($this->request->post[$this->codename . '_status'] == 0) {
-                    $sl_post_array['module_' . $this->codename . '_status'] = 0;
-                } elseif ($this->request->post[$this->codename . '_status'] == 1) {
-                    $sl_post_array['module_' . $this->codename . '_status'] = 1;
-                }
-                $this->model_extension_d_opencart_patch_setting->editSetting('module_' . $this->codename, $sl_post_array, $this->store_id);
-            }
-            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $this->request->post, $this->store_id);
-            $this->session->data['success'] = $this->language->get('text_success');
-            $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
-        } catch (Exception $e) {
-            $this->session->data['error'] = $e;
-            $this->response->setOutput(json_encode(array('error' => $this->session->data['error'])));
         }
     }
 

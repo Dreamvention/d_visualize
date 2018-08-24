@@ -20,9 +20,7 @@ Vue.component('template-thumb', {
 	},
 	methods: {
 		handleChange: function (e) {
-			console.log(e.currentTarget.attributes.index)
-			this.$store.dispatch('CHANGE_TEMPLATE',e.currentTarget.attributes);
-
-		}
+			this.$store.dispatch('CHANGE_TEMPLATE',e.currentTarget.attributes.index);
+				}
 	}
 });

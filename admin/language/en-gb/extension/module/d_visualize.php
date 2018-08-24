@@ -8,11 +8,15 @@ $_['heading_title'] = '<span style="color:#449DD0; font-weight:bold">Visualize</
 $_['heading_title_main'] = 'Visualize';
 $_['text_edit'] = 'Edit visualize settings';
 $_['text_module'] = 'Modules';
+$_['text_success'] = 'Successfully modified module';
 
-$_['button_add'] = '';
-$_['button_save_and_stay'] = '';
-$_['button_save'] = '';
-$_['button_cancel'] = '';
+$_['entry_status'] = 'Status';
+$_['entry_auto_save_help'] = 'auto save';
+
+$_['button_add'] = 'Add';
+$_['button_save_and_stay'] = 'Save and stay';
+$_['button_save'] = 'Save';
+$_['button_cancel'] = 'Cancel';
 
 $_['error_load_content'] = 'Error load content';
 

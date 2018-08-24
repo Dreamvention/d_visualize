@@ -1,5 +1,8 @@
 d_visualize.getters.status = function (state) {
-	return state.status
+	return state.setting.status
+};
+d_visualize.getters.setting = function (state) {
+	return state.setting
 };
 d_visualize.getters.loading_first = function (state) {
 	return state.loading_first

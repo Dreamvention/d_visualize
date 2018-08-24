@@ -3,6 +3,7 @@
 
 .visualize {
   @import "common/import";
-  @import "component/import";
-  @import "components/import";
 }
+@import "component/import";
+@import "components/import";
+@import "elements/import";

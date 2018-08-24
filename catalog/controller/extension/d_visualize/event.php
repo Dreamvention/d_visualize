@@ -28,6 +28,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $this->config_active_template_theme = $this->config->get('config_theme_' . $this->config_visualize['active_template']);
 
     }
+
     public function loadSetting()
     {
         //check if exist config in db
@@ -66,7 +67,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             if (isset($this->config_active_template['page'][$view_route]['layout'])) {
                 $data = array_replace_recursive($data, $this->config_active_template['page'][$view_route]['layout']);
                 if (isset($this->config_active_template['page'][$view_route]['scripts']) && !empty($this->config_active_template['page'][$view_route]['scripts'])) {
-                    if ($view==$view_route){
+                    if ($view == $view_route) {
                         $html_dom = new d_simple_html_dom();
                         $html_dom->load($data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
                         foreach ($this->config_active_template['page'][$view_route]['scripts'] as $script) {
@@ -84,6 +85,30 @@ class ControllerExtensionDVisualizeEvent extends Controller
                 }
             }
         }
+        if  ($this->config_active_template['debug']){
+            $data = $this->validate_templates($data);
+        }
+    }
+
+    public function validate_templates($data)
+    {
+        foreach ($data['partial'] as $partial_k => $partial_v) {
+            if (!is_file(DIR_TEMPLATE . $partial_v['template'])) {
+                $data['partial'][$partial_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
+            }else{
+                foreach ($data['partial'][$partial_k]['component'] as $component_k => $component_v){
+                    if (!is_file(DIR_TEMPLATE . $component_v['template'])) {
+                        $data['partial'][$partial_k]['component'][$component_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
+                    }
+                }
+            }
+        }
+        foreach ($data['component'] as $partial_k => $partial_v) {
+            if (!is_file(DIR_TEMPLATE . $partial_v['template'])) {
+                $data['component'][$partial_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
+            }
+        }
+        return $data;
     }
 
     public function header_view_before_d_visualize(&$view, &$data, &$out)
@@ -103,8 +128,9 @@ class ControllerExtensionDVisualizeEvent extends Controller
         foreach ($this->config_active_template['pre_scripts'] as $script) {
             array_unshift($data['pre_scripts'], $script);//default place for scripts our will be latest
         }
+        if(!empty($this->config_active_template['post_scripts']))
         foreach ($this->config_active_template['post_scripts'] as $script) {
-            array_unshift($data['scripts'], $script);//default place for scripts our will be latest
+//            array_unshift($data['scripts'], $script);//default place for scripts our will be latest
         }
         $data['custom_styles'] = $this->config_active_template['custom_styles'];
 
