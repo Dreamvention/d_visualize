@@ -130,7 +130,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         }
         if(!empty($this->config_active_template['post_scripts']))
         foreach ($this->config_active_template['post_scripts'] as $script) {
-//            array_unshift($data['scripts'], $script);//default place for scripts our will be latest
+            array_unshift($data['scripts'], $script);//default place for scripts our will be latest
         }
         $data['custom_styles'] = $this->config_active_template['custom_styles'];
 
