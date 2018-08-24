@@ -294,7 +294,7 @@
     "catalog/view/theme/d_visualize/template/total/shipping.twig",
     "catalog/view/theme/d_visualize/template/total/voucher.twig",
 
-    "system/config/d_visualize/d_visualize.php",
+    "system/config/d_visualize.php",
     "system/config/d_visualize/skin/default.php",
     "system/library/d_shopunity/extension/d_visualize.json"
 
