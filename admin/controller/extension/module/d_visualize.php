@@ -98,7 +98,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->document->addScript("view/javascript/d_vuex/vuex.min.js");
         $this->document->addScript("view/javascript/d_vue_i18n/vue-i18n.min.js");
 //        $this->document->addScript('view/javascript/.$this->codename./library/VueOptions.js');
-        $this->document->addScript('view/javascript/' . $this->codename . '/main.js');
+//        $this->document->addScript('view/javascript/' . $this->codename . '/main.js');
 
         //Alertify
         $this->document->addScript('view/javascript/d_alertify/alertify.min.js');
@@ -190,7 +190,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             foreach ($this->request->post as $k => $v) {
                 $new_post[$this->codename . '_' . $k] = $v;
             }
-            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $new_post, $this->store_id);
+            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename.'', $new_post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
             $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
         } catch (Exception $e) {

@@ -1,8 +1,8 @@
 .auto-save{
   .custom-switch{
-    color: $p_black;
+    color: var(--p_black);
     &.active{
-      color: $color-info;
+      color: var(--color-info);
     }
   }
 

@@ -73,37 +73,7 @@ class ModelExtensionModuleDVisualize extends Model
 
     public function getVueScripts() {
         $results = array();
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/components/**/*.js');
-        foreach ($files as $file) {
-            $results[] = str_replace(DIR_APPLICATION, '', $file);
-        }
-
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/model/*.js');
-        foreach ($files as $file) {
-            $results[] = str_replace(DIR_APPLICATION, '', $file);
-        }
-
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/components/*.js');
-        foreach ($files as $file) {
-            $results[] = str_replace(DIR_APPLICATION, '', $file);
-        }
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/elements/*.js');
-        foreach ($files as $file) {
-            $results[] = str_replace(DIR_APPLICATION, '', $file);
-        }$files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/actions/*.js');
-        foreach ($files as $file) {
-            $results[] = str_replace(DIR_APPLICATION, '', $file);
-        }
-
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/mutations/*.js');
-        foreach ($files as $file) {
-            $results[] = str_replace(DIR_APPLICATION, '', $file);
-        }
-        $files = glob(DIR_APPLICATION.'view/javascript/'.$this->codename.'/getters/*.js');
-        foreach ($files as $file) {
-            $results[] = str_replace(DIR_APPLICATION, '', $file);
-        }
-
+        $results[]='view/javascript/'.$this->codename.'/dist/'.$this->codename.'.js';
         return $results;
     }
 

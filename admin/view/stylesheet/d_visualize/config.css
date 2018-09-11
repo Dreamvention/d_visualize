@@ -1,0 +1,41 @@
+/**
+ * http://chir.ag/projects/name-that-color
+ * color
+ */
+
+:root {
+  --color-primary: #4fb5e7;
+  --color-primary-darken: #27b7fd;
+  --color-primary-darkenx2: #1589c1;
+  --color-success: #86ce99;
+  --color-success-darken: #2cbd53;
+  --color-success-darkenx2: #4faf68;
+  --color-danger: #cf4949;
+  --color-danger-darken: #da3d3d;
+  --color-danger-darkenx2: #bc3a3a;
+  --color-info: #f0b840;
+  --color-info-darken: #eba612;
+  --color-info-darkenx2: #d59202;
+  --color-default: #cfcfcf;
+  --color-default-darken: #b1b1b1;
+  --color-default-darkenx2: #959595;
+  /**
+   * Font
+   */
+  --font-main: 'Roboto';
+  --font-secondary: 'Blogger Sans';
+  --font-secondary-bold: 'Blogger Sans Bold';
+  --font-exLight: 100;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-bold: 600;
+  --font-size-base: 0.9375rem;
+  --font-size-h1: 2.9375rem;
+  --font-size-h2: 2.1875rem;
+  --font-size-h3: 1.625rem;
+  --font-size-h4: 1.25rem;
+  --font-size-h5: 1.125rem;
+}
+
+/*# sourceMappingURL=config.css.map */

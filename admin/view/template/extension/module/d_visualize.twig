@@ -16,7 +16,7 @@
 		var store = new Vuex.Store(d_visualize);
 		var local = {{ local|json_encode }}
 			app = new Vue({
-				store,
+				store:store,
 				i18n: new VueI18n({
 					locale: '{{ language_id }}',
 					messages: local

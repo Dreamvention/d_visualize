@@ -1,110 +1,16 @@
-/**
- * Base
- */
- > *{
-  //font-family: $font-main;
-  //font-size: $font-size-base;
-  //font-weight: $font-light;
-  //color: $font-color-main;
-  @include mq('tablet-wide') {
-    font-size: 8px;
+@import "../base/import";
+{
+  font-family:var(--font-main);
+}
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+:--heading {
+  font-family:var(--font-main);
+  @media (--tablet) {
+    margin-block: 0;
   }
 }
-%heading {
-  //font-family: $font-secondary-bold;
-  @include mq('tablet') {
-    text-align: center;
-  }
+@each $heading in (h1, h2, h3) {
+  .like-heading-$heading,$heading{
+  font-size: 15px;
 }
-
-//
-// generate styles of heading
-@for $i from 1 through 6 {
-  .heading-h#{$i},h#{$i} {
-    @extend %heading;
-    margin-top: 0;
-    margin-bottom: rem(8px);
-  }
-  .like-heading-h#{$i} {
-    margin-top: 0;
-    @extend %heading;
-  }
 }
-
-.heading-h1,
-.entry-description h1,
-.like-heading-h1 {
-  font-size: $font-size-h1;
-  line-height: lh($font-size-h1, 54);
-  margin-bottom: rem(37px);
-}
-
-.heading-h2,
-.entry-description h2,
-.like-heading-h2 {
-  font-size: $font-size-h2;
-  line-height: lh($font-size-h2, 42);
-  margin-bottom: rem(25px);
-}
-
-.heading-h3,
-.entry-description h3,
-.like-heading-h3 {
-  //font-family: $font-secondary;
-  font-size: $font-size-h3;
-  line-height: lh($font-size-h1, 33);
-  margin-bottom: rem(10px);
-}
-
-.heading-h4,
-.entry-description h4,
-.like-heading-h4 {
-  text-align: center;
-  font-size: $font-size-h4;
-  line-height: lh($font-size-h1, 27);
-  margin-bottom: rem(7px);
-}
-
-.entry-description h4 {
-  text-align: left;
-}
-
-.heading-h5,
-.entry-description h5,
-.like-heading-h5 {
-  font-size: $font-size-h5;
-  line-height: lh($font-size-h1, 47);
-  margin-bottom: rem(25px);
-}
-
-ul {
-  line-height: lh($font-size-base, 32);
-  li {
-    line-height: lh(18, 22);
-  }
-}
-
-//.entry-description {
-//  margin-bottom: rem(30px);
-//  &:last-of-type {
-//    margin-bottom: rem(60px);
-//  }
-//}
-//
-//.entry-description a,
-//.link {
-//  font-size: $fontSizeBase;
-//  color: $colorLink;
-//  @include transition(border-color, .3s);
-//  border-bottom: 1px solid $transparent;
-//  &:hover {
-//    color: lighten($colorLink, 8);
-//    border-bottom: 1px solid lighten($colorLink, 8);
-//  }
-//  &:focus {
-//    text-decoration: none;
-//    outline: none;
-//  }
-//}
-//
-//

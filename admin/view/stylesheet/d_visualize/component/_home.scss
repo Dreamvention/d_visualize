@@ -1,3 +1,8 @@
 .vis-home{
-  display: flex;
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-gap: 10px;
+  @media (--tablet) {
+    background: red;
+  }
 }

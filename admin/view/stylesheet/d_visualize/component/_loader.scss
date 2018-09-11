@@ -1,6 +1,6 @@
 .loader {
   .la-timer {
-    color: $color-main;
+    color: var(--color-main);
   }
   &.normal {
     position: absolute;
