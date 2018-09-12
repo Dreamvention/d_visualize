@@ -31,7 +31,7 @@
 
 .sync-loader {
   flex: 1;
-  margin-left: rem(20);
+margin-left: rem(20);
   .fa {
     font-size: 36px;
   }
@@ -41,3 +41,8 @@
   justify-content: space-between;
 }
 
+.loader{
+  i:hover{
+    animation: a 2s infinite linear
+  }
+}

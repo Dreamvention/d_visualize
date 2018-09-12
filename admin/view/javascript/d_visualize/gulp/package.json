@@ -17,7 +17,8 @@
     "postcss": "6.0.23",
     "gulp-strip-css-comments": "^2.0.0",
     "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0"
+    "@babel/preset-env": "^7.0.0",
+    "autoprefixer": "^6.5.4"
   },
   "dependencies": {
     "del": "^3.0.0"

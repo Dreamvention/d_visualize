@@ -1,5 +1,5 @@
-Vue.component('d-switcher', {
-    template: '#t-switcher',
+Vue.component('viz-switcher', {
+    template: '#viz-switcher',
     props: {
         name: {
             type: String,
@@ -29,8 +29,8 @@ Vue.component('d-switcher', {
         if (this.size != 'mini') {
             config_switch.labelText = this.$t('common.text_enabled')
         }
-        $(this.$vnode.elm).bootstrapSwitch(config_switch);
-        $(this.$vnode.elm).on('switchChange.bootstrapSwitch', function (e, state) {
+        $('[type="checkbox"]',this.$vnode.elm).bootstrapSwitch(config_switch);
+        $('[type="checkbox"]',this.$vnode.elm).on('switchChange.bootstrapSwitch', function (e, state) {
             this.$emit('change', {target: {name: this.name, value: state}})
         }.bind(this));
     },

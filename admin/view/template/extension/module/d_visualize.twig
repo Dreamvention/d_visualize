@@ -11,17 +11,48 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		d_visualize.initState({{ state|json_encode }});
+
 		Vue.use(Vuex);
 		Vue.use(new VueOptions({{ options|json_encode }}));
+		var router = new VueRouter({
+			"routes": d_visualize.routes
+		});
+		console.log(d_visualize.routes)
+		// router.beforeEach(function (to, from, next) {
+		// 	// var test = _.find(d_visualize.routes, function (value) {
+		// 	// 	if (value.path === to) {
+		// 	// 		return true;
+		// 	// 	} else {
+		// 	// 		var test2 = _.find(value.children, function (value2) {
+		// 	// 			if (value.path + '/' + value2.path === to) {
+		// 	// 				return true;
+		// 	// 			} else {
+		// 	// 				return false;
+		// 	// 			}
+		// 	// 		});
+		// 	// 		return test2;
+		// 	// 	}
+		// 	// });
+		// 	// if (_.isEmpty(to.matched)) {
+		// 	// 	console.log('not');
+		// 	// 	next({
+		// 	// 		path: '/home/dashboard',
+		// 	// 		replace: true
+		// 	// 	});
+		// 	// } else {
+		// 	// 	next(to.fullPath);
+		// 	// }
+		// });
 		var store = new Vuex.Store(d_visualize);
 		var local = {{ local|json_encode }}
 			app = new Vue({
-				store:store,
-				i18n: new VueI18n({
+				"store": store,
+				"router": router,
+				"i18n": new VueI18n({
 					locale: '{{ language_id }}',
 					messages: local
 				}),
-				methods: {
+				"methods": {
 					o: function (value) {
 						return value;
 					}

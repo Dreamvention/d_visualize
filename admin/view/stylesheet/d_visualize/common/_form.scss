@@ -1,0 +1,11 @@
+@lost flexbox flex;
+.form-group {
+  lost-flex-container: row;
+  align-items: center;
+  label {
+    lost-column: 2/12;
+  }
+  label + div {
+    lost-column: 10/12;
+  }
+}

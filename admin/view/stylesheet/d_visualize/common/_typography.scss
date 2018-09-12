@@ -1,16 +1,18 @@
 @import "../base/import";
+
 {
-  font-family:var(--font-main);
+  font-family: var(--font-main);
 }
-@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
 :--heading {
-  font-family:var(--font-main);
+  font-family: var(--font-main);
+  font-weight: var(--font-light);
   @media (--tablet) {
-    margin-block: 0;
   }
 }
-@each $heading in (h1, h2, h3) {
-  .like-heading-$heading,$heading{
-  font-size: 15px;
-}
+
+@each $heading in ($headings) {
+  .like-heading-$heading, $heading {
+    font-size: var(--font-size-$heading);
+  }
 }

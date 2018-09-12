@@ -51,9 +51,7 @@ class ControllerExtensionModuleDVisualize extends Controller
     public function index()
     {
         $this->load->language($this->route);
-
         $this->document->setTitle($this->language->get('heading_title_main'));
-
         if ($this->d_shopunity) {
             $this->load->model('extension/d_shopunity/mbooth');
             $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
@@ -81,24 +79,11 @@ class ControllerExtensionModuleDVisualize extends Controller
             }
         }
 
-//        if ($this->setting_visualize[$status]) {
-//            check template settings
-//            if ($this->model_extension_d_opencart_patch_setting->getSetting($this->codename . '_template_' . $this->setting_visualize['active_template'])) {
-//                $setting = $this->model_extension_d_opencart_patch_setting->getSetting($this->codename);
-//                $data['template_setting'] = ($setting) ? $setting : array();
-//            } else {
-//                $data['template_setting'] = array();
-//            }
-//            $data['template_setting'] = array_replace_recursive($this->config_active_template_theme, $data['template_setting']);
-//            $this->setting_active_template_theme = $data['template_setting'];
-//            $this->installTheme();
-//        }
         //Vue JS with Vuex and
         $this->document->addScript("view/javascript/d_vue/vue.min.js");
         $this->document->addScript("view/javascript/d_vuex/vuex.min.js");
         $this->document->addScript("view/javascript/d_vue_i18n/vue-i18n.min.js");
-//        $this->document->addScript('view/javascript/.$this->codename./library/VueOptions.js');
-//        $this->document->addScript('view/javascript/' . $this->codename . '/main.js');
+        $this->document->addScript("view/javascript/d_vue_router/vue-router.min.js");
 
         //Alertify
         $this->document->addScript('view/javascript/d_alertify/alertify.min.js');
@@ -110,19 +95,20 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
 
         //visualize styles
-        $this->document->addStyle('view/stylesheet/' . $this->codename . '/' . $this->codename . '.css');
+        $this->document->addStyle('view/stylesheet/' . $this->codename . '/dist/' . $this->codename . '.css');
+
         //loader
         $this->document->addStyle('view/stylesheet/' . $this->codename . '/lib/load-awesome-1.1.0/css/timer.css');
 
+        //font-awesome
+        $this->document->addStyle( 'https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+        $this->document->addStyle( 'https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
         // Module data
-
         $data['vueTemplates'] = $this->{'model_extension_module_' . $this->codename}->getVueTemplates();
         $view_scripts = $this->{'model_extension_module_' . $this->codename}->getVueScripts();
-
         foreach ($view_scripts as $script) {
             $this->document->addScript($script);
         }
-
         $data['language_id'] = $this->config->get('config_language_id');
         $data['local'] = $this->prepareLocal();
         $data['options'] = $this->prepareOptions();
@@ -132,32 +118,9 @@ class ControllerExtensionModuleDVisualize extends Controller
         $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadStateAjax');
         $data['state'] = $state;
         //out put view
+        $data['setup'] = false;
         if (!$this->{'model_extension_module_' . $this->codename}->checkInstallModule()) {
-            $data['text_welcome_title'] = $this->language->get('text_welcome_title');
-            $data['text_welcome_description'] = $this->language->get('text_welcome_description');
-            $data['features'][] = array(
-                'text' => $this->language->get('text_welcome_visualize'),
-                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
-            );
-            $data['features'][] = array(
-                'text' => $this->language->get('text_welcome_building_blocks'),
-                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
-            );
-            $data['features'][] = array(
-                'text' => $this->language->get('text_welcome_mobile_ready'),
-                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
-            );
-            $data['features'][] = array(
-                'text' => $this->language->get('text_welcome_increase_sales'),
-                'icon' => 'image/' . $this->codename . 'text_welcome_visualize'
-            );
-            $data['text_button_setup'] = $this->language->get('button_setup');
-            $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setup');
-            $data['header'] = $this->load->controller('common/header');
-            $data['column_left'] = $this->load->controller('common/column_left');
-            $data['footer'] = $this->load->controller('common/footer');
-            $this->response->setOutput($this->model_extension_d_admin_style_style->getWelcomeView($this->route, $data));
-            return;
+            $data = $this->setup($data);
         }
 
         $status = $this->codename . '_status';
@@ -173,6 +136,33 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->response->setOutput($template);
     }
 
+    public function setup($data){
+        $data['setup'] = true;
+        $data['text_setup_title'] = $this->language->get('text_setup_title');
+        $data['text_setup_description'] = $this->language->get('text_setup_description');
+        $data['setup_bottom_image'] = $this->model_tool_image->resize( 'catalog/'.$this->codename . '/Image_footer_Social_Login.svg',100,100);
+        $data['setup_into_logo'] = $this->model_tool_image->resize( 'catalog/'.$this->codename . '/social_login_preview.svg',100,100);
+
+        $data['features'][] = array(
+            'text' => $this->language->get('text_setup_step_by_step'),
+            'icon' => $this->model_tool_image->resize( 'catalog/'.$this->codename . '/step_by_step.svg',100,100)
+        );
+        $data['features'][] = array(
+            'text' => $this->language->get('text_setup_soc_logins'),
+            'icon' => $this->model_tool_image->resize('catalog/'. $this->codename . '/soc_logins.svg',100,100)
+        );
+        $data['features'][] = array(
+            'text' => $this->language->get('text_setup_full_customize'),
+            'icon' => $this->model_tool_image->resize('catalog/'. $this->codename . '/full_customize.svg',100,100)
+        );
+        $data['features'][] = array(
+            'text' => $this->language->get('text_setup_gdpr_compilant'),
+            'icon' => $this->model_tool_image->resize('catalog/'. $this->codename . '/gdpr_compilant.svg',100,100)
+        );
+        $data['text_button_setup'] = $this->language->get('button_setup');
+        $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setupUrl');
+        return $data;
+    }
     public function save()
     {
         try {
@@ -199,10 +189,10 @@ class ControllerExtensionModuleDVisualize extends Controller
         }
     }
 
+    //go to themes
     public function loadStateAjax()
     {
         $json = array();
-
         $json['setting'] = $setting = array();
         foreach ($this->setting_visualize['available_templates'] as $template) {
             $image = $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $template . '.png') ? 'catalog/' . $this->codename . '/template/' . $template . '.png' : "no_image.png"), 300, 400);
@@ -317,13 +307,16 @@ class ControllerExtensionModuleDVisualize extends Controller
             $url .= '&store_id=' . $store_id;
         }
 
-        $option['action']['action'] = $this->model_extension_d_opencart_patch_url->link($this->route, $url);
+        $option['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_header', $url);
+        $option['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_footer', $url);
+        $option['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
+        $option['img']['no_image'] =$this->model_tool_image->resize( "no_image.png", 300, 400);
 
         return $option;
     }
 
-    public function setup()
+    public function setupUrl()
     {
         $this->load->model('extension/d_opencart_patch/url');
         $this->{'model_extension_module_' . $this->codename}->installConfig();

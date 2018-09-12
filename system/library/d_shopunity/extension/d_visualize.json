@@ -48,6 +48,7 @@
     "d_vue": ">=1.0.0",
     "d_vuex": ">=1.0.0",
     "d_vue_i18n": ">=1.0.0",
+    "d_vue_router": ">=1.0.0",
     "d_alertify": ">=1.0.0",
     "d_underscore": ">=1.0.0",
     "d_blog_module": ">=1.0.0"

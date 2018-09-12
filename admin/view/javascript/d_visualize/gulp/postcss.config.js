@@ -3,9 +3,9 @@ module.exports = function () {
 		syntax:'postcss-scss',
 		plugins: [
 			require('precss')({}),
-			require('autoprefixer')({}),
+			require('autoprefixer')({ browsers : ['last 15 versions'] }),
 			require('postcss-pxtorem')({
-				rootValue: 16,
+				rootValue: 10,
 				unitPrecision: 5,
 				propList: ['*'],
 				selectorBlackList: [],
@@ -18,6 +18,7 @@ module.exports = function () {
 				protocol: 'https:',
 				foundries: 'bootstrap google'
 			}),
+			require('lost')({}),
 		],
 		options: {
 		}

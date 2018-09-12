@@ -1,0 +1,17 @@
+.vis-template-thumb {
+  padding: 20px;
+  max-width: 250px;
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+  &.active {
+    outline: 1px solid red;
+  }
+}
+.vis-theme-preview {
+  display: flex;
+  > div {
+    padding-top: 30px;
+    padding-left: 30px;
+  }
+}

@@ -37,7 +37,7 @@ class ModelExtensionModuleDVisualize extends Model
         $this->load->model('extension/d_opencart_patch/setting');
         $this->load->model('extension/d_opencart_patch/user');
         if (!$this->model_extension_d_opencart_patch_extension->isInstalled($this->codename)) {
-                $this->model_extension_d_opencart_patch_extension->install('module', $this->codename);
+            $this->model_extension_d_opencart_patch_extension->install('module', $this->codename);
             $this->load->controller('extension/module/' . $this->codename . '/install');
         }
         $this->load->model('setting/setting');
@@ -57,23 +57,30 @@ class ModelExtensionModuleDVisualize extends Model
             ));
         }
     }
-    public function getVueTemplates() {
 
-        $result =array();
-        $files = glob(DIR_TEMPLATE.'extension/'.$this->codename.'/**/*.vue',GLOB_BRACE );
+    public function getVueTemplates()
+    {
+
+        $result = array();
+        $files = glob(DIR_TEMPLATE . 'extension/' . $this->codename . '/**/*.vue', GLOB_BRACE);
         foreach ($files as $key => $file) {
             $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
         }
-        $files = glob(DIR_TEMPLATE.'extension/'.$this->codename.'/*.vue');
+        $files = glob(DIR_TEMPLATE . 'extension/' . $this->codename . '/**/**/*.vue', GLOB_BRACE);
+        foreach ($files as $key => $file) {
+            $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
+        }
+        $files = glob(DIR_TEMPLATE . 'extension/' . $this->codename . '/*.vue');
         foreach ($files as $key => $file) {
             $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
         }
         return $result;
     }
 
-    public function getVueScripts() {
+    public function getVueScripts()
+    {
         $results = array();
-        $results[]='view/javascript/'.$this->codename.'/dist/'.$this->codename.'.js';
+        $results[] = 'view/javascript/' . $this->codename . '/dist/' . $this->codename . '.js';
         return $results;
     }
 

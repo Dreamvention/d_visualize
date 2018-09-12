@@ -5,5 +5,6 @@ var d_visualize = {
 	state: {},
 	actions: {},
 	mutations: {},
-	getters: {}
+	getters: {},
+	routes: []
 };

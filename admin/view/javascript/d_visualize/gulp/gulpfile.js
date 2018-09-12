@@ -1,8 +1,5 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var stripCssComments = require('gulp-strip-css-comments');
 var browserSync = require("browser-sync");
 var path = require("path");
 var concat = require("gulp-concat");
@@ -17,19 +14,25 @@ var baseDir = path.resolve(__dirname, "../../../../");
 if (typeof process.env.HOST === "undefined") {
 	process.env.HOST = 'localhost';
 }
+var scripts_src = [
+	scriptDest + 'main.js',
+	scriptDest + 'actions/*.js',
+	scriptDest + 'components/*.js',
+	scriptDest + 'components/**/*.js',
+	scriptDest + 'elements/*.js',
+	scriptDest + 'elements/**/*.js',
+	scriptDest + 'getters/*.js',
+	scriptDest + 'mutations/*.js',
+	scriptDest + 'mutations/**/*.js',
+	scriptDest + 'routes/*.js',
+	scriptDest + 'routes/**/*.js',
+	scriptDest + 'page/*.js',
+	scriptDest + 'page/**/*.js'
+
+];
 gulp.task('scripts', function (cb) {
 	pump([
-		gulp.src([
-			scriptDest + 'main.js',
-			scriptDest + 'actions/*.js',
-			scriptDest + 'components/*.js',
-			scriptDest + 'components/**/*.js',
-			scriptDest + 'elements/*.js',
-			scriptDest + 'elements/**/*.js',
-			scriptDest + 'getters/*.js',
-			scriptDest + 'mutations/*.js',
-			scriptDest + 'mutations/**/*.js'
-		]),
+		gulp.src(scripts_src),
 		concat('d_visualize.js'),
 		babel({
 			presets: ['@babel/env']
@@ -42,12 +45,13 @@ gulp.task('postCSS', function () {
 	const postcss = require('gulp-postcss');
 	return gulp.src(sassDest + '*.pcss')
 		.pipe(sourcemaps.init())
-		.pipe(postcss())
+		.pipe(postcss()).on('error', (e)=>console.log(e.message))
+		.pipe(require('gulp-autoprefixer')({ browsers : ['last 15 versions'] }))
 		.pipe(rename((path)=>{
 			path.extname = ".css";
 		}))
-		.pipe(sourcemaps.write('./'))
-		.pipe(gulp.dest(sassDest))
+		.pipe(sourcemaps.write(sassDest + '/dist'))
+		.pipe(gulp.dest(sassDest + '/dist'))
 		.pipe(browserSync.reload({stream: true}));
 });
 
@@ -56,13 +60,7 @@ gulp.task('sass:watch', function () {
 });
 gulp.task('scripts:watch', function () {
 	gulp.watch(
-		[
-			scriptDest + 'main.js',
-			scriptDest + 'actions/**/*.js',
-			scriptDest + 'getters/**/*.js',
-			scriptDest + 'model/**/*.js',
-			scriptDest + 'mutations/**/*.js'
-		], ['scripts']
+		scripts_src, ['scripts']
 	);
 	gulp.watch(scriptDest + 'dist/**/*.js', browserSync.reload);
 });
