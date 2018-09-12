@@ -1,5 +1,6 @@
 <template id="viz-dashboard">
     <div class="dashboard">
-        <vis-theme-preview></vis-theme-preview>
+        <vz-theme-preview></vz-theme-preview>
+        <vz-theme-list></vz-theme-list>
     </div>
 </template>

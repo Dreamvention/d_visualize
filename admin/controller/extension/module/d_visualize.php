@@ -252,8 +252,10 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['text_no'] = $this->language->get('text_no');
         $local['common']['text_enabled'] = $this->language->get('text_enabled');
         $local['common']['entry_status'] = $this->language->get('entry_status');
+        $local['common']['entry_edit_theme'] = $this->language->get('entry_edit_theme');
 
         $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
+        $local['dashboard']['entry_available_templates'] = $this->language->get('entry_available_templates');
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');
@@ -284,7 +286,6 @@ class ControllerExtensionModuleDVisualize extends Controller
             'text' => $this->language->get('heading_title_main'),
             'href' => $this->model_extension_d_opencart_patch_url->ajax($this->route)
         );
-        $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         // Variable
         $option['common']['id'] = $this->codename;
         $option['common']['route'] = $this->route;
@@ -293,8 +294,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['common']['token'] = $this->model_extension_d_opencart_patch_user->getUrlToken();
         $option['common']['d_shopunity'] = $this->d_shopunity;
         $option['common']['entry_get_update'] = sprintf($this->language->get('entry_get_update'), $this->extension['version']);
-
-        $option['action']['module_link'] = $this->model_extension_d_opencart_patch_url->link($this->route);
         // Multistore
         if (isset($this->request->get['store_id'])) {
             $store_id = $this->request->get['store_id'];
@@ -306,7 +305,18 @@ class ControllerExtensionModuleDVisualize extends Controller
         if (isset($this->request->get['store_id'])) {
             $url .= '&store_id=' . $store_id;
         }
+        $param=array();
+        if ($this->request->server['HTTPS']) {
+            $store_url = HTTPS_SERVER;
+            $catalog_url = HTTPS_CATALOG;
+        } else {
+            $store_url = HTTP_SERVER;
+            $catalog_url = HTTP_CATALOG;
+        }
+        $option['edit']['iframe_edit'] = $catalog_url.'index.php?route='.'common/home   '.'&'.implode('&', $param);
 
+        $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
+        $option['action']['module_link'] = $this->model_extension_d_opencart_patch_url->link($this->route);
         $option['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_header', $url);
         $option['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_footer', $url);
         $option['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);

@@ -2,7 +2,7 @@ d_visualize.actions['SAVE_CONTENT'] = function (context, payload) {
     context.commit('LOADING_START');
     $.post(context.state.config.save_url, {
         active_template: context.state.setting.active_template,
-        status: +context.state.status,
+        status: +context.state.setting.status,
         auto_save: +context.state.setting.auto_save
     }, function (data, status) {
         if (status === 'success') {

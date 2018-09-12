@@ -15,9 +15,7 @@ Vue.component('viz-dashboard', {
 		},
 	},
 	methods: {
-		change_status: function () {
-			this.$store.dispatch('CHANGE_STATUS');
-		},
+
 		change_auto_save: function (e) {
 			this.$store.dispatch('CHANGE_AUTO_SAVE',e);
 		},

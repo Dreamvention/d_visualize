@@ -1,4 +1,4 @@
-.vis-template-thumb {
+.vz-template-thumb {
   padding: 20px;
   max-width: 250px;
   &:not(:last-child) {
@@ -8,7 +8,8 @@
     outline: 1px solid red;
   }
 }
-.vis-theme-preview {
+
+.vz-theme-preview, .vz-theme-thumbs {
   display: flex;
   > div {
     padding-top: 30px;
