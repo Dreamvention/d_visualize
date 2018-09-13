@@ -3,6 +3,6 @@
             class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span
                 id="cart-total">{{ text_items }}</span></button>
     <ul class="dropdown-menu pull-right">
-        {% include component.d_mini_cart.template with component.d_mini_cart|merge({products:products,vouchers:vouchers}) %}
+        {#{% include component.d_mini_cart.template with component.d_mini_cart|merge({products:products,vouchers:vouchers}) %}#}
     </ul>
 </div>

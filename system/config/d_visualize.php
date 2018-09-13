@@ -1,8 +1,6 @@
 <?php
-$_['d_visualize_setting'] = array(
+$_['module_d_visualize_setting'] = array(
     'active_template' => 'default',
-    'available_templates' => array('default', 'jag'),
-    'status' => 1,
     'auto_save' => 1,
 );
 

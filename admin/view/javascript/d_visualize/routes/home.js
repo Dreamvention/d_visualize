@@ -18,3 +18,5 @@ d_visualize.routes.push({
 		}
 	]
 });
+d_visualize.routes.push(  { path: '/', redirect: '/home/dashboard'});
+d_visualize.routes.push(  { path: '/', redirect: '/home/dashboard'});

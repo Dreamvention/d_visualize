@@ -28,7 +28,6 @@ var scripts_src = [
 	scriptDest + 'routes/**/*.js',
 	scriptDest + 'page/*.js',
 	scriptDest + 'page/**/*.js'
-
 ];
 gulp.task('scripts', function (cb) {
 	pump([

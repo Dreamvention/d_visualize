@@ -1,6 +1,6 @@
 <?php
-$_['d_visualize_template_default'] = array(
-    'name'        => 'default template',
+$_['d_visualize_template_default_setting'] = array(
+    'title'        => 'default template',
     'codename'    => 'default',
     'description' => 'template from default opencart',
     'debug' => 1,
@@ -301,7 +301,6 @@ $_['d_visualize_template_default'] = array(
     ),
     'post_scripts'  => array(
         'catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.min.js',
-        'catalog/view/theme/d_visualize/javascript/template/default/default.js',
     ),
     'post_styles'   => array(
         'catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.css',
@@ -310,8 +309,8 @@ $_['d_visualize_template_default'] = array(
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css',
         'https://use.fontawesome.com/releases/v5.2.0/css/all.css',
         'https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css',
-        'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap3/stylesheets/bootstrap.css',
-        'catalog/view/theme/d_visualize/stylesheet/core/lib/bootstrap4/bootstrap-grid.css',
+        'catalog/view/theme/d_visualize/stylesheet/dist/bootstrap.css',
+        'catalog/view/theme/d_visualize/stylesheet/dist/bootstrap-grid.css',
         'https://fonts.googleapis.com/css?family=Montserrat:100,300,400,500,700,900&subset=cyrillic',
     ),
     'custom_styles' => array(

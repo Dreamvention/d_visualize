@@ -35,16 +35,13 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
 
         $this->config->load($this->codename);
-        $this->config_visualize = $this->config->get($this->codename . '_setting');
-        $this->setting_visualize = $this->loadSetting();
-
-        $this->config->load($this->codename . '/template/' . $this->config_visualize['active_template']);
-        $this->config_active_template = $this->config->get($this->codename . '_template_' . $this->config_visualize['active_template']);
-        $this->setting_active_template = array();
-
+        $this->config_visualize = $this->config->get('module_' . $this->codename . '_setting');
+        $setting_visualize = $this->loadSetting();
+        $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
+        $this->status_visualize = $setting_visualize['module_' . $this->codename . '_status'];
         //default theme overwriting values
         $this->config_theme = $this->config->get('config_theme_visualize');
-        $this->config_active_template_theme = $this->config->get('config_theme_' . $this->config_visualize['active_template']);
+        $this->config_active_template_theme = $this->config->get('config_theme_' . $this->setting_visualize['active_template']);
 
     }
 
@@ -101,87 +98,83 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->document->addStyle('view/stylesheet/' . $this->codename . '/lib/load-awesome-1.1.0/css/timer.css');
 
         //font-awesome
-        $this->document->addStyle( 'https://use.fontawesome.com/releases/v5.2.0/css/all.css');
-        $this->document->addStyle( 'https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
+        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
         // Module data
         $data['vueTemplates'] = $this->{'model_extension_module_' . $this->codename}->getVueTemplates();
         $view_scripts = $this->{'model_extension_module_' . $this->codename}->getVueScripts();
         foreach ($view_scripts as $script) {
             $this->document->addScript($script);
         }
+
         $data['language_id'] = $this->config->get('config_language_id');
         $data['local'] = $this->prepareLocal();
         $data['options'] = $this->prepareOptions();
+
         $state = array();
         $state['config']['save_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/save');
         $state['config']['update_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/updateSetting');
-        $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadStateAjax');
+        $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadState');
         $data['state'] = $state;
         //out put view
         $data['setup'] = false;
         if (!$this->{'model_extension_module_' . $this->codename}->checkInstallModule()) {
             $data = $this->setup($data);
         }
-
-        $status = $this->codename . '_status';
         $this->uninstallTheme();
-        if ($this->setting_visualize['status']) {
+        if (!empty($this->status_visualize)&&$this->status_visualize) {
             $this->installTheme();
         }
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $template = $this->load->view($this->route, $data);
-        $this->response->setOutput($template);
+        $this->response->setOutput($this->load->view($this->route, $data));
     }
 
-    public function setup($data){
+    public function setup($data)
+    {
         $data['setup'] = true;
         $data['text_setup_title'] = $this->language->get('text_setup_title');
         $data['text_setup_description'] = $this->language->get('text_setup_description');
-        $data['setup_bottom_image'] = $this->model_tool_image->resize( 'catalog/'.$this->codename . '/Image_footer_Social_Login.svg',100,100);
-        $data['setup_into_logo'] = $this->model_tool_image->resize( 'catalog/'.$this->codename . '/social_login_preview.svg',100,100);
+        $data['setup_bottom_image'] = $this->model_tool_image->resize('catalog/' . $this->codename . '/Image_footer_Social_Login.svg', 100, 100);
+        $data['setup_into_logo'] = $this->model_tool_image->resize('catalog/' . $this->codename . '/social_login_preview.svg', 100, 100);
 
         $data['features'][] = array(
             'text' => $this->language->get('text_setup_step_by_step'),
-            'icon' => $this->model_tool_image->resize( 'catalog/'.$this->codename . '/step_by_step.svg',100,100)
+            'icon' => $this->model_tool_image->resize('catalog/' . $this->codename . '/step_by_step.svg', 100, 100)
         );
         $data['features'][] = array(
             'text' => $this->language->get('text_setup_soc_logins'),
-            'icon' => $this->model_tool_image->resize('catalog/'. $this->codename . '/soc_logins.svg',100,100)
+            'icon' => $this->model_tool_image->resize('catalog/' . $this->codename . '/soc_logins.svg', 100, 100)
         );
         $data['features'][] = array(
             'text' => $this->language->get('text_setup_full_customize'),
-            'icon' => $this->model_tool_image->resize('catalog/'. $this->codename . '/full_customize.svg',100,100)
+            'icon' => $this->model_tool_image->resize('catalog/' . $this->codename . '/full_customize.svg', 100, 100)
         );
         $data['features'][] = array(
             'text' => $this->language->get('text_setup_gdpr_compilant'),
-            'icon' => $this->model_tool_image->resize('catalog/'. $this->codename . '/gdpr_compilant.svg',100,100)
+            'icon' => $this->model_tool_image->resize('catalog/' . $this->codename . '/gdpr_compilant.svg', 100, 100)
         );
         $data['text_button_setup'] = $this->language->get('button_setup');
         $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setupUrl');
         return $data;
     }
+
     public function save()
     {
         try {
             $this->uninstallTheme();
+
+            $new_post = array();
+            foreach ($this->request->post as $k => $v) {
+                $new_post['module_' . $this->codename . '_' . $k] = $v;
+            }
+            $this->model_extension_d_opencart_patch_setting->editSetting('module_' . $this->codename, $new_post, $this->store_id);
+            $this->session->data['success'] = $this->language->get('text_success');
             if ($this->request->post['status']) {
                 $this->installTheme();
             }
-            // 3.x fix
-            if (VERSION >= '3.0.0.0') {
-                $sl_post_array = array();
-                $sl_post_array['module_' . $this->codename . '_status'] = $this->request->post['status'];
-                $this->model_extension_d_opencart_patch_setting->editSetting('module_' . $this->codename, $sl_post_array, $this->store_id);
-            }
-            $new_post = array();
-            foreach ($this->request->post as $k => $v) {
-                $new_post[$this->codename . '_' . $k] = $v;
-            }
-            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename.'', $new_post, $this->store_id);
-            $this->session->data['success'] = $this->language->get('text_success');
             $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
         } catch (Exception $e) {
             $this->session->data['error'] = $e;
@@ -189,53 +182,63 @@ class ControllerExtensionModuleDVisualize extends Controller
         }
     }
 
-    //go to themes
-    public function loadStateAjax()
+    public function loadState()
     {
         $json = array();
-        $json['setting'] = $setting = array();
-        foreach ($this->setting_visualize['available_templates'] as $template) {
-            $image = $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $template . '.png') ? 'catalog/' . $this->codename . '/template/' . $template . '.png' : "no_image.png"), 300, 400);
-            // maybe it will fluence on perfomance
-            $this->config->load($this->codename . '/template/' . $template);
-            $config_template = $this->config->get($this->codename . '_template_' . $template);
-
-            $setting['available_templates'][] = array(
-                'img' => $image,
-                'title' => $config_template['name'],
-                'description' => $config_template['description'],
-                'codename' => $config_template['codename'],
-            );
+        $setting = array();
+        $templates = array();
+        foreach ($this->getAvailableTemplates() as $template_k => $template) {
+            $templates[$template_k] = $template;
         }
         $setting['active_template'] = $this->setting_visualize['active_template'];
         $setting['auto_save'] = $this->setting_visualize['auto_save'];
-        $setting['status'] = (int)$this->setting_visualize['status'];
+        $setting['status'] = (int)$this->status_visualize;
+        $json['templates'] = $templates;
         $json['setting'] = $setting;
         $json['success'] = $this->language->get('text_success');
         $this->response->setOutput(json_encode($json));
     }
 
-    public function loadSetting()
+    public function loadSetting($suffix = '')
     {
         //check if exist config in db
-        if ($this->model_extension_d_opencart_patch_setting->getSetting($this->codename)) {
-            $setting = $this->model_extension_d_opencart_patch_setting->getSetting($this->codename);
-            $data['setting'] = ($setting) ? $setting : array();
-        } else {
-            $data['setting'] = array();
-        }
-        $new_setting = array();
-        foreach ($this->config_visualize as $k => $v) {
-            $new_setting[$this->codename . '_' . $k] = $v;
-        }
-        $data['setting'] = array_replace_recursive($new_setting, $data['setting']);
-        $new_setting = array();
-        //inherit users data
-        foreach ($data['setting'] as $k => $v) {
-            $new_setting[str_replace($this->codename . '_', '', $k)] = $v;
-        }
-        return $new_setting;
+        $loadSetting = $this->model_extension_d_opencart_patch_setting->getSetting('module_' . $this->codename, $this->store_id);
 
+        if ($loadSetting) {
+            $dbSetting = ($loadSetting) ? $loadSetting : array();
+        } else {
+            $dbSetting = array();
+        }
+        //inherit users data
+        $setting = array();
+        $setting = array_replace_recursive(array('module_' . $this->codename. '_setting' => $this->config_visualize),$dbSetting );
+
+        return $setting;
+    }
+
+    //todo to model
+    public function getAvailableTemplates()
+    {
+        $files = glob(DIR_CONFIG . $this->codename . '/template/*.php', GLOB_BRACE);
+        $result = array();
+        foreach ($files as $key => $file) {
+            $codename = basename($file, '.php');
+            $this->config->load($this->codename . '/template/' . $codename);
+            $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
+            $result[$codename] = array(
+                'source'  => 'config',
+                'setting' => $config,
+                'img'     => $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '.png' : "no_image.png"), 300, 400),
+
+            );
+        }
+        //if there will be changes from DB it will replace
+        $dbTemplates = $this->getTemplates();
+        foreach ($dbTemplates as $template) {
+            $result[$template['codename']] = $template;
+        }
+
+        return $result;
     }
 
     public function prepareLocal()
@@ -261,10 +264,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['error']['save_content'] = $this->language->get('error_save_content');
         $local['blocks'] = array();
         return array($this->config->get('config_language_id') => $local);
-
-//        foreach ($results as $block) {
-//            $local['blocks'][$block] = $this->load->controller('extension/'.$this->codename.'_module/'.$block.'/local');
-//        }
     }
 
     public function prepareOptions()
@@ -305,7 +304,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         if (isset($this->request->get['store_id'])) {
             $url .= '&store_id=' . $store_id;
         }
-        $param=array();
+        $param = array();
         if ($this->request->server['HTTPS']) {
             $store_url = HTTPS_SERVER;
             $catalog_url = HTTPS_CATALOG;
@@ -313,7 +312,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             $store_url = HTTP_SERVER;
             $catalog_url = HTTP_CATALOG;
         }
-        $option['edit']['iframe_edit'] = $catalog_url.'index.php?route='.'common/home   '.'&'.implode('&', $param);
+        $option['edit']['iframe_edit'] = $catalog_url;
 
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $option['action']['module_link'] = $this->model_extension_d_opencart_patch_url->link($this->route);
@@ -321,7 +320,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_footer', $url);
         $option['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
-        $option['img']['no_image'] =$this->model_tool_image->resize( "no_image.png", 300, 400);
+        $option['img']['no_image'] = $this->model_tool_image->resize("no_image.png", 300, 400);
 
         return $option;
     }
@@ -332,6 +331,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->{'model_extension_module_' . $this->codename}->installConfig();
         $this->response->redirect($this->model_extension_d_opencart_patch_url->ajax($this->route));
     }
+
 
     public function uninstallTheme()
     {
@@ -360,22 +360,24 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     }
 
+    // todo to model theme
     private function installDependencyModules($active_template)
     {
         //no need to validate if it's loaded in DB
-        if (!in_array($active_template, $this->setting_visualize['available_templates']))
-            $installed_template_extensions = $this->{'model_extension_' . $this->codename . '_theme'}->getTemplateExtensions($active_template);
-        if (!empty($installed_template_extensions)) {
-            foreach ($installed_template_extensions as $template_extensions) {
-                $this->load->model($template_extensions['index']);
-                $this->load->controller($template_extensions['index'] . '/setup');
+//        if (!in_array($active_template, $this->setting_visualize['available_templates']))
+//            $installed_template_extensions = $this->{'model_extension_' . $this->codename . '_theme'}->getTemplateExtensions($active_template);
+//        if (!empty($installed_template_extensions)) {
+//            foreach ($installed_template_extensions as $template_extensions) {
+//                $this->load->model($template_extensions['index']);
+//                $this->load->controller($template_extensions['index'] . '/setup');
 //                if (!$this->{}->checkConfig($template_extensions['codename'])) {
 //                    $this->{$template_extensions['index']}->installConfig($template_extensions['codename']);
 //                };
-            }
-        }
+//            }
+//        }
     }
 
+    // todo to model
     public function installVD()
     {
         if ($this->d_visual_designer) {
@@ -393,6 +395,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         }
     }
 
+    // todo to model
     public function installEvents()
     {
         if ($this->d_event_manager) {
@@ -404,16 +407,17 @@ class ControllerExtensionModuleDVisualize extends Controller
                 }
             }
             $route_info_active_template = $this->{'model_extension_'
-            . $this->codename . '_theme'}->getRoute('template/' . $route_info[$this->codename . '_setting']['active_template']);
+            . $this->codename . '_theme'}->getRoute('template/' . $route_info['module_' . $this->codename . '_setting']['active_template']);
             if (!empty($route_info_active_template['events'])) {
                 foreach ($route_info_active_template['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info['module_' . $this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
                 }
             }
 
         }
     }
 
+    // todo to model
     public function uninstallEvents()
     {
         if ($this->d_event_manager) {
@@ -421,21 +425,23 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
             $route_info = $this->{'model_extension_' . $this->codename . '_theme'}->getRoute();
             $route_info_active_template = $this->{'model_extension_'
-            . $this->codename . '_theme'}->getRoute('template/' . $route_info[$this->codename . '_setting']['active_template']);
+            . $this->codename . '_theme'}->getRoute('template/' . $route_info['module_' . $this->codename . '_setting']['active_template']);
             if (!empty($route_info_active_template['events'])) {
                 foreach ($route_info_active_template['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info[$this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
+                    $this->model_extension_module_d_event_manager->deleteEvent($this->codename . '_template_' . $route_info['module_' . $this->codename . '_setting']['active_template']);
                 }
             }
 
         }
     }
 
+    // todo to model template
     public function installTemplateThemeDefaults()
     {
-        $this->installConfigThemeDefaults('config_active_template_theme');
+//        $this->installConfigThemeDefaults('config_active_template_theme');
     }
 
+    // todo to model template
     public function installConfigThemeDefaults($config_theme = 'config_theme')
     {
         $this->load->model('setting/setting');
@@ -456,6 +462,35 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->load->model('extension/d_shopunity/mbooth');
             $this->model_extension_d_shopunity_mbooth->installDependencies($this->codename);
         }
+        $this->installDataBase();
+    }
+
+    public function getTemplates($data_filter = array())
+    {
+        $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';
+        return $this->db->query($sql)->rows;
+    }
+
+    //todo to model
+    public function installDataBase()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_templates (
+            template_id INT(11) NOT NULL AUTO_INCREMENT,
+            store_id INT(11) NOT NULL,
+            codename VARCHAR(255) NOT NULL,
+            source VARCHAR(55) DEFAULT NULL,
+            description VARCHAR(255) DEFAULT NULL,
+            setting TEXT NOT NULL,
+            history_id INT(11) NOT NULL,
+            img VARCHAR(255) DEFAULT NULL,
+            date_created DATETIME NOT NULL,
+            date_modified DATETIME NOT NULL,
+            PRIMARY KEY (template_id)
+        )
+        COLLATE='utf8_general_ci'
+        ENGINE=MyISAM;";
+
+        $this->db->query($sql);
     }
 
     public function uninstall()

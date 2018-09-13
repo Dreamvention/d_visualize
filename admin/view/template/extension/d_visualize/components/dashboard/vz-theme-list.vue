@@ -5,7 +5,7 @@
             <vz-theme-thumb
                     v-for="(item, index) in templates"
                     :item="item"
-                    :index="item.codename"
+                    :index="item.setting.codename"
             >
             </vz-theme-thumb>
         </div>

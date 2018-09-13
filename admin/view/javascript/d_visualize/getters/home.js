@@ -1,6 +1,12 @@
-d_visualize.getters.available_templates = function (state) {
-	return state.setting.available_templates
+d_visualize.getters.templates = function (state) {
+	return state.templates;
 };
-d_visualize.getters.active_template = function (state) {
-	return state.setting.active_template
+d_visualize.getters.active_template = function (state, getters) {
+	let active = _.find(getters.templates, (v)=>{
+		return state.setting.active_template === v.setting.codename;
+	});
+	if (!active) {
+		active = {img:'',setting:'',source:''}
+	}
+	return active;
 };

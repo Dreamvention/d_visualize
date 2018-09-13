@@ -306,7 +306,7 @@
     "catalog/view/theme/d_visualize/javascript/core",
     "admin/controller/extension/d_visualize",
     "admin/model/extension/d_visualize",
-    "admin/view/javascript/d_visualize",
+    "admin/view/javascript/d_visualize/dist",
     "admin/view/stylesheet/d_visualize",
     "admin/view/template/extension/d_visualize"
   ],

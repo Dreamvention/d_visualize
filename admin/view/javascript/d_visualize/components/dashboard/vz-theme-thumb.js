@@ -6,20 +6,18 @@ Vue.component('vz-theme-thumb', {
             default() {
                 return {
                     img: this.$o('img.no_image'),
-                    title: 'default',
-                    description: 'default',
-                    codename: 'default',
+                    setting: '',
+                    source: '',
                 };
             }
         },
     },
     computed: {
         activeThumb: function () {
-            return this.item.codename == this.$store.getters.active_template;
+            return this.item.setting.codename == this.$store.getters.setting.active_template;
         },
     },
     methods: {
-
         handleChange: function (e) {
             this.$store.dispatch('CHANGE_TEMPLATE', e.currentTarget.attributes.index);
         }

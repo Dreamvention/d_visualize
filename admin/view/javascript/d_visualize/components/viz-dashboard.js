@@ -10,12 +10,8 @@ Vue.component('viz-dashboard', {
 		setting: function () {
 			return this.$store.getters.setting;
 		},
-		active_template: function () {
-			return this.$store.getters.active_template;
-		},
 	},
 	methods: {
-
 		change_auto_save: function (e) {
 			this.$store.dispatch('CHANGE_AUTO_SAVE',e);
 		},
