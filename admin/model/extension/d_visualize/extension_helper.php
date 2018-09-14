@@ -16,7 +16,8 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
         $this->d_visual_designer_footer = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer_footer.json'));
 
     }
-    public function installVD()
+
+    public function installVD($active_template)
     {
         if ($this->d_visual_designer) {
             $this->load->model('extension/d_visual_designer/designer');
@@ -28,13 +29,14 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')) {
                 $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
             };
-            $this->model_extension_module_d_visual_designer_header->installTemplate('header_jag','jag');
-            $this->model_extension_module_d_visual_designer_footer->installTemplate('footer_jag','jag');
+            $this->model_extension_module_d_visual_designer_header->installTemplate('header', $active_template);
+            $this->model_extension_module_d_visual_designer_footer->installTemplate('footer', $active_template);
             //todo install vd_module and crate module and ask to asign to the home;
             //todo disable bootsrap
 
         }
     }
+
     public function installDependencyModules($active_template)
     {
         //no need to validate if it's loaded in DB
@@ -50,6 +52,7 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
 //            }
 //        }
     }
+
     public function installConfigThemeDefaults($config_theme = 'config_theme')
     {
         $this->load->model('setting/setting');

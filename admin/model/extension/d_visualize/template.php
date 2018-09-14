@@ -13,7 +13,7 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $results = array();
         if ($name == $this->codename)
-            $file = DIR_CONFIG .  $name . '.php';
+            $file = DIR_CONFIG . $name . '.php';
         else
             $file = DIR_CONFIG . $this->codename . '/' . $name . '.php';
 
@@ -53,6 +53,23 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $modules_json;
 
     }
+
+    public function getAvailableComponents()
+    {
+        $componenDir = DIR_CATALOG . 'view/theme/' . $this->codename . '/template/component';
+        $scanned_directory = array_diff(scandir($componenDir), array('..', '.'));
+        $result = array();
+        foreach ($scanned_directory as $dir) {
+            $files = glob($componenDir . '/' . $dir . '/*.twig', GLOB_BRACE);
+            foreach ($files as $key => $file) {
+                $result[$dir][basename($file, '.twig')] = array(
+                    'template' => $this->codename . 'template/component/' . $dir . '/' . basename($file, '.twig') . '.twig',
+                );
+            }
+        }
+        return $result;
+    }
+
     public function getAvailableTemplates()
     {
         $files = glob(DIR_CONFIG . $this->codename . '/template/*.php', GLOB_BRACE);
@@ -77,6 +94,7 @@ class ModelExtensionDVisualizeTemplate extends Model
 
         return $result;
     }
+
     public function getTemplates($data_filter = array())
     {
         $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';

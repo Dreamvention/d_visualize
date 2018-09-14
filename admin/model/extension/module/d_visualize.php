@@ -77,6 +77,10 @@ class ModelExtensionModuleDVisualize extends Model
         foreach ($files as $key => $file) {
             $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
         }
+        $files = glob(DIR_TEMPLATE . 'extension/' . $this->codename . '/**/**/**/*.vue', GLOB_BRACE);
+        foreach ($files as $key => $file) {
+            $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
+        }
         $files = glob(DIR_TEMPLATE . 'extension/' . $this->codename . '/*.vue');
         foreach ($files as $key => $file) {
             $result[] = str_replace(array(DIR_TEMPLATE, '.vue'), '', $file);
@@ -129,8 +133,7 @@ class ModelExtensionModuleDVisualize extends Model
         $this->db->query($sql);
     }
 
-    // todo to model
-    public function installEvents()
+    public function installEvents($active_skin)
     {
         if ($this->d_event_manager) {
             $this->load->model('extension/module/d_event_manager');

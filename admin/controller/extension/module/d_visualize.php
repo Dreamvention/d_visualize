@@ -158,13 +158,14 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         try {
             $this->uninstallTheme();
-
             $new_post = array();
             foreach ($this->request->post as $k => $v) {
                 $new_post['module_' . $this->codename . '_' . $k] = $v;
             }
             $this->model_extension_d_opencart_patch_setting->editSetting('module_' . $this->codename, $new_post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
+            $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
+            $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
             if ($this->request->post['status']) {
                 $this->installTheme();
             }
@@ -186,6 +187,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting['active_template'] = $this->setting_visualize['active_template'];
         $setting['auto_save'] = $this->setting_visualize['auto_save'];
         $setting['status'] = (int)$this->status_visualize;
+        $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
         $json['templates'] = $templates;
         $json['setting'] = $setting;
         $json['success'] = $this->language->get('text_success');
@@ -296,9 +298,9 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
         $setting['theme_default_directory'] = $this->codename; // 32 work
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
-        $this->{$this->model}->uninstallEvents();
-        $this->{$this->model}->installEvents();
-        $this->{$this->model_helper}->installVD();
+        $this->{$this->model}->uninstallEvents($this->setting_visualize['active_template']);
+        $this->{$this->model}->installEvents($this->setting_visualize['active_template']);
+        $this->{$this->model_helper}->installVD($this->setting_visualize['active_template']);
         $this->{$this->model_helper}->installDependencyModules($this->setting_visualize['active_template']);
         $this->{$this->model_helper}->installConfigThemeDefaults();
         $this->{$this->model_helper}->installTemplateThemeDefaults($this->setting_visualize['active_template']);
