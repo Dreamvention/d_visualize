@@ -14,24 +14,22 @@ class ControllerExtensionDVisualizeEvent extends Controller
     public function __construct($registry)
     {
         parent::__construct($registry);
-
         $this->config->load($this->codename);
         $this->config_visualize = $this->config->get('module_' . $this->codename . '_setting');
         $setting_visualize = $this->loadSetting();
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
-        if (!empty($this->cache->get('setting_active_template')) && !empty($this->cache->get('active_template')) && ($this->setting_visualize['active_template'] === $this->cache->get('active_template'))) {
-            $this->setting_active_template = $this->cache->get('setting_active_template');
-        } else {
-            $setting_active_template = $this->loadTemplateSetting($this->setting_visualize['active_template']);
-            $this->setting_active_template = $setting_active_template['setting'];
-            $this->cache->delete('setting_active_template');
-            $this->cache->delete('active_template');
-            $this->cache->set('setting_active_template', $this->setting_active_template);
-            $this->cache->set('active_template', $this->setting_visualize['active_template']);
-        }
+//        if (!empty($this->cache->get('setting_active_template')) && !empty($this->cache->get('active_template')) && ($this->setting_visualize['active_template'] === $this->cache->get('active_template'))) {
+//            $this->setting_active_template = $this->cache->get('setting_active_template');
+//        } else {
+//            $setting_active_template = $this->loadTemplateSetting($this->setting_visualize['active_template']);
+//            $this->setting_active_template = $setting_active_template['setting'];
+//            $this->cache->delete('setting_active_template');
+//            $this->cache->delete('active_template');
+//            $this->cache->set('setting_active_template', $this->setting_active_template);
+//            $this->cache->set('active_template', $this->setting_visualize['active_template']);
+//        }
         $setting_active_template = $this->loadTemplateSetting($this->setting_visualize['active_template']);
         $this->setting_active_template = $setting_active_template['setting'];
-
     }
 
     //todo refactor to model
@@ -43,7 +41,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             }
         }
     }
-
+    //todo refactor to model
     public function getAvailableTemplates()
     {
         $files = glob(DIR_CONFIG . $this->codename . '/template/*.php', GLOB_BRACE);
@@ -65,13 +63,13 @@ class ControllerExtensionDVisualizeEvent extends Controller
 
         return $result;
     }
-
+    //todo refactor to model
     public function getTemplates($data_filter = array())
     {
         $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';
         return $this->db->query($sql)->rows;
     }
-
+    //todo refactor to model
     public function loadSetting($suffix = '')
     {
         //check if exist config in db
@@ -108,6 +106,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
         if (!empty($this->setting_active_template)) {
             $data += $this->setting_active_template['page']['default']['layout'];
+            //if some one add to specifi page scripts need to add this to header
             if (in_array($view_route, array_keys($this->setting_active_template['page']))) {
                 if (isset($this->setting_active_template['page'][$view_route]['layout'])) {
                     $data = array_replace_recursive($data, $this->setting_active_template['page'][$view_route]['layout']);
@@ -130,12 +129,13 @@ class ControllerExtensionDVisualizeEvent extends Controller
                     }
                 }
             }
+
             if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
                 $data = $this->validate_templates($data);
             }
         }
     }
-
+    //todo refactor to model
     public function validate_templates($data)
     {
         foreach ($data['partial'] as $partial_k => $partial_v) {

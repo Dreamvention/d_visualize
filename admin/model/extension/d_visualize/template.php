@@ -1,6 +1,6 @@
 <?php
 
-class ModelExtensionDVisualizeTheme extends Model
+class ModelExtensionDVisualizeTemplate extends Model
 {
     private $codename = 'd_visualize';
 
@@ -52,6 +52,35 @@ class ModelExtensionDVisualizeTheme extends Model
         }
         return $modules_json;
 
+    }
+    public function getAvailableTemplates()
+    {
+        $files = glob(DIR_CONFIG . $this->codename . '/template/*.php', GLOB_BRACE);
+        $result = array();
+        $this->load->model('tool/image');
+        foreach ($files as $key => $file) {
+            $codename = basename($file, '.php');
+            $this->config->load($this->codename . '/template/' . $codename);
+            $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
+            $result[$codename] = array(
+                'source'  => 'config',
+                'setting' => $config,
+                'img'     => $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '.png' : "no_image.png"), 300, 400),
+
+            );
+        }
+        //if there will be changes from DB it will replace
+        $dbTemplates = $this->getTemplates();
+        foreach ($dbTemplates as $template) {
+            $result[$template['codename']] = $template;
+        }
+
+        return $result;
+    }
+    public function getTemplates($data_filter = array())
+    {
+        $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';
+        return $this->db->query($sql)->rows;
     }
 
 }

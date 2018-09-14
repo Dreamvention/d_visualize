@@ -40,6 +40,7 @@
   "required": {
     "d_opencart_patch": ">= 3.0.0",
     "d_twig_manager": ">= 1.0.0",
+    "d_twig_partial": ">=1.0.0",
     "d_event_manager": ">= 1.0.0",
     "d_admin_style": ">= 1.0.4",
     "d_visual_designer": ">=3.0.0",

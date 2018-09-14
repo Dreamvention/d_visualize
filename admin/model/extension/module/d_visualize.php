@@ -6,9 +6,16 @@
 class ModelExtensionModuleDVisualize extends Model
 {
     private $codename = 'd_visualize';
+    private $route = 'extension/module/d_visualize';
+    private $store_id = 0;
 
-    public function _construct($registry)
+    public function __construct($registry)
     {
+        parent::__construct($registry);
+        $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
+        $this->load->model('extension/d_opencart_patch/setting');
+        $this->config->load($this->codename);
+        $this->config_visualize = $this->config->get('module_' . $this->codename . '_setting');
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
     }
 
@@ -84,4 +91,81 @@ class ModelExtensionModuleDVisualize extends Model
         return $results;
     }
 
+    public function loadSetting($suffix = '')
+    {
+        //check if exist config in db
+        $loadSetting = $this->model_extension_d_opencart_patch_setting->getSetting('module_' . $this->codename, $this->store_id);
+
+        if ($loadSetting) {
+            $dbSetting = ($loadSetting) ? $loadSetting : array();
+        } else {
+            $dbSetting = array();
+        }
+        //inherit users data
+        $setting = array();
+        $setting = array_replace_recursive(array('module_' . $this->codename. '_setting' => $this->config_visualize),$dbSetting );
+
+        return $setting;
+    }
+    //todo to model
+    public function installDataBase()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_templates (
+            template_id INT(11) NOT NULL AUTO_INCREMENT,
+            store_id INT(11) NOT NULL,
+            codename VARCHAR(255) NOT NULL,
+            source VARCHAR(55) DEFAULT NULL,
+            description VARCHAR(255) DEFAULT NULL,
+            setting TEXT NOT NULL,
+            history_id INT(11) NOT NULL,
+            img VARCHAR(255) DEFAULT NULL,
+            date_created DATETIME NOT NULL,
+            date_modified DATETIME NOT NULL,
+            PRIMARY KEY (template_id)
+        )
+        COLLATE='utf8_general_ci'
+        ENGINE=MyISAM;";
+
+        $this->db->query($sql);
+    }
+
+    // todo to model
+    public function installEvents()
+    {
+        if ($this->d_event_manager) {
+            $this->load->model('extension/module/d_event_manager');
+            $route_info = $this->{'model_extension_' . $this->codename . '_template'}->getRoute();
+            if (!empty($route_info['events'])) {
+                foreach ($route_info['events'] as $trigger => $action) {
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action, 1, 999);
+                }
+            }
+            $route_info_active_template = $this->{'model_extension_'
+            . $this->codename . '_template'}->getRoute('template/' . $route_info['module_' . $this->codename . '_setting']['active_template']);
+            if (!empty($route_info_active_template['events'])) {
+                foreach ($route_info_active_template['events'] as $trigger => $action) {
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info['module_' . $this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
+                }
+            }
+
+        }
+    }
+
+    // todo to model
+    public function uninstallEvents()
+    {
+        if ($this->d_event_manager) {
+            $this->load->model('extension/module/d_event_manager');
+            $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
+            $route_info = $this->{'model_extension_' . $this->codename . '_template'}->getRoute();
+            $route_info_active_template = $this->{'model_extension_'
+            . $this->codename . '_template'}->getRoute('template/' . $route_info['module_' . $this->codename . '_setting']['active_template']);
+            if (!empty($route_info_active_template['events'])) {
+                foreach ($route_info_active_template['events'] as $trigger => $action) {
+                    $this->model_extension_module_d_event_manager->deleteEvent($this->codename . '_template_' . $route_info['module_' . $this->codename . '_setting']['active_template']);
+                }
+            }
+
+        }
+    }
 }

@@ -8,19 +8,18 @@ class ControllerExtensionModuleDVisualize extends Controller
     private $error = array();
     private $codename = 'd_visualize';
     private $route = 'extension/module/d_visualize';
+    private $store_id = 0;
 
     public function __construct($registry)
     {
         parent::__construct($registry);
         $this->load->language($this->route);
         $this->load->model($this->route);
-        $this->load->model('extension/' . $this->codename . '/theme');
-
-        $this->load->model('extension/d_opencart_patch/module');
+        $this->load->model('extension/' . $this->codename . '/template');
+        $this->load->model('extension/' . $this->codename . '/extension_helper');
         $this->load->model('extension/d_opencart_patch/url');
         $this->load->model('extension/d_opencart_patch/load');
         $this->load->model('extension/d_opencart_patch/user');
-        $this->load->model('extension/d_opencart_patch/setting');
         $this->load->model('tool/image');
         $this->d_shopunity = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_shopunity.json'));
         $this->d_admin_style = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_admin_style.json'));
@@ -28,21 +27,15 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
         $this->d_twig_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_twig_manager.json'));
         $this->d_event_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_event_manager.json'));
-        $this->d_visual_designer = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer.json'));
-        $this->d_visual_designer_header = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer_header.json'));
-        $this->d_visual_designer_footer = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer_footer.json'));
 
-        $this->store_id = (isset($this->request->get['store_id'])) ? $this->request->get['store_id'] : 0;
+        $this->store_id = (isset($this->request->post['store_id'])) ? $this->request->post['store_id'] : 0;
+        $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
 
-        $this->config->load($this->codename);
-        $this->config_visualize = $this->config->get('module_' . $this->codename . '_setting');
-        $setting_visualize = $this->loadSetting();
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
         $this->status_visualize = $setting_visualize['module_' . $this->codename . '_status'];
-        //default theme overwriting values
-        $this->config_theme = $this->config->get('config_theme_visualize');
-        $this->config_active_template_theme = $this->config->get('config_theme_' . $this->setting_visualize['active_template']);
-
+        $this->model = 'model_extension_module_' . $this->codename;
+        $this->model_template = 'model_extension_' . $this->codename . '_template';
+        $this->model_helper = 'model_extension_' . $this->codename . '_extension_helper';
     }
 
     public function index()
@@ -122,7 +115,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             $data = $this->setup($data);
         }
         $this->uninstallTheme();
-        if (!empty($this->status_visualize)&&$this->status_visualize) {
+        if ($this->status_visualize) {
             $this->installTheme();
         }
         $data['header'] = $this->load->controller('common/header');
@@ -187,7 +180,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $json = array();
         $setting = array();
         $templates = array();
-        foreach ($this->getAvailableTemplates() as $template_k => $template) {
+        foreach ($this->{'model_extension_' . $this->codename . '_template'}->getAvailableTemplates() as $template_k => $template) {
             $templates[$template_k] = $template;
         }
         $setting['active_template'] = $this->setting_visualize['active_template'];
@@ -197,48 +190,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         $json['setting'] = $setting;
         $json['success'] = $this->language->get('text_success');
         $this->response->setOutput(json_encode($json));
-    }
-
-    public function loadSetting($suffix = '')
-    {
-        //check if exist config in db
-        $loadSetting = $this->model_extension_d_opencart_patch_setting->getSetting('module_' . $this->codename, $this->store_id);
-
-        if ($loadSetting) {
-            $dbSetting = ($loadSetting) ? $loadSetting : array();
-        } else {
-            $dbSetting = array();
-        }
-        //inherit users data
-        $setting = array();
-        $setting = array_replace_recursive(array('module_' . $this->codename. '_setting' => $this->config_visualize),$dbSetting );
-
-        return $setting;
-    }
-
-    //todo to model
-    public function getAvailableTemplates()
-    {
-        $files = glob(DIR_CONFIG . $this->codename . '/template/*.php', GLOB_BRACE);
-        $result = array();
-        foreach ($files as $key => $file) {
-            $codename = basename($file, '.php');
-            $this->config->load($this->codename . '/template/' . $codename);
-            $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
-            $result[$codename] = array(
-                'source'  => 'config',
-                'setting' => $config,
-                'img'     => $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '.png' : "no_image.png"), 300, 400),
-
-            );
-        }
-        //if there will be changes from DB it will replace
-        $dbTemplates = $this->getTemplates();
-        foreach ($dbTemplates as $template) {
-            $result[$template['codename']] = $template;
-        }
-
-        return $result;
     }
 
     public function prepareLocal()
@@ -328,132 +279,29 @@ class ControllerExtensionModuleDVisualize extends Controller
     public function setupUrl()
     {
         $this->load->model('extension/d_opencart_patch/url');
-        $this->{'model_extension_module_' . $this->codename}->installConfig();
+        $this->{$this->model}->installConfig();
         $this->response->redirect($this->model_extension_d_opencart_patch_url->ajax($this->route));
     }
-
 
     public function uninstallTheme()
     {
         $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
         $setting['theme_default_directory'] = 'default';
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
-        $this->uninstallEvents();
+        $this->{$this->model}->uninstallEvents();
     }
 
     public function installTheme()
     {
-        //change opencart directory
         $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
         $setting['theme_default_directory'] = $this->codename; // 32 work
         $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
-
-        $this->uninstallEvents();
-        $this->installEvents();
-        $this->installVD();
-
-        $this->installDependencyModules($this->setting_visualize['active_template']);
-
-        $this->installConfigThemeDefaults();
-
-        $this->installTemplateThemeDefaults($this->setting_visualize['active_template']);
-
-    }
-
-    // todo to model theme
-    private function installDependencyModules($active_template)
-    {
-        //no need to validate if it's loaded in DB
-//        if (!in_array($active_template, $this->setting_visualize['available_templates']))
-//            $installed_template_extensions = $this->{'model_extension_' . $this->codename . '_theme'}->getTemplateExtensions($active_template);
-//        if (!empty($installed_template_extensions)) {
-//            foreach ($installed_template_extensions as $template_extensions) {
-//                $this->load->model($template_extensions['index']);
-//                $this->load->controller($template_extensions['index'] . '/setup');
-//                if (!$this->{}->checkConfig($template_extensions['codename'])) {
-//                    $this->{$template_extensions['index']}->installConfig($template_extensions['codename']);
-//                };
-//            }
-//        }
-    }
-
-    // todo to model
-    public function installVD()
-    {
-        if ($this->d_visual_designer) {
-            $this->load->model('extension/d_visual_designer/designer');
-            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_header')) {
-                $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_header');
-            };
-            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')) {
-                $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
-            };
-            //todo switch on vd-header get default template
-            //todo switch template to template if need
-            //todo disable bootsrap
-
-        }
-    }
-
-    // todo to model
-    public function installEvents()
-    {
-        if ($this->d_event_manager) {
-            $this->load->model('extension/module/d_event_manager');
-            $route_info = $this->{'model_extension_' . $this->codename . '_theme'}->getRoute();
-            if (!empty($route_info['events'])) {
-                foreach ($route_info['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename, $trigger, $action, 1, 999);
-                }
-            }
-            $route_info_active_template = $this->{'model_extension_'
-            . $this->codename . '_theme'}->getRoute('template/' . $route_info['module_' . $this->codename . '_setting']['active_template']);
-            if (!empty($route_info_active_template['events'])) {
-                foreach ($route_info_active_template['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info['module_' . $this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
-                }
-            }
-
-        }
-    }
-
-    // todo to model
-    public function uninstallEvents()
-    {
-        if ($this->d_event_manager) {
-            $this->load->model('extension/module/d_event_manager');
-            $this->model_extension_module_d_event_manager->deleteEvent($this->codename);
-            $route_info = $this->{'model_extension_' . $this->codename . '_theme'}->getRoute();
-            $route_info_active_template = $this->{'model_extension_'
-            . $this->codename . '_theme'}->getRoute('template/' . $route_info['module_' . $this->codename . '_setting']['active_template']);
-            if (!empty($route_info_active_template['events'])) {
-                foreach ($route_info_active_template['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->deleteEvent($this->codename . '_template_' . $route_info['module_' . $this->codename . '_setting']['active_template']);
-                }
-            }
-
-        }
-    }
-
-    // todo to model template
-    public function installTemplateThemeDefaults()
-    {
-//        $this->installConfigThemeDefaults('config_active_template_theme');
-    }
-
-    // todo to model template
-    public function installConfigThemeDefaults($config_theme = 'config_theme')
-    {
-        $this->load->model('setting/setting');
-
-        if (VERSION > '3.0.0.0') {
-            foreach ($this->{$config_theme}['size'] as $key => $size) {
-                $this->model_setting_setting->editSettingValue(
-                    'theme_default', 'theme_default_' . $key . '_width', $size['width'], $this->store_id);
-                $this->model_setting_setting->editSettingValue(
-                    'theme_default', 'theme_default_' . $key . '_height', $size['height'], $this->store_id);
-            }
-        }
+        $this->{$this->model}->uninstallEvents();
+        $this->{$this->model}->installEvents();
+        $this->{$this->model_helper}->installVD();
+        $this->{$this->model_helper}->installDependencyModules($this->setting_visualize['active_template']);
+        $this->{$this->model_helper}->installConfigThemeDefaults();
+        $this->{$this->model_helper}->installTemplateThemeDefaults($this->setting_visualize['active_template']);
     }
 
     public function install()
@@ -462,42 +310,11 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->load->model('extension/d_shopunity/mbooth');
             $this->model_extension_d_shopunity_mbooth->installDependencies($this->codename);
         }
-        $this->installDataBase();
-    }
-
-    public function getTemplates($data_filter = array())
-    {
-        $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';
-        return $this->db->query($sql)->rows;
-    }
-
-    //todo to model
-    public function installDataBase()
-    {
-        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_templates (
-            template_id INT(11) NOT NULL AUTO_INCREMENT,
-            store_id INT(11) NOT NULL,
-            codename VARCHAR(255) NOT NULL,
-            source VARCHAR(55) DEFAULT NULL,
-            description VARCHAR(255) DEFAULT NULL,
-            setting TEXT NOT NULL,
-            history_id INT(11) NOT NULL,
-            img VARCHAR(255) DEFAULT NULL,
-            date_created DATETIME NOT NULL,
-            date_modified DATETIME NOT NULL,
-            PRIMARY KEY (template_id)
-        )
-        COLLATE='utf8_general_ci'
-        ENGINE=MyISAM;";
-
-        $this->db->query($sql);
+        $this->{$this->model}->installDataBase();
     }
 
     public function uninstall()
     {
         $this->uninstallTheme();
     }
-
 }
-
-?>
