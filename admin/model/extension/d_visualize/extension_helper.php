@@ -29,7 +29,7 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')) {
                 $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
             };
-            $this->model_extension_module_d_visual_designer_header->installTemplate('header', $active_template);
+                $this->model_extension_module_d_visual_designer_header->installTemplate('header', $active_template);
             $this->model_extension_module_d_visual_designer_footer->installTemplate('footer', $active_template);
             //todo install vd_module and crate module and ask to asign to the home;
             //todo disable bootsrap

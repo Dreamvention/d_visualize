@@ -188,6 +188,15 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting['auto_save'] = $this->setting_visualize['auto_save'];
         $setting['status'] = (int)$this->status_visualize;
         $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
+        $param = array();
+        if ($this->request->server['HTTPS']) {
+            $store_url = HTTPS_SERVER;
+            $catalog_url = HTTPS_CATALOG;
+        } else {
+            $store_url = HTTP_SERVER;
+            $catalog_url = HTTP_CATALOG;
+        }
+        $json['iframe_src'] = $catalog_url ;
         $json['templates'] = $templates;
         $json['setting'] = $setting;
         $json['success'] = $this->language->get('text_success');
@@ -209,9 +218,20 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['text_enabled'] = $this->language->get('text_enabled');
         $local['common']['entry_status'] = $this->language->get('entry_status');
         $local['common']['entry_edit_theme'] = $this->language->get('entry_edit_theme');
+        $local['common']['entry_deactivate'] = $this->language->get('entry_deactivate');
+        $local['common']['entry_activate'] = $this->language->get('entry_activate');
 
         $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
+
         $local['dashboard']['entry_available_templates'] = $this->language->get('entry_available_templates');
+
+        $local['edit']['current_template'] = $this->language->get('entry_current_template');
+        $local['edit']['active_template'] = $this->language->get('entry_active_template');
+        $local['edit']['change_template'] = $this->language->get('entry_change');
+        $local['edit']['change_template'] = $this->language->get('entry_change');
+        $local['edit']['publish'] = $this->language->get('entry_publish');
+        $local['edit']['vdh'] = $this->language->get('entry_visual_header');
+        $local['edit']['vdf'] = $this->language->get('entry_visual_footer');
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');
@@ -257,20 +277,11 @@ class ControllerExtensionModuleDVisualize extends Controller
         if (isset($this->request->get['store_id'])) {
             $url .= '&store_id=' . $store_id;
         }
-        $param = array();
-        if ($this->request->server['HTTPS']) {
-            $store_url = HTTPS_SERVER;
-            $catalog_url = HTTPS_CATALOG;
-        } else {
-            $store_url = HTTP_SERVER;
-            $catalog_url = HTTP_CATALOG;
-        }
-        $option['edit']['iframe_edit'] = $catalog_url;
 
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $option['action']['module_link'] = $this->model_extension_d_opencart_patch_url->link($this->route);
-        $option['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_header', $url);
-        $option['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_footer', $url);
+        $option['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_header&id=0');
+        $option['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_footer&id=0');
         $option['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $option['img']['no_image'] = $this->model_tool_image->resize("no_image.png", 300, 400);

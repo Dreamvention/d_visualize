@@ -6,7 +6,8 @@ Vue.component('viz-home', {
 		},
 		loading_first: function () {
 			return this.$store.getters.loading_first;
-		}
+		},
+
 	},
 	methods: {
 		save_stay: function () {

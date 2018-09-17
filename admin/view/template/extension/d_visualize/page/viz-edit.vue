@@ -4,7 +4,7 @@
             <vz-side-menu></vz-side-menu>
         </div>
         <div class="iframe">
-            <iframe :src="$o('edit.iframe_edit')" @onload="iframeLoad" frameborder="0" borderwidth="0" ></iframe>
+            <iframe :src="iframe_src" @load="iframeLoad" frameborder="0" borderwidth="0" ></iframe>
         </div>
     </div>
 </template>

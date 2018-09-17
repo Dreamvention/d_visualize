@@ -63,7 +63,7 @@ class ModelExtensionDVisualizeTemplate extends Model
             $files = glob($componenDir . '/' . $dir . '/*.twig', GLOB_BRACE);
             foreach ($files as $key => $file) {
                 $result[$dir][basename($file, '.twig')] = array(
-                    'template' => $this->codename . 'template/component/' . $dir . '/' . basename($file, '.twig') . '.twig',
+                    'template' => $this->codename . '/template/component/' . $dir . '/' . basename($file, '.twig') . '.twig',
                 );
             }
         }
