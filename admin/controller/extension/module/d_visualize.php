@@ -32,7 +32,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
 
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
-        $this->status_visualize = $setting_visualize['module_' . $this->codename . '_status'];
+        $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status'])?$setting_visualize['module_' . $this->codename . '_status']:false;
         $this->model = 'model_extension_module_' . $this->codename;
         $this->model_template = 'model_extension_' . $this->codename . '_template';
         $this->model_helper = 'model_extension_' . $this->codename . '_extension_helper';

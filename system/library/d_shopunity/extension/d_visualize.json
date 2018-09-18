@@ -308,6 +308,7 @@
     "admin/controller/extension/d_visualize",
     "admin/model/extension/d_visualize",
     "admin/view/javascript/d_visualize/dist",
+    "admin/view/javascript/d_visualize/",
     "admin/view/stylesheet/d_visualize",
     "admin/view/template/extension/d_visualize"
   ],
