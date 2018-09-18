@@ -1,7 +1,7 @@
 <template id="vz-side-menu">
     <div class="vz-side-menu">
         <div class="menu_heading">
-            <div class="menu_heading_close"><i class="fas fa-times"></i></div>
+            <div class="menu_heading_close"><vz-edit-back></vz-edit-back></div>
             <div class="menu_heading_publish"><button class="btn btn-primary">{{$t('edit.publish')}}</button></div>
         </div>
         <div class="notification_help">
