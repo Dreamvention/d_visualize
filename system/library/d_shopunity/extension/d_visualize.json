@@ -305,7 +305,7 @@
   "dirs": [
     "catalog/view/theme/d_visualize/stylesheet/core",
     "catalog/view/theme/d_visualize/javascript/core",
-    "catalog/view/theme/d_visualize/dist",
+    "catalog/view/theme/d_visualize/stylesheet/dist",
     "admin/controller/extension/d_visualize",
     "admin/model/extension/d_visualize",
     "admin/view/javascript/d_visualize/dist",
