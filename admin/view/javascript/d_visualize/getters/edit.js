@@ -11,3 +11,6 @@ d_visualize.getters.vd_loaded = function (state) {
 d_visualize.getters.iframe_history = function (state) {
 	return state.iframe_history;
 };
+d_visualize.getters.menu = function (state) {
+	return state.menu;
+};

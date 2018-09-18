@@ -18,7 +18,8 @@
 		});
 		var store = new Vuex.Store(d_visualize);
 		// sync(store, router)
-		var local = {{ local|json_encode }}
+		const unsync = sync(store, router)
+		var local = {{ local|json_encode }};
 			app = new Vue({
 				"store": store,
 				"router": router,

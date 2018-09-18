@@ -9,13 +9,16 @@ Vue.component('vz-edit-theme', {
 			return this.$store.getters.iframe_src;
 		},
 		// added history to know where vd start his iframe to get back
-		iframe_history(){
+		iframe_history() {
 			return this.$store.getters.iframe_history;
+		},
+		menu() {
+			return this.$store.getters.menu;
 		}
 	},
 	methods: {
 		iframeLoad(e) {
-			this.iframe_history.push($.extend(true,{},$('iframe')[0].contentWindow.location))
+			this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
 		}
 	},
 	beforeMount() {

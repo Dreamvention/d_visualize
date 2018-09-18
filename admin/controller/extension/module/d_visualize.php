@@ -81,6 +81,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->document->addStyle('view/javascript/d_alertify/css/themes/bootstrap.css');
 
         //Other libraries
+        $this->document->addScript('view/javascript/d_visualize/lib/sync.js');
         $this->document->addScript('view/javascript/d_visualize/lib/VueOptions.js');
         $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
 
@@ -220,6 +221,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['entry_edit_theme'] = $this->language->get('entry_edit_theme');
         $local['common']['entry_deactivate'] = $this->language->get('entry_deactivate');
         $local['common']['entry_activate'] = $this->language->get('entry_activate');
+        $local['common']['entry_collapse'] = $this->language->get('entry_collapse');
 
         $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
 
