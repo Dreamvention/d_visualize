@@ -297,9 +297,10 @@
     "catalog/view/theme/d_visualize/template/total/voucher.twig",
 
     "system/config/d_visualize.php",
+    "system/config/d_visual_designer_template/default.php",
     "system/config/d_visualize/template/default.php",
-    "system/config/d_visualize/template/jag.php",
     "system/library/d_shopunity/extension/d_visualize.json"
+
 
   ],
   "dirs": [
@@ -308,7 +309,7 @@
     "admin/controller/extension/d_visualize",
     "admin/model/extension/d_visualize",
     "admin/view/javascript/d_visualize/dist",
-    "admin/view/javascript/d_visualize/",
+    "admin/view/javascript/d_visualize/lib",
     "admin/view/stylesheet/d_visualize",
     "admin/view/template/extension/d_visualize"
   ],
