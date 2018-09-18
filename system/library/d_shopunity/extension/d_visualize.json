@@ -295,6 +295,7 @@
     "catalog/view/theme/d_visualize/template/total/reward.twig",
     "catalog/view/theme/d_visualize/template/total/shipping.twig",
     "catalog/view/theme/d_visualize/template/total/voucher.twig",
+    "catalog/view/theme/d_visualize/stylesheet/theme/default.css",
 
     "system/config/d_visualize.php",
     "system/config/d_visual_designer_template/default.php",
@@ -306,6 +307,7 @@
   "dirs": [
     "catalog/view/theme/d_visualize/stylesheet/core",
     "catalog/view/theme/d_visualize/javascript/core",
+    "catalog/view/theme/d_visualize/dist/",
     "admin/controller/extension/d_visualize",
     "admin/model/extension/d_visualize",
     "admin/view/javascript/d_visualize/dist",
