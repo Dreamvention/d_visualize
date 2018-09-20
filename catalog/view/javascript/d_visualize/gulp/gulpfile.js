@@ -12,7 +12,7 @@ var baseDir = path.resolve(__dirname, "../../../../");
 var themeDir = path.join(baseDir, 'view/theme/d_visualize');
 var sassDir = path.join(themeDir, 'stylesheet');
 var scriptDir = path.join(themeDir, 'javascript');
-var skinDir = path.join(sassDir, 'skin');
+var skinDir = path.join(sassDir, 'template');
 
 if (typeof process.env.HOST === "undefined") {
 	process.env.HOST = 'localhost';
@@ -65,12 +65,12 @@ gulp.task('sass_multi', function () {
 	return tasks;
 });
 gulp.task('sass-ajax_filter', function () {
-	return gulp.src('stylesheet/extension/skin/**/d_ajax_filter/d_ajax_filter.scss')
+	return gulp.src('stylesheet/extension/template/**/d_ajax_filter/d_ajax_filter.scss')
 		.pipe(sass().on('error', sass.logError))
 		.pipe(autoprefixer({
 			browsers: ["last 15 versions"]
 		}))
-		.pipe(gulp.dest('stylesheet/extension/skin'))
+		.pipe(gulp.dest('stylesheet/extension/template'))
 		.pipe(browserSync.stream({match: '**/*.css'}));
 });
 gulp.task("core-scripts", function () {
@@ -94,12 +94,12 @@ gulp.task("core-scripts", function () {
 		.pipe(concat("d_visualize.js"))
 		.pipe(gulp.dest('javascript/core'));
 });
-gulp.task("skin-jag-scripts", function () {
+gulp.task("template-jag-scripts", function () {
 	return gulp.src([
-		"javascript/skin/jag/visualize_controls.js",
+		"javascript/template/jag/visualize_controls.js",
 	])
 		.pipe(concat("jag.js"))
-		.pipe(gulp.dest('javascript/skin/jag'));
+		.pipe(gulp.dest('javascript/template/jag'));
 });
 
 gulp.task('sass:watch', function () {

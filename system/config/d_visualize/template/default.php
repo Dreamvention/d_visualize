@@ -14,7 +14,8 @@ $_['d_visualize_template_default_setting'] = array(
                         'template'  => 'd_visualize/template/partial/button.twig', // here can be custom settings for this template
                         'component' => array(
                             'button' => array(
-                                'template' => 'd_visualize/template/component/button/default.twig'
+                                'template' => 'd_visualize/template/component/button/default.twig',
+                                'style' => 'd_visualize/stylesheet/dist/component/button/default.css'
                             )
                         )
                     ),
@@ -71,6 +72,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'component' => array(
                             'd_product_thumb' => array(
                                 'template'  => 'd_visualize/template/component/d_product_thumb/default.twig',
+                                'style' => 'd_visualize/stylesheet/dist/component/d_product_thumb/default.css',
                                 'partials'  => array('d_rating'),//may be if we want to insert component to component we have to just declare only name and can use in component.d_rating
                                 'component' => array(
                                     'd_rating' => array(

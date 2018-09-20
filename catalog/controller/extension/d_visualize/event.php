@@ -157,20 +157,53 @@ class ControllerExtensionDVisualizeEvent extends Controller
         return $data;
     }
 
+    public function getAllUsages($page_array,$search='component',$result=array()){
+        //print_r($this->getAllUsages($sub_page_value,$search,$result));
+//
+foreach($page_array as $page_key=>$page_value ){
+
+if ($page_key===$search){
+    $result[]=$page_value;
+}
+
+if (is_array($page_value)){
+    $result = $this->getAllUsages($page_value,$search,$result);
+}
+}//foreach
+
+return $result;
+}
+//  pre style for lib like bootstrap etc for overwriting them by modules and theme
     public function header_view_before_d_visualize(&$view, &$data, &$out)
     {
-//        pre style for lib like bootstrap etc for overwriting them by modules and theme
         $data['pre_styles'] = $this->setting_active_template['pre_styles'];
         foreach ($this->setting_active_template['post_styles'] as $style) {
             $this->document->addStyle($style);
         }
+        foreach($this->getAllUsages($this->setting_active_template['page']['default']['layout']['partial'],'component') as $component=>$component_value){
+        print_r($component_value);
+        if(isset($component_value['style'])){
+        $cssFile=  'catalog/view/theme/'.$component_value['style'];
+        if (file_exists(DIR_APPLICATION.'../'.$cssFile))
+        {
+        echo 'no file for css  comoponent';
+
+                   $this->document->addStyle($cssFile);
+        }else{
+        echo 'no file for css  comoponent';
+        }
+}
+              }
+
         $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/dist/core.css');
-        $skin_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/'.$this->setting_visualize['active_template'].'/' . $this->setting_visualize['active_template'] . '.css';
-        $skin_script = 'catalog/view/theme/' . $this->codename . '/javascript/dist/'.$this->setting_visualize['active_template'].'/' . $this->setting_visualize['active_template'] . '.css';
-        if (file_exists(DIR_APPLICATION.'../'.$skin_script))
-            $this->document->addScript($skin_script);
-        if (file_exists(DIR_APPLICATION.'../'.$skin_style))
-            $this->document->addStyle($skin_style);
+        
+        $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/'.$this->setting_visualize['active_template'].'/' . $this->setting_visualize['active_template'] . '.css';
+        $template_script = 'catalog/view/theme/' . $this->codename . '/javascript/dist/'.$this->setting_visualize['active_template'].'/' . $this->setting_visualize['active_template'] . '.css';
+        
+        if (file_exists(DIR_APPLICATION.'../'.$template_script))
+            {$this->document->addScript($template_script);}
+        if (file_exists(DIR_APPLICATION.'../'.$template_style))
+            {$this->document->addStyle($template_style);}
         $data['post_styles'] = $this->document->getStyles();
         $data['pre_scripts'] = array();
         foreach ($this->setting_active_template['pre_scripts'] as $script) {
