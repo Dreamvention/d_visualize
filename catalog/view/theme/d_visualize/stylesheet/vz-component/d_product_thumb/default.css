@@ -1,0 +1,37 @@
+.vz-product-thumb{
+  border: var(--border-primary);
+  &__image {
+    img{
+      margin: auto;
+    }
+
+  }
+  &__caption {
+    padding: 30px 34px;
+  }
+  &__group {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  &__description{
+    min-height: 54px;
+  }
+  &__price{
+    font-size: 20px;
+    min-height: 80px;
+    .price-tax {
+      display: block;
+      font-size: 15px;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+  &__button{
+    padding: 5px 10px;
+  }
+}
+.vz-d_product_list_default .vz-product-thumb_default{
+  margin-bottom: 20px;
+}

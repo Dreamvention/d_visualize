@@ -1,36 +1,40 @@
-<h2 class="heading-h2">{{ heading_title }}</h2>
-<div class="row">
-    <div class="swiper-viewport">
-        <div id="featured" class="featured-slider swiper-container">
-            <div class="swiper-wrapper">
-                {% for product in products %}
-                    <div class="swiper-slide product-layout col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
-                    </div>
-                {% endfor %}
+<div class="vz-extension__featured">
+    <h2 class="heading-h2 vz-extension__featured__heading">{{ heading_title }}</h2>
+    <div class="row">
+        <div class="swiper-viewport vz-extension__content" >
+            <div id="featured" class="featured-slider swiper-container ">
+                <div class="swiper-wrapper">
+                    {% for product in products %}
+                        <div class="swiper-slide product-layout col-lg-4 col-md-4 col-sm-6 col-12">
+                            {% include partial.d_product_thumb.template with partial.d_product_thumb|merge({
+                                product:product
+                            }) %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
+            <div class="swiper-pagination featured"></div>
         </div>
-        <div class="swiper-pagination featured"></div>
     </div>
 </div>
 
 <script type="text/javascript"><!--
-    $('#featured').swiper({
-        mode: 'horizontal',
-        slidesPerView: 3,
-        pagination: '.featured',
-        paginationClickable: true,
-        spaceBetween: 0,
-        autoplayDisableOnInteraction: true,
-        loop: true,
-        mousewheel: true,
-        breakpoints: {
-            991: {
-                slidesPerView: 2
-            },
-            640: {
-                slidesPerView: 1
-            }
-        }
-    });
-    --></script>
+	$('#featured').swiper({
+		mode: 'horizontal',
+		slidesPerView: 3,
+		pagination: '.featured',
+		paginationClickable: true,
+		spaceBetween: 0,
+		autoplayDisableOnInteraction: true,
+		loop: true,
+		mousewheel: true,
+		breakpoints: {
+			991: {
+				slidesPerView: 2
+			},
+			640: {
+				slidesPerView: 1
+			}
+		}
+	});
+	--></script>

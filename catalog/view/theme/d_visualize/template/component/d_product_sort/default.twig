@@ -1,42 +1,46 @@
 <!-- > d_product_sort -->
-<div class="d_product_sort">
-    <div class="row">
-        {#<div class="col-xs-6 col-sm-6 col-md-4 text-center-md">#}
-            <div class="col">
-                <label class="field-label" for="input-sort">{{ text_sort }}</label>
-            </div>
-            <div class="col">
-                <div class="select-container">
-                    <select id="input-sort" class="field" onchange="location = this.value;">
-                        {% for sort in sorts %}
-                            {% if sort.value == sort_order %}
-                                <option value="{{ sort.href }}" selected="selected">{{ sort.text }}</option>
-                            {% else %}
-                                <option value="{{ sort.href }}">{{ sort.text }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
+<div class="vz-d_product_sort vz-d_product_sort_default">
+    <div class="row align-items-start justify-content-between">
+        <div class="col-md-4">
+            <div class="vz-d_product_sort__view-type">
+                <div class="btn vz-button vz-button-group vz-button-view">
+                    <button type="button" id="grid-view" class="btn vz-button active" data-toggle="tooltip"
+                            title="{{ button_grid }}"><i
+                                class="fas fa-th"></i></button>
+                    <button type="button" id="list-view" class="btn vz-button" data-toggle="tooltip"
+                            title="{{ button_list }}"><i
+                                class="fas fa-th-list "></i></button>
                 </div>
             </div>
-        {#</div>#}
-        {#<div class="col-xs-6 col-sm-6 col-md-4 text-center-md">#}
-            <div class="col">
-                <label class="field-label " for="input-limit">{{ text_limit }}</label>
-            </div>
-            <div class="col">
-                <div class="select-container">
-                    <select id="input-limit" class="field" onchange="location = this.value;">
-                        {% for limit in limits %}
-                            {% if limit.value == limit %}
-                                <option value="{{ limit.href }}" selected="selected">{{ limit.text }}</option>
-                            {% else %}
-                                <option value="{{ limit.href }}">{{ limit.text }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-        {#</div>#}
+        </div>
+        <div class="col-md-5 text-right">
+            {% include partial.input.template with partial.input|merge({
+                type:'select',
+                id:'input-sort',
+                select_values:sorts,
+                select_values_val:'href',
+                select_values_check_val: 'value',
+                select_values_check: '%s-%s'|format(sort, order),
+                select_values_name: 'text',
+                on_change: 'location = this.value;',
+                text_input: text_sort,
+                classes: 'd-inline-block',
+            }) %}
+        </div>
+        <div class="col-md-3 text-right">
+            {% include partial.input.template with partial.input|merge({
+                type:'select',
+                id:'input-limit',
+                select_values:limits,
+                select_values_val:'href',
+                select_values_check_val: 'value',
+                select_values_check: limit,
+                select_values_name: 'text',
+                on_change: 'location = this.value;',
+                text_input: text_limit,
+                classes: 'd-inline-block',
+            }) %}
+        </div>
     </div>
 </div>
 <!-- /> d_product_sort -->

@@ -1,0 +1,8 @@
+.vz-product_product {
+  &__images {
+   }
+  &__images_additionals {
+    display: flex;
+  }
+
+}

@@ -1,40 +1,41 @@
-<div class="vz-product-thumb product-thumb">
-    <div class="image">
-        <a href="{{ href }}"><img src="{{ thumb }}" alt="{{ name }}" title="{{ name }}" class="img-responsive"/></a>
+<div class="vz-product-thumb product-thumb vz-product-thumb_default">
+    <div class="vz-product-thumb__image">
+        <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
+                                          class="img-responsive"/></a>
     </div>
-    <div>
-        <div class="caption">
-            <h4><a href="{{ href }}">{{ name }}</a></h4>
-            <p>{{ description }}</p>
-            {% if price %}
-                <p class="price"> {% if not special %}
-                        {{ price }}
-                    {% else %} <span class="price-new">{{ special }}</span> <span
-                            class="price-old">{{ price }}</span> {% endif %}
-                    {% if tax %} <span class="price-tax">{{ text_tax }} {{ tax }}</span> {% endif %} </p>
-            {% endif %}
-            {% if rating %}
-                {% include partial.d_rating.template with  partial.d_rating|merge({rating:rating,static_rating:true}) %}
-            {% endif %} </div>
-        <div class="button-group">
+    <div class="vz-product-thumb__caption">
+        <h3 class="heading-h3"><a href="{{ product.href }}">{{ product.name }}</a></h3>
+        <p class="vz-product-thumb__description">{{ product.description }}</p>
+        <div class="vz-product-thumb__group">
+            <div class="block-left">
+                {% if product.price %}
+                    <p class="vz-product-thumb__price">
+                        {% if not product.special %}
+                            {{ product.price }}
+                        {% else %}
+                            <span class="price-new">{{ product.special }}</span> <span
+                                class="price-old">{{ product.price }}</span>
+                        {% endif %}
+                        {% if product.tax %}
+                            <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                        {% endif %}
+                    </p>
+                {% endif %}
+                {% if product.rating %}
+                    <div class="vz-product-thumb__rating">
+                        {% include partial.rating.template with rating.button|merge({
+                            rating:product.rating
+                        }) %}
+                    </div>
+                {% endif %}
+            </div>
             {% include partial.button.template with partial.button|merge({
-                button:'cart.add('~ product_id ~', '~ minimum ~')',
-                style:'secondary',
-                classes:'btn-buy',
+                button:'cart.add('~ product.product_id ~', '~ minimum ~')',
+                style:'primary',
+                classes:'btn-buy vz-product-thumb__button',
                 text_button:button_cart
-            }) %}
-            {% include partial.button.template with partial.button|merge({
-                button: true,
-                style:'secondary',
-                classes:'',
-                text_button:'<i class="fa fa-heart"></i>',
-            }) %}
-            {% include partial.button.template with partial.button|merge({
-                button: true,
-                style:'secondary',
-                classes:'',
-                text_button:'<i class="fa fa-exchange"></i>',
             }) %}
         </div>
     </div>
+
 </div>

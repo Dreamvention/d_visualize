@@ -1,43 +1,47 @@
 <div class="thumb-box">
-    <div class="product-thumb vis-product-thumb">
-        <div class="product-thumb_image">
-            {% if special %}
-                {% set priceInt = price|replace({"$": ""}) %}
-                {% set specialInt = special|replace({"$": ""}) %}
-                <div class="badge">-{{ 100 - (specialInt|number_format * 100 / priceInt|number_format)|number_format(0) }}%</div>
+    <div class="vz-product-thumb  product-thumb vz-product-thumb_default-expanded">
+        <div class="vz-product-thumb__image">
+            {% if product.special %}
+                {% set priceInt = product.price|replace({"$": ""}) %}
+                {% set specialInt = product.special|replace({"$": ""}) %}
+                <div class="badge">
+                    -{{ 100 - (specialInt|number_format * 100 / priceInt|number_format)|number_format(0) }}%
+                </div>
             {% endif %}
             <div class="add-to-fave">
                 <button type="button" data-toggle="tooltip" title="{{ button_wishlist }}"
-                        onclick="wishlist.add('{{ product_id }}');"><i class="fas fa-heart"></i></button>
+                        onclick="wishlist.add('{{ product.product_id }}');"><i class="far fa-heart"></i></button>
             </div>
-            <a href="{{ href }}">
-                <img src="{{ thumb }}"
-                     alt="{{ name }}"
-                     title="{{ name }}"
+            <a href="{{ product.href }}">
+                <img src="{{ product.thumb }}"
+                     alt="{{ product.name }}"
+                     title="{{ product.name }}"
                      class="img-responsive"/>
             </a>
         </div>
-        <div class="product-thumb_body">
-            <span class="product-name"><a href="{{ href }}">{{ name|length > 30 ? name|slice(0, 30) ~ '...' : name  }}</a></span>
-            {% if brand %}
+        <div class="vz-product-thumb__body">
+            <span class="product-name"><a
+                        href="{{ product.href }}">{{ product.name|length > 30 ? product.name|slice(0, 30) ~ '...' : product.name }}</a></span>
+            {% if product.brand %}
                 <div class="product_brand">
-                    <span class="product_brand_value">{{ brand }}</span>
+                    <span class="product_brand_value">{{ product.brand }}</span>
                 </div>
             {% endif %}
-            <p class="product-description">{{ description }}</p>
-            {% if price %}
-                <div class="product-price-block">
-                    {% if not special %}
-                        {{ price }}
-                    {% else %} <span class="product-price product-price_actual">{{ special }}</span> <span
-                            class="product-price product-price_old">{{ price }}</span> {% endif %}
+            <p class="vz-product-thumb__description">{{ product.description }}</p>
+            {% if product.price %}
+                <div class="vz-product-thumb__price-block">
+                    {% if not product.special %}
+                        {{ product.price }}
+                    {% else %} <span class="product-price product-price_actual">{{ product.special }}</span> <span
+                            class="product-price product-price_old">{{ product.price }}</span> {% endif %}
                 </div>
             {% endif %}
-            <div class="additional-info">
+            <div class="vz-product-thumb__additional-info">
 
             </div>
-            {% include partial.d_rating.template with  partial.d_rating|merge({rating:rating,static_rating:true}) %}
-
+            <div class="vz-product-thumb__rating">
+                {% include partial.d_rating.template with  partial.d_rating|merge({rating:rating,static_rating:true}) %}
+            </div>
             {% include partial.button.template with partial.button|merge({
                 button:'cart.add('~ product_id ~', '~ minimum ~')',
                 style:'secondary',

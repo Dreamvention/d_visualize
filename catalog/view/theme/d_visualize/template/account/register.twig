@@ -15,7 +15,6 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-
             </fieldset>
             {% if constant('VERSION') < '3.0.0.0' %}
                 <fieldset id="address">
@@ -49,7 +48,6 @@
                 classes:'',
                 text_input:entry_confirm,
                 }) %}
-
             </fieldset>
             <fieldset class="newslatter">
                 <h3>{{ text_newsletter }}</h3>
@@ -63,7 +61,6 @@
                 radio_values_name: 'name',
                 text_input:entry_newsletter,
                 }) %}
-
             </fieldset>
             {{ captcha }}
             {% include partial.d_button_submit.template with partial.d_button_submit %}

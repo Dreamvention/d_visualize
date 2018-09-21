@@ -1,3 +1,4 @@
+<div class="vz-product_product">
 <div class="row">
     {% if column_left or column_right %}
     <div class="col-sm-6">
@@ -5,16 +6,16 @@
         <div class="col-sm-12 col-md-6">
             {% endif %}
             {% if thumb or images %}
-                <div class="product-images">
+                <div class="vz-product_product__images">
                     {% if thumb %}
-                        <a class="thumbnail thumbnail-main" href="{{ popup }}" title="{{ heading_title }}">
+                        <a class="thumbnail vz-thumbnail thumbnail-main" href="{{ popup }}" title="{{ heading_title }}">
                             <img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/>
                         </a>
                     {% endif %}
                     {% if images %}
-                        <div class="product-images_additional">
+                        <div class="vz-product_product__images_additionals">
                             {% for image in images %}
-                                <a class="thumbnail" href="{{ image.popup }}" title="{{ image.heading_title }}">
+                                <a class="thumbnail vz-thumbnail" href="{{ image.popup }}" title="{{ image.heading_title }}">
                                     <img src="{{ image.thumb }}" title="{{ image.heading_title }}"
                                          alt="{{ image.heading_title }}"/>
                                 </a>
@@ -165,6 +166,7 @@
         {% endfor %}
     </div>
 {% endif %}
+</div>
 <script type="text/javascript"><!--
 	$(document).ready(function () {
 

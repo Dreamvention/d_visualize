@@ -41,6 +41,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             }
         }
     }
+
     //todo refactor to model
     public function getAvailableTemplates()
     {
@@ -63,12 +64,14 @@ class ControllerExtensionDVisualizeEvent extends Controller
 
         return $result;
     }
+
     //todo refactor to model
     public function getTemplates($data_filter = array())
     {
         $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';
         return $this->db->query($sql)->rows;
     }
+
     //todo refactor to model
     public function loadSetting($suffix = '')
     {
@@ -103,9 +106,15 @@ class ControllerExtensionDVisualizeEvent extends Controller
     // here we add this from config our active template
     public function view_all_before_d_visualize(&$view, &$data)
     {
+        FB::log($this->request->get['route']==$view);
         $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
+        if ($this->request->get['route']==$view){
+            FB::log($this->setting_active_template['page']['default']['layout']);
+        }
         if (!empty($this->setting_active_template)) {
-            $data += $this->setting_active_template['page']['default']['layout'];
+            //inject settings onto view
+//            FB::log($this->setting_active_template['page']['default']['layout']);
+            $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'],$data);
             //if some one add to specifi page scripts need to add this to header
             if (in_array($view_route, array_keys($this->setting_active_template['page']))) {
                 if (isset($this->setting_active_template['page'][$view_route]['layout'])) {
@@ -135,6 +144,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             }
         }
     }
+
     //todo refactor to model
     public function validate_templates($data)
     {
@@ -157,54 +167,72 @@ class ControllerExtensionDVisualizeEvent extends Controller
         return $data;
     }
 
-    public function getAllUsages($page_array,$search='component',$result=array()){
-        //print_r($this->getAllUsages($sub_page_value,$search,$result));
-//
-foreach($page_array as $page_key=>$page_value ){
+    //todo refactor to model
+    public function getAllUsages($page_array, $search = 'component', $result = array())
+    {
+        foreach ($page_array as $page_key => $page_value) {
+            if ($page_key === $search) {
+                $result[] = $page_value;
+            }
+            if (is_array($page_value)) {
+                $result = $this->getAllUsages($page_value, $search, $result);
+            }
+        }
+        return $result;
+    }
 
-if ($page_key===$search){
-    $result[]=$page_value;
-}
-
-if (is_array($page_value)){
-    $result = $this->getAllUsages($page_value,$search,$result);
-}
-}//foreach
-
-return $result;
-}
-//  pre style for lib like bootstrap etc for overwriting them by modules and theme
     public function header_view_before_d_visualize(&$view, &$data, &$out)
     {
+        //  pre style for lib like bootstrap etc for overwriting them by modules and theme
         $data['pre_styles'] = $this->setting_active_template['pre_styles'];
         foreach ($this->setting_active_template['post_styles'] as $style) {
             $this->document->addStyle($style);
         }
-        foreach($this->getAllUsages($this->setting_active_template['page']['default']['layout']['partial'],'component') as $component=>$component_value){
-        print_r($component_value);
-        if(isset($component_value['style'])){
-        $cssFile=  'catalog/view/theme/'.$component_value['style'];
-        if (file_exists(DIR_APPLICATION.'../'.$cssFile))
-        {
-        echo 'no file for css  comoponent';
+        //check components overloading
+        foreach ($this->getAllUsages($this->setting_active_template['page'], 'component') as $component) {
+            $key_of_component= array_keys($component)[0];
+            $component_value = $component[$key_of_component];
+            $cssFile = '';
+            $templateFile = '';
+            if (isset($component_value['stylesheet'])) {
+                $cssFile = 'catalog/view/theme/' . $component_value['stylesheet'];
+            }
+            //check on skin overloading the component
+            if (isset($component_value['skin']) && $this->setting_active_template['current_skin'] == $component_value['skin']) {
+                //replace current template of component if skin change it
+                $templateFile = str_replace($this->setting_visualize['active_template'], $component_value['skin'], $component_value['template']);
+                if (file_exists(DIR_TEMPLATE . $templateFile)) {
+                    $this->setting_active_template['page']['default']['layout']['partial'][$key_of_component]['component'][$key_of_component]['template'] = $templateFile;
+                }
+                $cssFile = str_replace($this->setting_visualize['active_template'], $component_value['skin'], 'catalog/view/theme/' . $component_value['stylesheet']);
+            }
+            //add css of component
+            if (file_exists(DIR_APPLICATION . '../' . $cssFile)) {
+                $this->document->addStyle($cssFile);
+            }
 
-                   $this->document->addStyle($cssFile);
-        }else{
-        echo 'no file for css  comoponent';
         }
-}
-              }
+        //add core css files for prevent opencart standart styles and whatever
+//old        $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/dist/core.css');
+        $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/dist/vz-core/core.css');
+        //add core js files for standard page behaviour, like  helpers
+        $this->document->addScript('catalog/view/theme/' . $this->codename . '/javascript/dist/vz-core/core.js');
 
-        $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/dist/core.css');
-        
-        $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/'.$this->setting_visualize['active_template'].'/' . $this->setting_visualize['active_template'] . '.css';
-        $template_script = 'catalog/view/theme/' . $this->codename . '/javascript/dist/'.$this->setting_visualize['active_template'].'/' . $this->setting_visualize['active_template'] . '.css';
-        
-        if (file_exists(DIR_APPLICATION.'../'.$template_script))
-            {$this->document->addScript($template_script);}
-        if (file_exists(DIR_APPLICATION.'../'.$template_style))
-            {$this->document->addStyle($template_style);}
+        //add current template stylesheet
+        $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_visualize['active_template'] . '.css';
+        if (isset($this->setting_active_template['current_skin'])) {
+            $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_active_template['current_skin'] . '.css';
+        }
+        if (file_exists(DIR_APPLICATION . '../' . $template_style)) {
+            $this->document->addStyle($template_style);
+        }
+        //add current template scripts
+        $template_script = 'catalog/view/theme/' . $this->codename . '/javascript/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_visualize['active_template'] . '.js';
+        if (file_exists(DIR_APPLICATION . '../' . $template_script)) {
+            $this->document->addScript($template_script);
+        }
         $data['post_styles'] = $this->document->getStyles();
+        $data['scripts'] = $this->document->getScripts();
         $data['pre_scripts'] = array();
         foreach ($this->setting_active_template['pre_scripts'] as $script) {
             array_unshift($data['pre_scripts'], $script);//default place for scripts our will be latest

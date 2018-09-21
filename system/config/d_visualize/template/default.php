@@ -2,6 +2,7 @@
 $_['d_visualize_template_default_setting'] = array(
     'title'        => 'default template',
     'codename'    => 'default',
+    'current_skin'=>'hydrus',
     'description' => 'template from default opencart',
     'debug' => 1,
     'page'        => array(
@@ -15,7 +16,17 @@ $_['d_visualize_template_default_setting'] = array(
                         'component' => array(
                             'button' => array(
                                 'template' => 'd_visualize/template/component/button/default.twig',
-                                'style' => 'd_visualize/stylesheet/dist/component/button/default.css'
+                                'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/button/default.css'
+                            )
+                        )
+                    ),
+                    'd_product_thumb'           => array(
+                        'template'  => 'd_visualize/template/partial/d_product_thumb.twig', // here can be custom settings for this template
+                        'component' => array(
+                            'd_product_thumb' => array(
+                                'skin'=>'hydrus',
+                                'template'  => 'd_visualize/template/component/d_product_thumb/default.twig',
+                                'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_product_thumb/default.css',
                             )
                         )
                     ),
@@ -47,7 +58,8 @@ $_['d_visualize_template_default_setting'] = array(
                         'template'  => 'd_visualize/template/partial/d_product_sort.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_sort' => array(
-                                'template' => 'd_visualize/template/component/d_product_sort/default.twig'
+                                'template' => 'd_visualize/template/component/d_product_sort/default.twig',
+                                'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_product_sort/default.css'
                             )
                         )
                     ),
@@ -64,21 +76,6 @@ $_['d_visualize_template_default_setting'] = array(
                         'component' => array(
                             'd_layout_close' => array(
                                 'template' => 'd_visualize/template/component/d_layout_close/default.twig'
-                            )
-                        )
-                    ),
-                    'd_product_thumb'           => array(
-                        'template'  => 'd_visualize/template/partial/d_product_thumb.twig', // here can be custom settings for this template
-                        'component' => array(
-                            'd_product_thumb' => array(
-                                'template'  => 'd_visualize/template/component/d_product_thumb/default.twig',
-                                'style' => 'd_visualize/stylesheet/dist/component/d_product_thumb/default.css',
-                                'partials'  => array('d_rating'),//may be if we want to insert component to component we have to just declare only name and can use in component.d_rating
-                                'component' => array(
-                                    'd_rating' => array(
-                                        'template' => 'd_visualize/template/component/d_rating/default.twig'
-                                    )
-                                )
                             )
                         )
                     ),
@@ -150,7 +147,8 @@ $_['d_visualize_template_default_setting'] = array(
                         'template'  => 'd_visualize/template/partial/d_button_submit.twig',
                         'component' => array(
                             'd_button_submit' => array(
-                                'template' => 'd_visualize/template/component/d_button_submit/default.twig'
+                                'template' => 'd_visualize/template/component/d_button_submit/default.twig',
+                                'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_button_submit/default.css'
                             )
                         )
                     ),
@@ -237,6 +235,7 @@ $_['d_visualize_template_default_setting'] = array(
                 'component' => array(
                     'product_product' => array(
                         'template' => 'd_visualize/template/component/product_product/default.twig',
+                        'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_product/default.css',
                     ),
 
                     'product_options' => array(
@@ -317,7 +316,7 @@ $_['d_visualize_template_default_setting'] = array(
     ),
     'custom_styles' => array(
         ''
-    )
+    ),
 );
 $_['events'] = array(
     'catalog/view/product/category/before' => 'extension/d_visualize/template/default/default/view_product_category_before',

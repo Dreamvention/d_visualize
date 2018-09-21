@@ -1,0 +1,45 @@
+@import "base/import";
+
+:root {
+  --color-primary: #e63072;
+  --color-primary-darken: #c1245d;
+  --color-primary-darkenx2: #c1245d;
+  --color-primary-darkenx3: #c1245d;
+  --color-success: #62a600;
+  --color-success-darken: #578810;
+  --color-success-darkenx2: #578810;
+  --color-success-darkenx3: #578810;
+  --color-warning: #f26522;
+  --color-warning-darken: #d24b09;
+  --color-warning-darkenx2: #d24b09;
+  --color-warning-darkenx3: #d24b09;
+  --color-danger: #e31d27;
+  --color-danger-darken: #b61820;
+  --color-danger-darkenx2: #b61820;
+  --color-info: #546ac0;
+  --color-info-darken: #253d9c;
+  --color-info-darkenx2: #253d9c;
+  --color-default: #f3f4f8;
+  --color-default-darken: #9da6af;
+  --color-default-darkenx2: #9da6af;
+  --link-color: #000;
+  --padding-button: 15px 45px;
+  --link-color-hover: var(--color-primary);
+  --font-main: 'Open Sans';
+  --font-secondary: 'Blogger Sans';
+  --font-secondary-bold: 'Blogger Sans Bold';
+  --font-exLight: 100;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-bold: 600;
+  --font-size-h1: 35px;
+  --font-size-h2: 28px;
+  --font-size-h3: 25px;
+  --font-size-h4: 20px;
+  --font-size-h5: 18px;
+  --border-base-size: 2px;
+  --border-base-style: solid;
+
+}
+

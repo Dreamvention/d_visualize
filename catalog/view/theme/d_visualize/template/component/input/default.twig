@@ -1,4 +1,4 @@
-{% set input_classes = 'form-control d-vis' %}
+{% set input_classes = 'form-control vz-form-control' %}
 {% if classes %}
     {% set input_classes = input_classes ~ ' ' ~ classes %}
 {% endif %}
@@ -6,21 +6,23 @@
     {% set button = true %}
 {% endif %}
 {% if button %}
-    {% set input_classes = input_classes ~ ' btn d-vis btn-' ~ style %}
+    {% set input_classes = classes ~ ' btn vz-button btn-' ~ style %}
 {% endif %}
 {% if not type %}
     {% set type = 'text' %}
 {% endif %}
 {% if type=='checkbox' %}
-    <label class="{{ type }} d-vis">
+    <label class="{{ type }} vz-checkbox">
         <input type="{{ type }}"
                class="{{ classes }} "
                name="{{ name }}"
                value="{{ value }}"
                {% if checked %}checked="checked"{% endif %}
         />
+        {% if text_input %}
         <div class="{{ type }}-text"></div>
         {{ text_input }}
+        {% endif %}
     </label>
 {% elseif type=='select' %}
     {% if text_input %}

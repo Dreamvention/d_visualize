@@ -5,10 +5,10 @@ module.exports = function () {
 			require('precss')({}),
 			// require('autoprefixer')({ browsers : ['last 15 versions'] }),
 			require('postcss-pxtorem')({
-				rootValue: 10,
+				rootValue: 14,
 				unitPrecision: 5,
 				propList: ['*'],
-				selectorBlackList: [],
+				selectorBlackList: ['body'],
 				replace: true,
 				mediaQuery: true,
 				minPixelValue: 0

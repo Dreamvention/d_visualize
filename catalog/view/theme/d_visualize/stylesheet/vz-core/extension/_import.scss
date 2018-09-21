@@ -1,0 +1,9 @@
+.vz-extension{
+  &__featured{
+    @import "featured";
+  }
+
+  &__slideshow{
+    @import "slideshow";
+  }
+}

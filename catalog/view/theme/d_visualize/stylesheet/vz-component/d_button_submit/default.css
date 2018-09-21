@@ -1,0 +1,24 @@
+.vz-d_button_submit {
+  display: flex;
+  &__back {
+    flex: 1;
+  }
+  &__forward {
+
+    display: inline-flex;
+    align-items: center;
+  }
+  &__agree {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px;
+    .checkbox input{
+      margin-top: 0;
+      margin-left: 10px;
+      position: relative;
+    }
+  }
+  &_default{
+    margin-bottom: 20px;
+   }
+}
