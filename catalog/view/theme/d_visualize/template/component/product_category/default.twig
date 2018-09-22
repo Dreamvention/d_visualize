@@ -1,5 +1,5 @@
-<div id="product-category" >
-    <h1 class="heading-h1">{{ heading_title }}</h1>
+<div id="product-category" class="vz-product_category vz-product_category_default">
+<h1 class="heading-h1 vz-product_category__heading">{{ heading_title }}</h1>
     {% include partial.d_product_list.template with  partial.d_product_list %}
     {% if not categories %}
         {% if not products %}
@@ -13,8 +13,6 @@
                         text_button:button_cart,
                         title:button_cart,
                     }) %}
-
-
                 </div>
             </div>
         {% endif %}

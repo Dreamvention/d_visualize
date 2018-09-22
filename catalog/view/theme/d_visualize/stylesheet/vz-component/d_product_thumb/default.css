@@ -28,7 +28,7 @@
       margin-bottom: 0;
     }
   }
-  &__button{
+  &__button.vz-button{
     padding: 5px 10px;
   }
 }

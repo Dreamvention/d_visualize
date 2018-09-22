@@ -32,7 +32,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
 
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
-        $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status'])?$setting_visualize['module_' . $this->codename . '_status']:false;
+        $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
         $this->model = 'model_extension_module_' . $this->codename;
         $this->model_template = 'model_extension_' . $this->codename . '_template';
         $this->model_helper = 'model_extension_' . $this->codename . '_extension_helper';
@@ -197,7 +197,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             $store_url = HTTP_SERVER;
             $catalog_url = HTTP_CATALOG;
         }
-        $json['iframe_src'] = $catalog_url ;
+        $json['iframe_src'] = $catalog_url;
         $json['templates'] = $templates;
         $json['setting'] = $setting;
         $json['success'] = $this->language->get('text_success');

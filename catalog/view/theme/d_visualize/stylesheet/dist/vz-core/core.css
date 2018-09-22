@@ -6,6 +6,10 @@
   border: none;
   margin-bottom: 0;
 }
+.breadcrumb{
+  background-color: transparent;
+
+}
 .vz-extension__featured .swiper-viewport{
   background: rgba(255, 255, 255, 0);
   border: none;

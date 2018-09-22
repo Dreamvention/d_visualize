@@ -60,7 +60,7 @@ class ModelExtensionModuleDVisualize extends Model
             $this->load->controller('extension/' . $this->codename . '/installTheme');
             $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, array(
                 $this->codename . '_setting' => $setting,
-                $this->codename . '_status'  => 1
+                $this->codename . '_status' => 1
             ));
         }
     }
@@ -107,11 +107,11 @@ class ModelExtensionModuleDVisualize extends Model
         }
         //inherit users data
         $setting = array();
-        $setting = array_replace_recursive(array('module_' . $this->codename. '_setting' => $this->config_visualize),$dbSetting );
+        $setting = array_replace_recursive(array('module_' . $this->codename . '_setting' => $this->config_visualize), $dbSetting);
 
         return $setting;
     }
-    //todo to model
+
     public function installDataBase()
     {
         $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_templates (
@@ -154,7 +154,6 @@ class ModelExtensionModuleDVisualize extends Model
         }
     }
 
-    // todo to model
     public function uninstallEvents()
     {
         if ($this->d_event_manager) {

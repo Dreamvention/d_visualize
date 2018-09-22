@@ -1,0 +1,49 @@
+<!-- > d_product_sort -->
+<div class="vz-d_product_sort vz-d_product_sort_hydrus">
+    <div class="row align-items-center justify-content-between no-gutters">
+        <div class="col-md-2 col-sm-6 hidden-xs">
+            <div class="vz-d_product_sort__view-type">
+                <div class="btn vz-button vz-button-group vz-button-view">
+                    <button type="button" id="grid-view" class="btn vz-button active" data-toggle="tooltip"
+                            title="{{ button_grid }}"><i
+                                class="fas fa-th"></i></button>
+                    <button type="button" id="list-view" class="btn vz-button" data-toggle="tooltip"
+                            title="{{ button_list }}"><i
+                                class="fas fa-th-list "></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 text-right">
+            <a href="{{ compare }}" id="compare-total" class="btn vz-button btn-link vz-d_product_sort__compare">{{ text_compare }}</a>
+        </div>
+        <div class="col-md-4 col-xs-6 text-right">
+            {% include partial.input.template with partial.input|merge({
+                type:'select',
+                id:'input-sort',
+                select_values:sorts,
+                select_values_val:'href',
+                select_values_check_val: 'value',
+                select_values_check: '%s-%s'|format(sort, order),
+                select_values_name: 'text',
+                on_change: 'location = this.value;',
+                text_input: text_sort,
+                classes: 'd-inline-block',
+            }) %}
+        </div>
+        <div class="col-md-2 text-right">
+            {% include partial.input.template with partial.input|merge({
+                type:'select',
+                id:'input-limit',
+                select_values:limits,
+                select_values_val:'href',
+                select_values_check_val: 'value',
+                select_values_check: limit,
+                select_values_name: 'text',
+                on_change: 'location = this.value;',
+                text_input: text_limit,
+                classes: 'd-inline-block',
+            }) %}
+        </div>
+    </div>
+</div>
+<!-- /> d_product_sort -->

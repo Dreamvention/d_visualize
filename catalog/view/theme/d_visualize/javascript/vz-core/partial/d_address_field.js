@@ -5,7 +5,6 @@ var d_address_field = {
       text_none: '',
       text_select: '',
     },
-
     init: function(setting) {
         console.log('start d_address_field');
         this.setting = $.extend({}, this.setting, setting);

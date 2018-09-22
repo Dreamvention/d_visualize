@@ -11,6 +11,7 @@ $(document).on('grid-view',function () {
 	$('#grid-view').addClass('active');
 	localStorage.setItem('display', 'grid');
 });
+
 $(document).on('list-view',function () {
 	$('#content .product-grid > .clearfix').remove();
 	$('#content .row > .product-grid').attr('class', 'product-layout product-list col-12');

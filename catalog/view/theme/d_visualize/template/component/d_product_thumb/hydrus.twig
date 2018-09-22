@@ -1,13 +1,37 @@
 <div class="vz-product-thumb product-thumb vz-product-thumb_hydrus">
     <div class="vz-product-thumb__image">
+        {#<span class="vz-product-thumb__image__label">#}
+        {#</span>#}
         <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
                                           class="img-responsive"/></a>
+        <div class="vz-product-thumb__buttons btn-group">
+            {% include partial.button.template with partial.button|merge({
+                button:'cart.add('~ product.product_id ~', '~ minimum ~')',
+                style:'primary',
+                classes:'btn-buy vz-product-thumb__button',
+                text_button:button_cart
+            }) %}
+            <div class="divider"></div>
+            {% include partial.button.template with partial.button|merge({
+                button:'whishlist.add('~ product.product_id ~')',
+                style:'primary',
+                classes:'vz-product-thumb__button',
+                icon:'fas fa-heart'
+            }) %}
+            <div class="divider"></div>
+            {% include partial.button.template with partial.button|merge({
+                button:'whishlist.add('~ product.product_id ~')',
+                style:'primary',
+                classes:'vz-product-thumb__button',
+                icon:'fas fa-exchange-alt'
+            }) %}
+        </div>
     </div>
     <div class="vz-product-thumb__caption">
         <h3 class="heading-h3"><a href="{{ product.href }}">{{ product.name }}</a></h3>
-        <p class="vz-product-thumb__description">{{ product.description }}</p>
+        <div class="vz-product-thumb__description">{{ product.description }}</div>
+        <div class="vz-product-thumb__additional_text">Siz XS,M,L</div>
         <div class="vz-product-thumb__group">
-            <div class="block-left">
                 {% if product.price %}
                     <p class="vz-product-thumb__price">
                         {% if not product.special %}
@@ -28,14 +52,6 @@
                         }) %}
                     </div>
                 {% endif %}
-            </div>
-            {% include partial.button.template with partial.button|merge({
-                button:'cart.add('~ product.product_id ~', '~ minimum ~')',
-                style:'primary',
-                classes:'btn-buy vz-product-thumb__button',
-                text_button:button_cart
-            }) %}
         </div>
     </div>
-
 </div>

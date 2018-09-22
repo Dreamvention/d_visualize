@@ -2,6 +2,13 @@
   padding: var(--padding-button);
   font-size: 16px;
   border-radius: 0px;
+  &.btn-link{
+    color: var(--link-color);
+    &:hover{
+      text-decoration: none;
+      color: var(--link-color-hover);
+    }
+  }
   &.btn-primary {
     background: var(--color-primary);
     border: var(--border-primary);
