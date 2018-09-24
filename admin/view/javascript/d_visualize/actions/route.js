@@ -6,4 +6,6 @@ d_visualize.actions['PUSH_EDIT_HISTORY'] = function (context, payload) {
 };
 d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
 	context.commit('PUSH_IFRAME_HISTORY', payload);
+};d_visualize.actions['CHANGE_NAVIGATION_CONTEXT'] = function (context, payload) {
+	context.commit('CHANGE_NAVIGATION_CONTEXT', payload);
 };

@@ -11,6 +11,12 @@ d_visualize.routes.push({
 			},
 		},
 		{
+			path: 'components/:id',
+			component: {
+				template: '<vz-component></vz-component>'
+			},
+		},
+		{
 			path: 'buttons',
 			component: {
 				template: '<vz-buttons></vz-buttons>'

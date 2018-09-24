@@ -1,8 +1,8 @@
 Vue.component('vz-edit-navigation', {
 	template: '#vz-edit-navigation',
 	computed: {
-		edit_history() {
-			return this.$store.getters.edit_history;
+		menu() {
+			return this.$store.getters.menu;
 		}
 	},
 	methods: {

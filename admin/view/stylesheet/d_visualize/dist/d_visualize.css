@@ -267,6 +267,10 @@
     font-size: var(--font-size-h6);
 }
 
+body h1{
+
+  }
+
 .help{
   -webkit-border-radius: 100%;
           border-radius: 100%;
@@ -497,28 +501,28 @@ margin-left: rem(20);
     position: relative;
   }
 
-.vz-edit-navigation {
+.vz-edit-navigation__nav {
     -webkit-box-flex: 0;
     -webkit-flex: 0 1 100%;
         -ms-flex: 0 1 100%;
             flex: 0 1 100%;
   }
 
-.vz-edit-navigation .nav {
+.vz-edit-navigation__nav .nav {
       margin-left: -0.5rem;
       margin-right: -0.5rem;
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
 
-.vz-edit-navigation .nav_item {
+.vz-edit-navigation__nav .nav_item {
         border: 0.1rem solid gray;
         border-bottom: 0;
         padding: 1rem 1.5rem;
         position: relative
       }
 
-.vz-edit-navigation .nav_item:after {
+.vz-edit-navigation__nav .nav_item:after {
   position: absolute;
   right: 0.5rem;
   font-family: "Font Awesome\ 5 Free";
@@ -526,15 +530,15 @@ margin-left: rem(20);
   content: "\f054";
 }
 
-.vz-edit-navigation .nav_item:hover {
+.vz-edit-navigation__nav .nav_item:hover {
   cursor: pointer;
 }
 
-.vz-edit-navigation .nav_item:last-child {
+.vz-edit-navigation__nav .nav_item:last-child {
   border-bottom: 0.1rem solid gray;
 }
 
-.vz-edit-navigation .nav ~ .content_nav {
+.vz-edit-navigation__nav .nav ~ .content_nav {
         overflow-y: scroll;
         max-height: 50rem;
       }

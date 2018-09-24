@@ -126,6 +126,10 @@ d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
   context.commit('PUSH_IFRAME_HISTORY', payload);
 };
 
+d_visualize.actions['CHANGE_NAVIGATION_CONTEXT'] = function (context, payload) {
+  context.commit('CHANGE_NAVIGATION_CONTEXT', payload);
+};
+
 d_visualize.actions['CHANGE_STATUS'] = function (context, payload) {
   context.commit('CHANGE_STATUS');
 
@@ -182,8 +186,8 @@ Vue.component('vz-edit-menu', {
 Vue.component('vz-edit-navigation', {
   template: '#vz-edit-navigation',
   computed: {
-    edit_history: function edit_history() {
-      return this.$store.getters.edit_history;
+    menu: function menu() {
+      return this.$store.getters.menu;
     }
   },
   methods: {
@@ -252,7 +256,7 @@ Vue.component('vz-edit-back', {
       if (this.close) {
         this.$router.push(this.edit_history[0]);
       } else {
-        this.$router.push(this.edit_history[this.edit_history.length - 2]);
+        this.$router.go(-1);
         this.$store.dispatch('POP_EDIT_HISTORY');
       }
     }
@@ -271,6 +275,15 @@ Vue.component('vz-edit-vdh', {
   template: '#vz-edit-vdh',
   computed: {},
   methods: {},
+  watch: {
+    $route: function $route(to, from) {
+      console.log('watchvdh'); // this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT',
+      // 	[
+      // 		{href: '/edit/vdh', text: 'edit.vdh'},
+      // 		{href: '/edit/vdf', text: 'edit.vdf'}
+      // 	]);
+    }
+  },
   beforeMount: function beforeMount() {
     this.$store.dispatch('LOAD_VISUAL_HEADER', this.$o('action.vdh'));
   }
@@ -510,14 +523,6 @@ d_visualize.getters.vd_loaded = function (state) {
   return state.vd_loaded;
 };
 
-d_visualize.getters.iframe_history = function (state) {
-  return state.iframe_history;
-};
-
-d_visualize.getters.menu = function (state) {
-  return state.menu;
-};
-
 d_visualize.getters.templates = function (state) {
   return state.templates;
 };
@@ -536,6 +541,14 @@ d_visualize.getters.active_template = function (state, getters) {
   }
 
   return active;
+};
+
+d_visualize.getters.iframe_history = function (state) {
+  return state.iframe_history;
+};
+
+d_visualize.getters.menu = function (state) {
+  return state.menu;
 };
 
 d_visualize.getters.route = function (state) {
@@ -579,17 +592,7 @@ d_visualize.mutations['LOAD_CONTENT_SUCCESS'] = function (state, payload) {
 
 d_visualize.state.vd_loaded = false;
 d_visualize.state.iframe_src = '';
-d_visualize.state.menu = {
-  hidden: false
-};
-
-d_visualize.mutations['LOAD_VISUAL_HEADER'] = function (state, payload) {
-  Vue.set(state, 'iframe_src', payload);
-};
-
-d_visualize.mutations['LOAD_VISUAL_FOOTER'] = function (state, payload) {
-  Vue.set(state, 'iframe_src', payload);
-};
+d_visualize.state.available_components = [];
 
 d_visualize.mutations['CHANGE_IFRAME_SRC'] = function (state, payload) {
   Vue.set(state, 'iframe_src', payload);
@@ -603,12 +606,12 @@ d_visualize.mutations['LEAVE_VISUAL'] = function (state, payload) {
   Vue.set(state, 'vd_loaded', false);
 };
 
-d_visualize.mutations['HIDE_MENU'] = function (state, payload) {
-  Vue.set(state.menu, 'hidden', true);
+d_visualize.mutations['LOAD_VISUAL_HEADER'] = function (state, payload) {
+  Vue.set(state, 'iframe_src', payload);
 };
 
-d_visualize.mutations['SHOW_MENU'] = function (state, payload) {
-  Vue.set(state.menu, 'hidden', false);
+d_visualize.mutations['LOAD_VISUAL_FOOTER'] = function (state, payload) {
+  Vue.set(state, 'iframe_src', payload);
 };
 
 d_visualize.mutations['CHANGE_TEMPLATE'] = function (state, payload) {
@@ -626,6 +629,19 @@ d_visualize.mutations['LOADING_END'] = function (state, payload) {
 
 d_visualize.state.edit_history = ['/home/dashboard', '/edit'];
 d_visualize.state.iframe_history = ['/'];
+d_visualize.state.menu = {
+  hidden: false,
+  navigation: [],
+  navigation_history: []
+};
+
+d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
+  state.menu.navigation_history.push(state.menu.navigation);
+  var new_history = JSON.parse(JSON.stringify(state.menu.navigation_history));
+  var new_navigation = JSON.parse(JSON.stringify(payload));
+  Vue.set(state.menu, 'navigation_history', new_history);
+  Vue.set(state.menu, 'navigation', new_navigation);
+};
 
 d_visualize.mutations['PUSH_EDIT_HISTORY'] = function (state, payload) {
   state.edit_history.push(payload);
@@ -645,6 +661,14 @@ d_visualize.mutations['PUSH_IFRAME_HISTORY'] = function (state, payload) {
   Vue.set(state, 'iframe_history', new_history);
 };
 
+d_visualize.mutations['HIDE_MENU'] = function (state, payload) {
+  Vue.set(state.menu, 'hidden', true);
+};
+
+d_visualize.mutations['SHOW_MENU'] = function (state, payload) {
+  Vue.set(state.menu, 'hidden', false);
+};
+
 d_visualize.mutations['CHANGE_STATUS'] = function (state, payload) {
   Vue.set(state.setting, 'status', !state.setting.status);
 };
@@ -662,6 +686,11 @@ d_visualize.routes.push({
     path: 'components',
     component: {
       template: '<vz-component-list></vz-component-list>'
+    }
+  }, {
+    path: 'components/:id',
+    component: {
+      template: '<vz-component></vz-component>'
     }
   }, {
     path: 'buttons',
@@ -754,14 +783,56 @@ Vue.component('vz-edit-theme', {
     },
     menu: function menu() {
       return this.$store.getters.menu;
+    },
+    components: function components() {
+      return this.$store.getters.editable_components;
     }
   },
   methods: {
     iframeLoad: function iframeLoad(e) {
       this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
+    },
+    checkMenu: function checkMenu(to, from) {
+      if (to.path === '/edit') {
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', [{
+          href: '/edit/components',
+          text: 'edit.entry_components'
+        }, {
+          href: '/edit/vdh',
+          text: 'edit.vdh'
+        }, {
+          href: '/edit/vdf',
+          text: 'edit.vdf'
+        }]);
+      }
+
+      if (to.path === '/edit/vdh' || to.path === '/edit/vdh') {
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
+      }
+
+      if (to.path === '/edit/components') {
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', Object.keys(this.components).map(function (c) {
+          return {
+            href: '/edit/components/' + c,
+            text: 'edit.entry_components_' + c
+          };
+        }));
+      }
+
+      if (to.matched.find(function (e) {
+        return e.path == '/edit/components/:id';
+      })) {
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
+      }
+    }
+  },
+  watch: {
+    $route: function $route(to, from) {
+      this.checkMenu(to, from);
     }
   },
   beforeMount: function beforeMount() {
+    this.checkMenu(this.$route);
     this.$store.dispatch('ENTER_EDIT');
   },
   beforeDestroy: function beforeDestroy() {
