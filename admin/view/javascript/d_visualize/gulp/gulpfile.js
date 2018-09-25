@@ -67,7 +67,7 @@ gulp.task("browser_sync_init", function () {
 	if (typeof process.env.HOST !== "undefined") {
 		browserSync({
 			proxy: process.env.HOST,
-			port:3005
+			port:3006
 		});
 	}
 });

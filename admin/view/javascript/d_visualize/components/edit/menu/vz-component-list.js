@@ -5,7 +5,7 @@ Vue.component('vz-component-list', {
 			return this.$store.getters.active_template;
 		},
 		components() {
-			return this.$store.getters.editable_components;
+			return this.$store.getters.components;
 		},
 	},
 	methods: {}

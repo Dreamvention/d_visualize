@@ -11,6 +11,7 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		d_visualize.initState({{ state|json_encode }});
+		Vue.directive(VueModelVuex)
 		Vue.use(Vuex);
 		Vue.use(new VueOptions({{ options|json_encode }}));
 		var router = new VueRouter({

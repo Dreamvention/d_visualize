@@ -35,7 +35,7 @@ class ModelExtensionDVisualizeTemplate extends Model
             $this->config->load($this->codename . '/template/' . $codename);
             $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
             $result[$codename] = array(
-                'source' => 'config',
+                'source'  => 'config',
                 'setting' => $config,
             );
         }
@@ -71,10 +71,8 @@ class ModelExtensionDVisualizeTemplate extends Model
             }
         }
         //if there will be changes from DB it will replace
-        $db_saved_template_setting = $this->getTemplates(
-            array('template_codename' => $active_template_codename,
-                'skin' => $active_template['active_skin']));
-        return $db_saved_template_setting ? $db_saved_template_setting : $active_template;
+        $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
+        return $db_saved_template_setting ? (array) json_decode($db_saved_template_setting['setting'],true) : $active_template;
     }
 
     public function assingChanges($part_of_array, $component, $active_template_codename, $active_skin, $partials = false)
@@ -111,6 +109,12 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';
         return $this->db->query($sql)->rows;
+    }
+
+    public function getTemplateByCodename($template_codename)
+    {
+        $sql = 'SELECT * from ' . DB_PREFIX . "vz_templates where codename='" . $template_codename . "'";
+        return $this->db->query($sql)->row;
     }
 
     public function validate_templates($data)
@@ -152,6 +156,5 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $result;
     }
-
 
 }

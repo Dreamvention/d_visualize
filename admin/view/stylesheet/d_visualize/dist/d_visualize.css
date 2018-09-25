@@ -271,6 +271,55 @@ body h1{
 
   }
 
+/* Анимации появления и исчезновения могут иметь */
+
+/* различные продолжительности и динамику.       */
+
+.slide-fade-enter-active {
+  -webkit-transition: all .8s ease;
+  -o-transition: all .8s ease;
+  transition: all .8s ease;
+}
+
+.slide-fade-leave-active {
+}
+
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active до версии 2.1.8 */ {
+  -webkit-transform: translateX(1rem);
+      -ms-transform: translateX(1rem);
+          transform: translateX(1rem);
+  opacity: 0;
+}
+
+.flip-list-move {
+  -webkit-transition: -webkit-transform 3s;
+  transition: -webkit-transform 3s;
+  -o-transition: transform 3s;
+  transition: transform 3s;
+  transition: transform 3s, -webkit-transform 3s;
+}
+
+.list-item {
+}
+
+.list-enter-active{
+  -webkit-transition: all 1.2s;
+  -o-transition: all 1.2s;
+  transition: all 1.2s;
+}
+
+.list-leave-active{
+}
+
+.list-leave-to{
+  opacity: 0;
+}
+
+.list-enter /* .list-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+
 .help{
   -webkit-border-radius: 100%;
           border-radius: 100%;
@@ -406,6 +455,11 @@ margin-left: rem(20);
     padding-top: 3rem;
     padding-left: 3rem;
   }
+
+.vz-edit-navigation__nav{
+   max-height: 40rem;
+   overflow-Y: scroll ;
+ }
 
 .vz-edit-menu {
     padding-right: 0.5rem;

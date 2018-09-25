@@ -2,6 +2,7 @@
 $_['d_visualize_template_jag_setting'] = array(
     'title'          => 'Jag skin',
     'codename'      => 'jag',
+    'active_skin' => 'jag',
     'description'   => 'Skin from default opencart',
     'page'        => array(
         'default'                      => array(

@@ -1,0 +1,31 @@
+/* Анимации появления и исчезновения могут иметь */
+/* различные продолжительности и динамику.       */
+.slide-fade-enter-active {
+  transition: all .8s ease;
+}
+.slide-fade-leave-active {
+}
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active до версии 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+
+.flip-list-move {
+  transition: transform 3s;
+}
+
+.list-item {
+}
+.list-enter-active{
+  transition: all 1.2s;
+}
+.list-leave-active{
+}
+.list-leave-to{
+  opacity: 0;
+}
+.list-enter /* .list-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}

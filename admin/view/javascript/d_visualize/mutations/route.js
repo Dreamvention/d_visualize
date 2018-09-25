@@ -10,8 +10,11 @@ d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
 	state.menu.navigation_history.push(state.menu.navigation);
 	var new_history = JSON.parse(JSON.stringify(state.menu.navigation_history));
 	var new_navigation = JSON.parse(JSON.stringify(payload));
-	Vue.set(state.menu, 'navigation_history', new_history);
-	Vue.set(state.menu, 'navigation', new_navigation);
+	Vue.set(state, 'menu', JSON.parse(JSON.stringify({
+		hidden: state.menu.hidden,
+		navigation:new_navigation,
+		navigation_history:new_history
+	})));
 
 };
 d_visualize.mutations['PUSH_EDIT_HISTORY'] = function (state, payload) {

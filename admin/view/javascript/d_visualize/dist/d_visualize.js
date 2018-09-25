@@ -106,6 +106,30 @@ d_visualize.actions['SHOW_MENU'] = function (context, payload) {
   context.commit('SHOW_MENU', payload);
 };
 
+d_visualize.actions['CHANGE_CURRENT_COMPONENT'] = function (context, payload) {
+  context.commit('CHANGE_CURRENT_COMPONENT', payload);
+};
+
+d_visualize.actions['SAVE_TEMPLATE'] = function (context, payload) {
+  context.commit('LOADING_START');
+  $.post(context.state.config.save_template_url, {
+    template_codename: context.getters.setting.active_template,
+    template: context.getters.active_template
+  }, function (data, status) {
+    if (status === 'success') {
+      context.dispatch('RELOAD_IFRAME');
+      context.commit('LOADING_END');
+      alertify.success(data['success']); // if (!_.isUndefined(payload) && !_.isUndefined(payload.callback) && _.isFunction(payload.callback)) {
+      // 	payload.callback(data)
+      // }
+    }
+  }, 'json').fail(function (e, m) {
+    context.commit('LOADING_END');
+    alertify.error(m);
+    alertify.error(app.$i18n.t('error.save_content'));
+  });
+};
+
 d_visualize.actions['CHANGE_TEMPLATE'] = function (context, payload) {
   context.commit('CHANGE_TEMPLATE', payload);
 
@@ -120,6 +144,11 @@ d_visualize.actions['POP_EDIT_HISTORY'] = function (context, payload) {
 
 d_visualize.actions['PUSH_EDIT_HISTORY'] = function (context, payload) {
   context.commit('PUSH_EDIT_HISTORY', payload);
+};
+
+d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
+  var iframe = document.getElementById('iframe');
+  iframe.src = iframe.src;
 };
 
 d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
@@ -179,9 +208,16 @@ Vue.component('vz-edit-menu', {
   computed: {
     active_template: function active_template() {
       return this.$store.getters.active_template;
+    },
+    edit_history: function edit_history() {
+      return this.$store.getters.edit_history;
     }
   },
-  methods: {}
+  methods: {
+    saveTemplate: function saveTemplate() {
+      this.$store.dispatch('SAVE_TEMPLATE');
+    }
+  }
 });
 Vue.component('vz-edit-navigation', {
   template: '#vz-edit-navigation',
@@ -190,10 +226,18 @@ Vue.component('vz-edit-navigation', {
       return this.$store.getters.menu;
     }
   },
+  data: function data() {
+    return {
+      items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    };
+  },
   methods: {
     to: function to(path) {
       this.$store.dispatch('PUSH_EDIT_HISTORY', path);
       this.$router.push(path);
+    },
+    shuffle: function shuffle() {
+      this.items = _.shuffle(this.items);
     }
   },
   mounted: function mounted() {}
@@ -229,10 +273,75 @@ Vue.component('vz-component-list', {
       return this.$store.getters.active_template;
     },
     components: function components() {
-      return this.$store.getters.editable_components;
+      return this.$store.getters.components;
     }
   },
   methods: {}
+});
+Vue.component('vz-component', {
+  template: '#vz-component',
+  computed: {
+    component: {
+      get: function get() {
+        return this.$store.getters.component;
+      }
+    },
+    componentTemplate: {
+      get: function get() {
+        return this.$store.getters.component.template;
+      },
+      set: function set(value) {
+        console.log(value);
+      }
+    },
+    componentId: function componentId() {
+      return this.$store.state.route.params.id;
+    },
+    componentName: function componentName() {
+      return this.$t('edit.entry_' + this.$store.state.route.params.id);
+    },
+    available_components: function available_components() {
+      return this.$store.getters.available_components;
+    },
+    templateVariations: function templateVariations() {
+      if (this.component) {
+        return _.map(this.available_components[this.componentId], function (c, c_key) {
+          return {
+            key: c_key,
+            template: c.template
+          };
+        });
+      }
+    },
+    stylesheetVariations: function stylesheetVariations() {
+      if (this.component) {
+        return _.map(this.available_components[this.componentId], function (c, c_key) {
+          return {
+            key: c_key,
+            stylesheet: c.stylesheet
+          };
+        });
+      }
+    }
+  },
+  methods: {
+    updateMessage: function updateMessage(e) {
+      console.log(e); // this.$store.commit('updateMessage', e.target.value)
+    },
+    chageTemplate: function chageTemplate(e) {
+      console.log($(e.target).val());
+    },
+    update: function update(e, options) {
+      console.log($(options.data.component));
+      var new_component = $.extend(true, {}, this.component, options.data.component);
+      console.log(new_component.stylesheet);
+      this.$store.commit('UPDATE_COMPONENT', {
+        active_template_id: this.$store.getters.setting.active_template,
+        component_id: this.componentId,
+        component: new_component
+      });
+    }
+  }
 });
 Vue.component('vz-edit-back', {
   template: '#vz-edit-back',
@@ -256,7 +365,7 @@ Vue.component('vz-edit-back', {
       if (this.close) {
         this.$router.push(this.edit_history[0]);
       } else {
-        this.$router.go(-1);
+        this.$router.push(this.edit_history[this.edit_history.length - 2]);
         this.$store.dispatch('POP_EDIT_HISTORY');
       }
     }
@@ -511,7 +620,20 @@ Vue.component('viz-switcher', {
   computed: {}
 });
 
-d_visualize.getters.editable_components = function (state) {
+d_visualize.getters.components = function (state, getters) {
+  var components = [];
+
+  if (getters.active_template.setting) {
+    components = _.reduce(getters.active_template.setting.page.default.layout.partial, function (memo, num, k) {
+      memo[k] = num.component[k];
+      return memo;
+    }, {});
+  }
+
+  return components;
+};
+
+d_visualize.getters.available_components = function (state) {
   return state.available_components;
 };
 
@@ -521,6 +643,10 @@ d_visualize.getters.iframe_src = function (state) {
 
 d_visualize.getters.vd_loaded = function (state) {
   return state.vd_loaded;
+};
+
+d_visualize.getters.component = function (state) {
+  return state.current_component;
 };
 
 d_visualize.getters.templates = function (state) {
@@ -575,9 +701,7 @@ d_visualize.getters.loading = function (state) {
   return state.loading;
 };
 
-d_visualize.state.templates = {};
 d_visualize.state.setting = {};
-d_visualize.state.iframe_src = '';
 
 d_visualize.mutations['LOAD_CONTENT_FAIL'] = function (state, payload) {};
 
@@ -587,12 +711,19 @@ d_visualize.mutations['LOAD_CONTENT_SUCCESS'] = function (state, payload) {
   Vue.set(state.setting, 'auto_save', payload.setting.auto_save);
   Vue.set(state, 'templates', payload.templates);
   Vue.set(state, 'available_components', payload.available_components);
+  Vue.set(state, 'theme_components', payload.theme_components);
   Vue.set(state, 'iframe_src', payload.iframe_src);
 };
 
+d_visualize.state.current_component = undefined;
+d_visualize.state.theme_components = [];
 d_visualize.state.vd_loaded = false;
 d_visualize.state.iframe_src = '';
 d_visualize.state.available_components = [];
+
+d_visualize.mutations['CHANGE_CURRENT_COMPONENT'] = function (state, payload) {
+  Vue.set(state, 'current_component', payload);
+};
 
 d_visualize.mutations['CHANGE_IFRAME_SRC'] = function (state, payload) {
   Vue.set(state, 'iframe_src', payload);
@@ -613,6 +744,16 @@ d_visualize.mutations['LOAD_VISUAL_HEADER'] = function (state, payload) {
 d_visualize.mutations['LOAD_VISUAL_FOOTER'] = function (state, payload) {
   Vue.set(state, 'iframe_src', payload);
 };
+
+d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
+  // state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component[payload.component_id] = payload.component;
+  Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component, payload.component_id, payload.component);
+  console.log(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component); // state.theme_components[payload.id] = payload.component;
+  // var new_theme_components = JSON.parse(JSON.stringify(state.theme_components));
+  // Vue.set(state, 'theme_components', new_theme_components);
+};
+
+d_visualize.state.templates = {};
 
 d_visualize.mutations['CHANGE_TEMPLATE'] = function (state, payload) {
   Vue.set(state.setting, 'active_template', payload.value);
@@ -639,8 +780,11 @@ d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
   state.menu.navigation_history.push(state.menu.navigation);
   var new_history = JSON.parse(JSON.stringify(state.menu.navigation_history));
   var new_navigation = JSON.parse(JSON.stringify(payload));
-  Vue.set(state.menu, 'navigation_history', new_history);
-  Vue.set(state.menu, 'navigation', new_navigation);
+  Vue.set(state, 'menu', JSON.parse(JSON.stringify({
+    hidden: state.menu.hidden,
+    navigation: new_navigation,
+    navigation_history: new_history
+  })));
 };
 
 d_visualize.mutations['PUSH_EDIT_HISTORY'] = function (state, payload) {
@@ -785,7 +929,7 @@ Vue.component('vz-edit-theme', {
       return this.$store.getters.menu;
     },
     components: function components() {
-      return this.$store.getters.editable_components;
+      return this.$store.getters.components;
     }
   },
   methods: {
@@ -823,6 +967,7 @@ Vue.component('vz-edit-theme', {
         return e.path == '/edit/components/:id';
       })) {
         this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
+        this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
       }
     }
   },

@@ -83,6 +83,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         //Other libraries
         $this->document->addScript('view/javascript/d_visualize/lib/sync.js');
         $this->document->addScript('view/javascript/d_visualize/lib/VueOptions.js');
+        $this->document->addScript('view/javascript/d_visualize/lib/vue-model-vuex.js');
         $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
 
         //visualize styles
@@ -107,6 +108,7 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $state = array();
         $state['config']['save_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/save');
+        $state['config']['save_template_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveTemplateUrl');
         $state['config']['update_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/updateSetting');
         $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadState');
         $data['state'] = $state;
@@ -155,6 +157,18 @@ class ControllerExtensionModuleDVisualize extends Controller
         return $data;
     }
 
+    public function saveTemplateUrl()
+    {
+        $saved_template = $this->{$this->model_template}->saveTemplate(
+            array(
+                'template_codename' => $this->request->post['template_codename'],
+                'template'          => $this->request->post['template'],
+                'store_id'          => $this->store_id)
+        );
+        $this->response->setOutput(json_encode(array('success' => $this->language->get('text_success_template'), 'template' => $saved_template)));
+
+    }
+
     public function save()
     {
         try {
@@ -189,6 +203,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting['auto_save'] = $this->setting_visualize['auto_save'];
         $setting['status'] = (int)$this->status_visualize;
         $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
+//        $json['theme_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getThemeComponents('common/home',$this->setting_visualize['active_template']);
         $param = array();
         if ($this->request->server['HTTPS']) {
             $store_url = HTTPS_SERVER;

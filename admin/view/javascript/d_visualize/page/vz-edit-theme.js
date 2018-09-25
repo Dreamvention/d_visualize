@@ -16,7 +16,7 @@ Vue.component('vz-edit-theme', {
 			return this.$store.getters.menu;
 		},
 		components() {
-			return this.$store.getters.editable_components;
+			return this.$store.getters.components;
 		},
 	},
 	methods: {
@@ -45,7 +45,8 @@ Vue.component('vz-edit-theme', {
 			if (to.matched.find(e=>{
 				return e.path == '/edit/components/:id';
 			})) {
-				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT',[]);
+				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
+				this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
 			}
 		}
 	},
