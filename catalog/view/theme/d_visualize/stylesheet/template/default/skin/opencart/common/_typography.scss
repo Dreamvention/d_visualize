@@ -1,0 +1,37 @@
+@import "../base/import";
+body, html {
+  font-family: var(--font-main);
+  font-weight: var(--font-normal);
+  color: var(--color-default-darkenx2);
+  font-size: var(--font-size-base);
+  line-height: 20px;
+  width: 100%;
+}
+
+:--heading {
+  font-family: var(--font-main);
+  font-weight: var(--font-light);
+}
+h1,h2,h3{
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+@each $heading in ($headings) {
+  .like-heading-$heading, $heading {
+  font-size: var(--font-size-$heading);
+}
+}
+
+%base_link {
+  text-shadow: 0 1px 0 #fff;
+  cursor: pointer;
+  transition: color .04s ease;
+  &:hover, &:focus {
+    color: #444;
+    text-decoration: none;
+  }
+}
+
+a {
+  @extend %base_link;
+}

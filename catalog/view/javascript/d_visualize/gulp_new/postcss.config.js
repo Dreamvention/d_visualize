@@ -3,6 +3,11 @@ module.exports = function () {
 		syntax:'postcss-scss',
 		plugins: [
 			require('precss')({}),
+
+			require('postcss-import')({
+				plugins: ['precss']
+			}),
+			require('precss')({}),
 			// require('autoprefixer')({ browsers : ['last 15 versions'] }),
 			require('postcss-pxtorem')({
 				rootValue: 14,
@@ -13,7 +18,6 @@ module.exports = function () {
 				mediaQuery: true,
 				minPixelValue: 0
 			}),
-			require('postcss-import')({}),
 			require('postcss-font-magician')({
 				protocol: 'https:',
 				foundries: 'bootstrap google'

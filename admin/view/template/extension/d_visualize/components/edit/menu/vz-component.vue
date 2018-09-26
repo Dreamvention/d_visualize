@@ -1,15 +1,12 @@
 <template id="vz-component">
     <div class="vz-component">
         <h2 class="vz-component__heading"> {{componentName}}</h2>
-        <h2 class="vz-component__heading"> {{componentKey}}</h2>
         <div class="form-group">
-            <label for=""> {{$t('edit.entry_template')}}</label>
-
+            <label for=""> {{$t('edit.entry_component_skin')}} - {{componentKey}}</label>
             <select class="form-control" v-model-vuex="componentKey">
                 <option v-for="(template) in templateVariations"
-                        :value="template.key"
-                >
-                    {{$t('edit.entry_'+template.key)}}
+                        :value="template">
+                    {{template}}
                 </option>
             </select>
         </div>

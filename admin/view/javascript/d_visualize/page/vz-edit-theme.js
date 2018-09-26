@@ -27,7 +27,7 @@ Vue.component('vz-edit-theme', {
 			if (to.path === '/edit') {
 				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT',
 					[
-						{href: '/edit/components', text: 'edit.entry_components'},
+						{href: '/edit/components', text: 'edit.entry_common_components'},
 						{href: '/edit/vdh', text: 'edit.vdh'},
 						{href: '/edit/vdf', text: 'edit.vdf'}
 					]);
@@ -38,7 +38,7 @@ Vue.component('vz-edit-theme', {
 			if (to.path === '/edit/components') {
 				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT',
 					Object.keys(this.components).map((c)=>{
-						return {href: '/edit/components/' + c, text: 'edit.entry_components_' + c};
+						return {href: '/edit/components/' + c, text: 'edit.entry_' + c};
 					})
 				);
 			}

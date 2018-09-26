@@ -30,6 +30,14 @@ $_['button_save_and_stay'] = 'Save and stay';
 $_['button_save'] = 'Save';
 $_['button_cancel'] = 'Cancel';
 
+//$_['entry_template'] = 'Template';
+$_['entry_common_components'] = 'Common components';
+$_['entry_component_skin'] = 'Current skin';
+$_['entry_custom_style'] = 'Custom style';
+$_['entry_d_product_thumb'] = 'Product thumb';
+$_['entry_breadcrumb'] = 'Breadcrumbs';
+$_['entry_d_product_sort'] = 'Category navigation';
+
 $_['error_load_content'] = 'Error load content';
 
 

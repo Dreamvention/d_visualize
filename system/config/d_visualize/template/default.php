@@ -2,7 +2,7 @@
 $_['d_visualize_template_default_setting'] = array(
     'title' => 'default template',
     'codename' => 'default',
-    'active_skin' => 'hydrus',
+    'active_skin' => 'opencart',
     'description' => 'template from default opencart',
     'debug' => 1,
     'page' => array(
@@ -24,7 +24,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/partial/d_product_thumb.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_thumb' => array(
-                                'skin' => 'hydrus',
+                                'skin' => 'opencart',
                                 'template' => 'd_visualize/template/component/d_product_thumb/default.twig',
                                 'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_product_thumb/default.css',
                             )
@@ -50,7 +50,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
                         'component' => array(
                             'breadcrumb' => array(
-                                'template' => 'd_visualize/template/component/d_breadcrumb/default.twig'
+                                'template' => 'd_visualize/template/component/breadcrumb/default.twig'
                             )
                         )
                     ),
@@ -58,7 +58,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/partial/d_product_sort.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_sort' => array(
-                                'skin'=>'hydrus',
+                                'skin'=>'opecart',
                                 'template' => 'd_visualize/template/component/d_product_sort/default.twig',
                                 'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_product_sort/default.css'
                             )
@@ -254,9 +254,10 @@ $_['d_visualize_template_default_setting'] = array(
             'layout' => array(
                 'component' => array(
                     'product_category' => array(
-                        'skin'=>'hydrus',
+                        'skin'=>'opencart',
                         'template' => 'd_visualize/template/component/product_category/default.twig',
-                        'description_after' => true,
+                        'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_category/default.css',
+                        'description_after' => false,
                         'description' => array(
                             'template' => 'd_visualize/template/component/product/category_description/default.twig')
                     )

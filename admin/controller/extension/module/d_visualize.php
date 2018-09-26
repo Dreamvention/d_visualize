@@ -250,6 +250,13 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['edit']['publish'] = $this->language->get('entry_publish');
         $local['edit']['vdh'] = $this->language->get('entry_visual_header');
         $local['edit']['vdf'] = $this->language->get('entry_visual_footer');
+        $local['edit']['entry_common_components'] = $this->language->get('entry_common_components');
+        $local['edit']['entry_component_skin'] = $this->language->get('entry_component_skin');
+        $local['edit']['entry_custom_style'] = $this->language->get('entry_custom_style');
+        $local['edit']['entry_d_product_thumb'] = $this->language->get('entry_d_product_thumb');
+        $local['edit']['entry_breadcrumb'] = $this->language->get('entry_breadcrumb');
+        $local['edit']['entry_d_product_sort'] = $this->language->get('entry_d_product_sort');
+        $local['edit']['entry_*'] = $this->language->get('entry_*');
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');

@@ -301,13 +301,8 @@ Vue.component('vz-component', {
       }
     },
     templateVariations: function templateVariations() {
-      if (this.component) {
-        return _.map(this.available_components[this.componentId], function (c, c_key) {
-          return {
-            key: c_key
-          };
-        });
-      }
+      console.log(this.available_components);
+      return _.keys(this.available_components[this.componentId]);
     }
   },
   methods: {
@@ -597,7 +592,11 @@ d_visualize.getters.components = function (state, getters) {
 
   if (getters.active_template.setting) {
     components = _.reduce(getters.active_template.setting.page.default.layout.partial, function (memo, num, k) {
-      memo[k] = num.component[k];
+      //only thouse who have skin overloading
+      if (num.component[k].skin) {
+        memo[k] = num.component[k];
+      }
+
       return memo;
     }, {});
   }
@@ -914,7 +913,7 @@ Vue.component('vz-edit-theme', {
       if (to.path === '/edit') {
         this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', [{
           href: '/edit/components',
-          text: 'edit.entry_components'
+          text: 'edit.entry_common_components'
         }, {
           href: '/edit/vdh',
           text: 'edit.vdh'
@@ -932,7 +931,7 @@ Vue.component('vz-edit-theme', {
         this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', Object.keys(this.components).map(function (c) {
           return {
             href: '/edit/components/' + c,
-            text: 'edit.entry_components_' + c
+            text: 'edit.entry_' + c
           };
         }));
       }

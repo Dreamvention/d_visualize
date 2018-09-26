@@ -75,7 +75,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             }
             // if last view is laoded we add scripts and Style from our d_visualize
             if ($view == $view_route) {
-                FB::log($this->setting_active_template['page']['default']['layout']['partial']);
+//                FB::log($this->setting_active_template['page']['default']['layout']['partial']);
 
                 $data['header'] = $this->model_helper->addDocumentPageData(array(
                     'scripts' => $this->pageScripts,

@@ -2,7 +2,10 @@ d_visualize.getters.components = function (state, getters) {
 	let components = [];
 	if (getters.active_template.setting) {
 		components = _.reduce(getters.active_template.setting.page.default.layout.partial, function (memo, num, k) {
-			memo[k] = num.component[k];
+			//only thouse who have skin overloading
+			if (num.component[k].skin){
+				memo[k] = num.component[k];
+			}
 			return memo;
 		}, {});
 	}
