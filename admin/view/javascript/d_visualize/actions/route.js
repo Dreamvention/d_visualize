@@ -5,8 +5,7 @@ d_visualize.actions['PUSH_EDIT_HISTORY'] = function (context, payload) {
 	context.commit('PUSH_EDIT_HISTORY', payload);
 };
 d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
-	var iframe = document.getElementById('iframe');
-	iframe.src = iframe.src;
+	$('iframe')[0].contentWindow.location.reload()
 }
 ;d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
 	context.commit('PUSH_IFRAME_HISTORY', payload);

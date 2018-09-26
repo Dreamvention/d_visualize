@@ -19,6 +19,7 @@ Vue.component('vz-edit-back', {
 			if (this.close) {
 				this.$router.push(this.edit_history[0]);
 			} else {
+				console.log(this.edit_history)
 				this.$router.push(this.edit_history[this.edit_history.length-2]);
 				this.$store.dispatch('POP_EDIT_HISTORY');
 			}

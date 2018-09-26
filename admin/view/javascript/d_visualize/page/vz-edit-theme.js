@@ -46,7 +46,7 @@ Vue.component('vz-edit-theme', {
 				return e.path == '/edit/components/:id';
 			})) {
 				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
-				this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
+				// this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
 			}
 		}
 	},

@@ -1,3 +1,5 @@
+d_visualize.state.loading = true;
+
 d_visualize.mutations['LOADING_START'] = function (state, payload) {
 	Vue.set(state, 'loading', true);
 };

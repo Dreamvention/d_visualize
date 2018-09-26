@@ -1,18 +1,8 @@
 Vue.component('vz-component', {
 	template: '#vz-component',
 	computed: {
-		component: {
-			get() {
-				return this.$store.getters.component;
-			}
-		},
-		componentTemplate: {
-			get() {
-				return this.$store.getters.component.template;
-			},
-			set(value) {
-				console.log(value);
-			}
+		component() {
+			return this.$store.getters.component;
 		},
 		componentId() {
 			return this.$store.state.route.params.id;
@@ -23,39 +13,34 @@ Vue.component('vz-component', {
 		available_components() {
 			return this.$store.getters.available_components;
 		},
+		componentKey() {
+			let active_template_codename = this.$store.getters.active_template.setting.active_skin;
+			if (this.component.skin) {
+				return this.component.skin;
+			} else {
+				return active_template_codename;
+			}
+		},
 		templateVariations() {
 			if (this.component) {
 				return _.map(this.available_components[this.componentId], (c, c_key)=>{
-					return {key: c_key, template: c.template};
-				});
-			}
-		},
-		stylesheetVariations() {
-			if (this.component) {
-				return _.map(this.available_components[this.componentId], (c, c_key)=>{
-					return {key: c_key, stylesheet: c.stylesheet};
+					return {key: c_key};
 				});
 			}
 		},
 	},
 	methods: {
-		updateMessage(e) {
-			console.log(e);
-			// this.$store.commit('updateMessage', e.target.value)
-		},
-		chageTemplate(e) {
-			console.log($(e.target).val());
-		},
 		update(e, options) {
-			console.log($(options.data.component))
-			var new_component = $.extend(true, {}, this.component, options.data.component);
-			console.log(new_component.stylesheet)
 			this.$store.commit('UPDATE_COMPONENT', {
 				active_template_id: this.$store.getters.setting.active_template,
 				component_id: this.componentId,
-				component: new_component
+				component_skin: options.value
 			});
 
 		}
+	},
+	beforeMount() {
+		if (this.$store.getters.components[this.componentId])
+			this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.$store.getters.components[this.componentId]);
 	}
 });

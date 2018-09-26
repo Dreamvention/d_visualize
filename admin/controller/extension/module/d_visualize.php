@@ -159,10 +159,11 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     public function saveTemplateUrl()
     {
+
         $saved_template = $this->{$this->model_template}->saveTemplate(
             array(
                 'template_codename' => $this->request->post['template_codename'],
-                'template'          => $this->request->post['template'],
+                'template'          => json_decode(html_entity_decode($this->request->post['template'],ENT_QUOTES,'UTF-8'),true),
                 'store_id'          => $this->store_id)
         );
         $this->response->setOutput(json_encode(array('success' => $this->language->get('text_success_template'), 'template' => $saved_template)));

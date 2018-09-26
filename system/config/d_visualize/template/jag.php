@@ -70,6 +70,7 @@ $_['d_visualize_template_jag_setting'] = array(
                         'template'  => 'd_visualize/template/partial/d_product_thumb.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_thumb' => array(
+                                'skin'  => 'jag',
                                 'template'  => 'd_visualize/template/component/d_product_thumb/jag.twig',
                                 'partials'  => array('d_rating'),//may be if we want to insert component to component we have to just declare only name and can use in component.d_rating
                                 'component' => array(

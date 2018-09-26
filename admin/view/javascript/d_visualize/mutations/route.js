@@ -1,5 +1,5 @@
 d_visualize.state.edit_history = ['/home/dashboard', '/edit'];
-d_visualize.state.iframe_history = ['/'];
+d_visualize.state.iframe_history = [];
 d_visualize.state.menu = {
 	hidden: false,
 	navigation:[],
