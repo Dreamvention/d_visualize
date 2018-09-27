@@ -76,6 +76,11 @@ d_visualize.actions['LOAD_VISUAL_FOOTER'] = function (context, payload) {
 
 d_visualize.actions['ENTER_VISUAL'] = function (context, payload) {
   $('body').addClass('edit_vd');
+  $('#iframe').animate({
+    width: '100%'
+  }, {
+    duration: 500
+  });
   context.dispatch('HIDE_MENU');
   context.commit('ENTER_VISUAL', payload);
 };
@@ -129,6 +134,11 @@ d_visualize.actions['SAVE_TEMPLATE'] = function (context, payload) {
   });
 };
 
+d_visualize.actions['UPDATE_SKIN'] = function (context, payload) {
+  context.commit('UPDATE_SKIN', payload);
+  context.dispatch('SAVE_TEMPLATE');
+};
+
 d_visualize.actions['CHANGE_TEMPLATE'] = function (context, payload) {
   context.commit('CHANGE_TEMPLATE', payload);
 
@@ -151,6 +161,16 @@ d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
 
 d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
   context.commit('PUSH_IFRAME_HISTORY', payload);
+  console.log(context.getters.iframe_history[context.getters.iframe_history.length - 1]);
+  $.post(context.state.config.save_iframe_url, {
+    last_url: context.getters.iframe_history[context.getters.iframe_history.length - 1].href
+  }, function (data, status) {
+    if (status === 'success') {}
+  }, 'json').fail(function (e, m) {
+    // context.commit('LOADING_END');
+    alertify.error(m);
+    alertify.error(app.$i18n.t('error.save_content'));
+  });
 };
 
 d_visualize.actions['CHANGE_NAVIGATION_CONTEXT'] = function (context, payload) {
@@ -197,6 +217,13 @@ Vue.component('vz-edit-controls', {
       } else {
         this.$store.dispatch('HIDE_MENU');
       }
+    },
+    changeIfrmeSize: function changeIfrmeSize(e, ee) {
+      $('#iframe').animate({
+        width: e
+      }, {
+        duration: 500
+      });
     }
   },
   mounted: function mounted() {}
@@ -214,6 +241,13 @@ Vue.component('vz-edit-menu', {
   methods: {
     saveTemplate: function saveTemplate() {
       this.$store.dispatch('SAVE_TEMPLATE');
+    },
+    update: function update(e, options) {
+      // skin upddate
+      this.$store.dispatch('UPDATE_SKIN', {
+        active_template_id: this.active_template.setting.codename,
+        skin: options.value
+      });
     }
   }
 });
@@ -301,7 +335,6 @@ Vue.component('vz-component', {
       }
     },
     templateVariations: function templateVariations() {
-      console.log(this.available_components);
       return _.keys(this.available_components[this.componentId]);
     }
   },
@@ -722,6 +755,12 @@ d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
 
   Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component, payload.component_id, new_component);
   Vue.set(state, 'current_component', new_component);
+}; //main changing skin
+
+
+d_visualize.mutations['UPDATE_SKIN'] = function (state, payload) {
+  console.log(payload);
+  Vue.set(state.templates[payload.active_template_id].setting, 'active_skin', payload.skin);
 };
 
 d_visualize.state.templates = {};

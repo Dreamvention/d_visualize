@@ -22,7 +22,6 @@ Vue.component('vz-component', {
 			}
 		},
 		templateVariations() {
-			console.log(this.available_components)
 			return _.keys(this.available_components[this.componentId]);
 		},
 	},

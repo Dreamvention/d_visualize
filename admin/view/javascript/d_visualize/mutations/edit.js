@@ -37,3 +37,8 @@ d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
 	Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component, payload.component_id, new_component);
 	Vue.set(state, 'current_component', new_component);
 };
+//main changing skin
+d_visualize.mutations['UPDATE_SKIN'] = function (state, payload) {
+	console.log(payload)
+	Vue.set(state.templates[payload.active_template_id].setting, 'active_skin', payload.skin);
+};

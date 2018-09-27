@@ -15,6 +15,18 @@
             <b>{{active_template.setting.codename}}</b>
             <router-link to="/home/dashboard" class="btn btn-primary ">{{$t('edit.change_template')}}</router-link>
         </div>
+        <div class="vz-edit-menu-change_theme" v-if="edit_history.length<=2">
+            <div class="form-group">
+                <label for=""> {{$t('edit.entry_component_skin')}} - {{this.active_template.setting.active_skin}}</label>
+                <select class="form-control" v-model-vuex="this.active_template.setting.active_skin">
+                    <option v-for="(skin) in this.active_template.skines"
+                            :value="skin">
+                        {{skin}}
+                    </option>
+                </select>
+            </div>
+
+        </div>
         <vz-edit-navigation></vz-edit-navigation>
     </div>
 </template>

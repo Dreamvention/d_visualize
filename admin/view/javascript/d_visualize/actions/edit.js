@@ -8,6 +8,11 @@ d_visualize.actions['LOAD_VISUAL_FOOTER'] = function (context, payload) {
 };
 d_visualize.actions['ENTER_VISUAL'] = function (context, payload) {
 	$('body').addClass('edit_vd');
+	$('#iframe').animate(
+		{width: '100%'},
+		{
+			duration: 500,
+		})
 	context.dispatch('HIDE_MENU');
 	context.commit('ENTER_VISUAL', payload);
 };
@@ -53,3 +58,7 @@ d_visualize.actions['SAVE_TEMPLATE'] = function (context, payload) {
 	});
 
 };
+d_visualize.actions['UPDATE_SKIN'] = function (context, payload) {
+	context.commit('UPDATE_SKIN', payload);
+	context.dispatch('SAVE_TEMPLATE')
+}

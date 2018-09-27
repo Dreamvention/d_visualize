@@ -68,6 +68,18 @@ class ControllerExtensionModuleDVisualize extends Controller
                 }
             }
         }
+        //init iframe_src
+        if (!isset($this->session->data['iframe_url'])) {
+            $param = array();
+            if ($this->request->server['HTTPS']) {
+                $store_url = HTTPS_SERVER;
+                $catalog_url = HTTPS_CATALOG;
+            } else {
+                $store_url = HTTP_SERVER;
+                $catalog_url = HTTP_CATALOG;
+            }
+            $this->session->data['iframe_url'] = $catalog_url;
+        }
 
         //Vue JS with Vuex and
         $this->document->addScript("view/javascript/d_vue/vue.min.js");
@@ -111,6 +123,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $state['config']['save_template_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveTemplateUrl');
         $state['config']['update_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/updateSetting');
         $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadState');
+        $state['config']['save_iframe_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveIframeUrl');
         $data['state'] = $state;
         //out put view
         $data['setup'] = false;
@@ -157,13 +170,20 @@ class ControllerExtensionModuleDVisualize extends Controller
         return $data;
     }
 
+    public function saveIframeUrl()
+    {
+        $this->session->data['iframe_url'] = html_entity_decode($this->request->post['last_url']);
+        $json['success'] = $this->language->get('text_success');
+        $this->response->setOutput(json_encode($json));
+    }
+
     public function saveTemplateUrl()
     {
 
         $saved_template = $this->{$this->model_template}->saveTemplate(
             array(
                 'template_codename' => $this->request->post['template_codename'],
-                'template'          => json_decode(html_entity_decode($this->request->post['template'],ENT_QUOTES,'UTF-8'),true),
+                'template'          => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
                 'store_id'          => $this->store_id)
         );
         $this->response->setOutput(json_encode(array('success' => $this->language->get('text_success_template'), 'template' => $saved_template)));
@@ -204,16 +224,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting['auto_save'] = $this->setting_visualize['auto_save'];
         $setting['status'] = (int)$this->status_visualize;
         $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
-//        $json['theme_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getThemeComponents('common/home',$this->setting_visualize['active_template']);
-        $param = array();
-        if ($this->request->server['HTTPS']) {
-            $store_url = HTTPS_SERVER;
-            $catalog_url = HTTPS_CATALOG;
-        } else {
-            $store_url = HTTP_SERVER;
-            $catalog_url = HTTP_CATALOG;
-        }
-        $json['iframe_src'] = $catalog_url;
+        $json['iframe_src'] = $this->session->data['iframe_url'];
         $json['templates'] = $templates;
         $json['setting'] = $setting;
         $json['success'] = $this->language->get('text_success');

@@ -56,9 +56,9 @@ class ModelExtensionDVisualizeTemplate extends Model
         $component = array();
         foreach ($files as $key => $file) {
             $component[basename($file, '.twig')] = array(
-                'template' => $this->codename . '/template/component/' . $dir . '/' . basename($file, '.twig') . '.twig',
-                'preview'  => 'img',
-                'stylesheet'      => $this->codename . '/stylesheet/dist/vz-component/' . $dir . '/' . basename($file, '.twig') . '.css',
+                'template'   => $this->codename . '/template/component/' . $dir . '/' . basename($file, '.twig') . '.twig',
+                'preview'    => 'img',
+                'stylesheet' => $this->codename . '/stylesheet/dist/vz-component/' . $dir . '/' . basename($file, '.twig') . '.css',
             );
         }
         return $component;
@@ -84,12 +84,27 @@ class ModelExtensionDVisualizeTemplate extends Model
             $codename = basename($file, '.php');
             $this->config->load($this->codename . '/template/' . $codename);
             $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
+            $setting = $this->loadTemplateSetting($config, $codename);
             $result[$codename] = array(
                 'source'  => 'config',
-                'setting' => $this->loadTemplateSetting($config, $codename),
+                'setting' => $setting,
+                'skines'  => $this->loadAvailableSkines($setting['codename']),
                 'img'     => $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '.png' : "no_image.png"), 300, 400),
 
             );
+        }
+        return $result;
+    }
+
+    public function loadAvailableSkines($active_template_codename)
+    {
+        $result = array();
+        $componenDir = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $active_template_codename . '/skin';
+        if (is_dir($componenDir)) {
+            $scanned_directory = array_diff(scandir($componenDir), array('..', '.'));
+            foreach ($scanned_directory as $dir) {
+                $result[] = $dir;
+            }
         }
         return $result;
     }
@@ -122,7 +137,7 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         //if there will be changes from DB it will replace
         $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
-        return $db_saved_template_setting ?(array) json_decode($db_saved_template_setting['setting'],true) : $active_template;
+        return $db_saved_template_setting ? (array)json_decode($db_saved_template_setting['setting'], true) : $active_template;
     }
 
     /**

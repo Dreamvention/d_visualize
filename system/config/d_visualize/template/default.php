@@ -50,6 +50,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/partial/d_breadcrumb.twig', // here can be custom settings for this template
                         'component' => array(
                             'breadcrumb' => array(
+                                'skin' => 'opencart',
                                 'template' => 'd_visualize/template/component/breadcrumb/default.twig'
                             )
                         )
@@ -58,7 +59,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/partial/d_product_sort.twig', // here can be custom settings for this template
                         'component' => array(
                             'd_product_sort' => array(
-                                'skin'=>'opecart',
+                                'skin'=>'opencart',
                                 'template' => 'd_visualize/template/component/d_product_sort/default.twig',
                                 'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_product_sort/default.css'
                             )
@@ -92,6 +93,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/partial/d_rating.twig',
                         'component' => array(
                             'd_rating' => array(
+                                'skin'=>'opencart',
                                 'template' => 'd_visualize/template/component/d_rating/default.twig'
                             )
                         )
@@ -173,7 +175,8 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/partial/d_notification.twig',
                         'component' => array(
                             'd_notification' => array(
-                                'template' => 'd_visualize/template/component/d_notification/default2.twig',
+                                'skin'=>'opencart',
+                                'template' => 'd_visualize/template/component/d_notification/default.twig',
                             ),)
                     )
                 ,
