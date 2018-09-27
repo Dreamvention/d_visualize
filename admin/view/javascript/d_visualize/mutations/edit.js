@@ -23,22 +23,24 @@ d_visualize.mutations['LOAD_VISUAL_FOOTER'] = function (state, payload) {
 };
 
 //main changing component
+d_visualize.mutations['UPDATE_COMPONENT_CURRENT'] = function (state, payload) {
+	Vue.set(state, 'current_component', payload);
+};
 d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
 	let old_component = state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component[payload.component_id];
 	let new_component = JSON.parse(JSON.stringify(old_component));
 	new_component.skin = payload.component_skin;
-	new_component.template = old_component.template.replace(old_component.skin, new_component.skin);
+	new_component.template = old_component.template.replace(/(\w+).twig/, new_component.skin + '.twig');
 	if (old_component.stylesheet) {
-		new_component.stylesheet = old_component.stylesheet.replace(old_component.skin, new_component.skin);
+		new_component.stylesheet = old_component.stylesheet.replace(/(\w+).css/, new_component.skin + '.css');
 	} else {
 		//if there no styles add them by default
 		new_component.stylesheet = 'd_visualize/stylesheet/dist/vz-component/' + payload.component_id + '/' + new_component.skin + '.css';
 	}
+	console.log(new_component);
 	Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component, payload.component_id, new_component);
-	Vue.set(state, 'current_component', new_component);
 };
 //main changing skin
 d_visualize.mutations['UPDATE_SKIN'] = function (state, payload) {
-	console.log(payload)
 	Vue.set(state.templates[payload.active_template_id].setting, 'active_skin', payload.skin);
 };

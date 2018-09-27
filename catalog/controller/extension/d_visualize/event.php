@@ -79,7 +79,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
 
                 $data['header'] = $this->model_helper->addDocumentPageData(array(
                     'scripts' => $this->pageScripts,
-                    'styles' => $this->pageStyles),
+                    'styles'  => $this->pageStyles),
                     $data);
             }
         }
@@ -101,8 +101,10 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/dist/vz-core/core.css');
 
         //components stylesheet
-        foreach ($this->model_template->getAllUsages($this->setting_active_template['page'], 'stylesheet') as $style){
-            $this->document->addStyle('catalog/view/theme/'.$style);
+        foreach ($this->model_template->getAllUsages($this->setting_active_template['page'], 'stylesheet') as $style) {
+            if (file_exists(DIR_APPLICATION . 'view/theme/' . $style)) {
+                $this->document->addStyle('catalog/view/theme/' . $style);
+            }
         }
         //add current template stylesheet
         $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_visualize['active_template'] . '.css';
@@ -122,7 +124,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             $this->document->addScript($template_script);
         }
 
-        
+
         $data['post_styles'] = $this->document->getStyles();
         $data['scripts'] = $this->document->getScripts();
         $data['pre_scripts'] = array();
@@ -136,6 +138,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $data['custom_styles'] = $this->setting_active_template['custom_styles'];
 
     }
+
     public function controller_all_before_d_visualize(&$view, &$data)
     {
         //todo remove unnesesary event

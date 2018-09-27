@@ -20,6 +20,6 @@ d_visualize.getters.iframe_src = function (state) {
 d_visualize.getters.vd_loaded = function (state) {
 	return state.vd_loaded;
 };
-d_visualize.getters.component = function (state) {
-	return state.current_component;
+d_visualize.getters.component = function (state,getters) {
+	return getters.components[state.route.params.id];
 };

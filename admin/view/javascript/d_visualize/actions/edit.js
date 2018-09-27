@@ -12,13 +12,13 @@ d_visualize.actions['ENTER_VISUAL'] = function (context, payload) {
 		{width: '100%'},
 		{
 			duration: 500,
-		})
+		});
 	context.dispatch('HIDE_MENU');
 	context.commit('ENTER_VISUAL', payload);
 };
 d_visualize.actions['LEAVE_VISUAL'] = function (context, payload) {
 	$('body').removeClass('edit_vd');
-	console.log(context.getters.iframe_history)
+	console.log(context.getters.iframe_history);
 	context.getters.iframe_history.pop();//this route is a vdh route
 	let last_iframe_page = context.getters.iframe_history.pop();
 	context.dispatch('SHOW_MENU');
@@ -60,5 +60,23 @@ d_visualize.actions['SAVE_TEMPLATE'] = function (context, payload) {
 };
 d_visualize.actions['UPDATE_SKIN'] = function (context, payload) {
 	context.commit('UPDATE_SKIN', payload);
-	context.dispatch('SAVE_TEMPLATE')
+	//comopnents who can be changed
+	let changable_components = _.pick(context.getters.components, (component, key)=>{
+		return _.find(_.keys(context.getters.available_components[key]), (c_key)=>{
+			return c_key == payload.skin;
+		});
+	});
+	_.map(changable_components,(component,key)=>{
+		context.dispatch('UPDATE_COMPONENT', {
+			active_template_id: context.getters.setting.active_template,
+			component_id: key,
+			component_skin: payload.skin
+		})
+	})
+	// context.dispatch('SAVE_TEMPLATE')
 }
+;
+d_visualize.actions['UPDATE_COMPONENT'] = function (context, payload) {
+	context.commit('UPDATE_COMPONENT', payload);
+	// context.dispatch('SAVE_TEMPLATE')
+};

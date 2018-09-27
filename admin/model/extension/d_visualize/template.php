@@ -113,28 +113,28 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         //check if skin overload template
         //check components overloading
-        foreach ($this->getAllUsages($active_template['page']['default']['layout']['partial'], 'component') as $component) {
-            //check on skin overloading the partials
-            $active_template['page']['default']['layout']['partial']
-                = $this->assingChanges($active_template['page']['default']['layout']['partial'],
-                $component,
-                $active_template['codename'],
-                $active_template['active_skin'],
-                true
-            );
-        }
+//        foreach ($this->getAllUsages($active_template['page']['default']['layout']['partial'], 'component') as $component) {
+//            //check on skin overloading the partials
+//            $active_template['page']['default']['layout']['partial']
+//                = $this->assingChanges($active_template['page']['default']['layout']['partial'],
+//                $component,
+//                $active_template['codename'],
+//                $active_template['active_skin'],
+//                true
+//            );
+//        }
         //check on skin overloading the components
-        foreach (array_keys($active_template['page']) as $path) {
-            if ($path !== 'default') {
-                foreach ($this->getAllUsages($active_template['page'][$path]['layout'], 'component') as $component) {
-                    $active_template['page'][$path]['layout']
-                        = $this->assingChanges($active_template['page'][$path]['layout'],
-                        $component,
-                        $active_template['codename'],
-                        $active_template['active_skin']);
-                }
-            }
-        }
+//        foreach (array_keys($active_template['page']) as $path) {
+//            if ($path !== 'default') {
+//                foreach ($this->getAllUsages($active_template['page'][$path]['layout'], 'component') as $component) {
+//                    $active_template['page'][$path]['layout']
+//                        = $this->assingChanges($active_template['page'][$path]['layout'],
+//                        $component,
+//                        $active_template['codename'],
+//                        $active_template['active_skin']);
+//                }
+//            }
+//        }
         //if there will be changes from DB it will replace
         $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
         return $db_saved_template_setting ? (array)json_decode($db_saved_template_setting['setting'], true) : $active_template;

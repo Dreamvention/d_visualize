@@ -135,8 +135,26 @@ d_visualize.actions['SAVE_TEMPLATE'] = function (context, payload) {
 };
 
 d_visualize.actions['UPDATE_SKIN'] = function (context, payload) {
-  context.commit('UPDATE_SKIN', payload);
-  context.dispatch('SAVE_TEMPLATE');
+  context.commit('UPDATE_SKIN', payload); //comopnents who can be changed
+
+  var changable_components = _.pick(context.getters.components, function (component, key) {
+    return _.find(_.keys(context.getters.available_components[key]), function (c_key) {
+      return c_key == payload.skin;
+    });
+  });
+
+  _.map(changable_components, function (component, key) {
+    context.dispatch('UPDATE_COMPONENT', {
+      active_template_id: context.getters.setting.active_template,
+      component_id: key,
+      component_skin: payload.skin
+    });
+  }); // context.dispatch('SAVE_TEMPLATE')
+
+};
+
+d_visualize.actions['UPDATE_COMPONENT'] = function (context, payload) {
+  context.commit('UPDATE_COMPONENT', payload); // context.dispatch('SAVE_TEMPLATE')
 };
 
 d_visualize.actions['CHANGE_TEMPLATE'] = function (context, payload) {
@@ -161,7 +179,6 @@ d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
 
 d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
   context.commit('PUSH_IFRAME_HISTORY', payload);
-  console.log(context.getters.iframe_history[context.getters.iframe_history.length - 1]);
   $.post(context.state.config.save_iframe_url, {
     last_url: context.getters.iframe_history[context.getters.iframe_history.length - 1].href
   }, function (data, status) {
@@ -328,23 +345,32 @@ Vue.component('vz-component', {
     componentKey: function componentKey() {
       var active_template_codename = this.$store.getters.active_template.setting.active_skin;
 
-      if (this.component.skin) {
+      if (this.component.skin === active_template_codename) {
         return this.component.skin;
       } else {
         return active_template_codename;
       }
     },
+    hasComponentKey: function hasComponentKey() {
+      return _.contains(this.componentKey, this.templateVariations);
+    },
     templateVariations: function templateVariations() {
-      return _.keys(this.available_components[this.componentId]);
+      var _this = this;
+
+      var variations = _.keys(this.available_components[this.componentId]);
+
+      return _.reject(variations, function (k) {
+        return k == _this.componentKey;
+      });
     }
   },
   methods: {
     update: function update(e, options) {
-      this.$store.commit('UPDATE_COMPONENT', {
+      this.$store.dispatch('UPDATE_COMPONENT', {
         active_template_id: this.$store.getters.setting.active_template,
         component_id: this.componentId,
         component_skin: options.value
-      });
+      }); // this.$store.dispatch('UPDATE_COMPONENT_CURRENT', {});
     }
   },
   beforeMount: function beforeMount() {
@@ -649,8 +675,8 @@ d_visualize.getters.vd_loaded = function (state) {
   return state.vd_loaded;
 };
 
-d_visualize.getters.component = function (state) {
-  return state.current_component;
+d_visualize.getters.component = function (state, getters) {
+  return getters.components[state.route.params.id];
 };
 
 d_visualize.getters.templates = function (state) {
@@ -740,26 +766,29 @@ d_visualize.mutations['LOAD_VISUAL_FOOTER'] = function (state, payload) {
 }; //main changing component
 
 
+d_visualize.mutations['UPDATE_COMPONENT_CURRENT'] = function (state, payload) {
+  Vue.set(state, 'current_component', payload);
+};
+
 d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
   var old_component = state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component[payload.component_id];
   var new_component = JSON.parse(JSON.stringify(old_component));
   new_component.skin = payload.component_skin;
-  new_component.template = old_component.template.replace(old_component.skin, new_component.skin);
+  new_component.template = old_component.template.replace(/(\w+).twig/, new_component.skin + '.twig');
 
   if (old_component.stylesheet) {
-    new_component.stylesheet = old_component.stylesheet.replace(old_component.skin, new_component.skin);
+    new_component.stylesheet = old_component.stylesheet.replace(/(\w+).css/, new_component.skin + '.css');
   } else {
     //if there no styles add them by default
     new_component.stylesheet = 'd_visualize/stylesheet/dist/vz-component/' + payload.component_id + '/' + new_component.skin + '.css';
   }
 
+  console.log(new_component);
   Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component, payload.component_id, new_component);
-  Vue.set(state, 'current_component', new_component);
 }; //main changing skin
 
 
 d_visualize.mutations['UPDATE_SKIN'] = function (state, payload) {
-  console.log(payload);
   Vue.set(state.templates[payload.active_template_id].setting, 'active_skin', payload.skin);
 };
 

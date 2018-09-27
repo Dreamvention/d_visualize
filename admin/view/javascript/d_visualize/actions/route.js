@@ -9,7 +9,6 @@ d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
 }
 ;d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
 	context.commit('PUSH_IFRAME_HISTORY', payload);
-	console.log(context.getters.iframe_history[context.getters.iframe_history.length - 1])
 	$.post(context.state.config.save_iframe_url, {
 		last_url: context.getters.iframe_history[context.getters.iframe_history.length - 1].href
 	}, function (data, status) {
