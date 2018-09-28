@@ -1,6 +1,6 @@
   .vz-button {
     padding: 6px 12px;
-    font-size: 16px;
+    font-size: 12px;
     border-radius: 4px;
     &.btn-primary {
       background: var(--color-primary);

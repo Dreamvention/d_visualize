@@ -2,15 +2,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <ul class="breadcrumb">
+            <ul class="breadcrumb vz-breadcrumb vz-breadcrumb_default">
                 {% set count = 0 %}
                 {% for breadcrumb in breadcrumbs %}
                     {% set count = count + 1 %}
 
                     {% if count == breadcrumbs|length %}
-                        <li>{{ breadcrumb.text }}</li>
+                        <li class="vz-breadcrumb_item vz-breadcrumb_item_last">{{ breadcrumb.text }}</li>
                     {% else %}
-                        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                        <li class="vz-breadcrumb_item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>

@@ -1,4 +1,4 @@
-{% set input_classes = 'form-control vz-form-control' %}
+{% set input_classes = 'form-control' %}
 {% if classes %}
     {% set input_classes = input_classes ~ ' ' ~ classes %}
 {% endif %}
@@ -11,25 +11,23 @@
 {% if not type %}
     {% set type = 'text' %}
 {% endif %}
-{% if type=='checkbox' %}
-    <label class="{{ type }} vz-checkbox">
+<div class="vz-input vz-input_{{ type }} {% if size %} vz-input_{{ size }} {% endif %}">
+{% if type == 'checkbox' %}
+    <label class="vz-input__label">
         <input type="{{ type }}"
-               class="{{ classes }} "
+               class="vz-input__input {{ classes }} "
                name="{{ name }}"
                value="{{ value }}"
                {% if checked %}checked="checked"{% endif %}
         />
         {% if text_input %}
-        <div class="{{ type }}-text"></div>
+        <div class="vz-input__text"></div>
         {{ text_input }}
         {% endif %}
     </label>
 {% elseif type=='select' %}
-    {% if text_input %}
-        <label class="{{ type }}" for="{{ id }}">{{ text_input }}</label>
-    {% endif %}
-    <div class="{{ classes }} select-container">
-        <select name="{{ name }}" id="{{ id }}" class="{{ input_classes }}" onchange="{{ on_change }}">
+    <div class="vz-input__input {{ classes }} select-container">
+        <select name="{{ name }}" id="{{ id }}" class="vz-input__input {{ input_classes }} " onchange="{{ on_change }}">
             {% if placeholder %}
                 <option value="">{{ placeholder }}</option>
             {% endif %}
@@ -41,16 +39,19 @@
             {% endfor %}
         </select>
     </div>
+    {% if text_input %}
+        <label class="vz-input__label" for="{{ id }}">{{ text_input }}</label>
+    {% endif %}
 {% elseif type=='radio' %}
-    <label class="{{ type }} d-vis" id="{{ id }}">
-        <input type="{{ type }}"
+    <label class="vz-input__label" id="{{ id }}">
+        <input type="vz-input__input"
                id="{{ id }}"
                class="{{ classes }} "
                name="{{ name }}"
                value="{{ value }}"
                {% if checked %}checked="checked"{% endif %}
         />
-        <div class="{{ type }}-text"><span></span>{{ text_input }}</div>
+        <div class=vz-input__text><span></span>{{ text_input }}</div>
     </label>
 {% elseif type=='button' %}
     <input type="{{ type }}"
@@ -63,10 +64,14 @@
             type="{{ type }}"
             id="{{ id }}"
             name="{{ name }}"
-            class="{{ input_classes }}" rows="10"
+            class="vz-input__input {{ input_classes }}" rows="10"
     >
         {{ value }}
     </textarea>
+    {% if text_input %}
+        <div class="vz-input__text"></div>
+        {{ text_input }}
+    {% endif %}
 {% elseif type=='submit' %}
     <input type="{{ type }}"
            id="{{ id }}"
@@ -82,3 +87,4 @@
            value="{{ value }}"
     />
 {% endif %}
+</div>

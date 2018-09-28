@@ -1,4 +1,4 @@
-.vz-d_product_sort {
+.vz-product_sort {
   margin-bottom: 20px;
   .vz-button-view {
     display: flex;
@@ -11,7 +11,7 @@
     }
   }
 }
-.vz-d_product_sort .vz-button {
+.vz-product_sort .vz-button {
   padding: 0;
 
 }

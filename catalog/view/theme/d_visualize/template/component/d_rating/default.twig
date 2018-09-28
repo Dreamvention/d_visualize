@@ -1,11 +1,11 @@
-<div class="rating">
+<div class="vz-rating">
 	<input value="{{ rating }}" name="rating" hidden
-		   class="rating-loading" data-filled="fas fa-star" data-empty="fas fa-star empty"
+		   class="vz-rating__input rating-loading" data-filled="fas fa-star" data-empty="far fa-star empty"
             {% if static_rating %} data-readonly{% endif %}>
 </div>
 <script>
 $(document).ready(function () {
-	$('input[name=\'rating\']').rating();
+	$('.vz-rating__input').rating();
 })
 
 </script>

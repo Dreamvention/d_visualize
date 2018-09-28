@@ -10,6 +10,9 @@
 }
 
 .vz-header {
+  .vd-frontend #sortable .container{
+    padding: 0 15px !important;
+  }
   #top {
     background-color: var(--color-default);
     border-bottom: 1px solid #e2e2e2;
@@ -26,7 +29,6 @@
   #top-links {
     padding-top: 6px;
   }
-
   .vd-currency {
     .btn-link {
       font-size: 12px;

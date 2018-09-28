@@ -1,11 +1,12 @@
 <!-- > d_button_continue -->
-<div class="buttons">
-	<div class="vis-forward">
-		{% include partial.button.template with partial.button|merge({
-		link:continue ,
-		style:'primary',
-		classes:'btn-shrink btn-block-sm',
-		text_button:button_continue,
-		}) %}
+<div class="vz-button_continue vz-button_continue_default">
+    <div class="vz-d_button_continue__forward">
+        {% include partial.button.template with partial.button|merge({
+            link:continue ,
+            style:'primary',
+            classes:'btn-shrink btn-block-sm',
+            text_button:button_continue,
+        }) %}
+    </div>
 </div>
 <!-- /> d_button_continue -->

@@ -10,9 +10,10 @@ body, html {
 
 :--heading {
   font-family: var(--font-main);
-  font-weight: var(--font-light);
+  font-weight: var(--font-medium);
 }
 h1,h2,h3{
+  color: #444;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -26,6 +27,7 @@ h1,h2,h3{
   text-shadow: 0 1px 0 #fff;
   cursor: pointer;
   transition: color .04s ease;
+  color: var(--color-primary);
   &:hover, &:focus {
     color: #444;
     text-decoration: none;

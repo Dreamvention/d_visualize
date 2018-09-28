@@ -339,42 +339,48 @@ Vue.component('vz-component', {
     componentName: function componentName() {
       return this.$t('edit.entry_' + this.$store.state.route.params.id);
     },
-    available_components: function available_components() {
+    availableComponents: function availableComponents() {
       return this.$store.getters.available_components;
     },
     componentKey: function componentKey() {
+      var skin = this.availableComponents[this.componentId][this.component.skin] ? this.component.skin : 'default';
       var active_template_codename = this.$store.getters.active_template.setting.active_skin;
+      console.log(skin);
+      return skin;
 
-      if (this.component.skin === active_template_codename) {
+      if (this.component.skin) {
         return this.component.skin;
       } else {
         return active_template_codename;
-      }
+      } // if (this.component.skin === active_template_codename) {
+      // 	return this.component.skin;
+      // } else {
+      // 	return active_template_codename;
+      // }
+
     },
     hasComponentKey: function hasComponentKey() {
       return _.contains(this.componentKey, this.templateVariations);
     },
     templateVariations: function templateVariations() {
-      var _this = this;
+      var variations = _.keys(this.availableComponents[this.componentId]);
 
-      var variations = _.keys(this.available_components[this.componentId]);
-
-      return _.reject(variations, function (k) {
-        return k == _this.componentKey;
-      });
+      return variations; // return _.reject(variations, (k)=>{
+      // 	return k == this.$store.getters.active_template.setting.active_skin;
+      // });
     }
   },
   methods: {
     update: function update(e, options) {
+      // no need to update if there no available component exist.
+      // at this case set default skin because it have to be
+      var skin = this.availableComponents[this.componentId][options.value] ? options.value : 'default';
       this.$store.dispatch('UPDATE_COMPONENT', {
         active_template_id: this.$store.getters.setting.active_template,
         component_id: this.componentId,
-        component_skin: options.value
-      }); // this.$store.dispatch('UPDATE_COMPONENT_CURRENT', {});
+        component_skin: skin
+      });
     }
-  },
-  beforeMount: function beforeMount() {
-    if (this.$store.getters.components[this.componentId]) this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.$store.getters.components[this.componentId]);
   }
 });
 Vue.component('vz-edit-back', {
@@ -735,15 +741,10 @@ d_visualize.mutations['LOAD_CONTENT_SUCCESS'] = function (state, payload) {
   Vue.set(state, 'iframe_src', payload.iframe_src);
 };
 
-d_visualize.state.current_component = {};
 d_visualize.state.theme_components = [];
 d_visualize.state.vd_loaded = false;
 d_visualize.state.iframe_src = '';
 d_visualize.state.available_components = [];
-
-d_visualize.mutations['CHANGE_CURRENT_COMPONENT'] = function (state, payload) {
-  Vue.set(state, 'current_component', payload);
-};
 
 d_visualize.mutations['CHANGE_IFRAME_SRC'] = function (state, payload) {
   Vue.set(state, 'iframe_src', payload);
@@ -766,10 +767,6 @@ d_visualize.mutations['LOAD_VISUAL_FOOTER'] = function (state, payload) {
 }; //main changing component
 
 
-d_visualize.mutations['UPDATE_COMPONENT_CURRENT'] = function (state, payload) {
-  Vue.set(state, 'current_component', payload);
-};
-
 d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
   var old_component = state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component[payload.component_id];
   var new_component = JSON.parse(JSON.stringify(old_component));
@@ -783,7 +780,6 @@ d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
     new_component.stylesheet = 'd_visualize/stylesheet/dist/vz-component/' + payload.component_id + '/' + new_component.skin + '.css';
   }
 
-  console.log(new_component);
   Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component, payload.component_id, new_component);
 }; //main changing skin
 

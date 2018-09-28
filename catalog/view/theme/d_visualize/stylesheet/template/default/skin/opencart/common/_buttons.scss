@@ -1,0 +1,82 @@
+@import "../base/variables";
+.vz-button {
+  padding: var(--padding-button);
+  &.active,&:focus,&.active:focus{
+    :not(.btn-link){
+      box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    }
+    outline: 0;
+  }
+  &.btn-link{
+    color: var(--link-color);
+    &:hover{
+      color: var(--link-color-hover);
+    }
+  }
+  &.btn-primary {
+    @extend %btn_primary
+  }
+
+  &.btn-danger {
+    background: var(--color-danger);
+    border: var(--border-danger);
+    border-color: var(--color-danger-darken);
+    &:hover {
+      background: var(--color-danger-darken);
+      border-color: var(--color-danger-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-danger-darkenx2);
+      border-color: var(--color-danger-darkenx3);
+      outline: none;
+    }
+  }
+  &.btn-warning {
+    background: var(--color-warning);
+    border: var(--border-warning);
+    border-color: var(--color-warning-darken);
+    &:hover {
+      background: var(--color-warning-darken);
+      border-color: var(--color-warning-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-warning-darkenx2);
+      border-color: var(--color-warning-darkenx3);
+      outline: none;
+    }
+  }
+  &.btn-info {
+    background: var(--color-info);
+    border: var(--border-info);
+    border-color: var(--color-info-darken);
+    &:hover {
+      background: var(--color-info-darken);
+      border-color: var(--color-info-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-info-darkenx2);
+      border-color: var(--color-info-darkenx3);
+      outline: none;
+    }
+  }
+  &.btn-default {
+   @extend %btn_default
+  }
+  &.btn-success {
+    background: var(--color-success);
+    border: var(--border-success);
+    border-color: var(--color-success-darken);
+    &:hover {
+      background: var(--color-success-darken);
+      border-color: var(--color-success-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-success-darkenx2);
+      border-color: var(--color-success-darkenx3);
+      outline: none;
+    }
+  }
+}
+.vz-button-group{
+
+}

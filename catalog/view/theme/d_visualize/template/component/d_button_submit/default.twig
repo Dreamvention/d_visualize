@@ -1,6 +1,6 @@
 <!-- > d_button_submit_default -->
-<div class="vz-d_button_submit vz-d_button_submit_default">
-    <div class="vz-d_button_submit__back">
+<div class="vz-button_submit vz-d_button_submit_default">
+    <div class="vz-button_submit__back">
         {% if button_back %}
             {% include partial.button.template with partial.button|merge({
             link: back,
@@ -10,9 +10,9 @@
             }) %}
         {% endif %}
     </div>
-    <div class="vz-d_button_submit__forward">
+    <div class="vz-button_submit__forward">
         {% if text_agree %}
-        <div class="vz-d_button_submit__agree">
+        <div class="vz-button_submit__agree">
             <span>
               {{ text_agree }}
             </span>

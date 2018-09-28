@@ -1,0 +1,17 @@
+footer {
+  text-shadow: none;
+}
+
+footer {
+  .vd-frontend #sortable .container {
+    padding: 0 15px !important;
+  }
+  #sortable {
+    .container-fluid:first-child {
+      .block-parent-wrapper {
+        margin-top: 30px;
+        padding-top: 30px !important;
+      }
+    }
+  }
+}

@@ -22,10 +22,11 @@
   --color-default: #eee;
   --color-default-darken: #888;
   --color-default-darkenx2: #666;
-  --link-color: #000;
-  --padding-button: 15px 45px;
+  --color-default-darkenx3: #adadad;
+  --link-color: var(--color-primary);
+  --padding-button: 7px 12px;
   --default-radius:2px;
-  --link-color-hover: var(--color-primary);
+  --link-color-hover: #23527c;
   --font-main: open sans,sans-serif;
   --font-size-base: 12px;
   --font-exLight: 100;
@@ -34,12 +35,13 @@
   --font-medium: 500;
   --font-bold: 600;
   --font-size-h1: 33px;
-  --font-size-h2: 28px;
+  --font-size-h2: 27px;
   --font-size-h3: 20px;
   --font-size-h4: 15px;
   --font-size-h5: 13px;
   --border-base-size: 2px;
   --border-base-style: solid;
+  --border-default:1px solid var(--color-default-darkenx3);
 
 }
 

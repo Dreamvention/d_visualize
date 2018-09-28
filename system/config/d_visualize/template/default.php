@@ -209,13 +209,13 @@ $_['d_visualize_template_default_setting'] = array(
                     )
                 ),
                 'columns' => array(
-                    'left' => 'col-3 d-sm-block d-none',
+                    'left' => 'col-12 col-md-3 d-sm-block d-none',
                     'main' => array(
                         'one_col' => 'col-12',
                         'two_col' => 'col-12 col-md-9',
                         'three_col' => 'col-6',
                     ),
-                    'right' => 'col-3 d-md-block d-none',
+                    'right' => 'col-12 col-md-3 d-md-block d-none',
                 )
             ),
             'block' => array('main_wrapper', 'before_content', 'content', 'after_content')
@@ -238,14 +238,23 @@ $_['d_visualize_template_default_setting'] = array(
             'layout' => array(
                 'component' => array(
                     'product_product' => array(
-                        'skin'=>'hydrus',
+                        'skin'=>'default',
                         'template' => 'd_visualize/template/component/product_product/default.twig',
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_product/default.css',
                     ),
-
                     'product_options' => array(
                         'template' => 'd_visualize/template/component/product/options/default.twig',
-                    )
+                    ),
+                    'product_thumbnails' => array(
+                        'skin'=>'default',
+                        'template' => 'd_visualize/template/component/product/thumbnails/default.twig',
+                        'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_thumbnails/default.css',
+                    ),
+                    'product_tabs' => array(
+                        'skin'=>'default',
+                        'template' => 'd_visualize/template/component/product/tabs/default.twig',
+                        'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_tabs/default.css',
+                    ),
                 ),
             ),
             'scripts' => array(

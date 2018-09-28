@@ -5,7 +5,7 @@
         <div class="form-group">
             <label for=""> {{$t('edit.entry_component_skin')}} - {{componentKey}}</label>
             <select class="form-control" v-model-vuex="componentKey">
-                <option :value="componentKey" v-if="!hasComponentKey" >{{$t('edit.entry_current_skin')}}</option>
+                <!--<option :value="componentKey" v-if="!hasComponentKey" >{{$t('edit.entry_current_skin')}}</option>-->
                 <option v-for="(template) in templateVariations"
                         :value="template">
                     {{template}}

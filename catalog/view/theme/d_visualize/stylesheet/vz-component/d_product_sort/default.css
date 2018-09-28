@@ -1,12 +1,30 @@
-.vz-d_product_sort_default {
+@custom-media --tablet (580px <= width < 984px);
+
+@custom-media --mobile (300px <= width < 579px);
+
+.vz-product_sort_default {
   margin-bottom: 20px;
+  .vz-product_sort__view-type {
+    @media (--tablet) {
+      margin-bottom: 20px;
+    } @media (--mobile) {
+    display: none;
+  }
+  }
+  .vz-d_product_sort__compare {
+    @media (--mobile) {
+      margin-bottom: 20px;
+    }
+  }
 }
-.vz-d_product_sort_default .vz-button {
+
+.vz-product_sort_default .vz-button {
   padding: 0;
 }
+
 .vz-button-view .vz-button {
   padding: 5px 10px;
-  &.active{
+  &.active {
     background: var(--color-primary);
   }
 }

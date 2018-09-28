@@ -201,7 +201,6 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $template = $this->getTemplateByCodename($data['template_codename']);
         if (!$template) {
-            FB::log($data['template']);
             $this->db->query("INSERT INTO " . DB_PREFIX . "vz_templates
                 SET store_id = '" . (int)$data['store_id'] . "',
                 codename = '" . $this->db->escape($data['template_codename']) . "',
