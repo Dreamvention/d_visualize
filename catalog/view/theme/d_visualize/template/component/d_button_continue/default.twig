@@ -1,12 +1,42 @@
-<!-- > d_button_continue -->
-<div class="vz-button_continue vz-button_continue_default">
-    <div class="vz-d_button_continue__forward">
-        {% include partial.button.template with partial.button|merge({
-            link:continue ,
-            style:'primary',
-            classes:'btn-shrink btn-block-sm',
-            text_button:button_continue,
-        }) %}
+<!-- > d_button-continue -->
+<div class="vz-button-continue vz-button-continue--default">
+    {% if back %}
+        <div class="vz-button-continue__back">
+            {% include partial.button.template with partial.button|merge({
+                link:back ,
+                style:'default',
+                text_button:button_back,
+            }) %}
+        </div>
+    {% endif %}
+    <div class="vz-button-continue__forward">
+        {% if text_agree %}
+            <div class="agree">
+            <span>
+              {{ text_agree }}
+            </span>
+                {% include partial.input.template with partial.input|merge({
+                    type:'checkbox',
+                    name:'agree',
+                    value:'1',
+                    checked:agree,
+                }) %}
+            </div>
+        {% endif %}
+        {% if continue %}
+            {% include partial.button.template with partial.button|merge({
+                link:continue ,
+                id: id,
+                style:'primary',
+                text_button:button_continue,
+            }) %}
+        {% elseif button_submit %}
+            {% include partial.button.template with partial.input|merge({
+                type:'submit',
+                value:button-continue,
+                button:'primary',
+            }) %}
+        {% endif %}
     </div>
 </div>
-<!-- /> d_button_continue -->
+<!-- /> d_button-continue -->

@@ -1,54 +1,55 @@
 <!-- > d_account_field_default -->
-{% if customer_groups|length > 1 %}
+<div class="vz-account-filed">
+    {% if customer_groups|length > 1 %}
+        {% include partial.form_group.template with partial.form_group|merge({
+            type:'radio',
+            id:'input-customer_group',
+            name:'customer_group',
+            required: true,
+            radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
+            radio_values_val:'val',
+            radio_values_check: customer_group,
+            radio_values_name: 'name',
+            placeholder:entry_customer_group,
+            classes:'',
+            text_input:entry_customer_group,
+            error:error_customer_group,
+        }) %}
+    {% endif %}
+    {% include partial.d_name_field.template with  partial.d_name_field|merge({form:form}) %}
     {% include partial.form_group.template with partial.form_group|merge({
-        type:'radio',
-        id:'input-customer_group',
-        name:'customer_group',
-        required: true,
-        radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
-        radio_values_val:'val',
-        radio_values_check: customer_group,
-        radio_values_name: 'name',
-        placeholder:entry_customer_group,
-        classes:'',
-        text_input:entry_customer_group,
-        error:error_customer_group,
+        type:'email',
+        id:'input-email',
+        name:'email',
+        required:true,
+        value:email,
+        text_input:entry_email ,
+        placeholder:entry_email ,
+        error:error_email
     }) %}
-{% endif %}
-{% include partial.d_name_field.template with  partial.d_name_field|merge({form:form}) %}
 
-{% include partial.form_group.template with partial.form_group|merge({
-    type:'email',
-    id:'input-email',
-    name:'email',
-    required:true,
-    value:email,
-    text_input:entry_email ,
-    placeholder:entry_email ,
-    error:error_email
-}) %}
-
-{% include partial.form_group.template with partial.form_group|merge({
-    type:'text',
-    id:'input-telephone',
-    name:'telephone',
-    required:true,
-    value:telephone,
-    text_input:entry_telephone ,
-    placeholder:entry_telephone ,
-    error:error_telephone
-}) %}
-
-{% if constant('VERSION') < '3.0.0.0' %}
     {% include partial.form_group.template with partial.form_group|merge({
         type:'text',
-        id:'input-fax',
-        name:'fax',
-        required:false,
-        value:fax,
-        text_input:entry_fax ,
-        placeholder:entry_fax ,
-        error:error_fax
+        id:'input-telephone',
+        name:'telephone',
+        required:true,
+        value:telephone,
+        text_input:entry_telephone ,
+        placeholder:entry_telephone ,
+        error:error_telephone
     }) %}
-{% endif %}
+
+    {% if constant('VERSION') < '3.0.0.0' %}
+        {% include partial.form_group.template with partial.form_group|merge({
+            type:'text',
+            id:'input-fax',
+            name:'fax',
+            required:false,
+            value:fax,
+            text_input:entry_fax ,
+            placeholder:entry_fax ,
+            error:error_fax
+        }) %}
+    {% endif %}
+</div>
 <!-- /> d_account_field_default -->

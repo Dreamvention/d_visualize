@@ -1,7 +1,10 @@
-{% set form_group_class = 'form-group vz-form-group vz-form-group_' ~  type %}
-{% set form_group_label_class = 'control-label vz-control-label vz-control-label_' ~  type %}
-{% set form_group_input_class = 'form-control vz-form-control vz-form-control' ~  type %}
-{% set form_group_div_class = '' %}
+{% set form_group_class = 'form-group vz-form-group vz-form-group--' ~  type %}
+{% set form_group_label_class = 'control-label vz-control-label vz-control-label--' ~  type %}
+{% set form_group_input_class = 'form-control vz-form-control vz-form-control--' ~  type %}
+{% set form_group_div_class = 'vz-form-group__inputs' %}
+{% if error_then %}
+    {% set error = false %}
+{% endif %}
 {% if classes %}
     {% set form_group_input_class = form_group_input_class ~ ' ' ~ classes %}
 {% endif %}
@@ -59,12 +62,14 @@
     </div>
 {% elseif type=='radio' %}
     <div class="{{ form_group_class }} ">
-        <label class="{{ form_group_label_class }} "
-               for="{{ id }}"><span>{{ text_input }}</span></label>
+        {% if text_input %}
+            <label class="{{ form_group_label_class }} "
+                   for="{{ id }}"><span>{{ text_input }}</span></label>
+        {% endif %}
         <div class="{{ form_group_div_class }}">
             {% for radio in radio_values %}
                 {% include partial.input.template with partial.input|merge({
-                type:type,
+                type:'radio',
                 name: name,
                 value: radio[radio_values_val] ,
                 checked: radio[radio_values_val] == radio_values_check,

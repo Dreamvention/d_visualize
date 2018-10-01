@@ -11,7 +11,13 @@
       radio_values_name: 'name',
       }) %}
     <p>{{text_register_account}}</p>
-    <input type="button" value="{{button_continue}}" id="button-account" data-loading-text="{{text_loading}}" class="btn d-vis btn-primary" />
+      {% include partial.button.template with partial.button|merge({
+          button:true,
+          id:'button-account',
+          text_loading:text_loading,
+          style:'primary',
+          text_button:button_continue
+      }) %}
   </div>
   <div class="col-sm-6">
     <h2>{{text_returning_customer}}</h2>
@@ -36,6 +42,12 @@
       text_input:entry_password,
       }) %}
     <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
-    <input type="button" value="{{button_login}}" id="button-login" data-loading-text="{{text_loading}}" class="btn d-vis btn-primary" />
+      {% include partial.button.template with partial.button|merge({
+          button:true,
+          id:'button-login',
+          text_loading:text_loading,
+          style:'primary',
+          text_button:button_login
+      }) %}
   </div>
 </div>

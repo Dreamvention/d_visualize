@@ -13,11 +13,11 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
      * Add scripts and style on the document
      * @array
      */
-    public function addDocumentPageData($data, $page_data)
+    public function addDocumentPageData($data, $header)
     {
-        if (!empty($page_data['header'])) {
+        if (!empty($header)) {
             $html_dom = new d_simple_html_dom();
-            $html_dom->load($page_data['header'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+            $html_dom->load($header, $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
 
             if (!empty($data['scripts'])) {
                 foreach ($data['scripts'] as $script) {
@@ -34,7 +34,9 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                     }
                 }
             }
-            $page_data['header'] = (string)$html_dom;
+            $result = (string)$html_dom;
+            return $result;
+
         } else {
             if (!empty($data['scripts'])) {
                 foreach ($data['scripts'] as $script) {
@@ -48,7 +50,6 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                 }
             }
         }
-        return $page_data['header'];
     }
 
 }

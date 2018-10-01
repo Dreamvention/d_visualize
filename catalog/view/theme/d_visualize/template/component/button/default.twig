@@ -5,6 +5,9 @@
 {% if style %}
     {% set btn_classes = btn_classes ~ ' btn-' ~ style %}
 {% endif %}
+{% if size %}
+    {% set btn_classes = btn_classes ~ ' btn-' ~ size %}
+{% endif %}
 {% if data_loading %}
     {% set text_loading = data_loading %}
 {% endif %}

@@ -73,14 +73,15 @@ class ControllerExtensionDVisualizeEvent extends Controller
             if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
                 $data = $this->model_template->validate_templates($data);
             }
-            // if last view is laoded we add scripts and Style from our d_visualize
+            // if last view is loaded we add scripts and Style from our d_visualize
             if ($view == $view_route) {
-//                FB::log($this->setting_active_template['page']['default']['layout']['partial']);
+                if (isset($data['header'])){
 
-                $data['header'] = $this->model_helper->addDocumentPageData(array(
-                    'scripts' => $this->pageScripts,
-                    'styles'  => $this->pageStyles),
-                    $data);
+                    $data['header'] = $this->model_helper->addDocumentPageData(
+                    array('scripts' => $this->pageScripts,
+                          'styles'  => $this->pageStyles),
+                    $data['header']);
+                }
             }
         }
     }

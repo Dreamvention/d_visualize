@@ -1,108 +1,104 @@
-<div class="cart-wrapper">
-    <h1 class="heading-h1">{{ heading_title }}</h1>
-    <div class="row">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="col-md-12">
-            <div class="row cart">
-                <div class="col-md-12 cart_header">
-                    <div class="row">
-                        <div class="col-md-1 cart_cell cart_cell--image cart_cell--image-text">
-                            <span>{{ column_image }}</span></div>
-                        <div class="col-md-2 cart_cell cart_cell--description cart_cell--description-text">
-                            <span>{{ column_name }}</span></div>
-                        <div class="col-md-1 cart_cell cart_cell--size cart_cell--size-text"><span>Размер</span></div>
-                        <div class="col-md-6 cart_cell cart_cell--quantity cart_cell--quantity-text">
-                            <span>{{ column_quantity }}</span></div>
-                        <div class="col-md-2 cart_cell cart_cell--price cart_cell--price-text">{{ column_price }}</div>
-                    </div>
-                </div>
-                <div class="col-md-12 cart_body">
-                    {% for product in products %}
-                        <div class="row cart_item">
-                            <div class="col-md-1 cart_cell cart_cell--image pl-0">
-                                {% if product.thumb %}
-                                    <a href="{{ product.href }}" class="image-wrap">
-                                        <img src="{{ product.thumb }}" alt="{{ product.name }}"
-                                             title="{{ product.name }}" class="image">
-                                    </a>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-2 cart_cell cart_cell--description">
-                                <a href="{{ product.href }}">{{ product.name }}</a>
-                                {% if not product.stock %}
-                                    <span class="text-danger stock">out of stock</span>
-                                {% endif %}
-                                {% if product.option %}
-                                    {% for option in product.option %}
-                                        <br/>
-                                        <small>{{ option.name }}: {{ option.value }}</small>
-                                    {% endfor %}
-                                {% endif %}
-                            </div>
-                            <div class="col-md-1 cart_cell cart_cell--size">
-                                <input type="number" name="size" value="1" size="1" class="field">
-                            </div>
-                            <div class="col-md-6 cart_cell cart_cell--quantity">
-                                {% include component.product_quantity.template with(component.product_quantity)|merge({
-                                product_id:product.cart_id ,
-                                quantity:product.quantity,
-                                minimum:1,
-                                cart_page:true,
-                                }) %}
-                                {% include component.product_remove.template with({product_id:product.cart_id}) %}
-                            </div>
-                            <div class="col-md-2 cart_cell cart_cell--price">
-                                <div class="price-wrapper">
-                                    <span class="item_price item_price--old"></span>
-                                    <span class="item_price item_price--actual">{{ product.price }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="col-md-12 cart_totals totals">
-                    {% for total in totals %}
-                        <div class="row">
-                            <div class="col-md-10 text-right">
-                                <span class="text-left totals_total">{{ total.title }}:</span>
-                            </div>
-                            <div class="col-md-2">
-                                <span class="text-left totals_price item_price item_price--total">{{ total.text }}</span>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% include partial.button.template with partial.button|merge({
-            button: true,
-            type:'submit',
-            style:'submit',
-            classes:'hidden',
-            text_button:'',
-            title:'',
-            }) %}
-            {#<button type="submit" class="btn btn-vis hidden btn-submit"></button>#}
-        </form>
-    </div>
-    {% if coupon or voucher or reward or shipping %}
-        <div class="row">
+<div class="vz-checkout-cart">
+    <h1 class="vz-checkout-cart__heading heading-h1">{{ heading_title }}
+        {% if weight %}
+            &nbsp;({{ weight }})
+        {% endif %} </h1>
+    <form action="{{ action }}" method="post" enctype="multipart/form-data">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <td class="text-center">{{ column_image }}</td>
+                    <td class="text-left">{{ column_name }}</td>
+                    <td class="text-left">{{ column_model }}</td>
+                    <td class="text-left">{{ column_quantity }}</td>
+                    <td class="text-right">{{ column_price }}</td>
+                    <td class="text-right">{{ column_total }}</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td class="text-center">{% if product.thumb %} <a href="{{ product.href }}"><img
+                                        src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
+                                        class="img-thumbnail"/></a> {% endif %}</td>
+                        <td class="text-left"><a
+                                    href="{{ product.href }}">{{ product.name }}</a> {% if not product.stock %} <span
+                                    class="text-danger">***</span> {% endif %}
+                            {% if product.option %}
+                                {% for option in product.option %} <br/>
+                                    <small>{{ option.name }}: {{ option.value }}</small> {% endfor %}
+                            {% endif %}
+                            {% if product.reward %} <br/>
+                                <small>{{ product.reward }}</small> {% endif %}
+                            {% if product.recurring %} <br/>
+                                <span class="label label-info">{{ text_recurring_item }}</span>
+                                <small>{{ product.recurring }}</small> {% endif %}</td>
+                        <td class="text-left">{{ product.model }}</td>
+                        <td class="text-left">
+                            <div class="input-group btn-block" style="max-width: 200px;">
+                                <input type="text" name="quantity[{{ product.cart_id }}]" value="{{ product.quantity }}"
+                                       size="1" class="form-control"/>
+                                <span class="input-group-btn">
+                  <button type="submit" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-primary"><i
+                              class="fa fa-refresh"></i></button>
+                  <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"
+                          onclick="cart.remove('{{ product.cart_id }}');"><i class="fa fa-times-circle"></i></button>
+                  </span></div>
+                        </td>
+                        <td class="text-right">{{ product.price }}</td>
+                        <td class="text-right">{{ product.total }}</td>
+                    </tr>
+                {% endfor %}
+                {% for voucher in vouchers %}
+                    <tr>
+                        <td></td>
+                        <td class="text-left">{{ voucher.description }}</td>
+                        <td class="text-left"></td>
+                        <td class="text-left">
+                            <div class="input-group btn-block" style="max-width: 200px;">
+                                <input type="text" name="" value="1" size="1" disabled="disabled" class="form-control"/>
+                                <span class="input-group-btn">
+                  <button type="button" data-toggle="tooltip" title="{{ button_remove }}" class="btn btn-danger"
+                          onclick="voucher.remove('{{ voucher.key }}');"><i class="fa fa-times-circle"></i></button>
+                  </span></div>
+                        </td>
+                        <td class="text-right">{{ voucher.amount }}</td>
+                        <td class="text-right">{{ voucher.amount }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </form>
+    <div class="vz-checkout-cart__modules">
+        {% if modules %}
             <h2>{{ text_next }}</h2>
             <p>{{ text_next_choice }}</p>
-            <div class="panel-group" id="accordion">{{ coupon }}{{ voucher }}{{ reward }}{{ shipping }}</div>
-        </div>
-    {% endif %}
-
-    <div class="row">
-        <div class="col-12">
-            {% include partial.d_button.template with({
-            back: continue,
-            button_back:button_shopping,
-            continue:checkout,
-            button_continue:button_checkout,
-            button_submit:'',
-            position:'justify-content-end'
-            }) %}
+            <div class="panel-group" id="accordion"> {% for module in modules %}
+                    {{ module }}
+                {% endfor %} </div>
+        {% endif %} <br/>
+    </div>
+    <div class="vz-checkout-cart__totals">
+        <div class="row justify-content-end">
+            <div class="col-sm-4">
+                <table class="table table-bordered">
+                    {% for total in totals %}
+                        <tr>
+                            <td class="text-right"><strong>{{ total.title }}:</strong></td>
+                            <td class="text-right">{{ total.text }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
+    {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+        back:continue,
+        button_back:button_shopping,
+        continue: checkout,
+        button_continue: button_checkout,
+    })%}
 </div>
-<script>
-</script>

@@ -7,6 +7,10 @@
     }
     outline: 0;
   }
+  /*size */
+  &.btn-lg{
+    font-size: 18px;
+  }
   &.btn-link{
     color: var(--link-color);
     &:hover{
@@ -16,7 +20,6 @@
   &.btn-primary {
     @extend %btn_primary
   }
-
   &.btn-danger {
     background: var(--color-danger);
     border: var(--border-danger);

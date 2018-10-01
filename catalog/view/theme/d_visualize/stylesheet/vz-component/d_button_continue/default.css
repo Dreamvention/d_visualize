@@ -1,12 +1,13 @@
-.vz-d_button_submit {
+.vz-button-continue {
   display: flex;
+  justify-content: space-between;
   &__back {
-    flex: 1;
   }
   &__forward {
-
+    flex: 1;
     display: inline-flex;
     align-items: center;
+    justify-content: flex-end;
   }
   &__agree {
     display: inline-flex;
@@ -18,7 +19,7 @@
       position: relative;
     }
   }
-  &_default{
+  &--default{
     margin-bottom: 20px;
    }
 }

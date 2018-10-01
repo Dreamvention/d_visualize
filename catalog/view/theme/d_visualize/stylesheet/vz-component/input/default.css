@@ -1,0 +1,7 @@
+.vz-input{
+  &--radio{
+    .vz-input__label{
+      display: inline-flex;
+    }
+  }
+}
