@@ -1,8 +1,8 @@
-<!-- > d_product_sort -->
-<div class="vz-product_sort vz-product_sort_default">
+<!-- > product-sort -->
+<div class="vz-product-sort vz-product-sort--default">
     <div class="row align-items-start justify-content-between">
         <div class="col-lg-2 col-md-6">
-            <div class="vz-product_sort__view-type">
+            <div class="vz-product-sort__view-type">
                 <div class="vz-button-group btn-group vz-button-view">
                     <button type="button" id="list-view" class="btn vz-button" data-toggle="tooltip"
                             title="{{ button_list }}"><i
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
-            <a href="{{ compare }}" id="compare-total" class="btn vz-button btn-link vz-d_product_sort__compare">{{ text_compare }}</a>
+            <a href="{{ compare }}" id="compare-total" class="btn vz-button btn-link vz-product-sort__compare">{{ text_compare }}</a>
         </div>
         <div class="col-lg-4 col-md-6 col-6 text-right">
             {% include partial.input.template with partial.input|merge({
@@ -49,4 +49,4 @@
         </div>
     </div>
 </div>
-<!-- /> d_product_sort -->
+<!-- /> product-sort -->

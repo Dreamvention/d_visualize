@@ -1,31 +1,26 @@
 {% if products or vouchers %}
-    <li>
-        <table class="table">
+    <li class="vz-mini-cart-products">
+        <table class="table table-striped">
             {% for product in products %}
                 <tr>
                     <td class="text-center">{% if product.thumb %} <a href="{{ product.href }}"><img
                                     src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
                                     class="img-thumbnail"/></a> {% endif %}</td>
-                    <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a>
-                        {% if product.option %}
+                    <td class="text-left"><a href="{{ product.href }}">{{ product.name }}</a> {% if product.option %}
                             {% for option in product.option %} <br/>
                                 -
                                 <small>{{ option.name }} {{ option.value }}</small> {% endfor %}
                         {% endif %}
                         {% if product.recurring %} <br/>
                             -
-                            <small>{{ text_recurring }} {{ product.recurring }}</small> {% endif %}
-                        <div class="d-flex product-quantity-wrap no-gutters align-items-center">
-                            <div class="col">
-                                {% include component.product_quantity.template with({product_id:product.cart_id,quantity:product.quantity,minimum:1}) %}
-                            </div>
-                            <div class="col-auto">
-                                {% include component.product_remove.template with({product_id:product.cart_id}) %}
-                            </div>
-                        </div>
-
+                            <small>{{ text_recurring }} {{ product.recurring }}</small> {% endif %}</td>
+                    <td class="text-right">
+                        {% include component.product_quantity.template with({product_id:product.cart_id,quantity:product.quantity,minimum:1}) %}
                     </td>
-                    <td class="text-right total"><b>{{ product.total }}</b></td>
+                    <td class="text-right">{{ product.total }}</td>
+                    <td class="text-center">
+                        {% include component.product_remove.template with({product_id:product.cart_id}) %}
+                    </td>
                 </tr>
             {% endfor %}
             {% for voucher in vouchers %}
@@ -34,45 +29,35 @@
                     <td class="text-left">{{ voucher.description }}</td>
                     <td class="text-right">x&nbsp;1</td>
                     <td class="text-right">{{ voucher.amount }}</td>
-                    <td class="text-center">
-                        {% include partial.component.button.template with partial.component({
-                        button:'voucher.remove('~ product.cart_id ~ ')',
-                        style:'ghost',
-                        text_button:'<i class="fal fa-times"></i>',
-                        title:button_remove
+                    <td class="text-center text-danger">
+                        {% include partial.button.template with partial.button|merge({
+                            button:'voucher.remove('~ voucher.key ~')',
+                            icon:'fa fa-times',
+                            title:button_remove,
+                            style:'danger',
                         }) %}
                     </td>
                 </tr>
             {% endfor %}
         </table>
     </li>
-    <li>
+    <li class="vz-mini-cart-totals">
         <div>
-            <table class="table table-total">
+            <table class="table table-bordered">
                 {% for total in totals %}
                     <tr>
-                        <td class="text-right">{{ total.title }}</td>
-                        <td class="text-right"><strong>{{ total.text }}</strong></td>
+                        <td class="text-right"><strong>{{ total.title }}</strong></td>
+                        <td class="text-right">{{ total.text }}</td>
                     </tr>
                 {% endfor %}
             </table>
-            <div class="checkout-cart-btn-wrap d-flex ">
-                {% include partial.button.template  with partial.button|merge({
-                link:cart,
-                style:'default',
-                text_button:text_cart
-                }) %}
-                {% include partial.button.template  with partial.button|merge({
-                link:checkout,
-                style:'primary',
-                text_button:text_checkout
-                }) %}
-            </div>
+            <p class="text-right"><a href="{{ cart }}"><strong><i class="fa fa-shopping-cart"></i> {{ text_cart }}
+                    </strong></a>&nbsp;&nbsp;&nbsp;<a href="{{ checkout }}"><strong><i
+                                class="fa fa-share"></i> {{ text_checkout }}</strong></a></p>
         </div>
     </li>
 {% else %}
-    <li>
+    <li class="vz-mini-cart-empty">
         <p class="text-center">{{ text_empty }}</p>
     </li>
 {% endif %}
-{% include component.d_loader %}

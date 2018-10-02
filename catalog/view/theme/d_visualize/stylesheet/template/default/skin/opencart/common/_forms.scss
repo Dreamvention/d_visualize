@@ -1,5 +1,5 @@
 .vz-input {
-  &_sm {
+  &--sm {
     .vz-input__label {
       padding: 2px 7px;
     }
@@ -11,32 +11,5 @@
   }
   &__label{
     font-weight: var(--font-normal);
-  }
-}
-%form-addon{
-  background-color: #eee;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.vz-product_sort {
-  .vz-input_select {
-    @extend %form-addon;
-    .vz-input__label{
-      text-align: center;
-      margin-bottom: 0;
-      order:1;
-      flex: 1 0 auto;
-    }
-    .vz-input__input{
-      border: none;
-      border-radius: 0 4px 4px 0 ;
-      border-left: 1px solid #ccc;
-      order:2;
-      flex: 1 1 100%;
-    }
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
   }
 }

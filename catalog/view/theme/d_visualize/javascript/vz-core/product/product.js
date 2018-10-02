@@ -239,7 +239,7 @@ var Product = {
 			pickDate: false
 		});
 
-		$('.product-images').magnificPopup({
+		$('.vz-product-product__thumbnails__item').magnificPopup({
 			type:'image',
 			delegate: 'a',
 			gallery: {

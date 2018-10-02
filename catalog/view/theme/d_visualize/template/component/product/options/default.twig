@@ -54,7 +54,7 @@
                     {% for option_value in option.product_option_value %}
                         <label class="product-option-wrap">
 
-                            {% include partial.input.template with partial.input|merge({
+                            {% include component.input.template with component.input|merge({
                                 type:'checkbox',
                                 name:'option[' ~ option.product_option_id ~ '][]',
                                 value:option_value.product_option_value_id ,
@@ -80,7 +80,7 @@
             <div class="form-group{% if option.required %} required {% endif %}">
                 <label class="control-label"
                        for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-                {% include partial.input.template with partial.input|merge({
+                {% include component.input.template with component.input|merge({
                     type:'text',
                     id:'input-option'~option.product_option_id,
                     name:'option[' ~ option.product_option_id ~ ']',
@@ -93,7 +93,7 @@
             <div class="form-group{% if option.required %} required {% endif %}">
                 <label class="control-label"
                        for="input-option{{ option.product_option_id }}">{{ option.name }}</label>
-                {% include partial.input.template with partial.input|merge({
+                {% include component.input.template with component.input|merge({
                     type:'textarea',
                     id:'input-option'~option.product_option_id,
                     name:'option[' ~ option.product_option_id ~ ']',
@@ -105,7 +105,7 @@
         {% if option.type == 'file' %}
             <div class="form-group{% if option.required %} required {% endif %}">
                 <label class="control-label">{{ option.name }}</label>
-                {% include partial.button.template with partial.button|merge({
+                {% include component.button.template with component.button|merge({
                     button: true,
                     id:'button-upload'~ option.product_option_id ,
                     style:'default',
@@ -124,7 +124,7 @@
             </div>
         {% endif %}
         {% if option.type == 'date' %}
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
                 type:'date',
                 id:'input-option'~option.product_option_id,
                 name:'option[' ~ option.product_option_id ~ ']',

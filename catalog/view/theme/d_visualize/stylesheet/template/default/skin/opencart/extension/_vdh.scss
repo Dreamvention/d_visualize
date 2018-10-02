@@ -47,9 +47,9 @@
   .vd-cart-btn {
     @extend %base_link;
     font-size: 12px;
-    &:hover {
+    &:hover ,&:focus{
       background-color: $p_black;
-      color: $p_white;
+      color: $p_white !important;
     }
     background-color: $header_cart-bgc;
     color: $p_white;

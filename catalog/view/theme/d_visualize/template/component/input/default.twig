@@ -43,7 +43,7 @@
         <label class="vz-input__label" for="{{ id }}">{{ text_input }}</label>
     {% endif %}
 {% elseif type=='radio' %}
-    <label class="vz-input__label" id="{{ id }}">
+    <label class="vz-input__label" >
         <input type="radio"
                id="{{ id }}"
                class="{{ classes }} "
@@ -64,7 +64,8 @@
             type="{{ type }}"
             id="{{ id }}"
             name="{{ name }}"
-            class="vz-input__input {{ input_classes }}" rows="10"
+            class="vz-input__input {{ input_classes }}"
+            {{ custom|raw }}
     >
         {{ value }}
     </textarea>

@@ -19,23 +19,35 @@
 {% endif %}
 {% if button %}
     <button
-            {% if id  %}
+            {% if id %}
                 id='{{ id }}'
             {% endif %}
+
             class="{{ btn_classes }}"
-            onclick="{{ button|raw }}"
-            {% if type  %}
+
+            {% if button == 'true' %}
+            {% else %}
+                onclick="{{ button|raw }}"
+            {% endif %}
+
+            {% if type %}
                 type='{{ type }}'
             {% endif %}
-            title="{{ title_button }}"
+
+            {% if title_button %}
+                title="{{ title_button }}"
+            {% endif %}
+
             data-loading-text="{{ text_loading }}"
+
             {{ custom }}
+
     >{{ text_button|raw }}</button>
 {% elseif link %}
     <a href="{{ link }}"
-        {% if id  %}
-            id='{{ id }}'
-        {% endif %}
+            {% if id %}
+                id='{{ id }}'
+            {% endif %}
        class="{{ btn_classes }}"
        data-loading-text="{{ text_loading }}"
     >{{ text_button|raw }}</a>

@@ -2,7 +2,7 @@
 {% extends template %}
 
 {% block content %}
-      <div class="h1">{{heading_title}}</div>
-      {{text_message}}
-      {% include partial.d_button_continue.template  %}
+    <h1 class="heading-h1 h1">{{ heading_title }}</h1>
+    {{ text_message }}
+    {% include component.d_button_continue.template with  component.d_button_continue %}
 {% endblock %}

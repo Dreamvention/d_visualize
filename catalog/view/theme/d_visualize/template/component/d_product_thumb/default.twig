@@ -1,4 +1,4 @@
-<div class="vz-product-thumb product-thumb vz-product-thumb_default">
+<div class="vz-product-thumb product-thumb vz-product-thumb--default">
     <div class="vz-product-thumb__image">
         <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
                                           class="img-responsive"/></a>
@@ -23,13 +23,13 @@
                 {% endif %}
                 {% if product.rating %}
                     <div class="vz-product-thumb__rating">
-                        {% include partial.rating.template with rating.button|merge({
+                        {% include component.rating.template with rating.button|merge({
                             rating:product.rating
                         }) %}
                     </div>
                 {% endif %}
             </div>
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 button:'cart.add('~ product.product_id ~', '~ minimum ~')',
                 style:'primary',
                 classes:'btn-buy vz-product-thumb__button',

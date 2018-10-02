@@ -1,2 +1,9 @@
 .vz-form-group{
+  &--required{
+    .vz-input__label:before,.vz-control-label:before{
+      content: '* ';
+      color: #F00;
+      font-weight: bold;
+    }
+  }
 }

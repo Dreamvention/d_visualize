@@ -26,7 +26,7 @@ error:error_company
 
 {% include partial.form_group.template with partial.form_group|merge({
 type:'text',
-id:'input-address_1',
+id:'input-address-1',
 name:'address_1',
 required:true,
 value:address_1,
@@ -36,7 +36,7 @@ error:error_address_1
 }) %}
 {% include partial.form_group.template with partial.form_group|merge({
 type:'text',
-id:'input-address_2',
+id:'input-address-2',
 name:'address_2',
 value:address_2,
 text_input:entry_address_2 ,
@@ -64,7 +64,7 @@ error:error_postcode
 }) %}
 {% include partial.form_group.template with partial.form_group|merge({
 type:'select',
-id:'country_id',
+id:'input-country',
 name:'country_id',
 required: true,
 select_values:countries,
@@ -94,10 +94,10 @@ error:error_country,
 {#</div>#}
 {% include partial.form_group.template with partial.form_group|merge({
 type:'select',
-id:'zone_id',
+id:'input-zone',
 name:'zone_id',
 required: true,
-select_values:countries,
+select_values:null,
 select_values_val:'zone_id',
 select_values_check: zone_id,
 select_values_name: 'name',

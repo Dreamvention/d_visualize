@@ -1,0 +1,73 @@
+<form class="form-horizontal">
+    {% if addresses %}
+        {% include partial.input.template with partial.input|merge({
+            type:'radio',
+            name:'shipping_address',
+            value:'existing',
+            checked:true,
+            text_input:text_address_existing,
+        }) %}
+        <div id="shipping-existing">
+            <select name="address_id" class="form-control">
+                {% for address in addresses %}
+                    <option value="{{ address.address_id }}"
+                            {% if address.address_id == address_id %}selected="selected"{% endif %}>{{ address.firstname }} {{ address.lastname }}
+                        , {{ address.address_1 }}, {{ address.city }}, {{ address.zone }}
+                        , {{ address.country }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% include partial.input.template with partial.input|merge({
+            type:'radio',
+            name:'shipping_address',
+            value:'new',
+            text_input:text_address_new,
+        }) %}
+
+    {% endif %}
+    <br/>
+    {#this var need to prevent error displaying before render#}
+    {% set error_then = true %}
+    {% set form = 'inline' %}
+    <div id="shipping-new" style="display:{% if addresses %}none{% else %}block{% endif %};">
+        {% include partial.d_name_field.template with partial.d_name_field %}
+        {% include partial.d_address_field.template with partial.d_address_field %}
+        {% for custom_field in custom_fields %}
+            {% if custom_field.location == 'address' %}
+                {% include partial.d_custom_field.template with partial.d_custom_field|merge({custom_field:custom_field}) %}
+            {% endif %}
+        {% endfor %}
+
+    </div>
+    {% set error_then = false %}
+    {% set form = '' %}
+
+    {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+        button: true,
+        id:"button-shipping-address",
+        button_continue: button_continue,
+        text_agree:false
+    }) %}
+</form>
+
+<script type="text/javascript"><!--
+	$('input[name=\'shipping_address\']').on('change', function () {
+		if (this.value == 'new') {
+			$('#shipping-existing').hide();
+			$('#shipping-new').show();
+		} else {
+			$('#shipping-existing').show();
+			$('#shipping-new').hide();
+		}
+	});
+	//--></script>
+<script type="text/javascript">
+		{#$(function () {#}
+			{#d_address_field.init({#}
+				{#zone_id: '{{ zone_id }}',#}
+				{#text_none: '{{ text_none }}',#}
+				{#text_select: '{{ text_select }}'#}
+			{#});#}
+			{#d_custom_field.init();#}
+		{#});#}
+</script>

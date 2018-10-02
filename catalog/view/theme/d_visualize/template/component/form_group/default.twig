@@ -10,11 +10,15 @@
 {% endif %}
 
 {% if required %}
-    {% set form_group_class = form_group_class ~ ' required' %}
+    {% set form_group_class = form_group_class ~ ' vz-form-group--required required' %}
 {% endif %}
 {% if error %}
-    {% set form_group_class = form_group_class ~ ' has-error' %}
+    {% set form_group_class = form_group_class ~ ' vz-form-group--has-error has-error' %}
 {% endif %}
+{% if setting.form is defined %}
+    {% set  form = setting.form %}
+{% endif %}
+
 {% if form == 'inline' %}
     {% set form_group_class = form_group_class ~ ' row' %}
     {% set form_group_label_class = form_group_label_class ~ ' col-sm-2' %}
@@ -27,11 +31,11 @@
                for="{{ id }}"><span>{{ text_input }}</span></label>
         <div class="{{ form_group_div_class }}">
             {% include partial.input.template with partial.input|merge({
-            type:type,
-            id:id,
-            name:name,
-            value:value,
-            placeholder:placeholder,
+                type:type,
+                id:id,
+                name:name,
+                value:value,
+                placeholder:placeholder,
             }) %}
             {% if error %}
                 <div class="text-danger">{{ error }}</div>
@@ -49,10 +53,10 @@
                        data-date-format="YYYY-MM-DD" id="{{ id }}"
                        class="{{ form_group_input_class }}"/><span class="input-group-btn">
                         {% include partial.button.template with partial.button|merge({
-                        button: true,
-                        style:'primary',
-                        classes:'',
-                        text_button:'<i class="fa fa-calendar"></i>',
+                            button: true,
+                            style:'primary',
+                            classes:'',
+                            text_button:'<i class="fa fa-calendar"></i>',
                         }) %}
                 </span></div>
             {% if error %}
@@ -69,11 +73,11 @@
         <div class="{{ form_group_div_class }}">
             {% for radio in radio_values %}
                 {% include partial.input.template with partial.input|merge({
-                type:'radio',
-                name: name,
-                value: radio[radio_values_val] ,
-                checked: radio[radio_values_val] == radio_values_check,
-                text_input:radio[radio_values_name]
+                    type:'radio',
+                    name: name,
+                    value: radio[radio_values_val] ,
+                    checked: radio[radio_values_val] == radio_values_check,
+                    text_input:radio[radio_values_name]
                 }) %}
             {% endfor %}
             {% if error %}
@@ -87,15 +91,16 @@
                for="{{ id }}"><span>{{ text_input }}</span></label>
         <div class="{{ form_group_div_class }}">
             {% include partial.input.template with partial.input|merge({
-            type:'select',
-            id:id,
-            select_values:select_values,
-            select_values_val:select_values_val,
-            select_values_check_val: select_values_check,
-            select_values_check: select_values_check,
-            select_values_name: select_values_name,
-            placeholder:placeholder,
-            text_input:'',
+                type:'select',
+                id:id,
+                select_values:select_values,
+                select_values_val:select_values_val,
+                select_values_check_val: select_values_check,
+                select_values_check: select_values_check,
+                select_values_name: select_values_name,
+                placeholder:placeholder,
+                text_input:'',
+                custom:custom
             }) %}
             {% if error %}
                 <div class="text-danger">{{ error }}</div>

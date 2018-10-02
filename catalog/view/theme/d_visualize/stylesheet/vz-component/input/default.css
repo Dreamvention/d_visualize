@@ -1,5 +1,5 @@
 .vz-input{
-  &--radio{
+  &--radio,&--checkbox{
     .vz-input__label{
       display: inline-flex;
     }

@@ -8,15 +8,15 @@
     display: inline-flex;
     align-items: center;
     justify-content: flex-end;
-  }
-  &__agree {
-    display: inline-flex;
-    align-items: center;
-    margin-right: 15px;
-    .checkbox input{
-      margin-top: 0;
-      margin-left: 10px;
-      position: relative;
+    &__agree {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 5px;
+      .vz-input--checkbox input{
+        margin-top: 0;
+        margin-left: 10px;
+        position: relative;
+      }
     }
   }
   &--default{

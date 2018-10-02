@@ -1,12 +1,12 @@
 <div id="product-category" class="vz-product_category vz-product_category_default">
 <h1 class="heading-h1 vz-product_category__heading">{{ heading_title }}</h1>
-    {% include partial.d_product_list.template with  partial.d_product_list %}
+    {% include component.d_product_list.template with  component.d_product_list %}
     {% if not categories %}
         {% if not products %}
             <p>{{ text_empty }}</p>
             <div class="buttons">
                 <div class="pull-right">
-                    {% include partial.button.template with partial.button|merge({
+                    {% include component.button.template with component.button|merge({
                         button: true,
                         id:'button-cart',
                         style:'secondary',

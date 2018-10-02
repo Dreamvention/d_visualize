@@ -1,3 +1,5 @@
+{#this var need to prevent error displaying before render#}
+    {% set error_then = true %}
 <div class="row">
     <div class="col-sm-6">
         <fieldset id="account">
@@ -34,13 +36,14 @@
             text_input: entry_shipping,
             }) %}
         {% endif %}
-        <div class="buttons">
-            <div class="pull-right">
-                <input type="button" value="{{ button_continue }}" id="button-guest" data-loading-text="{{ text_loading }}"
-                       class="btn d-vis btn-primary"/>
-            </div>
-        </div>
+        {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+            button: true,
+            id:"button-guest",
+            button_continue: button_continue,
+            text_agree:false
+        }) %}
     </div>
+    {% set error_then = false %}
 
 </div>
 <script type="text/javascript"><!--

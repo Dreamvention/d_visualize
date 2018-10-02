@@ -28,9 +28,35 @@ $header_cart-bgc: #363636;
   border: 1px solid transparent;
   border-color: #1f90bb #1f90bb #145e7a;
 
-  * &:hover, &.active {
+  &:hover, &.active {
     background-color: #1f90bb;
     background-position: 0 -15px;
     border: 1px solid #204d74;
+  }
+}
+%btn_danger {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #da4f49;
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  border-color: #bd362f #bd362f #802420;
+  &:hover, &.active {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
+  }
+}
+%btn_warning {
+   color: #ffffff;
+   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+   background-color: #df5c39;
+   background-image: linear-gradient(to bottom, #e06342, #dc512c);
+   background-repeat: repeat-x;
+   border-color: #dc512c #dc512c #a2371a;
+  &:hover, &.active {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
   }
 }

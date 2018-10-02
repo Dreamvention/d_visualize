@@ -1,26 +1,29 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-        <div class="h2">{{heading_title}}</div>
-        {% if categories %}
-          <p>
-            <strong>{{text_index}}</strong>
-            {% for category in categories %}
-              <a href="index.php?route=product/manufacturer#{{category.name}}">{{category.name}}</a>
-            {% endfor %}
-          </p>
-          {% for category in categories %}
-          <h2 id="{{category.name}}">{{category.name}}</h2>
-            {% if category.manufacturer %}
-            <div class="row">
-              {% for manufacturer in category.manufacturer %}
-              <div class="col-sm-3"><a href="{{manufacturer.href}}">{{manufacturer.name}}</a></div>
-              {% endfor %}
-            </div>
+    <div class="h2">{{ heading_title }}</div>
+    {% if categories %}
+        <p>
+            <strong>{{ text_index }}</strong>
+            {% if not url_manufacturer is defined %}
+                {% set url_manufacturer = 'index.php?route=product/manufacturer#' %}
             {% endif %}
-          {% endfor %}
-        {% else %}
-          <p>{{text_empty}}</p>
-            {% include partial.d_button_continue.template with  partial.d_button_continue %}
-        {% endif %}
+            {% for category in categories %}
+                &nbsp;&nbsp;&nbsp;<a href="{{ url_manufacturer~"#"~category.name }}">{{ category.name }}</a>
+            {% endfor %}
+        </p>
+        {% for category in categories %}
+            <h2 id="{{ category.name }}">{{ category.name }}</h2>
+            {% if category.manufacturer %}
+                <div class="row">
+                    {% for manufacturer in category.manufacturer %}
+                        <div class="col-sm-3"><a href="{{ manufacturer.href }}">{{ manufacturer.name }}</a></div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>{{ text_empty }}</p>
+        {% include partial.d_button_continue.template with  partial.d_button_continue %}
+    {% endif %}
 {% endblock %}

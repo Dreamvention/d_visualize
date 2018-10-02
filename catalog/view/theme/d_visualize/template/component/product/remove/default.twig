@@ -1,14 +1,14 @@
 {% if not remove_link %}
-    {% include partial.button.template with partial.button|merge({
+    {% include component.button.template with component.button|merge({
         button: 'cart.remove('~ product_id~');',
-        style:'ghost',
+        style:'danger',
         text_button:'<i class="fas fa-times"></i>',
         title:button_remove ,
     }) %}
 {% else %}
-    {% include partial.button.template with partial.button|merge({
+    {% include component.button.template with component.button|merge({
         link: remove_link,
-        style:'ghost',
+        style:'danger',
         text_button:'<i class="fas fa-times"></i>',
         title:button_remove ,
     }) %}

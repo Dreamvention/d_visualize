@@ -219,6 +219,30 @@ Vue.component('visualize', {
   },
   methods: {}
 });
+Vue.component('viz-dashboard', {
+  template: '#viz-dashboard',
+  computed: {
+    status: function status() {
+      return this.$store.getters.status;
+    },
+    loading_first: function loading_first() {
+      return this.$store.getters.loading_first;
+    },
+    setting: function setting() {
+      return this.$store.getters.setting;
+    }
+  },
+  methods: {
+    change_auto_save: function change_auto_save(e) {
+      this.$store.dispatch('CHANGE_AUTO_SAVE', e);
+    }
+  }
+});
+Vue.component('viz-marketplace', {
+  template: '#viz-marketplace',
+  computed: {},
+  methods: {}
+});
 Vue.component('vz-edit-controls', {
   template: '#vz-edit-controls',
   props: {},
@@ -291,29 +315,97 @@ Vue.component('vz-edit-navigation', {
   },
   mounted: function mounted() {}
 });
-Vue.component('viz-dashboard', {
-  template: '#viz-dashboard',
+Vue.component('vis-dash-link', {
+  template: '#vis-dash-link',
+  props: {
+    thumbnail: {
+      type: Object,
+      default: function _default() {
+        return {
+          img: this.$o('img.no_image'),
+          title: 'default',
+          description: 'default',
+          codename: 'default'
+        };
+      }
+    },
+    to: {
+      type: String,
+      default: function _default() {
+        return 'dashboard';
+      }
+    },
+    target: {
+      type: String,
+      default: function _default() {
+        return '_blank';
+      }
+    },
+    text: {
+      type: String,
+      default: function _default() {
+        return '_blank';
+      }
+    }
+  },
+  computed: {},
+  methods: {
+    handleChange: function handleChange(e) {}
+  }
+});
+Vue.component('vz-theme-list', {
+  template: '#vz-theme-list',
   computed: {
-    status: function status() {
-      return this.$store.getters.status;
-    },
-    loading_first: function loading_first() {
-      return this.$store.getters.loading_first;
-    },
-    setting: function setting() {
-      return this.$store.getters.setting;
+    templates: function templates() {
+      return this.$store.getters.templates;
     }
   },
   methods: {
-    change_auto_save: function change_auto_save(e) {
-      this.$store.dispatch('CHANGE_AUTO_SAVE', e);
+    handleChange: function handleChange(e) {},
+    popup: function popup(e) {}
+  }
+});
+Vue.component('vz-theme-preview', {
+  template: '#vz-theme-preview',
+  computed: {
+    active_template: function active_template() {
+      return this.$store.getters.active_template;
+    },
+    switch_text: function switch_text() {
+      return this.$store.getters.status ? this.$t('common.entry_deactivate') : this.$t('common.entry_activate');
+    }
+  },
+  methods: {
+    popup: function popup(e) {},
+    change_status: function change_status() {
+      this.$store.dispatch('CHANGE_STATUS');
     }
   }
 });
-Vue.component('viz-marketplace', {
-  template: '#viz-marketplace',
-  computed: {},
-  methods: {}
+Vue.component('vz-theme-thumb', {
+  template: '#vz-theme-thumb',
+  props: {
+    item: {
+      type: Object,
+      default: function _default() {
+        return {
+          img: this.$o('img.no_image'),
+          setting: '',
+          source: ''
+        };
+      }
+    }
+  },
+  computed: {
+    activeThumb: function activeThumb() {
+      return this.item.setting.codename == this.$store.getters.setting.active_template;
+    }
+  },
+  methods: {
+    handleChange: function handleChange(e) {
+      this.$store.dispatch('CHANGE_TEMPLATE', e.currentTarget.attributes.index);
+    }
+  }
 });
 Vue.component('vz-component-list', {
   template: '#vz-component-list',
@@ -427,98 +519,6 @@ Vue.component('vz-edit-vdh', {
   methods: {},
   beforeMount: function beforeMount() {
     this.$store.dispatch('LOAD_VISUAL_HEADER', this.$o('action.vdh'));
-  }
-});
-Vue.component('vis-dash-link', {
-  template: '#vis-dash-link',
-  props: {
-    thumbnail: {
-      type: Object,
-      default: function _default() {
-        return {
-          img: this.$o('img.no_image'),
-          title: 'default',
-          description: 'default',
-          codename: 'default'
-        };
-      }
-    },
-    to: {
-      type: String,
-      default: function _default() {
-        return 'dashboard';
-      }
-    },
-    target: {
-      type: String,
-      default: function _default() {
-        return '_blank';
-      }
-    },
-    text: {
-      type: String,
-      default: function _default() {
-        return '_blank';
-      }
-    }
-  },
-  computed: {},
-  methods: {
-    handleChange: function handleChange(e) {}
-  }
-});
-Vue.component('vz-theme-list', {
-  template: '#vz-theme-list',
-  computed: {
-    templates: function templates() {
-      return this.$store.getters.templates;
-    }
-  },
-  methods: {
-    handleChange: function handleChange(e) {},
-    popup: function popup(e) {}
-  }
-});
-Vue.component('vz-theme-preview', {
-  template: '#vz-theme-preview',
-  computed: {
-    active_template: function active_template() {
-      return this.$store.getters.active_template;
-    },
-    switch_text: function switch_text() {
-      return this.$store.getters.status ? this.$t('common.entry_deactivate') : this.$t('common.entry_activate');
-    }
-  },
-  methods: {
-    popup: function popup(e) {},
-    change_status: function change_status() {
-      this.$store.dispatch('CHANGE_STATUS');
-    }
-  }
-});
-Vue.component('vz-theme-thumb', {
-  template: '#vz-theme-thumb',
-  props: {
-    item: {
-      type: Object,
-      default: function _default() {
-        return {
-          img: this.$o('img.no_image'),
-          setting: '',
-          source: ''
-        };
-      }
-    }
-  },
-  computed: {
-    activeThumb: function activeThumb() {
-      return this.item.setting.codename == this.$store.getters.setting.active_template;
-    }
-  },
-  methods: {
-    handleChange: function handleChange(e) {
-      this.$store.dispatch('CHANGE_TEMPLATE', e.currentTarget.attributes.index);
-    }
   }
 });
 Vue.component('breadcrumbs', {

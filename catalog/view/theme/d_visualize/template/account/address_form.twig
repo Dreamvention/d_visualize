@@ -1,7 +1,7 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-    <div class="h2">{{ text_add_address }}</div>
+    <h2 class="heading-h2">{{ text_address }}</h2>
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             {% include partial.d_name_field.template with  partial.d_name_field %}
@@ -23,7 +23,7 @@
             }) %}
 
         </fieldset>
-        {% include partial.d_button_submit.template with  partial.d_button_submit %}
+        {% include partial.d_button_continue.template with  partial.d_button_continue %}
     </form>
     <script type="text/javascript"><!--
         $(function () {

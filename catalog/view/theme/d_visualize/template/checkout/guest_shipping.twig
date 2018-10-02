@@ -1,0 +1,31 @@
+<form class="form-horizontal">
+    {#this var need to prevent error displaying before render#}
+    {% set error_then = true %}
+    {% set form = 'inline' %}
+    {% include partial.d_name_field.template with partial.d_name_field %}
+    {% include partial.d_address_field.template with partial.d_address_field %}
+    {% for custom_field in custom_fields %}
+        {% if custom_field.location == 'address' %}
+            {% include partial.d_custom_field.template with partial.d_custom_field|merge({custom_field:custom_field}) %}
+        {% endif %}
+    {% endfor %}
+    {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+        button: true,
+        id:"button-guest-shipping",
+        button_continue: button_continue,
+    }) %}
+    {% set error_then = false %}
+    {% set form = '' %}
+
+</form>
+
+<script type="text/javascript"><!--
+$(function(){
+    d_address_field.init({
+        zone_id: '{{zone_id}}',
+        text_none: '{{text_none}}',
+        text_select: '{{text_select}}'
+    });
+    d_custom_field.init();
+})
+//--></script>

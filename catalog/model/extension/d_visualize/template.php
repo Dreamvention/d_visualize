@@ -48,16 +48,16 @@ class ModelExtensionDVisualizeTemplate extends Model
         $active_template = $this->getAvailableTemplates()[$active_template_codename]['setting'];
         //check if skin overload template
         //check components overloading
-        foreach ($this->getAllUsages($active_template['page']['default']['layout']['partial'], 'component') as $component) {
-            //check on skin overloading the partials
-            $active_template['page']['default']['layout']['partial']
-                = $this->assingChanges($active_template['page']['default']['layout']['partial'],
-                $component,
-                $active_template['codename'],
-                $active_template['active_skin'],
-                true
-            );
-        }
+//        foreach ($this->getAllUsages($active_template['page']['default']['layout']['partial'], 'component') as $component) {
+//            //check on skin overloading the partials
+//            $active_template['page']['default']['layout']['partial']
+//                = $this->assingChanges($active_template['page']['default']['layout']['partial'],
+//                $component,
+//                $active_template['codename'],
+//                $active_template['active_skin'],
+//                true
+//            );
+//        }
         //check on skin overloading the components
         foreach (array_keys($active_template['page']) as $path) {
             if ($path !== 'default') {
@@ -119,17 +119,17 @@ class ModelExtensionDVisualizeTemplate extends Model
 
     public function validate_templates($data)
     {
-        foreach ($data['partial'] as $partial_k => $partial_v) {
-            if (!is_file(DIR_TEMPLATE . $partial_v['template'])) {
-                $data['partial'][$partial_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
-            } else {
-                foreach ($data['partial'][$partial_k]['component'] as $component_k => $component_v) {
-                    if (!is_file(DIR_TEMPLATE . $component_v['template'])) {
-                        $data['partial'][$partial_k]['component'][$component_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
-                    }
-                }
-            }
-        }
+//        foreach ($data['partial'] as $partial_k => $partial_v) {
+//            if (!is_file(DIR_TEMPLATE . $partial_v['template'])) {
+//                $data['partial'][$partial_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
+//            } else {
+//                foreach ($data['partial'][$partial_k]['component'] as $component_k => $component_v) {
+//                    if (!is_file(DIR_TEMPLATE . $component_v['template'])) {
+//                        $data['partial'][$partial_k]['component'][$component_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
+//                    }
+//                }
+//            }
+//        }
         foreach ($data['component'] as $partial_k => $partial_v) {
             if (!is_file(DIR_TEMPLATE . $partial_v['template'])) {
                 $data['component'][$partial_k]['template'] = 'd_visualize/template/partial/d_empty.twig';

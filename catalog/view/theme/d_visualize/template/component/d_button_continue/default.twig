@@ -11,7 +11,7 @@
     {% endif %}
     <div class="vz-button-continue__forward">
         {% if text_agree %}
-            <div class="agree">
+            <div class="vz-button-continue__forward__agree">
             <span>
               {{ text_agree }}
             </span>
@@ -23,17 +23,26 @@
                 }) %}
             </div>
         {% endif %}
+
         {% if continue %}
             {% include partial.button.template with partial.button|merge({
                 link:continue ,
-                id: id,
+                style:'primary',
+                text_button:button_continue,
+            }) %}
+        {% elseif button %}
+            {% include partial.button.template with partial.button|merge({
+                button:true ,
+                id:id,
+                text_loading:text_loading,
                 style:'primary',
                 text_button:button_continue,
             }) %}
         {% elseif button_submit %}
-            {% include partial.button.template with partial.input|merge({
+            {% include partial.input.template with partial.input|merge({
                 type:'submit',
-                value:button-continue,
+                style:'primary',
+                value:button_continue,
                 button:'primary',
             }) %}
         {% endif %}

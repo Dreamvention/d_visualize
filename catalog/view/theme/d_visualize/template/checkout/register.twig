@@ -1,4 +1,5 @@
 <div class="row">
+    {#this var need to prevent error displaying before render#}
     {% set error_then = true %}
     <div class="col-sm-6">
         <fieldset id="account">
@@ -13,22 +14,22 @@
         <fieldset>
             <legend>{{ text_your_password }}</legend>
             {% include partial.form_group.template with partial.form_group|merge({
-            type:'password',
-            id:'input-password',
-            name:'password',
-            value:password,
-            placeholder:entry_password,
-            classes:'',
-            text_input:entry_password,
+                type:'password',
+                id:'input-password',
+                name:'password',
+                value:password,
+                placeholder:entry_password,
+                classes:'',
+                text_input:entry_password,
             }) %}
             {% include partial.form_group.template with partial.form_group|merge({
-            type:'password',
-            id:'input-confirm',
-            name:'confirm',
-            value:password,
-            placeholder:entry_confirm,
-            classes:'',
-            text_input:entry_confirm,
+                type:'password',
+                id:'input-confirm',
+                name:'confirm',
+                value:password,
+                placeholder:entry_confirm,
+                classes:'',
+                text_input:entry_confirm,
             }) %}
         </fieldset>
     </div>
@@ -49,55 +50,41 @@
 <div class="row">
     <div class="col-12">
         {% include partial.input.template with partial.input|merge({
-        type:'checkbox',
-        id:'newsletter',
-        name:'newsletter',
-        value:1 ,
-        checked: newsletter,
-        text_input: entry_newsletter,
+            type:'checkbox',
+            id:'newsletter',
+            name:'newsletter',
+            value:1 ,
+            checked: newsletter,
+            text_input: entry_newsletter,
         }) %}
     </div>
     <div class="col-12">
-    </div>
-    <div class="col-12">
-        {% if text_agree %}
-            <div class="buttons">
-                {% if shipping_required %}
-                    {% include partial.input.template with partial.input|merge({
-                    type:'checkbox',
-                    name:'shipping_address',
-                    value:1 ,
-                    checked: true,
-                    text_input: entry_shipping,
-                    }) %}
-                {% endif %}
-                <div class="pull-right">{{ text_agree }} &nbsp;
-                    {% include partial.input.template with partial.input|merge({
-                    type:'checkbox',
-                    name:'agree',
-                    value:1 ,
-                    checked: false,
-                    }) %}
-                    <input type="button" value="{{ button_continue }}" id="button-register"
-                           data-loading-text="{{ text_loading }}" class="btn d-vis btn-primary"/>
-                </div>
-            </div>
-        {% else %}
-            {% include partial.d_button_continue.template with partial.d_button_continue|merge({
-                back:continue,
-                button_back:button_shopping,
-                continue: checkout,
-                button_continue: button_checkout,
-            })%}
-            <div class="buttons clearfix">
-                <div class="pull-right">
-                    <input type="button" value="{{ button_continue }}" id="button-register"
-                           data-loading-text="{{ text_loading }}" class="btn d-vis btn-primary"/>
-                </div>
-            </div>
+        {% if shipping_required %}
+            {% include partial.input.template with partial.input|merge({
+                type:'checkbox',
+                name:'shipping_address',
+                value:1 ,
+                checked: true,
+                text_input: entry_shipping,
+            }) %}
         {% endif %}
+        {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+            button: true,
+            id:"button-register",
+            button_continue: button_continue,
+        }) %}
     </div>
     {% set error_then = false %}
 
 </div>
+<script type="text/javascript"><!--
+	$(function () {
+		d_address_field.init({
+			zone_id: '{{ zone_id }}',
+			text_none: '{{ text_none }}',
+			text_select: '{{ text_select }}'
+		});
+		d_custom_field.init();
+	});
+	//--></script>
 

@@ -9,7 +9,7 @@
                     <h5 class="heading-subtitle">{{ text_register }}</h5>
                     <p>{{ text_register_account }}</p>
                     <div class="d-flex justify-content-end">
-                        {% include partial.button.template with partial.button|merge({
+                        {% include component.button.template with partial.button|merge({
                         link:register ,
                         style:'primary',
                         classes:'btn-shrink',
@@ -45,9 +45,10 @@
 
                         <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
 
-                        {% include partial.d_button_submit.template with partial.d_button_submit|merge({
+                        {% include partial.d_button_continue.template with partial.d_button_continue|merge({
                             button_continue:button_login
                         }) %}
+
 
                         {% if redirect %}
                             <input type="hidden" name="redirect" value="{{ redirect }}"/>

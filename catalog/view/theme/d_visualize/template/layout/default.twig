@@ -3,8 +3,8 @@
     {% block main_wrapper %}
         <div class="main-wrapper" data-slideout-ignore>
             {% block before_content %}
-                {% include partial.breadcrumb.template with partial.breadcrumb %}
-                {% include partial.d_notification.template with partial.d_notification %}
+                {% include component.breadcrumb.template with component.breadcrumb %}
+                {% include component.d_notification.template with component.d_notification %}
             {% endblock %}
             {% block container_classes %}
             <div class="container">

@@ -16,14 +16,14 @@
             {% endif %}
             <div class="{{ class }}">
                 <div class="btn-group">
-                    {% include partial.button.template with partial.button|merge({
-                        button:'whishlist.add('~ product_id ~')',
+                    {% include component.button.template with component.button|merge({
+                        button:'wishlist.add('~ product_id ~')',
                         style:'default',
                         icon:'fas fa-heart',
                         title_button: button_wishlist,
                         custom:'data-toggle="tooltip"'
                     }) %}
-                    {% include partial.button.template with partial.button|merge({
+                    {% include component.button.template with component.button|merge({
                         button:'compare.add('~ product_id ~')',
                         style:'default',
                         icon:'fas fa-exchange-alt',
@@ -79,7 +79,7 @@
                         <div class="vz-product_product__recurring">
                             <hr>
                             <h3>{{ text_payment_recurring }}</h3>
-                            {% include partial.form_group.template with partial.form_group|merge({
+                            {% include component.form_group.template with component.form_group|merge({
                                 type:'select',
                                 name:'recurring_id',
                                 required: true,
@@ -101,7 +101,7 @@
                             {#</div>#}
                         </div>
                     {% endif %}
-                    {% include partial.form_group.template with partial.form_group|merge({
+                    {% include component.form_group.template with component.form_group|merge({
                         type:'text',
                         id:'input-quantity',
                         name:'quantity',
@@ -110,7 +110,7 @@
                     }) %}
                     <input type="hidden" name="product_id" value="{{ product_id }}"/>
 
-                    {% include partial.button.template with partial.button|merge({
+                    {% include component.button.template with component.button|merge({
                         button:button_cart,
                         id:'button-cart',
                         text_loading:text_loading,
@@ -124,7 +124,7 @@
                         <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
                     {% endif %}</div>
                 {% if review_status %}
-                    {% include partial.d_rating.template with partial.d_rating|merge({
+                    {% include component.d_rating.template with component.d_rating|merge({
                         static_rating:true,
                     }) %}
                     <a href=""
@@ -154,7 +154,7 @@
                         {% set class = 'col-xs-6 col-sm-3' %}
                     {% endif %}
                     <div class="{{ class }}">
-                        {% include partial.d_product_thumb.template with partial.d_product_thumb %}
+                        {% include component.d_product_thumb.template with component.d_product_thumb %}
                     </div>
                     {% if column_left and column_right and (i + 1) % 2 == 0 %}
                         <div class="clearfix visible-md visible-sm"></div>
