@@ -173,12 +173,19 @@ d_visualize.actions['PUSH_EDIT_HISTORY'] = function (context, payload) {
   context.commit('PUSH_EDIT_HISTORY', payload);
 };
 
+d_visualize.actions['CHANGE_PAGE'] = function (context, payload) {
+  var iFrameDOM = $("iframe#iframe").contents();
+  var route = iFrameDOM.find("#content").data('route');
+  context.commit('CHANGE_PAGE', route);
+};
+
 d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
   $('iframe')[0].contentWindow.location.reload();
 };
 
 d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
   context.commit('PUSH_IFRAME_HISTORY', payload);
+  context.dispatch('CHANGE_PAGE', payload);
   $.post(context.state.config.save_iframe_url, {
     last_url: context.getters.iframe_history[context.getters.iframe_history.length - 1].href
   }, function (data, status) {
@@ -217,30 +224,6 @@ Vue.component('visualize', {
       return this.$store.getters.loading;
     }
   },
-  methods: {}
-});
-Vue.component('viz-dashboard', {
-  template: '#viz-dashboard',
-  computed: {
-    status: function status() {
-      return this.$store.getters.status;
-    },
-    loading_first: function loading_first() {
-      return this.$store.getters.loading_first;
-    },
-    setting: function setting() {
-      return this.$store.getters.setting;
-    }
-  },
-  methods: {
-    change_auto_save: function change_auto_save(e) {
-      this.$store.dispatch('CHANGE_AUTO_SAVE', e);
-    }
-  }
-});
-Vue.component('viz-marketplace', {
-  template: '#viz-marketplace',
-  computed: {},
   methods: {}
 });
 Vue.component('vz-edit-controls', {
@@ -315,97 +298,29 @@ Vue.component('vz-edit-navigation', {
   },
   mounted: function mounted() {}
 });
-Vue.component('vis-dash-link', {
-  template: '#vis-dash-link',
-  props: {
-    thumbnail: {
-      type: Object,
-      default: function _default() {
-        return {
-          img: this.$o('img.no_image'),
-          title: 'default',
-          description: 'default',
-          codename: 'default'
-        };
-      }
+Vue.component('viz-dashboard', {
+  template: '#viz-dashboard',
+  computed: {
+    status: function status() {
+      return this.$store.getters.status;
     },
-    to: {
-      type: String,
-      default: function _default() {
-        return 'dashboard';
-      }
+    loading_first: function loading_first() {
+      return this.$store.getters.loading_first;
     },
-    target: {
-      type: String,
-      default: function _default() {
-        return '_blank';
-      }
-    },
-    text: {
-      type: String,
-      default: function _default() {
-        return '_blank';
-      }
+    setting: function setting() {
+      return this.$store.getters.setting;
     }
   },
+  methods: {
+    change_auto_save: function change_auto_save(e) {
+      this.$store.dispatch('CHANGE_AUTO_SAVE', e);
+    }
+  }
+});
+Vue.component('viz-marketplace', {
+  template: '#viz-marketplace',
   computed: {},
-  methods: {
-    handleChange: function handleChange(e) {}
-  }
-});
-Vue.component('vz-theme-list', {
-  template: '#vz-theme-list',
-  computed: {
-    templates: function templates() {
-      return this.$store.getters.templates;
-    }
-  },
-  methods: {
-    handleChange: function handleChange(e) {},
-    popup: function popup(e) {}
-  }
-});
-Vue.component('vz-theme-preview', {
-  template: '#vz-theme-preview',
-  computed: {
-    active_template: function active_template() {
-      return this.$store.getters.active_template;
-    },
-    switch_text: function switch_text() {
-      return this.$store.getters.status ? this.$t('common.entry_deactivate') : this.$t('common.entry_activate');
-    }
-  },
-  methods: {
-    popup: function popup(e) {},
-    change_status: function change_status() {
-      this.$store.dispatch('CHANGE_STATUS');
-    }
-  }
-});
-Vue.component('vz-theme-thumb', {
-  template: '#vz-theme-thumb',
-  props: {
-    item: {
-      type: Object,
-      default: function _default() {
-        return {
-          img: this.$o('img.no_image'),
-          setting: '',
-          source: ''
-        };
-      }
-    }
-  },
-  computed: {
-    activeThumb: function activeThumb() {
-      return this.item.setting.codename == this.$store.getters.setting.active_template;
-    }
-  },
-  methods: {
-    handleChange: function handleChange(e) {
-      this.$store.dispatch('CHANGE_TEMPLATE', e.currentTarget.attributes.index);
-    }
-  }
+  methods: {}
 });
 Vue.component('vz-component-list', {
   template: '#vz-component-list',
@@ -504,6 +419,29 @@ Vue.component('vz-edit-back', {
     }
   }
 });
+Vue.component('vz-edit-page-select', {
+  template: '#vz-edit-page-select',
+  computed: {
+    currentPage: function currentPage() {
+      return this.$store.getters.current_page;
+    },
+    availablePages: function availablePages() {
+      return this.$store.getters.available_page;
+    }
+  },
+  methods: {// update(e, options) {
+    // 	// no need to update if there no available component exist.
+    // 	// at this case set default skin because it have to be
+    // 	let skin = this.availableComponents[this.componentId][options.value] ? options.value : 'default';
+    // 	this.$store.dispatch('UPDATE_COMPONENT', {
+    // 		active_template_id: this.$store.getters.setting.active_template,
+    // 		component_id: this.componentId,
+    // 		component_skin: skin
+    // 	});
+    //
+    // }
+  }
+});
 Vue.component('vz-edit-vdf', {
   template: '#vz-edit-vdf',
   computed: {},
@@ -519,6 +457,98 @@ Vue.component('vz-edit-vdh', {
   methods: {},
   beforeMount: function beforeMount() {
     this.$store.dispatch('LOAD_VISUAL_HEADER', this.$o('action.vdh'));
+  }
+});
+Vue.component('vis-dash-link', {
+  template: '#vis-dash-link',
+  props: {
+    thumbnail: {
+      type: Object,
+      default: function _default() {
+        return {
+          img: this.$o('img.no_image'),
+          title: 'default',
+          description: 'default',
+          codename: 'default'
+        };
+      }
+    },
+    to: {
+      type: String,
+      default: function _default() {
+        return 'dashboard';
+      }
+    },
+    target: {
+      type: String,
+      default: function _default() {
+        return '_blank';
+      }
+    },
+    text: {
+      type: String,
+      default: function _default() {
+        return '_blank';
+      }
+    }
+  },
+  computed: {},
+  methods: {
+    handleChange: function handleChange(e) {}
+  }
+});
+Vue.component('vz-theme-list', {
+  template: '#vz-theme-list',
+  computed: {
+    templates: function templates() {
+      return this.$store.getters.templates;
+    }
+  },
+  methods: {
+    handleChange: function handleChange(e) {},
+    popup: function popup(e) {}
+  }
+});
+Vue.component('vz-theme-preview', {
+  template: '#vz-theme-preview',
+  computed: {
+    active_template: function active_template() {
+      return this.$store.getters.active_template;
+    },
+    switch_text: function switch_text() {
+      return this.$store.getters.status ? this.$t('common.entry_deactivate') : this.$t('common.entry_activate');
+    }
+  },
+  methods: {
+    popup: function popup(e) {},
+    change_status: function change_status() {
+      this.$store.dispatch('CHANGE_STATUS');
+    }
+  }
+});
+Vue.component('vz-theme-thumb', {
+  template: '#vz-theme-thumb',
+  props: {
+    item: {
+      type: Object,
+      default: function _default() {
+        return {
+          img: this.$o('img.no_image'),
+          setting: '',
+          source: ''
+        };
+      }
+    }
+  },
+  computed: {
+    activeThumb: function activeThumb() {
+      return this.item.setting.codename == this.$store.getters.setting.active_template;
+    }
+  },
+  methods: {
+    handleChange: function handleChange(e) {
+      this.$store.dispatch('CHANGE_TEMPLATE', e.currentTarget.attributes.index);
+    }
   }
 });
 Vue.component('breadcrumbs', {
@@ -656,10 +686,10 @@ d_visualize.getters.components = function (state, getters) {
   var components = [];
 
   if (getters.active_template.setting) {
-    components = _.reduce(getters.active_template.setting.page.default.layout.partial, function (memo, num, k) {
+    components = _.reduce(getters.active_template.setting.page[getters.current_page].layout.component, function (memo, component, component_key) {
       //only thouse who have skin overloading
-      if (num.component[k].skin) {
-        memo[k] = num.component[k];
+      if (component.skin) {
+        memo[component_key] = component;
       }
 
       return memo;
@@ -709,6 +739,26 @@ d_visualize.getters.route = function (state) {
 
 d_visualize.getters.edit_history = function (state) {
   return state.edit_history;
+};
+
+d_visualize.getters.current_page = function (state, getters) {
+  var current_page = state.current_page;
+
+  _.map(getters.available_page, function (page) {
+    page = page.replace('/', '\/');
+    var matches = state.current_page.match(page);
+
+    if (matches) {
+      current_page = page;
+    }
+  });
+
+  console.log(current_page);
+  return current_page;
+};
+
+d_visualize.getters.available_page = function (state, getters) {
+  return _.keys(getters.active_template.setting.page);
 };
 
 d_visualize.getters.status = function (state) {
@@ -768,7 +818,7 @@ d_visualize.mutations['LOAD_VISUAL_FOOTER'] = function (state, payload) {
 
 
 d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
-  var old_component = state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component[payload.component_id];
+  var old_component = state.templates[payload.active_template_id].setting.page.default.layout.component[payload.component_id];
   var new_component = JSON.parse(JSON.stringify(old_component));
   new_component.skin = payload.component_skin;
   new_component.template = old_component.template.replace(/(\w+).twig/, new_component.skin + '.twig');
@@ -780,7 +830,7 @@ d_visualize.mutations['UPDATE_COMPONENT'] = function (state, payload) {
     new_component.stylesheet = 'd_visualize/stylesheet/dist/vz-component/' + payload.component_id + '/' + new_component.skin + '.css';
   }
 
-  Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.partial[payload.component_id].component, payload.component_id, new_component);
+  Vue.set(state.templates[payload.active_template_id].setting.page.default.layout.component, payload.component_id, new_component);
 }; //main changing skin
 
 
@@ -807,6 +857,7 @@ d_visualize.mutations['LOADING_END'] = function (state, payload) {
 
 d_visualize.state.edit_history = ['/home/dashboard', '/edit'];
 d_visualize.state.iframe_history = [];
+d_visualize.state.current_page = 'default';
 d_visualize.state.menu = {
   hidden: false,
   navigation: [],
@@ -840,6 +891,10 @@ d_visualize.mutations['PUSH_IFRAME_HISTORY'] = function (state, payload) {
   state.iframe_history.push(payload);
   var new_history = JSON.parse(JSON.stringify(state.iframe_history));
   Vue.set(state, 'iframe_history', new_history);
+};
+
+d_visualize.mutations['CHANGE_PAGE'] = function (state, payload) {
+  Vue.set(state, 'current_page', payload);
 };
 
 d_visualize.mutations['HIDE_MENU'] = function (state, payload) {

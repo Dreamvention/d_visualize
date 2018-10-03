@@ -1,10 +1,10 @@
 <div class="vz-d_product_list vz-d_product_list_default">
     {% if products %}
-        {% include partial.d_product_sort.template with partial.d_product_sort %}
+        {% include component.d_product_sort.template with component.d_product_sort %}
         <div class="row products-list">
             {% for product in products %}
                 <div class="product-layout product-list col-12">
-                    {% include partial.d_product_thumb.template with partial.d_product_thumb|merge(product) %}
+                    {% include component.d_product_thumb.template with component.d_product_thumb|merge(product) %}
                 </div>
             {% endfor %}
         </div>
@@ -14,6 +14,6 @@
         </div>
     {% else %}
         <p>{{ text_empty }}</p>
-        {% include partial.d_button_continue.template with partial.d_button_continue %}
+        {% include component.d_button_continue.template with component.d_button_continue %}
     {% endif %}
 </div>

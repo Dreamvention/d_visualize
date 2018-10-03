@@ -6,9 +6,9 @@
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <legend>{{ text_order }}</legend>
         <fieldset>
-            {% include partial.d_name_field.template with  partial.d_name_field %}
+            {% include component.d_name_field.template with  component.d_name_field %}
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'email',
             id:'input-email',
             name:'email',
@@ -20,7 +20,7 @@
             error:error_email,
             }) %}
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-telephone',
             name:'telephone',
@@ -32,7 +32,7 @@
             error:error_telephone,
             }) %}
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-order-id',
             name:'order_id',
@@ -44,7 +44,7 @@
             error:error_order_id,
             }) %}
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'date',
             id:'input-date-ordered',
             name:'date_ordered',
@@ -56,7 +56,7 @@
         </fieldset>
         <fieldset>
             <legend>{{ text_product }}</legend>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-product',
             name:'product',
@@ -68,7 +68,7 @@
             error:error_product,
             }) %}
              
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-model',
             name:'model',
@@ -80,7 +80,7 @@
             error:error_model,
             }) %} 
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-quantity',
             name:'quantity',
@@ -91,7 +91,7 @@
             error:error_quantity,
             }) %}
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'radio',
             id:'input-reason',
             name:'return_reason_id',
@@ -107,7 +107,7 @@
             }) %}
 
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'radio',
             id:'input-opened',
             name:'opened',
@@ -122,7 +122,7 @@
             error:error_opened,
             }) %}
 
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'textarea',
             id:'input-comment',
             name:'comment',
@@ -133,7 +133,7 @@
             }) %}
             {{ captcha }}
         </fieldset>
-            {% include partial.d_button_continue.template with  partial.d_button_continue %}
+            {% include component.d_button_continue.template with  component.d_button_continue %}
     </form>
 
     <script type="text/javascript"><!--

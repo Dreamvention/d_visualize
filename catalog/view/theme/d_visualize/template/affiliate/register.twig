@@ -15,7 +15,7 @@
         </fieldset>
         <fieldset>
           <legend>{{text_payment}}</legend>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-tax',
             name:'tax',
@@ -92,7 +92,7 @@
         </fieldset>
         <fieldset>
           <legend>{{text_your_password}}</legend>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'password',
             id:'input-password',
             required:true,
@@ -102,7 +102,7 @@
             classes:'',
             text_input:entry_password,
             }) %}
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'password',
             id:'input-confirm',
             name:'confirm',
@@ -114,7 +114,7 @@
             }) %}
         </fieldset>
         {{captcha}}
-          {% include partial.d_button_submit.template with partial.d_button_submit %}
+          {% include component.d_button_submit.template with component.d_button_submit %}
       </form>
 <script type="text/javascript"><!--
 $(function(){

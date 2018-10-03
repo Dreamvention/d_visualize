@@ -40,9 +40,9 @@
 
             </div>
             <div class="vz-product-thumb__rating">
-                {% include partial.d_rating.template with  partial.d_rating|merge({rating:rating,static_rating:true}) %}
+                {% include component.d_rating.template with  component.d_rating|merge({rating:rating,static_rating:true}) %}
             </div>
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 button:'cart.add('~ product_id ~', '~ minimum ~')',
                 style:'secondary',
                 classes:'btn-buy',

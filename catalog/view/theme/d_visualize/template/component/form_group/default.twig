@@ -30,7 +30,7 @@
         <label class="{{ form_group_label_class }} "
                for="{{ id }}"><span>{{ text_input }}</span></label>
         <div class="{{ form_group_div_class }}">
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
                 type:type,
                 id:id,
                 name:name,
@@ -52,7 +52,7 @@
                        placeholder="{{ placeholder }}"
                        data-date-format="YYYY-MM-DD" id="{{ id }}"
                        class="{{ form_group_input_class }}"/><span class="input-group-btn">
-                        {% include partial.button.template with partial.button|merge({
+                        {% include component.button.template with component.button|merge({
                             button: true,
                             style:'primary',
                             classes:'',
@@ -72,7 +72,7 @@
         {% endif %}
         <div class="{{ form_group_div_class }}">
             {% for radio in radio_values %}
-                {% include partial.input.template with partial.input|merge({
+                {% include component.input.template with component.input|merge({
                     type:'radio',
                     name: name,
                     value: radio[radio_values_val] ,
@@ -90,7 +90,7 @@
         <label class="{{ form_group_label_class }} "
                for="{{ id }}"><span>{{ text_input }}</span></label>
         <div class="{{ form_group_div_class }}">
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
                 type:'select',
                 id:id,
                 select_values:select_values,

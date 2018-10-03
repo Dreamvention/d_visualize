@@ -101,7 +101,7 @@
             <h2 class="like-heading-h3">
                 <legend>{{ text_contact }}</legend>
             </h2>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-name',
             name:'name',
@@ -113,7 +113,7 @@
             error:error_name,
             }) %}
             
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'email',
             id:'input-email',
             name:'email',
@@ -125,7 +125,7 @@
             error:error_email,
             }) %}
             
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'textarea',
             id:'input-enquiry',
             name:'enquiry',
@@ -137,7 +137,7 @@
             }) %}
             {{ captcha }}
         </fieldset>
-        {% include partial.d_button_submit.template with partial.d_button_submit|merge({
+        {% include component.d_button_submit.template with component.d_button_submit|merge({
         button_continue:button_submit
         }) %}
     </form>

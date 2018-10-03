@@ -4,16 +4,16 @@
     <div class="col-sm-6">
         <fieldset id="account">
             <legend>{{ text_your_details }}</legend>
-            {% include partial.d_account_field.template with partial.d_account_field %}
+            {% include component.d_account_field.template with component.d_account_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'account' %}
-                    {% include partial.d_custom_field.template with partial.d_custom_field|merge({custom_field:custom_field}) %}
+                    {% include component.d_custom_field.template with component.d_custom_field|merge({custom_field:custom_field}) %}
                 {% endif %}
             {% endfor %}
         </fieldset>
         <fieldset>
             <legend>{{ text_your_password }}</legend>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
                 type:'password',
                 id:'input-password',
                 name:'password',
@@ -22,7 +22,7 @@
                 classes:'',
                 text_input:entry_password,
             }) %}
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
                 type:'password',
                 id:'input-confirm',
                 name:'confirm',
@@ -36,10 +36,10 @@
     <div class="col-sm-6">
         <fieldset id="address">
             <legend>{{ text_your_address }}</legend>
-            {% include partial.d_address_field.template with partial.d_address_field %}
+            {% include component.d_address_field.template with component.d_address_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'address' %}
-                    {% include partial.d_custom_field.template with partial.d_custom_field|merge({custom_field:custom_field}) %}
+                    {% include component.d_custom_field.template with component.d_custom_field|merge({custom_field:custom_field}) %}
                 {% endif %}
             {% endfor %}
         </fieldset>
@@ -49,7 +49,7 @@
 </div>
 <div class="row">
     <div class="col-12">
-        {% include partial.input.template with partial.input|merge({
+        {% include component.input.template with component.input|merge({
             type:'checkbox',
             id:'newsletter',
             name:'newsletter',
@@ -60,7 +60,7 @@
     </div>
     <div class="col-12">
         {% if shipping_required %}
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
                 type:'checkbox',
                 name:'shipping_address',
                 value:1 ,
@@ -68,7 +68,7 @@
                 text_input: entry_shipping,
             }) %}
         {% endif %}
-        {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+        {% include component.d_button_continue.template with component.d_button_continue|merge({
             button: true,
             id:"button-register",
             button_continue: button_continue,

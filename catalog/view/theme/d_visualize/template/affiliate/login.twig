@@ -9,7 +9,7 @@
                 <div class="well">
                     <h2 class="heading-h2">{{ text_new_affiliate }}</h2>
                     <p>{{ text_register_account }}</p>
-                    {% include partial.button.template with partial.button|merge({
+                    {% include component.button.template with component.button|merge({
                     link: register,
                     style:'primary',
                     classes:'btn-shrink',
@@ -22,7 +22,7 @@
                     <h2 class="heading-h2">{{ text_returning_affiliate }}</h2>
                     <span class="heading-subtitle">{{ text_i_am_returning_affiliate }}</span>
                     <form action="{{ action }}" method="post" enctype="multipart/form-data">
-                        {% include partial.form_group.template with partial.form_group|merge({
+                        {% include component.form_group.template with component.form_group|merge({
                         type:'email',
                         id:'input-email',
                         name:'email',

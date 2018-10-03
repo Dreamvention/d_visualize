@@ -9,7 +9,7 @@
                     <h5 class="heading-subtitle">{{ text_register }}</h5>
                     <p>{{ text_register_account }}</p>
                     <div class="d-flex justify-content-end">
-                        {% include component.button.template with partial.button|merge({
+                        {% include component.button.template with component.button|merge({
                         link:register ,
                         style:'primary',
                         classes:'btn-shrink',
@@ -23,7 +23,7 @@
                     <h3 class="heading-h3">{{ text_returning_customer }}</h3>
                     <h5 class="heading-h5">{{ text_i_am_returning_customer }}</h5>
                     <form action="{{ action }}" method="post" enctype="multipart/form-data">
-                        {% include partial.form_group.template with partial.form_group|merge({
+                        {% include component.form_group.template with component.form_group|merge({
                         type:'email',
                         id:'input-email',
                         name:'email',
@@ -33,7 +33,7 @@
                         text_input:entry_email,
                         }) %}
 
-                        {% include partial.form_group.template with partial.form_group|merge({
+                        {% include component.form_group.template with component.form_group|merge({
                         type:'password',
                         id:'input-password',
                         name:'password',
@@ -45,7 +45,7 @@
 
                         <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
 
-                        {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+                        {% include component.d_button_continue.template with component.d_button_continue|merge({
                             button_continue:button_login
                         }) %}
 

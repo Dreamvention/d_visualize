@@ -7,11 +7,11 @@
             <fieldset id="account">
                 <h3>{{ text_your_details }}</h3>
                 <div class="">
-                    {% include partial.d_account_field.template with partial.d_account_field|merge({form:''}) %}
+                    {% include component.d_account_field.template with component.d_account_field|merge({form:''}) %}
                     {% for custom_field in custom_fields %}
                         {% if custom_field.location == 'account' %}
                             {% set custom_field = custom_field|merge({form:'inline'}) %}
-                            {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
+                            {% include component.d_custom_field.template with component.d_custom_field|merge(custom_field) %}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -19,18 +19,18 @@
             {% if constant('VERSION') < '3.0.0.0' %}
                 <fieldset id="address">
                     <h3>{{ text_your_address }}</h3>
-                    {% include partial.d_address_field.template with partial.d_address_field|merge({form:'inline'}) %}
+                    {% include component.d_address_field.template with component.d_address_field|merge({form:'inline'}) %}
                     {% for custom_field in custom_fields %}
                         {% if custom_field.location == 'address' %}
                             {% set custom_field = custom_field|merge({form:'inline'}) %}
-                            {% include partial.d_custom_field.template with partial.d_custom_field|merge(custom_field) %}
+                            {% include component.d_custom_field.template with component.d_custom_field|merge(custom_field) %}
                         {% endif %}
                     {% endfor %}
                 </fieldset>
             {% endif %}
             <fieldset>
                 <h3>{{ text_your_password }}</h3>
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'password',
                 id:'input-password',
                 name:'password',
@@ -39,7 +39,7 @@
                 classes:'',
                 text_input:entry_password,
                 }) %}
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'password',
                 id:'input-confirm',
                 name:'confirm',
@@ -51,7 +51,7 @@
             </fieldset>
             <fieldset class="newslatter">
                 <h3>{{ text_newsletter }}</h3>
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'radio',
                 name:'newsletter',
                 form:'inline',
@@ -63,7 +63,7 @@
                 }) %}
             </fieldset>
             {{ captcha }}
-            {% include partial.d_button_continue.template with partial.d_button_continue %}
+            {% include component.d_button_continue.template with component.d_button_continue %}
         </form>
 
 

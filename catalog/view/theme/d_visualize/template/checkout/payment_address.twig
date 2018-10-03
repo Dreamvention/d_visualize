@@ -1,6 +1,6 @@
 <form class="form-horizontal">
     {% if addresses %}
-        {% include partial.input.template with partial.input|merge({
+        {% include component.input.template with component.input|merge({
             type:'radio',
             name:'payment_address',
             value:'existing',
@@ -17,7 +17,7 @@
                 {% endfor %}
             </select>
         </div>
-        {% include partial.input.template with partial.input|merge({
+        {% include component.input.template with component.input|merge({
             type:'radio',
             name:'payment_address',
             value:'new',
@@ -29,18 +29,18 @@
     {% set error_then = true %}
     {% set form = 'inline' %}
     <div id="payment-new" style="display:{% if addresses %}none{% else %}block{% endif %};">
-        {% include partial.d_name_field.template with partial.d_name_field %}
-        {% include partial.d_address_field.template with partial.d_address_field %}
+        {% include component.d_name_field.template with component.d_name_field %}
+        {% include component.d_address_field.template with component.d_address_field %}
         {% for custom_field in custom_fields %}
             {% if custom_field.location == 'address' %}
-                {% include partial.d_custom_field.template with partial.d_custom_field|merge({custom_field:custom_field}) %}
+                {% include component.d_custom_field.template with component.d_custom_field|merge({custom_field:custom_field}) %}
             {% endif %}
         {% endfor %}
 
     </div>
     {% set error_then = false %}
     {% set form = '' %}
-    {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+    {% include component.d_button_continue.template with component.d_button_continue|merge({
         button: true,
         id:"button-payment-address",
         button_continue: button_continue,

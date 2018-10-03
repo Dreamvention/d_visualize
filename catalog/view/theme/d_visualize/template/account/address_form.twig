@@ -4,14 +4,14 @@
     <h2 class="heading-h2">{{ text_address }}</h2>
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
-            {% include partial.d_name_field.template with  partial.d_name_field %}
-            {% include partial.d_address_field.template with  partial.d_address_field %}
+            {% include component.d_name_field.template with  component.d_name_field %}
+            {% include component.d_address_field.template with  component.d_address_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'address' %}
-                    {% include partial.d_custom_field.template with  partial.d_custom_field %}
+                    {% include component.d_custom_field.template with  component.d_custom_field %}
                 {% endif %}
             {% endfor %}
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'radio',
             name:'default',
             form:'inline',
@@ -23,7 +23,7 @@
             }) %}
 
         </fieldset>
-        {% include partial.d_button_continue.template with  partial.d_button_continue %}
+        {% include component.d_button_continue.template with  component.d_button_continue %}
     </form>
     <script type="text/javascript"><!--
         $(function () {

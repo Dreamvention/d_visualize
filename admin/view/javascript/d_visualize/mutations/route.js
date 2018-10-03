@@ -1,9 +1,10 @@
 d_visualize.state.edit_history = ['/home/dashboard', '/edit'];
 d_visualize.state.iframe_history = [];
+d_visualize.state.current_page = 'default';
 d_visualize.state.menu = {
 	hidden: false,
-	navigation:[],
-	navigation_history:[]
+	navigation: [],
+	navigation_history: []
 };
 
 d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
@@ -12,8 +13,8 @@ d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
 	var new_navigation = JSON.parse(JSON.stringify(payload));
 	Vue.set(state, 'menu', JSON.parse(JSON.stringify({
 		hidden: state.menu.hidden,
-		navigation:new_navigation,
-		navigation_history:new_history
+		navigation: new_navigation,
+		navigation_history: new_history
 	})));
 
 };
@@ -31,6 +32,9 @@ d_visualize.mutations['PUSH_IFRAME_HISTORY'] = function (state, payload) {
 	state.iframe_history.push(payload);
 	var new_history = JSON.parse(JSON.stringify(state.iframe_history));
 	Vue.set(state, 'iframe_history', new_history);
+};
+d_visualize.mutations['CHANGE_PAGE'] = function (state, payload) {
+	Vue.set(state, 'current_page', payload);
 };
 
 d_visualize.mutations['HIDE_MENU'] = function (state, payload) {

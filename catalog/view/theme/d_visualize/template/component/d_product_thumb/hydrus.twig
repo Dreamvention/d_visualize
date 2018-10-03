@@ -5,21 +5,21 @@
         <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
                                           class="img-responsive"/></a>
         <div class="vz-product-thumb__buttons btn-group">
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 button:'cart.add('~ product.product_id ~', '~ minimum ~')',
                 style:'primary',
                 classes:'btn-buy vz-product-thumb__button',
                 text_button:button_cart
             }) %}
             <div class="divider"></div>
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 button:'wishlist.add('~ product.product_id ~')',
                 style:'primary',
                 classes:'vz-product-thumb__button',
                 icon:'fas fa-heart'
             }) %}
             <div class="divider"></div>
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 button:'compare.add('~ product.product_id ~')',
                 style:'primary',
                 classes:'vz-product-thumb__button',
@@ -47,7 +47,7 @@
                 {% endif %}
                 {% if product.rating %}
                     <div class="vz-product-thumb__rating">
-                        {% include partial.rating.template with rating.button|merge({
+                        {% include component.rating.template with rating.button|merge({
                             rating:product.rating
                         }) %}
                     </div>

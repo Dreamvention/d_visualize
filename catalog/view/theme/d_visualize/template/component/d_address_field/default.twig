@@ -1,6 +1,6 @@
 <!-- > d_address_field_default -->
 
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'text',
 id:'input-company',
 name:'company',
@@ -13,7 +13,7 @@ error:error_company
 
 {% if entry_website %}
 
-    {% include partial.form_group.template with partial.form_group|merge({
+    {% include component.form_group.template with component.form_group|merge({
     type:'text',
     id:'input-website',
     name:'website',
@@ -24,7 +24,7 @@ error:error_company
 
 {% endif %}
 
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'text',
 id:'input-address-1',
 name:'address_1',
@@ -34,7 +34,7 @@ text_input:entry_address_1 ,
 placeholder:entry_address_1 ,
 error:error_address_1
 }) %}
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'text',
 id:'input-address-2',
 name:'address_2',
@@ -42,7 +42,7 @@ value:address_2,
 text_input:entry_address_2 ,
 placeholder:entry_address_2 ,
 }) %}
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'text',
 id:'input-city',
 name:'city',
@@ -52,7 +52,7 @@ text_input:entry_city ,
 placeholder:entry_city ,
 error:error_city
 }) %}
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'text',
 id:'input-postcode',
 name:'postcode',
@@ -62,7 +62,7 @@ text_input:entry_postcode ,
 placeholder:entry_postcode ,
 error:error_postcode
 }) %}
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'select',
 id:'input-country',
 name:'country_id',
@@ -92,7 +92,7 @@ error:error_country,
         {#{% endif %}#}
     {#</div>#}
 {#</div>#}
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'select',
 id:'input-zone',
 name:'zone_id',

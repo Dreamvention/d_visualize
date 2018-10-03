@@ -29,7 +29,7 @@
                         <div class="col-md-6">
                             <a href="{{post.href}}">
                                 <div data-rating="{{rating}}" class="rating pull-right rating-{{post.rating}}">
-                                    {% include partial.d_rating.template with  partial.d_rating|merge({rating:post.rating,static_rating:true}) %}
+                                    {% include component.d_rating.template with  component.d_rating|merge({rating:post.rating,static_rating:true}) %}
                                 </div>
                             </a>
                         </div>

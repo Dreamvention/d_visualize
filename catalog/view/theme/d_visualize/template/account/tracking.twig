@@ -4,14 +4,14 @@
     <h1 class="heading-h1">{{ heading_title }}</h1>
     <p>{{ text_description }}</p>
     <form class="form-horizontal">
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
         type:'textarea',
         id:'input-code',
         value:code,
         text_input:entry_code ,
         placeholder:entry_code ,
         }) %}
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
         type:'text',
         id:'input-generator',
         name:'product',
@@ -19,7 +19,7 @@
         text_input:entry_generator ,
         placeholder:entry_generator ,
         }) %}
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
         type:'textarea',
         id:'input-link',
         name:'link',
@@ -28,7 +28,7 @@
         }) %}
     </form>
 
-    {% include partial.d_button_continue.template with partial.d_button_continue %}
+    {% include component.d_button_continue.template with component.d_button_continue %}
     <script type="text/javascript"><!--
 		$('input[name=\'product\']').autocomplete({
 			'source': function (request, response) {

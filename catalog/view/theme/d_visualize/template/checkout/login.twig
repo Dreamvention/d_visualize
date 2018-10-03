@@ -2,7 +2,7 @@
   <div class="col-sm-6">
     <h2>{{text_new_customer}}</h2>
     <p>{{text_checkout}}</p>
-      {% include partial.form_group.template with partial.form_group|merge({
+      {% include component.form_group.template with component.form_group|merge({
       type:'radio',
       name:'account',
       radio_values: [{ 'val':'register','name': text_register},{'val':'guest','name':text_guest}],
@@ -11,7 +11,7 @@
       radio_values_name: 'name',
       }) %}
     <p>{{text_register_account}}</p>
-      {% include partial.button.template with partial.button|merge({
+      {% include component.button.template with component.button|merge({
           button:true,
           id:'button-account',
           text_loading:text_loading,
@@ -22,7 +22,7 @@
   <div class="col-sm-6">
     <h2>{{text_returning_customer}}</h2>
     <p>{{text_i_am_returning_customer}}</p>
-      {% include partial.form_group.template with partial.form_group|merge({
+      {% include component.form_group.template with component.form_group|merge({
       type:'email',
       id:'input-email',
       name:'email',
@@ -32,7 +32,7 @@
       text_input:entry_email,
       }) %}
 
-      {% include partial.form_group.template with partial.form_group|merge({
+      {% include component.form_group.template with component.form_group|merge({
       type:'password',
       id:'input-password',
       name:'password',
@@ -42,7 +42,7 @@
       text_input:entry_password,
       }) %}
     <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
-      {% include partial.button.template with partial.button|merge({
+      {% include component.button.template with component.button|merge({
           button:true,
           id:'button-login',
           text_loading:text_loading,

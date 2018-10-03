@@ -5,14 +5,14 @@
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <legend>{{ text_your_details }}</legend>
-            {% include partial.d_account_field.template with  partial.d_account_field %}
+            {% include component.d_account_field.template with  component.d_account_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'account' %}
-                    {% include partial.d_custom_field.template with  partial.d_custom_field %}
+                    {% include component.d_custom_field.template with  component.d_custom_field %}
                 {% endif %}
             {% endfor %}
         </fieldset>
-        {% include partial.d_button_continue.template with partial.d_button_continue %}
+        {% include component.d_button_continue.template with component.d_button_continue %}
 
     </form>
     <script type="text/javascript"><!--

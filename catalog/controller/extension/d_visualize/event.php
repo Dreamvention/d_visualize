@@ -84,6 +84,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             }
             // if last view is loaded we add scripts and Style from our d_visualize
             if ($view == $view_route) {
+                $data['page_route'] = $view_route;
                 if (isset($data['header'])) {
 
                     $data['header'] = $this->model_helper->addDocumentPageData(

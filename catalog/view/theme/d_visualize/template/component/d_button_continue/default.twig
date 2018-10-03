@@ -2,7 +2,7 @@
 <div class="vz-button-continue vz-button-continue--default">
     {% if back %}
         <div class="vz-button-continue__back">
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 link:back ,
                 style:'default',
                 text_button:button_back,
@@ -15,7 +15,7 @@
             <span>
               {{ text_agree }}
             </span>
-                {% include partial.input.template with partial.input|merge({
+                {% include component.input.template with component.input|merge({
                     type:'checkbox',
                     name:'agree',
                     value:'1',
@@ -25,13 +25,13 @@
         {% endif %}
 
         {% if continue %}
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 link:continue ,
                 style:'primary',
                 text_button:button_continue,
             }) %}
         {% elseif button %}
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
                 button:true ,
                 id:id,
                 text_loading:text_loading,
@@ -39,7 +39,7 @@
                 text_button:button_continue,
             }) %}
         {% elseif button_submit %}
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
                 type:'submit',
                 style:'primary',
                 value:button_continue,

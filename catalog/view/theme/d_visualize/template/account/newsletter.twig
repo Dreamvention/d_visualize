@@ -4,7 +4,7 @@
     <h1 class="heading-h1">{{ heading_title }}</h1>
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'radio',
             id:'input-newsletter',
             name:'newsletter',
@@ -20,6 +20,6 @@
             }) %}
         </fieldset>
 
-        {% include partial.d_button_continue.template with partial.d_button_continue %}
+        {% include component.d_button_continue.template with component.d_button_continue %}
     </form>
 {% endblock %}

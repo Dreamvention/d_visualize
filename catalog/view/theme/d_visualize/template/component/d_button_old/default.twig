@@ -2,7 +2,7 @@
 <div class="buttons">
  <div class="vis-back">
         {% if button_back %}
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
             link:back ,
             style:'default',
             classes:'btn-lg',
@@ -16,7 +16,7 @@
             <span>
               {{ text_agree }}
             </span>
-                {% include partial.input.template with partial.input|merge({
+                {% include component.input.template with component.input|merge({
                 type:'checkbox',
                 name:'agree',
                 value:'1',
@@ -25,14 +25,14 @@
             </div>
         {% endif %}
         {% if continue %}
-            {% include partial.button.template with partial.button|merge({
+            {% include component.button.template with component.button|merge({
             link:continue ,
             style:'primary',
             classes:'btn-lg',
             text_button:button_continue,
             }) %}
         {% elseif button_continue %}
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
             type:'submit',
             value:button_continue,
             button:'primary',
@@ -40,7 +40,7 @@
             }) %}
         {% endif %}
         {% if button_submit %}
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
             type:'submit',
             value:button_submit,
             button:'primary',

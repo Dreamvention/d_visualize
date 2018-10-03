@@ -63,7 +63,7 @@
                     <td>{{ text_rating }}</td>
                     {% for product in products %}
                         <td>
-                            {% include partial.d_rating.template with  partial.d_rating|merge({
+                            {% include component.d_rating.template with  component.d_rating|merge({
                                 static_rating:true,
                                 rating:product.rating
                             }) %}
@@ -116,13 +116,13 @@
                 <td></td>
                 {% for product in products %}
                     <td>
-                        {% include partial.button.template with partial.button|merge({
+                        {% include component.button.template with component.button|merge({
                             button:'cart.add('~product.product_id~', '~product.minimum~')',
                             style:'primary',
                             classes: 'btn-block',
                             text_button:button_cart
                         }) %}
-                        {% include partial.button.template with partial.button|merge({
+                        {% include component.button.template with component.button|merge({
                             link:product.remove,
                             style:'danger',
                             classes: 'btn-block',
@@ -134,7 +134,7 @@
         </table>
     {% else %}
         <p>{{ text_empty }}</p>
-        {% include partial.d_button_continue.template with partial.d_button_continue %}
+        {% include component.d_button_continue.template with component.d_button_continue %}
     {% endif %}
 
 {% endblock %}

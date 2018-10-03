@@ -18,14 +18,14 @@
         {% endfor %}
     </div>
 {% endif %}
- {% include partial.form_group.template with partial.form_group|merge({
+ {% include component.form_group.template with component.form_group|merge({
      type:'textarea',
      name:'comment',
      value:comment,
      text_input:text_comments,
      custom:'rows="8"'
  }) %}
-  {% include partial.d_button_continue.template with partial.d_button_continue|merge({
+  {% include component.d_button_continue.template with component.d_button_continue|merge({
       button: true,
       id:"button-payment-method",
       button_continue: button_continue,

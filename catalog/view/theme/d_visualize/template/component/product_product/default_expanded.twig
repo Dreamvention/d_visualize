@@ -30,7 +30,7 @@
             <div id="product" class="product-info">
                 {% if review_status %}
                     <div class="product-rating">
-                        {% include partial.d_rating.template with  partial.d_rating|merge({rating:rating,static_rating:true}) %}
+                        {% include component.d_rating.template with  component.d_rating|merge({rating:rating,static_rating:true}) %}
                         <div class="review-link">
                             <a href="" data-anchor="#review" class="link js-anchor"
                                onclick="$('a[href=\'#tab-review\']').trigger('click'); return false;">{{ reviews }}</a>
@@ -70,7 +70,7 @@
                     {% include component.product_quantity.template with({product_id:product_id,quantity:minimum,minimum:minimum}) %}
 
                     <div class="d-flex align-items-center ">
-                        {% include partial.button.template with partial.button|merge({
+                        {% include component.button.template with component.button|merge({
                         button: true,
                         id:'button-cart',
                         style:'secondary',
@@ -107,7 +107,7 @@
     <div class="col-12 col-sm-6">
         <div class="review-wrap">
             <h3>{{ tab_review }}</h3>
-            {% include partial.d_review.template with partial.d_review %}
+            {% include component.d_review.template with component.d_review %}
         </div>
     </div>
     <div class="col-12 col-sm-6">
@@ -161,7 +161,7 @@
     <div class="row products-list">
         {% for product in products %}
             <div class="product-layout product-grid col-sm-2 col-xs-6">
-                {% include partial.d_product_thumb.template with partial.d_product_thumb|merge(product) %}
+                {% include component.d_product_thumb.template with component.d_product_thumb|merge(product) %}
             </div>
         {% endfor %}
     </div>

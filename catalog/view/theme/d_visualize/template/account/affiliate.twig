@@ -5,7 +5,7 @@
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <legend>{{ text_my_affiliate }}</legend>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-company',
             name:'company',
@@ -15,7 +15,7 @@
             placeholder:entry_company ,
             error:error_company
             }) %}
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-website',
             name:'website',
@@ -27,7 +27,7 @@
         <fieldset>
             
             <legend>{{ text_payment }}</legend>
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-tax',
             name:'tax',
@@ -35,7 +35,7 @@
             text_input:entry_tax,
             placeholder:entry_tax,
             }) %}
-            {% include partial.form_group.template with partial.form_group|merge({
+            {% include component.form_group.template with component.form_group|merge({
             type:'radio',
             id:'input-payment',
             name:'payment',
@@ -47,7 +47,7 @@
             error:error_payment,
             }) %}
             <div class="payment" id="payment-cheque">
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'text',
                 id:'input-cheque',
                 name:'cheque',
@@ -59,7 +59,7 @@
                 }) %}
             </div>
             <div class="payment" id="payment-paypal">
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'text',
                 id:'input-paypal',
                 name:'paypal',
@@ -72,7 +72,7 @@
             </div>
 
             <div class="payment" id="payment-bank">
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'text',
                 id:'input-bank-name',
                 name:'bank_name',
@@ -80,7 +80,7 @@
                 text_input:entry_bank_name ,
                 placeholder:entry_bank_name ,
                 }) %}
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'text',
                 id:'input-bank-branch-number',
                 name:'bank_branch_number',
@@ -88,7 +88,7 @@
                 text_input:entry_bank_branch_number ,
                 placeholder:entry_bank_branch_number ,
                 }) %}
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'text',
                 id:'input-bank-swift-code',
                 name:'bank_swift_code',
@@ -96,7 +96,7 @@
                 text_input:entry_bank_swift_code ,
                 placeholder:entry_bank_swift_code ,
                 }) %}
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'text',
                 id:'input-bank-account-name',
                 name:'bank_account_name',
@@ -106,7 +106,7 @@
                 placeholder:entry_bank_account_name ,
                 error:error_bank_account_name ,
                 }) %}
-                {% include partial.form_group.template with partial.form_group|merge({
+                {% include component.form_group.template with component.form_group|merge({
                 type:'text',
                 id:'input-bank-account-number',
                 name:'bank_account_number',
@@ -119,12 +119,12 @@
             </div>
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'affiliate' %}
-                    {% include partial.d_custom_field.template with  partial.d_custom_field %}
+                    {% include component.d_custom_field.template with  component.d_custom_field %}
                 {% endif %}
             {% endfor %}
 
         </fieldset>
-        {% include partial.d_button_continue.template with  partial.d_button_continue %}
+        {% include component.d_button_continue.template with  component.d_button_continue %}
     </form>
     <script type="text/javascript"><!--
 		$(function () {

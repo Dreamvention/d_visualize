@@ -18,13 +18,13 @@
         </div>
     {% endif %}
 
-    {% include partial.d_product_list.template with  partial.d_product_list %}
+    {% include component.d_product_list.template with  component.d_product_list %}
 
     {% if not products %}
         <p>{{ text_empty }}</p>
         <div class="buttons">
             <div class="pull-right">
-                {% include partial.button.template with partial.button|merge({
+                {% include component.button.template with component.button|merge({
                     button: true,
                     id:'button-cart',
                     style:'secondary',

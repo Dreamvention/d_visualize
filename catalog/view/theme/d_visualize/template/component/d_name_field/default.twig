@@ -1,6 +1,6 @@
 <!-- > d_name_field_default -->
 
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'text',
 id:'input-firstname',
 name:'firstname',
@@ -10,7 +10,7 @@ text_input:entry_firstname ,
 placeholder:entry_firstname ,
 error:error_firstname
 }) %}
-{% include partial.form_group.template with partial.form_group|merge({
+{% include component.form_group.template with component.form_group|merge({
 type:'text',
 id:'input-lastname',
 name:'lastname',

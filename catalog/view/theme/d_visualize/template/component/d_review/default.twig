@@ -2,7 +2,7 @@
     <div id="review"></div>
     <h2>{{ text_write }}</h2>
     {% if review_guest %}
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-name',
             name:'name',
@@ -11,7 +11,7 @@
             text_input:entry_name ,
             placeholder:'' ,
         }) %}
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
             type:'textarea',
             required:true,
             id:'input-review',
@@ -27,7 +27,7 @@
                 <label class="control-label">{{ entry_rating }}</label>
                 <div class="vz-review__rating">
                     {{ entry_bad }}&nbsp;
-                    {% include partial.d_rating.template with partial.d_rating %}
+                    {% include component.d_rating.template with component.d_rating %}
                     &nbsp;{{ entry_good }}
                 </div>
                 &nbsp;&nbsp;&nbsp;
@@ -36,7 +36,7 @@
         {{ captcha }}
         <div class="buttons clearfix">
             <div class="pull-right">
-                {% include partial.button.template with partial.button|merge({
+                {% include component.button.template with component.button|merge({
                     id:'button-review',
                     style:'primary',
                     data_loading:text_loading,

@@ -6,7 +6,7 @@
                 <div class="comment-header">
                     <div class="wrap">
                         <span class="author-name">{{ review.author }}
-                            {% include partial.d_rating.template with  partial.d_rating|merge({rating:review.rating ,static_rating:true}) %}
+                            {% include component.d_rating.template with  component.d_rating|merge({rating:review.rating ,static_rating:true}) %}
 </span>
                         <span class="comment-date">{{ review.date_added }}</span>
                     </div>

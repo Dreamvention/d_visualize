@@ -17,7 +17,7 @@
             <a href="{{ compare }}" id="compare-total" class="btn vz-button btn-link vz-product_sort__compare">{{ text_compare }}</a>
         </div>
         <div class="col-md-4 col-xs-6 text-right">
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
                 type:'select',
                 id:'input-sort',
                 select_values:sorts,
@@ -31,7 +31,7 @@
             }) %}
         </div>
         <div class="col-md-2 text-right">
-            {% include partial.input.template with partial.input|merge({
+            {% include component.input.template with component.input|merge({
                 type:'select',
                 id:'input-limit',
                 select_values:limits,

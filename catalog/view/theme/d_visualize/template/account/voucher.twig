@@ -5,7 +5,7 @@
     <p>{{ text_description }}</p>
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
 
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-to-name',
             name:'to_name',
@@ -15,7 +15,7 @@
             text_input:entry_to_name,
             error:error_to_name,
         }) %} 
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-to-email',
             name:'to_email',
@@ -24,7 +24,7 @@
             text_input:entry_to_email,
             error:error_to_email,
         }) %}
-        {% include partial.form_group.template with partial.form_group|merge({
+        {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-from-name',
             name:'from_name',
@@ -33,7 +33,7 @@
             text_input:entry_from_name,
             error:error_from_name,
         }) %}
-    {% include partial.form_group.template with partial.form_group|merge({
+    {% include component.form_group.template with component.form_group|merge({
             type:'text',
             id:'input-from-email',
             name:'from_email',

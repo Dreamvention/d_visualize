@@ -16,7 +16,7 @@
                     {% else %}
                         {% set class = columns.main.one_col %}
                     {% endif %}
-                    <main id="content" class="{{ class }}">
+                    <main id="content" class="{{ class }}" data-route="{{ page_route }}">
                         {{ content_top }}
             {% endblock %}
                         {% block content %}{% endblock %}
