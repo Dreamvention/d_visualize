@@ -9,31 +9,23 @@
   }
 }
 
-#container, #content, #visualize, .visualize, .vz-edit-theme, .vz-edit-iframe, iframe {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-#content {
-  padding-bottom: 0;
-}
-
 .vz-edit {
-  &-theme {
-    display: flex;
-    flex-direction: row;
-  }
-  &-menu {
-    min-width: 300px;
-    .menu-hidden & {
-      min-width: 70px;
-      width: 70px;
-    }
-  }
-  &-iframe {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 100%;
+  &__iframe {
+    width: 100%;
     iframe {
       width: 100%;
+      height: 100%;
+      flex: 1 1 100%;
     }
   }
+}
+
+.menu-hidden {
+  max-width: 300px;
+  min-width: 300px;
+  min-width: 70px;
+  width: 70px;
 }

@@ -17,6 +17,7 @@ if (typeof process.env.HOST === "undefined") {
 var scripts_src = [
 	scriptDest + 'main.js',
 	scriptDest + 'actions/*.js',
+	scriptDest + 'constants/*.js',
 	scriptDest + 'components/*.js',
 	scriptDest + 'components/**/*.js',
 	scriptDest + 'elements/*.js',

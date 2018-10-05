@@ -1,0 +1,19 @@
+#container, #content, #visualize, .visualize{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+#content {
+  padding-bottom: 0;
+}
+.no_data_found {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 100%;
+  img {
+    margin: auto;
+    display: block;
+  }
+}

@@ -1,0 +1,1 @@
+import { vueTopprogress } from 'vue-top-progress'

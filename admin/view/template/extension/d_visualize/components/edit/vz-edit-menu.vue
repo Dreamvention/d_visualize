@@ -17,8 +17,8 @@
                     </option>
                 </select>
             </div>
-
         </div>
         <vz-edit-navigation></vz-edit-navigation>
+        <vz-edit-controls></vz-edit-controls>
     </div>
 </template>

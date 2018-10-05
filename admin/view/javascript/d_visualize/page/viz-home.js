@@ -4,8 +4,8 @@ Vue.component('viz-home', {
 		setting: function () {
 			return this.$store.getters.setting;
 		},
-		loading_first: function () {
-			return this.$store.getters.loading_first;
+		loading: function () {
+			return this.$store.getters.loading;
 		},
 
 	},
@@ -20,5 +20,6 @@ Vue.component('viz-home', {
 				}
 			});
 		}
-	}
-	});
+	},
+
+});

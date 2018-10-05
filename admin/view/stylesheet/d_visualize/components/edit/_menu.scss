@@ -1,10 +1,12 @@
 .vz-edit {
   &-menu {
+    position: relative;
     padding-right: 5px;
     padding-left: 5px;
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-width: 300px;
     .menu-hidden & {
       > *:not(.vz-edit-menu-heading) {
         display: none;
@@ -60,7 +62,8 @@
   }
 }
 
-.vz-edit {
+.vz-edit
+{
   &-theme-menu-wrap {
     position: relative;
   }

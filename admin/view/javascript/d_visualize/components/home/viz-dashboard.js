@@ -4,8 +4,9 @@ Vue.component('viz-dashboard', {
 		status: function () {
 			return this.$store.getters.status;
 		},
-		loading_first: function () {
-			return this.$store.getters.loading_first;
+		loading: function () {
+			console.log(this.$store.getters.loading);
+			return this.$store.getters.loading;
 		},
 		setting: function () {
 			return this.$store.getters.setting;
@@ -13,7 +14,13 @@ Vue.component('viz-dashboard', {
 	},
 	methods: {
 		change_auto_save: function (e) {
-			this.$store.dispatch('CHANGE_AUTO_SAVE',e);
+			this.$store.dispatch('CHANGE_AUTO_SAVE', e);
 		},
-	}
+	},
+	beforeMount() {
+		this.$store.dispatch('LOADING_START');
+	},
+	mounted() {
+		this.$store.dispatch('LOADING_END');
+	},
 });

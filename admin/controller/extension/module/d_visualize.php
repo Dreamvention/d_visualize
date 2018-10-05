@@ -94,6 +94,7 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         //Other libraries
         $this->document->addScript('view/javascript/d_visualize/lib/sync.js');
+        $this->document->addScript('view/javascript/d_visualize/lib/topgress.js');
         $this->document->addScript('view/javascript/d_visualize/lib/VueOptions.js');
         $this->document->addScript('view/javascript/d_visualize/lib/vue-model-vuex.js');
         $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
@@ -105,8 +106,12 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->document->addStyle('view/stylesheet/' . $this->codename . '/lib/load-awesome-1.1.0/css/timer.css');
 
         //font-awesome
-        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
-        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
+        $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/all.min.css');
+        $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
+//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/all.min.css');
+//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/v4-shims.min.css');
+//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
         // Module data
         $data['vueTemplates'] = $this->{'model_extension_module_' . $this->codename}->getVueTemplates();
         $view_scripts = $this->{'model_extension_module_' . $this->codename}->getVueScripts();
@@ -321,6 +326,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $option['img']['no_image'] = $this->model_tool_image->resize("no_image.png", 300, 400);
+        $option['img']['no_data_img'] = 'view/image/'.$this->codename.'/nodata.png';
 
         return $option;
     }

@@ -21,15 +21,17 @@ d_visualize.actions['SAVE_CONTENT'] = function (context, payload) {
     status: +context.state.setting.status
   }, function (data, status) {
     if (status === 'success') {
-      context.commit('LOADING_END');
+      context.commit('LOADING_SUCCESS');
       alertify.success(data['success']);
 
       if (!_.isUndefined(payload) && !_.isUndefined(payload.callback) && _.isFunction(payload.callback)) {
         payload.callback(data);
       }
     }
-  }, 'json').fail(function (e, m) {
+
     context.commit('LOADING_END');
+  }, 'json').fail(function (e, m) {
+    context.commit('LOADING_FAIL');
     alertify.error(m);
     alertify.error(app.$i18n.t('error.save_content'));
   });
@@ -43,16 +45,18 @@ d_visualize.actions['LOAD_CONTENT'] = function (context, payload) {
   }, function (data, status) {
     if (status === 'success') {
       context.commit('LOAD_CONTENT_SUCCESS', data);
+      context.commit('LOADING_SUCCESS');
     }
 
     if (status === 'error') {
       context.commit('LOAD_CONTENT_FAIL', data);
+      context.commit('LOADING_FAIL');
     }
 
     context.commit('LOADING_END');
   }, 'json').fail(function () {
     alertify.error(app.$i18n.t('error.load_content'));
-    context.commit('LOADING_END');
+    context.commit('LOADING_FAIL');
   });
 };
 
@@ -62,38 +66,6 @@ d_visualize.actions['LOADING_START'] = function (context, payload) {
 
 d_visualize.actions['LOADING_END'] = function (context, payload) {
   context.commit('LOADING_END');
-};
-
-d_visualize.actions['LOAD_VISUAL_HEADER'] = function (context, payload) {
-  context.commit('LOAD_VISUAL_HEADER', payload);
-  context.dispatch('ENTER_VISUAL');
-};
-
-d_visualize.actions['LOAD_VISUAL_FOOTER'] = function (context, payload) {
-  context.commit('LOAD_VISUAL_FOOTER', payload);
-  context.dispatch('ENTER_VISUAL');
-};
-
-d_visualize.actions['ENTER_VISUAL'] = function (context, payload) {
-  $('body').addClass('edit_vd');
-  $('#iframe').animate({
-    width: '100%'
-  }, {
-    duration: 500
-  });
-  context.dispatch('HIDE_MENU');
-  context.commit('ENTER_VISUAL', payload);
-};
-
-d_visualize.actions['LEAVE_VISUAL'] = function (context, payload) {
-  $('body').removeClass('edit_vd');
-  console.log(context.getters.iframe_history);
-  context.getters.iframe_history.pop(); //this route is a vdh route
-
-  var last_iframe_page = context.getters.iframe_history.pop();
-  context.dispatch('SHOW_MENU');
-  context.commit('CHANGE_IFRAME_SRC', last_iframe_page.href);
-  context.commit('LEAVE_VISUAL', payload);
 };
 
 d_visualize.actions['ENTER_EDIT'] = function (context, payload) {
@@ -135,7 +107,7 @@ d_visualize.actions['SAVE_TEMPLATE'] = function (context, payload) {
 };
 
 d_visualize.actions['UPDATE_SKIN'] = function (context, payload) {
-  context.commit('UPDATE_SKIN', payload); //comopnents who can be changed
+  context.commit('UPDATE_SKIN', payload);
 
   var changable_components = _.pick(context.getters.components, function (component, key) {
     return _.find(_.keys(context.getters.available_components[key]), function (c_key) {
@@ -185,9 +157,16 @@ d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
 
 d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
   context.commit('PUSH_IFRAME_HISTORY', payload);
-  context.dispatch('CHANGE_PAGE', payload);
+  context.dispatch('CHANGE_PAGE', payload); //saving on the server last url
+
+  var last_visited_url = 'http://localhost/index.php?route=common/home';
+
+  if (context.getters.iframe_history[context.getters.iframe_history.length - 1].href) {
+    last_visited_url = context.getters.iframe_history[context.getters.iframe_history.length - 1].href;
+  }
+
   $.post(context.state.config.save_iframe_url, {
-    last_url: context.getters.iframe_history[context.getters.iframe_history.length - 1].href
+    last_url: last_visited_url
   }, function (data, status) {
     if (status === 'success') {}
   }, 'json').fail(function (e, m) {
@@ -195,10 +174,43 @@ d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
     alertify.error(m);
     alertify.error(app.$i18n.t('error.save_content'));
   });
+  ;
 };
 
 d_visualize.actions['CHANGE_NAVIGATION_CONTEXT'] = function (context, payload) {
   context.commit('CHANGE_NAVIGATION_CONTEXT', payload);
+};
+
+d_visualize.actions['LOAD_VISUAL_HEADER'] = function (context, payload) {
+  context.commit('LOAD_VISUAL_HEADER', payload);
+  context.dispatch('ENTER_VISUAL');
+};
+
+d_visualize.actions['LOAD_VISUAL_FOOTER'] = function (context, payload) {
+  context.commit('LOAD_VISUAL_FOOTER', payload);
+  context.dispatch('ENTER_VISUAL');
+};
+
+d_visualize.actions['ENTER_VISUAL'] = function (context, payload) {
+  $('body').addClass('edit_vd');
+  $('#iframe').animate({
+    width: '100%'
+  }, {
+    duration: 500
+  });
+  context.dispatch('HIDE_MENU');
+  context.commit('ENTER_VISUAL', payload);
+};
+
+d_visualize.actions['LEAVE_VISUAL'] = function (context, payload) {
+  $('body').removeClass('edit_vd');
+  console.log(context.getters.iframe_history);
+  context.getters.iframe_history.pop(); //this route is a vdh route
+
+  var last_iframe_page = context.getters.iframe_history.pop();
+  context.dispatch('SHOW_MENU');
+  context.commit('CHANGE_IFRAME_SRC', last_iframe_page.href);
+  context.commit('LEAVE_VISUAL', payload);
 };
 
 d_visualize.actions['CHANGE_STATUS'] = function (context, payload) {
@@ -217,6 +229,12 @@ d_visualize.actions['CHANGE_AUTO_SAVE'] = function (context, payload) {
   }
 };
 
+var LOADER = {
+  LOADING: 'loading',
+  WAITING: 'waiting',
+  SUCCESS: 'success',
+  FAIL: 'fail'
+};
 Vue.component('visualize', {
   template: '#t-visualize',
   computed: {
@@ -224,7 +242,43 @@ Vue.component('visualize', {
       return this.$store.getters.loading;
     }
   },
-  methods: {}
+  data: function data() {
+    return {
+      last_action: LOADER.WAITING
+    };
+  },
+  methods: {},
+  updated: function updated() {},
+  beforeUpdate: function beforeUpdate() {
+    var _this = this;
+
+    if (this.last_action !== this.loading.status) {
+      // change from one state to other
+      if (this.loading.status === LOADER.LOADING) {
+        setTimeout(function () {
+          _this.$refs.topProgress.start();
+        }, 100);
+      } else if (this.loading.status === LOADER.WAITING || this.loading.status === LOADER.SUCCESS) {
+        setTimeout(function () {
+          _this.$refs.topProgress.done();
+        }, 200);
+      } else if (this.loading.status === LOADER.FAIL) {
+        setTimeout(function () {
+          _this.$refs.topProgress.fail();
+        }, 200);
+      }
+    }
+
+    this.last_action = this.loading.status; // this.last_action = this.loading.status;
+    // 	if (this.$refs.topProgress) {
+    // 		this.$refs.topProgress.start();
+    // 	}
+    // } else {
+    // 	if (this.$refs.topProgress) {
+    // 		this.$refs.topProgress.done();
+    // 	}
+    // }
+  }
 });
 Vue.component('vz-edit-controls', {
   template: '#vz-edit-controls',
@@ -304,8 +358,9 @@ Vue.component('viz-dashboard', {
     status: function status() {
       return this.$store.getters.status;
     },
-    loading_first: function loading_first() {
-      return this.$store.getters.loading_first;
+    loading: function loading() {
+      console.log(this.$store.getters.loading);
+      return this.$store.getters.loading;
     },
     setting: function setting() {
       return this.$store.getters.setting;
@@ -315,6 +370,12 @@ Vue.component('viz-dashboard', {
     change_auto_save: function change_auto_save(e) {
       this.$store.dispatch('CHANGE_AUTO_SAVE', e);
     }
+  },
+  beforeMount: function beforeMount() {
+    this.$store.dispatch('LOADING_START');
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('LOADING_END');
   }
 });
 Vue.component('viz-marketplace', {
@@ -844,15 +905,55 @@ d_visualize.mutations['CHANGE_TEMPLATE'] = function (state, payload) {
   Vue.set(state.setting, 'active_template', payload.value);
 };
 
-d_visualize.state.loading = true;
+d_visualize.state.loading = {
+  status: LOADER.WAITING,
+  on_progress: false,
+  content_loaded: false,
+  loader_stack: 0
+};
 
 d_visualize.mutations['LOADING_START'] = function (state, payload) {
-  Vue.set(state, 'loading', true);
+  Vue.set(state, 'loading', $.extend({}, state.loading, {
+    status: LOADER.LOADING,
+    on_progress: true,
+    loader_stack: state.loading.loader_stack + 1
+  }));
 };
 
 d_visualize.mutations['LOADING_END'] = function (state, payload) {
-  Vue.set(state, 'loading_first', false);
-  Vue.set(state, 'loading', false);
+  if (state.loading.loader_stack > 0) {
+    // set only when some one set start stack
+    var loading = $.extend({}, state.loading, {
+      on_progress: false,
+      content_loaded: true,
+      loader_stack: state.loading.loader_stack - 1
+    });
+
+    if (loading.loader_stack === 0) {
+      //wait queue of loading
+      loading.status = LOADER.WAITING;
+    } else {
+      loading.status = LOADER.LOADING;
+    }
+
+    Vue.set(state, 'loading', loading);
+  }
+};
+
+d_visualize.mutations['LOADING_SUCCESS'] = function (state, payload) {
+  Vue.set(state, 'loading', $.extend({}, state.loading, {
+    status: LOADER.SUCCESS,
+    on_progress: false,
+    content_loaded: true
+  }));
+};
+
+d_visualize.mutations['LOADING_FAIL'] = function (state, payload) {
+  Vue.set(state, 'loading', $.extend({}, state.loading, {
+    status: LOADER.FAIL,
+    on_progress: false,
+    content_loaded: false
+  }));
 };
 
 d_visualize.state.edit_history = ['/home/dashboard', '/edit'];
@@ -986,8 +1087,8 @@ Vue.component('viz-home', {
     setting: function setting() {
       return this.$store.getters.setting;
     },
-    loading_first: function loading_first() {
-      return this.$store.getters.loading_first;
+    loading: function loading() {
+      return this.$store.getters.loading;
     }
   },
   methods: {
@@ -1027,19 +1128,27 @@ Vue.component('vz-edit-theme', {
   methods: {
     iframeLoad: function iframeLoad(e) {
       this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
+      this.$store.dispatch('LOADING_END');
     },
     checkMenu: function checkMenu(to, from) {
       if (to.path === '/edit') {
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', [{
-          href: '/edit/components',
-          text: 'edit.entry_common_components'
-        }, {
+        var navigation = [];
+        navigation.push({
           href: '/edit/vdh',
           text: 'edit.vdh'
-        }, {
+        });
+        navigation = navigation.concat(Object.keys(this.components).map(function (c) {
+          return {
+            href: '/edit/components/' + c,
+            text: 'edit.entry_' + c
+          };
+        }));
+        console.log(navigation);
+        navigation.push({
           href: '/edit/vdf',
           text: 'edit.vdf'
-        }]);
+        });
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', navigation);
       }
 
       if (to.path === '/edit/vdh' || to.path === '/edit/vdh') {
@@ -1047,16 +1156,11 @@ Vue.component('vz-edit-theme', {
       }
 
       if (to.path === '/edit/components') {
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', Object.keys(this.components).map(function (c) {
-          return {
-            href: '/edit/components/' + c,
-            text: 'edit.entry_' + c
-          };
-        }));
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
       }
 
       if (to.matched.find(function (e) {
-        return e.path == '/edit/components/:id';
+        return e.path === '/edit/components/:id';
       })) {
         this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []); // this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
       }
@@ -1070,6 +1174,9 @@ Vue.component('vz-edit-theme', {
   beforeMount: function beforeMount() {
     this.checkMenu(this.$route);
     this.$store.dispatch('ENTER_EDIT');
+  },
+  mounted: function mounted() {
+    this.$store.dispatch('LOADING_START');
   },
   beforeDestroy: function beforeDestroy() {
     this.$store.dispatch('LEAVE_EDIT');

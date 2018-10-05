@@ -56,29 +56,22 @@ class ControllerExtensionDVisualizeEvent extends Controller
                     if (isset($this->setting_active_template['page'][$key]['layout'])) {
                         //inject data from setting on the view
                         $data = array_replace_recursive($data, $this->setting_active_template['page'][$key]['layout']);
+                        if (isset($this->setting_active_template['page'][$view_route]['scripts'])
+                            && !empty($this->setting_active_template['page'][$view_route]['scripts'])) {
+                            foreach ($this->setting_active_template['page'][$view_route]['scripts'] as $script) {
+                                $this->pageScripts[] = $script;
+                            }
+                        }
+                        if (isset($this->setting_active_template['page'][$view_route]['styles'])
+                            && !empty($this->setting_active_template['page'][$view_route]['styles'])) {
+                            foreach ($this->setting_active_template['page'][$view_route]['styles'] as $styles) {
+                                $this->pageStyles[] = $styles;
+                            }
+                        }
                     }
                 }
-
             }
-//            if (in_array($view_route, array_keys($this->setting_active_template['page']))) {
-//                if (isset($this->setting_active_template['page'][$view_route]['layout'])) {
-//                    //inject dat from setting on the view
-//                    $data = array_replace_recursive($data, $this->setting_active_template['page'][$view_route]['layout']);
-//                    //add styles and scripts on the header
-//                    if (isset($this->setting_active_template['page'][$view_route]['scripts'])
-//                        && !empty($this->setting_active_template['page'][$view_route]['scripts'])) {
-//                        foreach ($this->setting_active_template['page'][$view_route]['scripts'] as $script) {
-//                            $this->pageScripts[] = $script;
-//                        }
-//                    }
-//                    if (isset($this->setting_active_template['page'][$view_route]['styles'])
-//                        && !empty($this->setting_active_template['page'][$view_route]['styles'])) {
-//                        foreach ($this->setting_active_template['page'][$view_route]['styles'] as $styles) {
-//                            $this->pageStyles[] = $styles;
-//                        }
-//                    }
-//                }
-//            }
+
             if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
                 $data = $this->model_template->validate_templates($data);
             }
@@ -86,7 +79,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
             if ($view == $view_route) {
                 $data['page_route'] = $view_route;
                 if (isset($data['header'])) {
-
                     $data['header'] = $this->model_helper->addDocumentPageData(
                         array('scripts' => $this->pageScripts,
                               'styles'  => $this->pageStyles),

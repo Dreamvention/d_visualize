@@ -1,5 +1,5 @@
 <template id="viz-home">
-    <div class="viz-home">
+    <div class="vz-home">
         <div class="page-header">
             <div class="container-fluid">
                 <div class="form-inline pull-right">
@@ -27,7 +27,8 @@
         <div class="container-fluid" :class="{'auto-saving':setting.auto_save}">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title "><i class="fa fa-pencil"></i> {{$t('common.text_edit')}}</h3>
+                    <h4 class="panel-title "><i class="fa fa-pencil"></i>
+                        {{$t('common.text_edit')}}</h4>
                     <div class="sync-loader ">
                         <d-loader size="mini" class="pull-right"></d-loader>
                     </div>

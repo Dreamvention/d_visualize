@@ -5,7 +5,39 @@ Vue.component('visualize', {
 			return this.$store.getters.loading;
 		}
 	},
-	methods: {
+	data() {
+		return {
+			last_action: LOADER.WAITING
+		};
+	},
+	methods: {},
+	updated() {},
+	beforeUpdate() {
 
+		if (this.last_action !== this.loading.status) { // change from one state to other
+			if (this.loading.status === LOADER.LOADING) {
+				setTimeout(()=>{
+					this.$refs.topProgress.start();
+				}, 100);
+			} else if (this.loading.status === LOADER.WAITING ||this.loading.status === LOADER.SUCCESS) {
+				setTimeout(()=>{
+					this.$refs.topProgress.done();
+				}, 200);
+			} else if (this.loading.status === LOADER.FAIL) {
+				setTimeout(()=>{
+					this.$refs.topProgress.fail();
+				}, 200);
+			}
+		}
+		this.last_action = this.loading.status;
+		// this.last_action = this.loading.status;
+		// 	if (this.$refs.topProgress) {
+		// 		this.$refs.topProgress.start();
+		// 	}
+		// } else {
+		// 	if (this.$refs.topProgress) {
+		// 		this.$refs.topProgress.done();
+		// 	}
+		// }
 	}
 });

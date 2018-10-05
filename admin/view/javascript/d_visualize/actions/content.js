@@ -8,14 +8,15 @@ d_visualize.actions['SAVE_CONTENT'] = function (context, payload) {
         status: +context.state.setting.status,
     }, function (data, status) {
         if (status === 'success') {
-            context.commit('LOADING_END');
+            context.commit('LOADING_SUCCESS');
             alertify.success(data['success']);
             if (!_.isUndefined(payload) && !_.isUndefined(payload.callback) && _.isFunction(payload.callback)) {
                 payload.callback(data)
             }
         }
+	    context.commit('LOADING_END');
     }, 'json').fail(function (e, m) {
-        context.commit('LOADING_END');
+        context.commit('LOADING_FAIL');
         alertify.error(m);
         alertify.error(app.$i18n.t('error.save_content'));
     });
@@ -26,14 +27,16 @@ d_visualize.actions['LOAD_CONTENT'] = function (context, payload) {
     $.post(context.state.config.load_setting_url, {type: 'common', 'id': 0}, function (data, status) {
         if (status === 'success') {
             context.commit('LOAD_CONTENT_SUCCESS', data);
+            context.commit('LOADING_SUCCESS');
         }
         if (status === 'error') {
             context.commit('LOAD_CONTENT_FAIL', data);
+	        context.commit('LOADING_FAIL');
         }
-        context.commit('LOADING_END');
+	    context.commit('LOADING_END');
     }, 'json').fail(function () {
         alertify.error(app.$i18n.t('error.load_content'));
-        context.commit('LOADING_END');
+        context.commit('LOADING_FAIL');
     });
 };
 

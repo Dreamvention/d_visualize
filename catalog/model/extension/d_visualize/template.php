@@ -11,7 +11,7 @@ class ModelExtensionDVisualizeTemplate extends Model
 
     public function getAvailableComponents()
     {
-        $componenDir = DIR_CATALOG . 'view/theme/' . $this->codename . '/template/component';
+        $componenDir = DIR_TEMPLATE . $this->codename . '/template/component';
         $scanned_directory = array_diff(scandir($componenDir), array('..', '.'));
         $result = array();
         foreach ($scanned_directory as $dir) {
@@ -46,63 +46,45 @@ class ModelExtensionDVisualizeTemplate extends Model
     public function loadTemplateSetting($active_template_codename = 'default')
     {
         $active_template = $this->getAvailableTemplates()[$active_template_codename]['setting'];
-        //check if skin overload template
-        //check components overloading
-//        foreach ($this->getAllUsages($active_template['page']['default']['layout']['partial'], 'component') as $component) {
-//            //check on skin overloading the partials
-//            $active_template['page']['default']['layout']['partial']
-//                = $this->assingChanges($active_template['page']['default']['layout']['partial'],
-//                $component,
-//                $active_template['codename'],
-//                $active_template['active_skin'],
-//                true
-//            );
-//        }
         //check on skin overloading the components
+        // add some magic here
         foreach (array_keys($active_template['page']) as $path) {
-            if ($path !== 'default') {
-                foreach ($this->getAllUsages($active_template['page'][$path]['layout'], 'component') as $component) {
-                    $active_template['page'][$path]['layout']
-                        = $this->assingChanges($active_template['page'][$path]['layout'],
+            if (isset($active_template['page'][$path]['layout']['component'])) {
+                foreach ($active_template['page'][$path]['layout']['component'] as $component_key => $component) {
+                    $active_template['page'][$path]['layout']['component'][$component_key] = $this->assingChanges(
+                        $component_key,
                         $component,
                         $active_template['codename'],
                         $active_template['active_skin']);
+
                 }
             }
         }
         //if there will be changes from DB it will replace
         $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
-        return $db_saved_template_setting ? (array) json_decode($db_saved_template_setting['setting'],true) : $active_template;
+        return $db_saved_template_setting ? (array)json_decode($db_saved_template_setting['setting'], true) : $active_template;
     }
 
-    public function assingChanges($part_of_array, $component, $active_template_codename, $active_skin, $partials = false)
+    public function assingChanges($key, $component, $active_template_codename, $active_skin)
     {
-        for ($i = 0; $i < count($component); $i++) {
-            $key_of_component = array_keys($component)[$i];
-            $component_value = $component[$key_of_component];
-            if (isset($component_value['skin']) && $active_skin == $component_value['skin']) {
-                //replace current template of component if skin change it
-                $templateFile = str_replace($active_template_codename, $component_value['skin'], $component_value['template']);
-                if (file_exists(DIR_TEMPLATE . $templateFile)) {
-                    if ($partials) {
-                        $part_of_array[$key_of_component]['component'][$key_of_component]['template'] = $templateFile;
-                    } else {
-                        $part_of_array['component'][$key_of_component]['template'] = $templateFile;
-                    }
-                }
-                if (isset($component_value['stylesheet'])) {
-                    $cssFile = str_replace($active_template_codename, $component_value['skin'], $component_value['stylesheet']);
-                    if (file_exists(DIR_TEMPLATE . $cssFile)) {
-                        if ($partials) {
-                            $part_of_array[$key_of_component]['component'][$key_of_component]['stylesheet'] = $cssFile;
-                        } else {
-                            $part_of_array['component'][$key_of_component]['stylesheet'] = $cssFile;
-                        }
-                    }
-                }
-            }
+        $result = array();
+        $skin = $active_template_codename;
+        if ($this->availableTemplate($key, $active_skin)) { // cecheck if possible change view
+            $skin = $active_skin;
         }
-        return $part_of_array;
+        if (isset($component['skin']) && $this->availableTemplate($key, $component['skin'])) { // cecheck if possible change view
+            $skin = $component['skin'];
+        }
+        if (isset($component['setting']) && isset($component['setting']['display'])) {
+            $skin = 'empty';
+        }
+        if (isset($component['template'])) {
+            $component['template'] = $component['template'] . $skin . '.twig'; //set default values template
+        }
+        if (isset($component['stylesheet'])) {
+            $component['stylesheet'] = $component['stylesheet'] . $skin . '.css';
+        }
+        return $component;
     }
 
     public function getTemplates($data_filter = array())
@@ -115,6 +97,11 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $sql = 'SELECT * from ' . DB_PREFIX . "vz_templates where codename='" . $template_codename . "'";
         return $this->db->query($sql)->row;
+    }
+
+    public function availableTemplate($key, $skin)
+    {
+        return isset($this->getAvailableComponents()[$key][$skin]);
     }
 
     public function validate_templates($data)
