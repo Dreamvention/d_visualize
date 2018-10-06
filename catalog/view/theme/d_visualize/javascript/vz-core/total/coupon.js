@@ -3,7 +3,6 @@ var Total_coupon = {
 		console.log('start Total_coupon')
 		this.render();
 	},
-
 	clickCoupon: function(){
 		$.ajax({
 			url: 'index.php?route=total/coupon/coupon',

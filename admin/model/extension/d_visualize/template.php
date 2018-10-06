@@ -39,7 +39,7 @@ class ModelExtensionDVisualizeTemplate extends Model
                 //install from json only modules not library
                 if ($module_json['module'] == 'module' && $module_json['module'] != $this->codename) {
                     $modules_json[] = array(
-                        'index'    => $module_json['index'],
+                        'index' => $module_json['index'],
                         'codename' => $module_json['codename'],
                     );
                 }
@@ -56,8 +56,8 @@ class ModelExtensionDVisualizeTemplate extends Model
         $component = array();
         foreach ($files as $key => $file) {
             $component[basename($file, '.twig')] = array(
-                'template'   => $this->codename . '/template/component/' . $dir . '/' . basename($file, '.twig') . '.twig',
-                'preview'    => 'img',
+                'template' => $this->codename . '/template/component/' . $dir . '/' . basename($file, '.twig') . '.twig',
+                'preview' => 'img',
                 'stylesheet' => $this->codename . '/stylesheet/dist/vz-component/' . $dir . '/' . basename($file, '.twig') . '.css',
             );
         }
@@ -86,10 +86,10 @@ class ModelExtensionDVisualizeTemplate extends Model
             $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
             $setting = $this->loadTemplateSetting($config, $codename);
             $result[$codename] = array(
-                'source'  => 'config',
+                'source' => 'config',
                 'setting' => $setting,
-                'skines'  => $this->loadAvailableSkines($setting['codename']),
-                'img'     => $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '.png' : "no_image.png"), 300, 400),
+                'skines' => $this->loadAvailableSkines($setting['codename']),
+                'img' => $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '.png' : "no_image.png"), 300, 400),
 
             );
         }
@@ -111,82 +111,64 @@ class ModelExtensionDVisualizeTemplate extends Model
 
     public function loadTemplateSetting($active_template, $active_template_codename = 'default')
     {
-        //check if skin overload template
-        //check components overloading
-//        foreach ($this->getAllUsages($active_template['page']['default']['layout']['partial'], 'component') as $component) {
-//            //check on skin overloading the partials
-//            $active_template['page']['default']['layout']['partial']
-//                = $this->assingChanges($active_template['page']['default']['layout']['partial'],
-//                $component,
-//                $active_template['codename'],
-//                $active_template['active_skin'],
-//                true
-//            );
-//        }
+        $this->components = $this->getAvailableComponents();
         //check on skin overloading the components
-//        foreach (array_keys($active_template['page']) as $path) {
-//            if ($path !== 'default') {
-//                foreach ($this->getAllUsages($active_template['page'][$path]['layout'], 'component') as $component) {
-//                    $active_template['page'][$path]['layout']
-//                        = $this->assingChanges($active_template['page'][$path]['layout'],
-//                        $component,
-//                        $active_template['codename'],
-//                        $active_template['active_skin']);
-//                }
-//            }
-//        }
+        // add some magic here
+        foreach (array_keys($active_template['page']) as $path) {
+            if (isset($active_template['page'][$path]['layout']['component'])) {
+                foreach ($active_template['page'][$path]['layout']['component'] as $component_key => $component) {
+                    $active_template['page'][$path]['layout']['component'][$component_key] = $this->assingChanges(
+                        $component_key,
+                        $component,
+                        $active_template['codename'],
+                        $active_template['active_skin']);
+
+                }
+            }
+        }
         //if there will be changes from DB it will replace
         $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
         return $db_saved_template_setting ? (array)json_decode($db_saved_template_setting['setting'], true) : $active_template;
     }
 
-    /**
-     * @param $page_array
-     * @param string $search
-     * @param array $result
-     * @return array
-     */
-    public function getAllUsages($page_array, $search = 'component', $result = array())
+    /*
+     * this method set template and css which needed to component
+     * if no files finded in this available components
+     * then empty.twig replace it
+     *
+     * note Available components contain
+     * all files available in view/theme/d_visualize/template/components
+     * sorted by them codename
+     * */
+    public function assingChanges($key, $component, $active_template_codename, $active_skin)
     {
-        foreach ($page_array as $page_key => $page_value) {
-            if ($page_key === $search) {
-                $result[] = $page_value;
-            }
-            if (is_array($page_value)) {
-                $result = $this->getAllUsages($page_value, $search, $result);
-            }
+        $result = array();
+        $skin = 'default';
+        if (isset($this->components[$key][$active_template_codename])) {
+            $skin = $active_template_codename;
         }
-        return $result;
-    }
+        if (isset($this->components[$key][$active_skin])) {
+            $skin = $active_skin;
 
-    public function assingChanges($part_of_array, $component, $active_template_codename, $active_skin, $partials = false)
-    {
-        for ($i = 0; $i < count($component); $i++) {
-            $key_of_component = array_keys($component)[$i];
-            $component_value = $component[$key_of_component];
-            if (isset($component_value['skin']) && $active_skin == $component_value['skin']) {
-                //replace current template of component if skin change it
-                $templateFile = str_replace($active_template_codename, $component_value['skin'], $component_value['template']);
-                if (file_exists(DIR_CATALOG . 'view/theme/' . $templateFile)) {
-                    if ($partials) {
-                        $part_of_array[$key_of_component]['component'][$key_of_component]['template'] = $templateFile;
-                    } else {
-                        $part_of_array['component'][$key_of_component]['template'] = $templateFile;
-                    }
-                }
-                if (isset($component_value['stylesheet'])) {
-                    $cssFile = str_replace($active_template_codename, $component_value['skin'], $component_value['stylesheet']);
-                    if (file_exists(DIR_CATALOG . 'view/theme/' . $cssFile)) {
-                        if ($partials) {
-                            $part_of_array[$key_of_component]['component'][$key_of_component]['stylesheet'] = $cssFile;
-                        } else {
-                            $part_of_array['component'][$key_of_component]['stylesheet'] = $cssFile;
-                        }
-                    }
-                }
-            }
         }
-        return $part_of_array;
+        if (isset($component['skin']) && isset($this->components[$key][$component['skin']])) {
+            $skin = $component['skin'];
+        }
+//        echo '<pre>';
+//        print_r($key);
+//        echo '-';
+//        print_r($skin);
+//        echo '</pre>';
+        if (!isset($component['skin'])) {
+            $component['skin'] = $skin; //set default values template
+        }
+        if (isset($component['template'])) {
+            $component['template'] = $component['template'] . $skin . '.twig'; //set default values template
+        }
+        if (isset($component['stylesheet'])) {
+            $component['stylesheet'] = $component['stylesheet'] . $skin . '.css';
+        }
+        return $component;
     }
 
     /**

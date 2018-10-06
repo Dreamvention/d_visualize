@@ -15,11 +15,11 @@
                             -
                             <small>{{ text_recurring }} {{ product.recurring }}</small> {% endif %}</td>
                     <td class="text-right">
-                        {% include component.product_quantity.template with({product_id:product.cart_id,quantity:product.quantity,minimum:1}) %}
+                        {% include component.default_quantity_items.template with({product_id:product.cart_id,quantity:product.quantity,minimum:1}) %}
                     </td>
                     <td class="text-right">{{ product.total }}</td>
                     <td class="text-center">
-                        {% include component.product_remove.template with({product_id:product.cart_id}) %}
+                        {% include component.default_remove_btn.template with({product_id:product.cart_id}) %}
                     </td>
                 </tr>
             {% endfor %}

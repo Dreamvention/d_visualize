@@ -24,40 +24,36 @@ Vue.component('vz-edit-theme', {
 			this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
 			this.$store.dispatch('LOADING_END');
 		},
-		checkMenu(to, from) {
-			if (to.path === '/edit') {
-				let navigation = [];
-				navigation.push({href: '/edit/vdh', text: 'edit.vdh'});
-				navigation = navigation.concat(Object.keys(this.components).map((c)=>{
-						return {href: '/edit/components/' + c, text: 'edit.entry_' + c};
-					})
-				);
-				console.log(navigation)
-				navigation.push({href: '/edit/vdf', text: 'edit.vdf'});
-				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', navigation);
-			}
-			if (to.path === '/edit/vdh' || to.path === '/edit/vdh') {
-				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
-			}
-			if (to.path === '/edit/components') {
-				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT',
-				);
-			}
-			if (to.matched.find(e=>{
-				return e.path === '/edit/components/:id';
-			})) {
-				this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
-				// this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
-			}
-		}
+		// checkMenu(to, from) {
+		// 	if (to.path === '/edit') {
+		// 		let navigation = [];
+		// 		navigation.push({href: '/edit/vdh', text: 'edit.vdh'});
+		// 		navigation = navigation.concat(Object.keys(this.components).map((c)=>{
+		// 				return {href: '/edit/components/' + c, text: 'edit.entry_' + c};
+		// 			})
+		// 		);
+		// 		navigation.push({href: '/edit/vdf', text: 'edit.vdf'});
+		// 		this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', navigation);
+		// 	}
+		// 	if (to.path === '/edit/vdh' || to.path === '/edit/vdh') {
+		// 		this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
+		// 	}
+		//
+		// 	if (to.matched.find(e=>{
+		// 		return e.path === '/edit/components/:id';
+		// 	})) {
+		// 		this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
+		// 		// this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
+		// 	}
+		// }
 	},
 	watch: {
-		$route(to, from) {
-			this.checkMenu(to, from);
-		}
+		// $route(to, from) {
+		// 	this.checkMenu(to, from);
+		// }
 	},
 	beforeMount() {
-		this.checkMenu(this.$route);
+		// this.checkMenu(this.$route);
 		this.$store.dispatch('ENTER_EDIT');
 	},
 	mounted() {

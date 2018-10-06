@@ -71,9 +71,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
                     }
                 }
             }
-
             if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
-                $data = $this->model_template->validate_templates($data);
             }
             // if last view is loaded we add scripts and Style from our d_visualize
             if ($view == $view_route) {
@@ -81,7 +79,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
                 if (isset($data['header'])) {
                     $data['header'] = $this->model_helper->addDocumentPageData(
                         array('scripts' => $this->pageScripts,
-                              'styles'  => $this->pageStyles),
+                            'styles' => $this->pageStyles),
                         $data['header']);
                 }
             }
@@ -140,10 +138,5 @@ class ControllerExtensionDVisualizeEvent extends Controller
             }
         $data['custom_styles'] = $this->setting_active_template['custom_styles'];
 
-    }
-
-    public function controller_all_before_d_visualize(&$view, &$data)
-    {
-        //todo remove unnesesary event
     }
 }

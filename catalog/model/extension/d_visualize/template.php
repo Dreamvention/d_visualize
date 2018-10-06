@@ -35,7 +35,7 @@ class ModelExtensionDVisualizeTemplate extends Model
             $this->config->load($this->codename . '/template/' . $codename);
             $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
             $result[$codename] = array(
-                'source'  => 'config',
+                'source' => 'config',
                 'setting' => $config,
             );
         }
@@ -46,6 +46,7 @@ class ModelExtensionDVisualizeTemplate extends Model
     public function loadTemplateSetting($active_template_codename = 'default')
     {
         $active_template = $this->getAvailableTemplates()[$active_template_codename]['setting'];
+        $this->components = $this->getAvailableComponents();
         //check on skin overloading the components
         // add some magic here
         foreach (array_keys($active_template['page']) as $path) {
@@ -65,19 +66,34 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $db_saved_template_setting ? (array)json_decode($db_saved_template_setting['setting'], true) : $active_template;
     }
 
+    /*
+     * this method set template and css which needed to component
+     * if no files finded in this available components
+     * then empty.twig replace it
+     *
+     * note Available components contain
+     * all files available in view/theme/d_visualize/template/components
+     * sorted by them codename
+     * */
     public function assingChanges($key, $component, $active_template_codename, $active_skin)
     {
         $result = array();
-        $skin = $active_template_codename;
-        if ($this->availableTemplate($key, $active_skin)) { // cecheck if possible change view
-            $skin = $active_skin;
+        $skin = 'default';
+        if (isset($this->components[$key][$active_template_codename])) {
+            $skin = $active_template_codename;
         }
-        if (isset($component['skin']) && $this->availableTemplate($key, $component['skin'])) { // cecheck if possible change view
+        if (isset($this->components[$key][$active_skin])) {
+            $skin = $active_skin;
+
+        }
+        if (isset($component['skin']) && isset($this->components[$key][$component['skin']])) {
             $skin = $component['skin'];
         }
-        if (isset($component['setting']) && isset($component['setting']['display'])) {
-            $skin = 'empty';
-        }
+//        echo '<pre>';
+//        print_r($key);
+//        echo '-';
+//        print_r($skin);
+//        echo '</pre>';
         if (isset($component['template'])) {
             $component['template'] = $component['template'] . $skin . '.twig'; //set default values template
         }
@@ -97,32 +113,6 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $sql = 'SELECT * from ' . DB_PREFIX . "vz_templates where codename='" . $template_codename . "'";
         return $this->db->query($sql)->row;
-    }
-
-    public function availableTemplate($key, $skin)
-    {
-        return isset($this->getAvailableComponents()[$key][$skin]);
-    }
-
-    public function validate_templates($data)
-    {
-//        foreach ($data['partial'] as $partial_k => $partial_v) {
-//            if (!is_file(DIR_TEMPLATE . $partial_v['template'])) {
-//                $data['partial'][$partial_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
-//            } else {
-//                foreach ($data['partial'][$partial_k]['component'] as $component_k => $component_v) {
-//                    if (!is_file(DIR_TEMPLATE . $component_v['template'])) {
-//                        $data['partial'][$partial_k]['component'][$component_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
-//                    }
-//                }
-//            }
-//        }
-        foreach ($data['component'] as $partial_k => $partial_v) {
-            if (!is_file(DIR_TEMPLATE . $partial_v['template'])) {
-                $data['component'][$partial_k]['template'] = 'd_visualize/template/partial/d_empty.twig';
-            }
-        }
-        return $data;
     }
 
     /**

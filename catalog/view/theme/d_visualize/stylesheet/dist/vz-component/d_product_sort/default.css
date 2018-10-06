@@ -1,0 +1,14 @@
+.vz-d_product_sort_default {
+  margin-bottom: 1.42857rem;
+}
+.vz-d_product_sort_default .vz-button {
+  padding: 0;
+}
+.vz-button-view .vz-button {
+  padding: 0.35714rem 0.71429rem
+}
+.vz-button-view .vz-button.active {
+  background: var(--color-primary);
+  background: var(--color-primary);
+}
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_sort/default.css.map */

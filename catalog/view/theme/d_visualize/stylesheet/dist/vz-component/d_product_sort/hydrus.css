@@ -1,0 +1,22 @@
+.vz-d_product_sort {
+  margin-bottom: 1.42857rem;
+}
+  .vz-d_product_sort .vz-button-view {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .vz-d_product_sort .vz-button-view .vz-button {
+    padding: 0.85714rem 1.07143rem
+  }
+  .vz-d_product_sort .vz-button-view .vz-button.active {
+  background: var(--color-info);
+  background: var(--color-info);
+}
+  .vz-d_product_sort .vz-button {
+  padding: 0;
+
+}
+
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_sort/hydrus.css.map */

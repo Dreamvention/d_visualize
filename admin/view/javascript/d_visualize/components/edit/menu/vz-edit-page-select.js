@@ -9,16 +9,12 @@ Vue.component('vz-edit-page-select', {
 		}
 	},
 	methods: {
-		// update(e, options) {
-		// 	// no need to update if there no available component exist.
-		// 	// at this case set default skin because it have to be
-		// 	let skin = this.availableComponents[this.componentId][options.value] ? options.value : 'default';
-		// 	this.$store.dispatch('UPDATE_COMPONENT', {
-		// 		active_template_id: this.$store.getters.setting.active_template,
-		// 		component_id: this.componentId,
-		// 		component_skin: skin
-		// 	});
-		//
-		// }
+		update(e, options) {
+			console.log(options)
+			// no need to update if there no available component exist.
+			// at this case set default skin because it have to be
+			// this.$store.dispatch('CURRENT_PAGE', options);
+
+		}
 	},
 });

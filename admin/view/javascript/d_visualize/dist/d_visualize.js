@@ -148,7 +148,7 @@ d_visualize.actions['PUSH_EDIT_HISTORY'] = function (context, payload) {
 d_visualize.actions['CHANGE_PAGE'] = function (context, payload) {
   var iFrameDOM = $("iframe#iframe").contents();
   var route = iFrameDOM.find("#content").data('route');
-  context.commit('CHANGE_PAGE', route);
+  context.commit('CHANGE_PAGE', route); // context.dispatch('CHANGE_NAVIGATION_CONTEXT');
 };
 
 d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
@@ -411,21 +411,17 @@ Vue.component('vz-component', {
       return this.$store.getters.available_components;
     },
     componentKey: function componentKey() {
+      if (!this.component.skin) {
+        console.log(this.component);
+      }
+
       var skin = this.availableComponents[this.componentId][this.component.skin] ? this.component.skin : 'default';
       var active_template_codename = this.$store.getters.active_template.setting.active_skin;
-      console.log(skin);
-      return skin;
-
-      if (this.component.skin) {
-        return this.component.skin;
-      } else {
-        return active_template_codename;
-      } // if (this.component.skin === active_template_codename) {
+      return skin; // if (this.component.skin === active_template_codename) {
       // 	return this.component.skin;
       // } else {
       // 	return active_template_codename;
       // }
-
     },
     hasComponentKey: function hasComponentKey() {
       return _.contains(this.componentKey, this.templateVariations);
@@ -490,17 +486,12 @@ Vue.component('vz-edit-page-select', {
       return this.$store.getters.available_page;
     }
   },
-  methods: {// update(e, options) {
-    // 	// no need to update if there no available component exist.
-    // 	// at this case set default skin because it have to be
-    // 	let skin = this.availableComponents[this.componentId][options.value] ? options.value : 'default';
-    // 	this.$store.dispatch('UPDATE_COMPONENT', {
-    // 		active_template_id: this.$store.getters.setting.active_template,
-    // 		component_id: this.componentId,
-    // 		component_skin: skin
-    // 	});
-    //
-    // }
+  methods: {
+    update: function update(e, options) {
+      console.log(options); // no need to update if there no available component exist.
+      // at this case set default skin because it have to be
+      // this.$store.dispatch('CURRENT_PAGE', options);
+    }
   }
 });
 Vue.component('vz-edit-vdf', {
@@ -743,22 +734,7 @@ Vue.component('viz-switcher', {
   computed: {}
 });
 
-d_visualize.getters.components = function (state, getters) {
-  var components = [];
-
-  if (getters.active_template.setting) {
-    components = _.reduce(getters.active_template.setting.page[getters.current_page].layout.component, function (memo, component, component_key) {
-      //only thouse who have skin overloading
-      if (component.skin) {
-        memo[component_key] = component;
-      }
-
-      return memo;
-    }, {});
-  }
-
-  return components;
-};
+d_visualize.getters.components = function (state, getters) {};
 
 d_visualize.getters.available_components = function (state) {
   return state.available_components;
@@ -1129,50 +1105,14 @@ Vue.component('vz-edit-theme', {
     iframeLoad: function iframeLoad(e) {
       this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
       this.$store.dispatch('LOADING_END');
-    },
-    checkMenu: function checkMenu(to, from) {
-      if (to.path === '/edit') {
-        var navigation = [];
-        navigation.push({
-          href: '/edit/vdh',
-          text: 'edit.vdh'
-        });
-        navigation = navigation.concat(Object.keys(this.components).map(function (c) {
-          return {
-            href: '/edit/components/' + c,
-            text: 'edit.entry_' + c
-          };
-        }));
-        console.log(navigation);
-        navigation.push({
-          href: '/edit/vdf',
-          text: 'edit.vdf'
-        });
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', navigation);
-      }
-
-      if (to.path === '/edit/vdh' || to.path === '/edit/vdh') {
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
-      }
-
-      if (to.path === '/edit/components') {
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
-      }
-
-      if (to.matched.find(function (e) {
-        return e.path === '/edit/components/:id';
-      })) {
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []); // this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
-      }
     }
   },
-  watch: {
-    $route: function $route(to, from) {
-      this.checkMenu(to, from);
-    }
+  watch: {// $route(to, from) {
+    // 	this.checkMenu(to, from);
+    // }
   },
   beforeMount: function beforeMount() {
-    this.checkMenu(this.$route);
+    // this.checkMenu(this.$route);
     this.$store.dispatch('ENTER_EDIT');
   },
   mounted: function mounted() {
