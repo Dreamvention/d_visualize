@@ -5,16 +5,13 @@ d_visualize.actions['PUSH_EDIT_HISTORY'] = function (context, payload) {
     context.commit('PUSH_EDIT_HISTORY', payload);
 };
 d_visualize.actions['CHANGE_PAGE'] = function (context, payload) {
-    let iFrameDOM = $("iframe#iframe").contents();
-    let route = iFrameDOM.find("#content").data('route');
-    context.commit('CHANGE_PAGE', route);
-    // context.dispatch('CHANGE_NAVIGATION_CONTEXT');
-
+    context.commit('CHANGE_PAGE', payload);
 };
 d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
     $('iframe')[0].contentWindow.location.reload();
 }
-;d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
+;
+d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
     context.commit('PUSH_IFRAME_HISTORY', payload);
     context.dispatch('CHANGE_PAGE', payload);
     //saving on the server last url
@@ -35,5 +32,23 @@ d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
     ;
 };
 d_visualize.actions['CHANGE_NAVIGATION_CONTEXT'] = function (context, payload) {
-    context.commit('CHANGE_NAVIGATION_CONTEXT', payload);
+    var navigation = [];
+    navigation.push({
+        href: '/edit/vdh',
+        text: 'edit.vdh'
+    });
+    navigation = navigation.concat(Object.keys(context.getters.components).map(function (c) {
+        return {
+            href: '/edit/components/' + c,
+            text: 'edit.entry_' + c
+        };
+    }));
+    navigation.push({
+        href: '/edit/vdf',
+        text: 'edit.vdf'
+    });
+    context.commit('CHANGE_NAVIGATION_CONTEXT', navigation);
 };
+d_visualize.actions['PUSH_NAVIGATION_HISTORY'] = function (context, payload) {
+    context.commit('PUSH_NAVIGATION_HISTORY', payload);
+}

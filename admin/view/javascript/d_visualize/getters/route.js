@@ -19,7 +19,6 @@ d_visualize.getters.current_page = function (state, getters) {
 			current_page = page;
 		}
 	});
-	console.log(current_page)
 	return current_page;
 };
 d_visualize.getters.available_page = function (state, getters) {

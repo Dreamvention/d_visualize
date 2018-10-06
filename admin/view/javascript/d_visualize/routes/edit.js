@@ -1,7 +1,7 @@
 d_visualize.routes.push({
 	path: '/edit',
 	component: {
-		template: '<vz-edit-theme></vz-edit-theme>'
+		template: '<vz-edit></vz-edit>'
 	},
 	children: [
 		{

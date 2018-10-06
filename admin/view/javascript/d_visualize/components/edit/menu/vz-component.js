@@ -37,6 +37,9 @@ Vue.component('vz-component', {
             // });
         },
     },
+    beforeMount(){
+      console.log('before')
+    },
     methods: {
         update(e, options) {
             // no need to update if there no available component exist.

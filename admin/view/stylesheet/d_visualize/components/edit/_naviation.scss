@@ -1,0 +1,72 @@
+.vz-edit {
+  &-navigation__nav {
+    flex: 0 1 100%;
+    .nav {
+      margin-left: -5px;
+      margin-right: -5px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      &__item {
+        border: 1px solid gray;
+        border-bottom: 0;
+        padding: 10px 15px;
+        position: relative;
+        &:after {
+          position: absolute;
+          right: 5px;
+          font-family: "Font Awesome\ 5 Free";
+          font-weight: 600;
+          content: "\f054";
+        }
+        &:hover {
+          cursor: pointer;
+        }
+        &:last-child {
+          border-bottom: 1px solid gray;
+        }
+      }
+      ~ .content_nav {
+        overflow-y: scroll;
+        max-height: 500px;
+      }
+    }
+  }
+  &-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    .hider {
+      color: white;
+      background: gray;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      border-radius: 100%;
+      width: 25px;
+      height: 25px;
+      margin-left: 20px;
+
+    }
+  }
+  &-responsive_toggle {
+    flex: 1;
+    display: inline-flex;
+    font-size: 20px;
+    align-items: center;
+    justify-content: flex-end;
+    > * {
+      padding-right: 5px;
+      padding-left: 5px;
+      margin-right: 5px;
+    }
+    .menu-hidden &, .edit_vd & {
+      display: none;
+    }
+  }
+}

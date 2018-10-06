@@ -1,4 +1,5 @@
 d_visualize.getters.components = function (state, getters) {
+    return getters.active_template.setting.page[getters.current_page].layout.component
 
 };
 

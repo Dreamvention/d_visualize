@@ -146,9 +146,7 @@ d_visualize.actions['PUSH_EDIT_HISTORY'] = function (context, payload) {
 };
 
 d_visualize.actions['CHANGE_PAGE'] = function (context, payload) {
-  var iFrameDOM = $("iframe#iframe").contents();
-  var route = iFrameDOM.find("#content").data('route');
-  context.commit('CHANGE_PAGE', route); // context.dispatch('CHANGE_NAVIGATION_CONTEXT');
+  context.commit('CHANGE_PAGE', payload);
 };
 
 d_visualize.actions['RELOAD_IFRAME'] = function (context, payload) {
@@ -178,7 +176,26 @@ d_visualize.actions['PUSH_IFRAME_HISTORY'] = function (context, payload) {
 };
 
 d_visualize.actions['CHANGE_NAVIGATION_CONTEXT'] = function (context, payload) {
-  context.commit('CHANGE_NAVIGATION_CONTEXT', payload);
+  var navigation = [];
+  navigation.push({
+    href: '/edit/vdh',
+    text: 'edit.vdh'
+  });
+  navigation = navigation.concat(Object.keys(context.getters.components).map(function (c) {
+    return {
+      href: '/edit/components/' + c,
+      text: 'edit.entry_' + c
+    };
+  }));
+  navigation.push({
+    href: '/edit/vdf',
+    text: 'edit.vdf'
+  });
+  context.commit('CHANGE_NAVIGATION_CONTEXT', navigation);
+};
+
+d_visualize.actions['PUSH_NAVIGATION_HISTORY'] = function (context, payload) {
+  context.commit('PUSH_NAVIGATION_HISTORY', payload);
 };
 
 d_visualize.actions['LOAD_VISUAL_HEADER'] = function (context, payload) {
@@ -280,31 +297,56 @@ Vue.component('visualize', {
     // }
   }
 });
-Vue.component('vz-edit-controls', {
-  template: '#vz-edit-controls',
-  props: {},
+Vue.component('vz-edit-iframe', {
+  template: '#vz-edit-iframe',
   computed: {
-    menu: function menu() {
-      return this.$store.getters.menu;
+    //currently loaded url on iframe vdh,vdf link change this src
+    iframe_src: function iframe_src() {
+      return this.$store.getters.iframe_src;
+    },
+    // added history to know where vd start his iframe to get back
+    iframe_history: function iframe_history() {
+      return this.$store.getters.iframe_history;
     }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.iframeURLChange(document.getElementById("iframe"), function (newURL) {
+      _this2.$store.dispatch('LOADING_START');
+
+      console.log("URL changed:", newURL);
+    });
   },
   methods: {
-    toggle_show: function toggle_show() {
-      if (this.menu.hidden) {
-        this.$store.dispatch('SHOW_MENU');
-      } else {
-        this.$store.dispatch('HIDE_MENU');
+    iframeURLChange: function iframeURLChange(iframe, callback) {
+      var unloadHandler = function unloadHandler() {
+        // Timeout needed because the URL changes immediately after
+        // the `unload` event is dispatched.
+        setTimeout(function () {
+          callback(iframe.contentWindow.location.href);
+        }, 0);
+      };
+
+      function attachUnload() {
+        // Remove the unloadHandler in case it was already attached.
+        // Otherwise, the change will be dispatched twice.
+        iframe.contentWindow.removeEventListener("unload", unloadHandler);
+        iframe.contentWindow.addEventListener("unload", unloadHandler);
       }
+
+      iframe.addEventListener("load", attachUnload);
+      attachUnload();
     },
-    changeIfrmeSize: function changeIfrmeSize(e, ee) {
-      $('#iframe').animate({
-        width: e
-      }, {
-        duration: 500
-      });
+    iframeLoad: function iframeLoad(e) {
+      var iFrameDOM = $("iframe#iframe").contents();
+      var route = iFrameDOM.find("#content").data('route');
+      this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
+      this.$store.dispatch('CHANGE_PAGE', route);
+      this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
+      this.$store.dispatch('LOADING_END');
     }
-  },
-  mounted: function mounted() {}
+  }
 });
 Vue.component('vz-edit-menu', {
   template: '#vz-edit-menu',
@@ -328,29 +370,6 @@ Vue.component('vz-edit-menu', {
       });
     }
   }
-});
-Vue.component('vz-edit-navigation', {
-  template: '#vz-edit-navigation',
-  computed: {
-    menu: function menu() {
-      return this.$store.getters.menu;
-    }
-  },
-  data: function data() {
-    return {
-      items: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    };
-  },
-  methods: {
-    to: function to(path) {
-      this.$store.dispatch('PUSH_EDIT_HISTORY', path);
-      this.$router.push(path);
-    },
-    shuffle: function shuffle() {
-      this.items = _.shuffle(this.items);
-    }
-  },
-  mounted: function mounted() {}
 });
 Vue.component('viz-dashboard', {
   template: '#viz-dashboard',
@@ -434,6 +453,9 @@ Vue.component('vz-component', {
       // });
     }
   },
+  beforeMount: function beforeMount() {
+    console.log('before');
+  },
   methods: {
     update: function update(e, options) {
       // no need to update if there no available component exist.
@@ -475,6 +497,82 @@ Vue.component('vz-edit-back', {
       }
     }
   }
+});
+Vue.component('vz-edit-controls', {
+  template: '#vz-edit-controls',
+  props: {},
+  computed: {
+    menu: function menu() {
+      return this.$store.getters.menu;
+    }
+  },
+  methods: {
+    toggle_show: function toggle_show() {
+      if (this.menu.hidden) {
+        this.$store.dispatch('SHOW_MENU');
+      } else {
+        this.$store.dispatch('HIDE_MENU');
+      }
+    },
+    changeIfrmeSize: function changeIfrmeSize(e, ee) {
+      $('#iframe').animate({
+        width: e
+      }, {
+        duration: 500
+      });
+    }
+  },
+  mounted: function mounted() {}
+});
+Vue.component('vz-edit-navigation', {
+  template: '#vz-edit-navigation',
+  computed: {
+    menu: function menu() {
+      return this.$store.getters.menu;
+    }
+  },
+  data: function data() {
+    return {
+      items: []
+    };
+  },
+  methods: {
+    to: function to(path) {
+      this.$store.dispatch('PUSH_NAVIGATION_HISTORY', path);
+      this.$router.push(path);
+    },
+    checkMenu: function checkMenu(to, from) {
+      if (to.path === '/edit') {
+        var navigation = [];
+        navigation.push({
+          href: '/edit/vdh',
+          text: 'edit.vdh'
+        });
+        navigation = navigation.concat(Object.keys(this.components).map(function (c) {
+          return {
+            href: '/edit/components/' + c,
+            text: 'edit.entry_' + c
+          };
+        }));
+        navigation.push({
+          href: '/edit/vdf',
+          text: 'edit.vdf'
+        });
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', navigation);
+      }
+
+      if (to.path === '/edit/vdh' || to.path === '/edit/vdh') {
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
+      }
+
+      if (to.matched.find(function (e) {
+        return e.path === '/edit/components/:id';
+      })) {
+        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []); // this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
+      }
+    }
+  },
+  mounted: function mounted() {}
 });
 Vue.component('vz-edit-page-select', {
   template: '#vz-edit-page-select',
@@ -734,7 +832,9 @@ Vue.component('viz-switcher', {
   computed: {}
 });
 
-d_visualize.getters.components = function (state, getters) {};
+d_visualize.getters.components = function (state, getters) {
+  return getters.active_template.setting.page[getters.current_page].layout.component;
+};
 
 d_visualize.getters.available_components = function (state) {
   return state.available_components;
@@ -790,7 +890,6 @@ d_visualize.getters.current_page = function (state, getters) {
     }
   });
 
-  console.log(current_page);
   return current_page;
 };
 
@@ -932,36 +1031,24 @@ d_visualize.mutations['LOADING_FAIL'] = function (state, payload) {
   }));
 };
 
-d_visualize.state.edit_history = ['/home/dashboard', '/edit'];
 d_visualize.state.iframe_history = [];
-d_visualize.state.current_page = 'default';
+d_visualize.state.current_page = '';
 d_visualize.state.menu = {
   hidden: false,
   navigation: [],
   navigation_history: []
 };
 
-d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
-  state.menu.navigation_history.push(state.menu.navigation);
+d_visualize.mutations['PUSH_NAVIGATION_HISTORY'] = function (state, payload) {
+  state.menu.navigation_history.push(payload);
   var new_history = JSON.parse(JSON.stringify(state.menu.navigation_history));
-  var new_navigation = JSON.parse(JSON.stringify(payload));
-  Vue.set(state, 'menu', JSON.parse(JSON.stringify({
-    hidden: state.menu.hidden,
-    navigation: new_navigation,
-    navigation_history: new_history
-  })));
+  Vue.set(state.menu, 'navigation_history', new_history);
 };
 
-d_visualize.mutations['PUSH_EDIT_HISTORY'] = function (state, payload) {
-  state.edit_history.push(payload);
-  var new_history = JSON.parse(JSON.stringify(state.edit_history));
-  Vue.set(state, 'edit_history', new_history);
-};
-
-d_visualize.mutations['POP_EDIT_HISTORY'] = function (state, payload) {
-  state.edit_history.pop();
-  var new_history = JSON.parse(JSON.stringify(state.edit_history));
-  Vue.set(state, 'edit_history', new_history);
+d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
+  // var new_menu = JSON.parse(JSON.stringify(state.menu));
+  // new_menu.navigation = payload;
+  Vue.set(state.menu, 'navigation', payload);
 };
 
 d_visualize.mutations['PUSH_IFRAME_HISTORY'] = function (state, payload) {
@@ -993,7 +1080,7 @@ d_visualize.mutations['CHANGE_AUTO_SAVE'] = function (state, payload) {
 d_visualize.routes.push({
   path: '/edit',
   component: {
-    template: '<vz-edit-theme></vz-edit-theme>'
+    template: '<vz-edit></vz-edit>'
   },
   children: [{
     path: 'components',
@@ -1080,45 +1167,28 @@ Vue.component('viz-home', {
     }
   }
 });
-Vue.component('vz-edit-theme', {
-  template: '#vz-edit-theme',
+Vue.component('vz-edit', {
+  template: '#vz-edit',
   computed: {
-    setting: function setting() {
-      return this.$store.getters.setting;
-    },
-    //currently loaded url on iframe vdh,vdf link change this src
-    iframe_src: function iframe_src() {
-      return this.$store.getters.iframe_src;
-    },
-    // added history to know where vd start his iframe to get back
-    iframe_history: function iframe_history() {
-      return this.$store.getters.iframe_history;
-    },
     menu: function menu() {
       return this.$store.getters.menu;
     },
-    components: function components() {
-      return this.$store.getters.components;
+    route_class: function route_class() {
+      if (this.$store.getters.route.params.id) {
+        return this.$store.getters.route.path.replace(this.$store.getters.route.params.id, '').replace(/\//g, '-').slice(0, -1).slice(1, -1);
+      }
     }
-  },
-  methods: {
-    iframeLoad: function iframeLoad(e) {
-      this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
-      this.$store.dispatch('LOADING_END');
-    }
-  },
-  watch: {// $route(to, from) {
-    // 	this.checkMenu(to, from);
-    // }
   },
   beforeMount: function beforeMount() {
     // this.checkMenu(this.$route);
     this.$store.dispatch('ENTER_EDIT');
+    this.$store.dispatch('LOADING_START');
   },
   mounted: function mounted() {
-    this.$store.dispatch('LOADING_START');
+    this.$store.dispatch('LOADING_END');
   },
   beforeDestroy: function beforeDestroy() {
     this.$store.dispatch('LEAVE_EDIT');
+    this.$store.dispatch('LOADING_END');
   }
 });
