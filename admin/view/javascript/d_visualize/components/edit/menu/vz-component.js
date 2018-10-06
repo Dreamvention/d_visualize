@@ -14,12 +14,12 @@ Vue.component('vz-component', {
             return this.$store.getters.available_components;
         },
         componentKey() {
-            if (!this.component.skin) {
-                console.log(this.component)
-            }
-            let skin = this.availableComponents[this.componentId][this.component.skin] ? this.component.skin : 'default'
-            let active_template_codename = this.$store.getters.active_template.setting.active_skin;
-            return skin;
+            // if (!this.component.skin) {
+            //     console.log(this.component)
+            // }
+            // let skin = this.availableComponents[this.componentId][this.component.skin] ? this.component.skin : 'default'
+            // let active_template_codename = this.$store.getters.active_template.setting.active_skin;
+            return this.component.skin;
             // if (this.component.skin === active_template_codename) {
             // 	return this.component.skin;
             // } else {
@@ -37,8 +37,8 @@ Vue.component('vz-component', {
             // });
         },
     },
-    beforeMount(){
-      console.log('before')
+    beforeMount() {
+        console.log('before')
     },
     methods: {
         update(e, options) {

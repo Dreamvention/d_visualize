@@ -38,7 +38,11 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/component/form_group/',
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/form_group/',
                         'setting' => array(
-                            'form' => 'block'
+                            'form' => array(
+                                'type' => 'select',
+                                'value' => 'inline',
+                                'values' => array('inline', 'block'),
+                            )
                         ),
                         'editable' => false
                     ),
@@ -233,8 +237,11 @@ $_['d_visualize_template_default_setting'] = array(
             'layout' => array(
                 'component' => array(
                     'form_group' => array(
+                        'editable'=>true,
                         'setting' => array(
-                            'form' => 'inline'
+                            'form' => array(
+                                'value' => 'inline',
+                            )
                         )
                     )
                 )
@@ -245,7 +252,9 @@ $_['d_visualize_template_default_setting'] = array(
                 'component' => array(
                     'form_group' => array(
                         'setting' => array(
-                            'form' => 'block'
+                            'form' => array(
+                                'value' => 'block',
+                            )
                         )
                     )
                 )
@@ -256,7 +265,9 @@ $_['d_visualize_template_default_setting'] = array(
                 'component' => array(
                     'form_group' => array(
                         'setting' => array(
-                            'form' => 'inline'
+                            'form' => array(
+                                'value' => 'inline',
+                            )
                         )
                     )
                 )

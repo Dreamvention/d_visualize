@@ -221,9 +221,7 @@ d_visualize.actions['ENTER_VISUAL'] = function (context, payload) {
 
 d_visualize.actions['LEAVE_VISUAL'] = function (context, payload) {
   $('body').removeClass('edit_vd');
-  console.log(context.getters.iframe_history);
-  context.getters.iframe_history.pop(); //this route is a vdh route
-
+  context.getters.iframe_history.pop();
   var last_iframe_page = context.getters.iframe_history.pop();
   context.dispatch('SHOW_MENU');
   context.commit('CHANGE_IFRAME_SRC', last_iframe_page.href);
@@ -246,11 +244,15 @@ d_visualize.actions['CHANGE_AUTO_SAVE'] = function (context, payload) {
   }
 };
 
-var LOADER = {
+var Index = {
   LOADING: 'loading',
   WAITING: 'waiting',
   SUCCESS: 'success',
   FAIL: 'fail'
+};
+var COMPONENT_SETTINGS = {
+  TYPE_CHECKBOX: 'checkbox',
+  TYPE_SELECT: 'select'
 };
 Vue.component('visualize', {
   template: '#t-visualize',
@@ -261,7 +263,7 @@ Vue.component('visualize', {
   },
   data: function data() {
     return {
-      last_action: LOADER.WAITING
+      last_action: Index.WAITING
     };
   },
   methods: {},
@@ -271,15 +273,15 @@ Vue.component('visualize', {
 
     if (this.last_action !== this.loading.status) {
       // change from one state to other
-      if (this.loading.status === LOADER.LOADING) {
+      if (this.loading.status === Index.LOADING) {
         setTimeout(function () {
           _this.$refs.topProgress.start();
         }, 100);
-      } else if (this.loading.status === LOADER.WAITING || this.loading.status === LOADER.SUCCESS) {
+      } else if (this.loading.status === Index.WAITING || this.loading.status === Index.SUCCESS) {
         setTimeout(function () {
           _this.$refs.topProgress.done();
         }, 200);
-      } else if (this.loading.status === LOADER.FAIL) {
+      } else if (this.loading.status === Index.FAIL) {
         setTimeout(function () {
           _this.$refs.topProgress.fail();
         }, 200);
@@ -324,7 +326,7 @@ Vue.component('vz-edit-iframe', {
         // Timeout needed because the URL changes immediately after
         // the `unload` event is dispatched.
         setTimeout(function () {
-          callback(iframe.contentWindow.location.href);
+          if (iframe.contentWindow) callback(iframe.contentWindow.location.href);
         }, 0);
       };
 
@@ -341,6 +343,11 @@ Vue.component('vz-edit-iframe', {
     iframeLoad: function iframeLoad(e) {
       var iFrameDOM = $("iframe#iframe").contents();
       var route = iFrameDOM.find("#content").data('route');
+
+      if (!route) {
+        route = 'default';
+      }
+
       this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
       this.$store.dispatch('CHANGE_PAGE', route);
       this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
@@ -430,13 +437,12 @@ Vue.component('vz-component', {
       return this.$store.getters.available_components;
     },
     componentKey: function componentKey() {
-      if (!this.component.skin) {
-        console.log(this.component);
-      }
-
-      var skin = this.availableComponents[this.componentId][this.component.skin] ? this.component.skin : 'default';
-      var active_template_codename = this.$store.getters.active_template.setting.active_skin;
-      return skin; // if (this.component.skin === active_template_codename) {
+      // if (!this.component.skin) {
+      //     console.log(this.component)
+      // }
+      // let skin = this.availableComponents[this.componentId][this.component.skin] ? this.component.skin : 'default'
+      // let active_template_codename = this.$store.getters.active_template.setting.active_skin;
+      return this.component.skin; // if (this.component.skin === active_template_codename) {
       // 	return this.component.skin;
       // } else {
       // 	return active_template_codename;
@@ -478,8 +484,8 @@ Vue.component('vz-edit-back', {
     vd_layout: function vd_layout() {
       return this.$store.getters.route.path === '/edit/vdh' || this.$store.getters.route.path === '/edit/vdf';
     },
-    edit_history: function edit_history() {
-      return this.$store.getters.edit_history;
+    history: function history() {
+      return this.$store.getters.menu.navigation_history;
     }
   },
   methods: {
@@ -488,12 +494,12 @@ Vue.component('vz-edit-back', {
         this.$store.dispatch('LEAVE_VISUAL');
       }
 
-      if (this.close) {
-        this.$router.push(this.edit_history[0]);
+      var history_url = this.history.pop();
+
+      if (!history_url || this.close) {
+        this.$router.push('/');
       } else {
-        console.log(this.edit_history);
-        this.$router.push(this.edit_history[this.edit_history.length - 2]);
-        this.$store.dispatch('POP_EDIT_HISTORY');
+        this.$router.push(history_url.path);
       }
     }
   }
@@ -538,38 +544,8 @@ Vue.component('vz-edit-navigation', {
   },
   methods: {
     to: function to(path) {
-      this.$store.dispatch('PUSH_NAVIGATION_HISTORY', path);
+      this.$store.dispatch('PUSH_NAVIGATION_HISTORY', this.$store.getters.route);
       this.$router.push(path);
-    },
-    checkMenu: function checkMenu(to, from) {
-      if (to.path === '/edit') {
-        var navigation = [];
-        navigation.push({
-          href: '/edit/vdh',
-          text: 'edit.vdh'
-        });
-        navigation = navigation.concat(Object.keys(this.components).map(function (c) {
-          return {
-            href: '/edit/components/' + c,
-            text: 'edit.entry_' + c
-          };
-        }));
-        navigation.push({
-          href: '/edit/vdf',
-          text: 'edit.vdf'
-        });
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', navigation);
-      }
-
-      if (to.path === '/edit/vdh' || to.path === '/edit/vdh') {
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []);
-      }
-
-      if (to.matched.find(function (e) {
-        return e.path === '/edit/components/:id';
-      })) {
-        this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT', []); // this.$store.dispatch('CHANGE_CURRENT_COMPONENT', this.components[to.params.id]);
-      }
     }
   },
   mounted: function mounted() {}
@@ -607,7 +583,8 @@ Vue.component('vz-edit-vdh', {
   methods: {},
   beforeMount: function beforeMount() {
     this.$store.dispatch('LOAD_VISUAL_HEADER', this.$o('action.vdh'));
-  }
+  },
+  beforeDestroy: function beforeDestroy() {}
 });
 Vue.component('vis-dash-link', {
   template: '#vis-dash-link',
@@ -831,9 +808,47 @@ Vue.component('viz-switcher', {
   },
   computed: {}
 });
+/*
+* Recursively merge properties of two objects
+*/
+
+function MergeRecursive(obj1, obj2) {
+  for (var p in obj2) {
+    try {
+      // Property in destination object set; update its value.
+      if (obj2[p].constructor == Object) {
+        obj1[p] = MergeRecursive(obj1[p], obj2[p]);
+      } else {
+        obj1[p] = obj2[p];
+      }
+    } catch (e) {
+      // Property in destination object not set; create it and set its value.
+      obj1[p] = obj2[p];
+    }
+  }
+
+  return obj1;
+}
 
 d_visualize.getters.components = function (state, getters) {
-  return getters.active_template.setting.page[getters.current_page].layout.component;
+  var common_componenents = getters.active_template.setting.page['default'].layout.component;
+  var merged_components;
+
+  if (getters.active_template.setting.page[getters.current_page]) {
+    var page_components = getters.active_template.setting.page[getters.current_page].layout.component;
+    merged_components = MergeRecursive(JSON.parse(JSON.stringify(common_componenents)), page_components);
+  } else {
+    merged_components = JSON.parse(JSON.stringify(common_componenents));
+  }
+
+  common_componenents = _.reduce(merged_components, function (memo, component, key) {
+    if (component.editable) {
+      memo[key] = component;
+    }
+
+    return memo;
+  }, []);
+  return common_componenents;
 };
 
 d_visualize.getters.available_components = function (state) {
@@ -981,7 +996,7 @@ d_visualize.mutations['CHANGE_TEMPLATE'] = function (state, payload) {
 };
 
 d_visualize.state.loading = {
-  status: LOADER.WAITING,
+  status: Index.WAITING,
   on_progress: false,
   content_loaded: false,
   loader_stack: 0
@@ -989,7 +1004,7 @@ d_visualize.state.loading = {
 
 d_visualize.mutations['LOADING_START'] = function (state, payload) {
   Vue.set(state, 'loading', $.extend({}, state.loading, {
-    status: LOADER.LOADING,
+    status: Index.LOADING,
     on_progress: true,
     loader_stack: state.loading.loader_stack + 1
   }));
@@ -1006,9 +1021,9 @@ d_visualize.mutations['LOADING_END'] = function (state, payload) {
 
     if (loading.loader_stack === 0) {
       //wait queue of loading
-      loading.status = LOADER.WAITING;
+      loading.status = Index.WAITING;
     } else {
-      loading.status = LOADER.LOADING;
+      loading.status = Index.LOADING;
     }
 
     Vue.set(state, 'loading', loading);
@@ -1017,7 +1032,7 @@ d_visualize.mutations['LOADING_END'] = function (state, payload) {
 
 d_visualize.mutations['LOADING_SUCCESS'] = function (state, payload) {
   Vue.set(state, 'loading', $.extend({}, state.loading, {
-    status: LOADER.SUCCESS,
+    status: Index.SUCCESS,
     on_progress: false,
     content_loaded: true
   }));
@@ -1025,7 +1040,7 @@ d_visualize.mutations['LOADING_SUCCESS'] = function (state, payload) {
 
 d_visualize.mutations['LOADING_FAIL'] = function (state, payload) {
   Vue.set(state, 'loading', $.extend({}, state.loading, {
-    status: LOADER.FAIL,
+    status: Index.FAIL,
     on_progress: false,
     content_loaded: false
   }));

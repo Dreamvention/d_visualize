@@ -16,7 +16,7 @@
     {% set form_group_class = form_group_class ~ ' vz-form-group--has-error has-error' %}
 {% endif %}
 {% if setting.form is defined %}
-    {% set  form = setting.form %}
+    {% set  form = setting.form.value %}
 {% endif %}
 
 {% if form == 'inline' %}

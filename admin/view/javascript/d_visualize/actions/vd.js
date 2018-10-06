@@ -18,9 +18,8 @@ d_visualize.actions['ENTER_VISUAL'] = function (context, payload) {
 };
 d_visualize.actions['LEAVE_VISUAL'] = function (context, payload) {
 	$('body').removeClass('edit_vd');
-	console.log(context.getters.iframe_history);
-	context.getters.iframe_history.pop();//this route is a vdh route
-	let last_iframe_page = context.getters.iframe_history.pop();
+	context.getters.iframe_history.pop()
+	let last_iframe_page = context.getters.iframe_history.pop()
 	context.dispatch('SHOW_MENU');
 	context.commit('CHANGE_IFRAME_SRC', last_iframe_page.href);
 	context.commit('LEAVE_VISUAL', payload);

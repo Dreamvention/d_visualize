@@ -15,6 +15,7 @@ Vue.component('vz-edit-iframe', {
             this.$store.dispatch('LOADING_START');
             console.log("URL changed:", newURL);
         });
+
     },
     methods: {
         iframeURLChange(iframe, callback) {
@@ -22,7 +23,8 @@ Vue.component('vz-edit-iframe', {
                 // Timeout needed because the URL changes immediately after
                 // the `unload` event is dispatched.
                 setTimeout(function () {
-                    callback(iframe.contentWindow.location.href);
+                    if (iframe.contentWindow)
+                        callback(iframe.contentWindow.location.href);
                 }, 0);
             };
 
@@ -39,6 +41,9 @@ Vue.component('vz-edit-iframe', {
         iframeLoad(e) {
             let iFrameDOM = $("iframe#iframe").contents();
             let route = iFrameDOM.find("#content").data('route');
+            if (!route) {
+                route = 'default'
+            }
             this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
             this.$store.dispatch('CHANGE_PAGE', route);
             this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');

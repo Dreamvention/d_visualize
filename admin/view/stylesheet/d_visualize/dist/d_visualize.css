@@ -395,10 +395,9 @@ margin-left: rem(20);
     padding-top: 3rem;
     padding-left: 3rem;
   }
-.vz-edit-navigation__nav{
-   max-height: 40rem;
-   overflow-Y: scroll ;
- }
+.edit-component .vz-edit-page-select{
+    display: none;
+  }
 .vz-edit-menu {
     position: relative;
     padding-right: 0.5rem;
@@ -413,7 +412,7 @@ margin-left: rem(20);
         -ms-flex-direction: column;
             flex-direction: column;
     height: 100%;
-    max-width: 30rem;
+    width: 30rem;
 
   }
 .vz-edit-menu__heading {
@@ -443,11 +442,19 @@ margin-left: rem(20);
 .vz-edit-menu__heading_close:hover {
   border: 0.1rem solid gray;
 }
-.menu-hidden .vz-edit-menu > *:not(.vz-edit-menu__heading) {
+/* set styles when menu have small size*/
+.menu-hidden .vz-edit-menu {
+      max-width: 7rem;
+    }
+.menu-hidden .vz-edit-menu > * {
         display: none;
       }
+.menu-hidden .vz-edit-menu .vz-edit-menu__heading,
+      .menu-hidden .vz-edit-menu .vz-edit-controls {
+        display: block;
+      }
 .menu-hidden .vz-edit-menu .vz-edit-menu__heading {
-        padding: 0 0;
+        padding: 0;
       }
 .menu-hidden .vz-edit-menu .vz-edit-menu__heading .menu_heading_publish {
           display: none;
@@ -455,18 +462,28 @@ margin-left: rem(20);
 .menu-hidden .vz-edit-menu .vz-edit-menu__heading_close {
           position: relative;
         }
-.menu-hidden .vz-edit-menu.vz-edit-menu {
-}
+.edit_vd .vz-edit-menu > * {
+        display: none;
+      }
+.edit_vd .vz-edit-menu .vz-edit-menu__heading,
+      .edit_vd .vz-edit-menu .vz-edit-controls,
+      .edit_vd .vz-edit-menu .vz-edit-vdh {
+        display: block;
+      }
+/* this set styles when edit component*/
 .edit-component .vz-edit-menu__change-theme {
         display: none;
       }
 .edit-component .vz-edit-menu .vz-edit-navigation {
         opacity: 0;
         height: 0;
+        overflow: hidden;
       }
 .vz-edit-back {
 }
 .vz-edit-navigation__nav {
+    max-height: 40rem;
+    overflow-Y: scroll ;
     -webkit-box-flex: 0;
     -webkit-flex: 0 1 100%;
         -ms-flex: 0 1 100%;

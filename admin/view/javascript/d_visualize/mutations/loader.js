@@ -1,12 +1,12 @@
 d_visualize.state.loading = {
-	status: LOADER.WAITING,
+	status: Index.WAITING,
 	on_progress: false,
 	content_loaded: false,
 	loader_stack: 0
 };
 d_visualize.mutations['LOADING_START'] = function (state, payload) {
 	Vue.set(state, 'loading', $.extend({}, state.loading, {
-		status: LOADER.LOADING,
+		status: Index.LOADING,
 		on_progress: true,
 		loader_stack: state.loading.loader_stack + 1,
 	}));
@@ -19,9 +19,9 @@ d_visualize.mutations['LOADING_END'] = function (state, payload) {
 			loader_stack: state.loading.loader_stack - 1,
 		});
 		if (loading.loader_stack === 0) {//wait queue of loading
-			loading.status = LOADER.WAITING;
+			loading.status = Index.WAITING;
 		} else {
-			loading.status = LOADER.LOADING;
+			loading.status = Index.LOADING;
 		}
 		Vue.set(state, 'loading', loading);
 	}
@@ -29,14 +29,14 @@ d_visualize.mutations['LOADING_END'] = function (state, payload) {
 d_visualize.mutations['LOADING_SUCCESS'] = function (state, payload) {
 
 	Vue.set(state, 'loading', $.extend({}, state.loading, {
-		status: LOADER.SUCCESS,
+		status: Index.SUCCESS,
 		on_progress: false,
 		content_loaded: true
 	}));
 };
 d_visualize.mutations['LOADING_FAIL'] = function (state, payload) {
 	Vue.set(state, 'loading', $.extend({}, state.loading, {
-		status: LOADER.FAIL,
+		status: Index.FAIL,
 		on_progress: false,
 		content_loaded: false
 	}));

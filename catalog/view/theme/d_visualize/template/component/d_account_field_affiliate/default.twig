@@ -2,8 +2,8 @@
 {% if customer_groups %}
     <div class="form-group required"
          style="display: {% if customer_groups|length > 1 %}block{% else %}none{% endif %};">
-        <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md"><span>{{ entry_customer_group }}</span></label>
-        <div class="{% if form %}col-sm-10{% endif %}">
+        <label class="{% if form.value %}col-sm-2{% endif %} field-label label-right-md"><span>{{ entry_customer_group }}</span></label>
+        <div class="{% if form.value %}col-sm-10{% endif %}">
             {% for customer_group in customer_groups %}
                 <div class="radio">
                     <label>
@@ -18,9 +18,9 @@
 {% include component.d_name_field.template with component.d_name_field %}
 
 <div class="form-group required">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md"
+    <label class="{% if form.value %}col-sm-2{% endif %} field-label label-right-md"
            for="input-email"><span>{{ entry_email }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
+    <div class="{% if form.value %}col-sm-10{% endif %}">
         <input type="text" name="email" value="{{ email }}" id="input-email" class="field"/>
         {% if error_email %}
             <div class="text-danger">{{ error_email }}</div>
@@ -28,9 +28,9 @@
     </div>
 </div>
 <div class="form-group required">
-    <label class="{% if form %}col-sm-2{% endif %} field-label label-right-md"
+    <label class="{% if form.value %}col-sm-2{% endif %} field-label label-right-md"
            for="input-telephone"><span>{{ entry_telephone }}</span></label>
-    <div class="{% if form %}col-sm-10{% endif %}">
+    <div class="{% if form.value %}col-sm-10{% endif %}">
         <input type="text" name="telephone" value="{{ telephone }}" id="input-telephone" class="field"/>
         {% if error_telephone %}
             <div class="text-danger">{{ error_telephone }}</div>

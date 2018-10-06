@@ -5,5 +5,8 @@ Vue.component('vz-edit-vdh', {
 
 	beforeMount() {
 		this.$store.dispatch('LOAD_VISUAL_HEADER', this.$o('action.vdh'));
-	}
+	},
+    beforeDestroy() {
+    }
+
 });

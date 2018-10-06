@@ -7,7 +7,7 @@ Vue.component('visualize', {
 	},
 	data() {
 		return {
-			last_action: LOADER.WAITING
+			last_action: Index.WAITING
 		};
 	},
 	methods: {},
@@ -15,15 +15,15 @@ Vue.component('visualize', {
 	beforeUpdate() {
 
 		if (this.last_action !== this.loading.status) { // change from one state to other
-			if (this.loading.status === LOADER.LOADING) {
+			if (this.loading.status === Index.LOADING) {
 				setTimeout(()=>{
 					this.$refs.topProgress.start();
 				}, 100);
-			} else if (this.loading.status === LOADER.WAITING ||this.loading.status === LOADER.SUCCESS) {
+			} else if (this.loading.status === Index.WAITING ||this.loading.status === Index.SUCCESS) {
 				setTimeout(()=>{
 					this.$refs.topProgress.done();
 				}, 200);
-			} else if (this.loading.status === LOADER.FAIL) {
+			} else if (this.loading.status === Index.FAIL) {
 				setTimeout(()=>{
 					this.$refs.topProgress.fail();
 				}, 200);

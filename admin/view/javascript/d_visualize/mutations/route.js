@@ -15,6 +15,7 @@ d_visualize.mutations['CHANGE_NAVIGATION_CONTEXT'] = function (state, payload) {
     // var new_menu = JSON.parse(JSON.stringify(state.menu));
     // new_menu.navigation = payload;
     Vue.set(state.menu, 'navigation', payload);
+
 };
 
 d_visualize.mutations['PUSH_IFRAME_HISTORY'] = function (state, payload) {

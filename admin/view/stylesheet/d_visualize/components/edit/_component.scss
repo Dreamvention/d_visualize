@@ -1,6 +1,5 @@
-.vz-edit-navigation{
- &__nav{
-   max-height: 400px;
-   overflow-Y: scroll ;
- }
+.edit-component{
+  .vz-edit-page-select{
+    display: none;
+  }
 }
