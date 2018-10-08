@@ -197,8 +197,6 @@
     margin: auto;
     display: block;
   }
-.visualize {
-}
 .visualize h1,
 .visualize h2,
 .visualize h3,
@@ -242,6 +240,14 @@
 .visualize .like-heading-h6, .visualize h6 {
     font-size: var(--font-size-h6);
     font-size: var(--font-size-h6);
+}
+.visualize .fade-enter-active, .visualize .fade-leave-active {
+  -webkit-transition: opacity .5s;
+  -o-transition: opacity .5s;
+  transition: opacity .5s;
+}
+.visualize .fade-enter, .visualize .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
 }
 /* Анимации появления и исчезновения могут иметь */
 /* различные продолжительности и динамику.       */
@@ -374,26 +380,6 @@ margin-left: rem(20);
 .loader i:hover{
     -webkit-animation: a 2s infinite linear;
             animation: a 2s infinite linear
-  }
-.vz-template-thumb {
-  padding: 2rem;
-  max-width: 25rem
-}
-.vz-template-thumb:not(:last-child) {
-  margin-right: 2rem;
-}
-.vz-template-thumb.active {
-  outline: 0.1rem solid red;
-}
-.vz-theme-preview, .vz-theme-thumbs {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-}
-.vz-theme-preview > div, .vz-theme-thumbs > div {
-    padding-top: 3rem;
-    padding-left: 3rem;
   }
 .edit-component .vz-edit-page-select{
     display: none;
@@ -594,6 +580,74 @@ margin-left: rem(20);
     -webkit-flex: 1 1 100%;
         -ms-flex: 1 1 100%;
             flex: 1 1 100%;
+  }
+.vz-theme-preview {
+  margin-bottom: 4rem;
+}
+.vz-theme-preview-images {
+    max-width: 40rem;
+    position: relative;
+    padding-right: 4rem;
+  }
+.vz-theme-preview__img{
+    position: relative;
+    overflow: hidden;
+  }
+.vz-theme-preview__img__overlay {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      right: 2rem;
+    }
+.vz-theme-preview__img--mobile {
+      position: absolute;
+      width: 25%;
+      right: 0;
+      bottom: 0;
+    }
+.vz-theme-preview__img--mobile .vz-theme-preview__img__overlay {
+        right: 0.5rem;
+        left: 0.5rem;
+      }
+.vz-theme-preview__description{
+    padding-left: 2rem;
+  }
+.vz-template-thumb {
+  padding: 2rem;
+  max-width: 25rem
+}
+.vz-template-thumb:not(:last-child) {
+  margin-right: 2rem;
+}
+.vz-template-thumb.active {
+  outline: 0.1rem solid red;
+}
+.vz-theme-preview, .vz-theme-thumbs {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.auto-save .custom-switch{
+    color: var(--p_black);
+    color: var(--p_black)
+  }
+.auto-save .custom-switch.active{
+  color: #f0b840;
+  color: var(--color-info);
+}
+.vz-dropdown {
+}
+.vz-dropdown--theme-preview{
+  display: inline-block;
+}
+.vz-dropdown--theme-preview .vz-dropdown__inner{
+    position: absolute;
+    background: white;
+    min-width: 15rem;
+    border: 0.1rem solid #ccc;
+    padding: 2rem 1rem;
+    margin-top: 1rem;
   }
 .vz-home .panel-body {
     display: -webkit-box;

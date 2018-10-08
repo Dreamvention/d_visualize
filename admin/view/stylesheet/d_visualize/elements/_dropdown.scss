@@ -1,0 +1,13 @@
+.vz-dropdown {
+}
+.vz-dropdown--theme-preview{
+  display: inline-block;
+  .vz-dropdown__inner{
+    position: absolute;
+    background: white;
+    min-width: 150px;
+    border: 1px solid #ccc;
+    padding: 20px 10px;
+    margin-top: 10px;
+  }
+}

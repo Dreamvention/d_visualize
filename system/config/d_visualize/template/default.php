@@ -162,7 +162,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/component/d_review/'
                     ),
                     'product_product' => array(
-                        'skin' => 'default',
+                        'editable'=>true,
                         'template' => 'd_visualize/template/component/product_product/',
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_product/',
                     ),

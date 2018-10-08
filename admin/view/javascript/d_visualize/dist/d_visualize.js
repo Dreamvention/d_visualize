@@ -642,9 +642,14 @@ Vue.component('vz-theme-preview', {
     active_template: function active_template() {
       return this.$store.getters.active_template;
     },
-    switch_text: function switch_text() {
-      return this.$store.getters.status ? this.$t('common.entry_deactivate') : this.$t('common.entry_activate');
+    status: function status() {
+      return this.$store.getters.status;
     }
+  },
+  data: function data() {
+    return {
+      show_actions: false
+    };
   },
   methods: {
     popup: function popup(e) {},

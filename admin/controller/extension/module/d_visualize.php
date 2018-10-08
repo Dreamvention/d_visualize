@@ -327,6 +327,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $option['img']['no_image'] = $this->model_tool_image->resize("no_image.png", 300, 400);
         $option['img']['no_data_img'] = 'view/image/'.$this->codename.'/nodata.png';
+        $option['img']['desktop_frame'] = 'view/image/'.$this->codename.'/desktop_frame.png';
+        $option['img']['mobile_frame'] = 'view/image/'.$this->codename.'/mobile_frame.png';
 
         return $option;
     }

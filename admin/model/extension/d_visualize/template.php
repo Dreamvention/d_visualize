@@ -89,8 +89,8 @@ class ModelExtensionDVisualizeTemplate extends Model
                 'source' => 'config',
                 'setting' => $setting,
                 'skines' => $this->loadAvailableSkines($setting['codename']),
-                'img' => $this->model_tool_image->resize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '.png' : "no_image.png"), 300, 400),
-
+                'img_desktop' => $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png' : "no_image.png"), 600, 300),
+                'img_mobile' => $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png' : "no_image.png"), 600, 300),
             );
         }
         return $result;
@@ -122,7 +122,6 @@ class ModelExtensionDVisualizeTemplate extends Model
                         $component,
                         $active_template['codename'],
                         $active_template['active_skin']);
-
                 }
             }
         }
@@ -220,6 +219,16 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $sql = 'SELECT * from ' . DB_PREFIX . "vz_templates where codename='" . $template_codename . "'";
         return $this->db->query($sql)->row;
+    }
+
+    public function imgeResize($filename, $width, $height, $original_size = false)
+    {
+
+        if ($this->request->server['HTTPS']) {
+            return HTTPS_CATALOG . 'image/' . $filename;
+        } else {
+            return HTTP_CATALOG . 'image/' . $filename;
+        }
     }
 
 

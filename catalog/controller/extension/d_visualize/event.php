@@ -125,7 +125,11 @@ class ControllerExtensionDVisualizeEvent extends Controller
             $this->document->addScript($template_script);
         }
 
-
+        //take a screenshot if needed
+        if (isset($this->request->get['screnshot'])) {
+            $this->document->addScript('catalog/view/javascript/' . $this->codename . '/lib/html2canvas/html2canvas.js');
+            $this->document->addScript('catalog/view/theme/' . $this->codename . '/javascript/vz-core/tools/screnshot.js');
+        }
         $data['post_styles'] = $this->document->getStyles();
         $data['scripts'] = $this->document->getScripts();
         $data['pre_scripts'] = array();
@@ -136,7 +140,30 @@ class ControllerExtensionDVisualizeEvent extends Controller
             foreach ($this->setting_active_template['post_scripts'] as $script) {
                 array_unshift($data['scripts'], $script);//default place for scripts our will be latest
             }
-        $data['custom_styles'] = $this->setting_active_template['custom_styles'];
+        $data['custom_styles'] = ['custom_styles'];
 
+    }
+
+    public function saveScrenshot()
+    {
+        $json = array();
+        $uploads_dir = DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $this->setting_active_template['codename'];
+        $data = $_REQUEST['base64data'];
+        $image = explode('base64', $data);
+        if (isset($this->request->post['type'])) {
+            file_put_contents($uploads_dir . '_' . $this->request->post['type'] . '.png', base64_decode($image[1]));
+        }
+        $json = $uploads_dir;
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    public function takeScrennshoot()
+    {
+        $ch = curl_init();
+        // set url
+        curl_setopt($ch, CURLOPT_URL, HTTPS_CATALOG . '?screnshot');
+        // close curl resource to free up system resources
+        curl_close($ch);
     }
 }
