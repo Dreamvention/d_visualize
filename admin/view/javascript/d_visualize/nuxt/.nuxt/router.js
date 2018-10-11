@@ -4,13 +4,14 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const _49250e73 = () => import('..\\pages\\welcome.vue' /* webpackChunkName: "pages_welcome" */).then(m => m.default || m)
+const _4aad2c2a = () => import('..\\pages\\inspire.vue' /* webpackChunkName: "pages_inspire" */).then(m => m.default || m)
 const _03521f60 = () => import('..\\pages\\settings\\index.vue' /* webpackChunkName: "pages_settings_index" */).then(m => m.default || m)
 const _fa960206 = () => import('..\\pages\\settings\\password.vue' /* webpackChunkName: "pages_settings_password" */).then(m => m.default || m)
-const _16b7df5c = () => import('..\\pages\\auth\\login.vue' /* webpackChunkName: "pages_auth_login" */).then(m => m.default || m)
 const _42cf616c = () => import('..\\pages\\auth\\register.vue' /* webpackChunkName: "pages_auth_register" */).then(m => m.default || m)
+const _16b7df5c = () => import('..\\pages\\auth\\login.vue' /* webpackChunkName: "pages_auth_login" */).then(m => m.default || m)
 const _70bfd737 = () => import('..\\pages\\settings\\profile.vue' /* webpackChunkName: "pages_settings_profile" */).then(m => m.default || m)
-const _62fb5606 = () => import('..\\pages\\auth\\password\\reset.vue' /* webpackChunkName: "pages_auth_password_reset" */).then(m => m.default || m)
 const _5776d66c = () => import('..\\pages\\auth\\password\\email.vue' /* webpackChunkName: "pages_auth_password_email" */).then(m => m.default || m)
+const _62fb5606 = () => import('..\\pages\\auth\\password\\reset.vue' /* webpackChunkName: "pages_auth_password_reset" */).then(m => m.default || m)
 const _10e06e23 = () => import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */).then(m => m.default || m)
 
 
@@ -77,6 +78,11 @@ export function createRouter () {
 			name: "welcome"
 		},
 		{
+			path: "/inspire",
+			component: _4aad2c2a,
+			name: "inspire"
+		},
+		{
 			path: "/settings",
 			component: _03521f60,
 			name: "settings"
@@ -87,14 +93,14 @@ export function createRouter () {
 			name: "settings-password"
 		},
 		{
-			path: "/auth/login",
-			component: _16b7df5c,
-			name: "auth-login"
-		},
-		{
 			path: "/auth/register",
 			component: _42cf616c,
 			name: "auth-register"
+		},
+		{
+			path: "/auth/login",
+			component: _16b7df5c,
+			name: "auth-login"
 		},
 		{
 			path: "/settings/profile",
@@ -102,14 +108,14 @@ export function createRouter () {
 			name: "settings-profile"
 		},
 		{
-			path: "/auth/password/reset",
-			component: _62fb5606,
-			name: "auth-password-reset"
-		},
-		{
 			path: "/auth/password/email",
 			component: _5776d66c,
 			name: "auth-password-email"
+		},
+		{
+			path: "/auth/password/reset",
+			component: _62fb5606,
+			name: "auth-password-reset"
 		},
 		{
 			path: "/",

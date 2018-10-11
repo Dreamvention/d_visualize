@@ -47,24 +47,24 @@ export const mutations = {
 // actions
 export const actions = {
 	async login(store) {
-		let res = await this.$axios({
-			method: 'post',
-			url: 'common/login',
-			transformRequest: [function (data, headers) {
-				return `username=${data.username}&password=${data.password}`;
-			}],
-			data: {
-				username: 'admin',
-				password: 'demo1234'
-			},
-			maxRedirects:0
-		});
-		store.commit('SET_ADMIN_URL', res.request.responseURL);
+		// let res = await this.$axios({
+		// 	method: 'post',
+		// 	url: 'common/login',
+		// 	transformRequest: [function (data, headers) {
+		// 		return `username=${data.username}&password=${data.password}`;
+		// 	}],
+		// 	data: {
+		// 		username: 'admin',
+		// 		password: 'demo1234'
+		// 	},
+		// 	maxRedirects:0
+		// });
+		// store.commit('SET_ADMIN_URL', res.request.responseURL);
 		store.dispatch('init_state');
 
 	},
 	async init_state({rootGetters}, s) {
-		let data = await this.$axios.get('extension/module/d_visualize/init_state');
+		let data = await this.$axios.get('extension/module/d_visualize/loadState');
 		console.log(data)
 	},
 	saveToken({commit, dispatch}, {token, remember}) {

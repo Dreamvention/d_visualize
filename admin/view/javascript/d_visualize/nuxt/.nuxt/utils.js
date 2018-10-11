@@ -120,7 +120,7 @@ export async function setContext(app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {"appUrl":"/302/d_visualize/admin/index.php?","appName":"Laravel-Nuxt","appLocale":"en","githubAuth":false}
+      env: {"appUrl":"/302/d_visualize/admin/index.php?","appName":"Laravel-Nuxt","appLocale":"en","user_token":"w9iPpAYqes1bf3vsOgjlfFss2i1H1Msr","isDev":false,"githubAuth":false}
     }
     // Only set once
     if (context.req) app.context.req = context.req
