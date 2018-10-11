@@ -81,86 +81,95 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->session->data['iframe_url'] = $catalog_url;
         }
 
-        //Vue JS with Vuex and
-        $this->document->addScript("view/javascript/d_vue/vue.min.js");
-        $this->document->addScript("view/javascript/d_vuex/vuex.min.js");
-        $this->document->addScript("view/javascript/d_vue_i18n/vue-i18n.min.js");
-        $this->document->addScript("view/javascript/d_vue_router/vue-router.min.js");
-
-        //Alertify
-        $this->document->addScript('view/javascript/d_alertify/alertify.min.js');
-        $this->document->addStyle('view/javascript/d_alertify/css/alertify.css');
-        $this->document->addStyle('view/javascript/d_alertify/css/themes/bootstrap.css');
-
-        //Other libraries
-        $this->document->addScript('view/javascript/d_visualize/lib/sync.js');
-        $this->document->addScript('view/javascript/d_visualize/lib/topgress.js');
-        $this->document->addScript('view/javascript/d_visualize/lib/VueOptions.js');
-        $this->document->addScript('view/javascript/d_visualize/lib/vue-model-vuex.js');
-        $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
-
-        //visualize styles
-        $this->document->addStyle('view/stylesheet/' . $this->codename . '/dist/' . $this->codename . '.css');
-
-        //loader
-        $this->document->addStyle('view/stylesheet/' . $this->codename . '/lib/load-awesome-1.1.0/css/timer.css');
-
-        //font-awesome
-        $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/all.min.css');
-        $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
-//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/all.min.css');
-//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/v4-shims.min.css');
-//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
-//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
-        // Module data
-        $data['vueTemplates'] = $this->{'model_extension_module_' . $this->codename}->getVueTemplates();
-        $view_scripts = $this->{'model_extension_module_' . $this->codename}->getVueScripts();
-        foreach ($view_scripts as $script) {
-            $this->document->addScript($script);
-        }
-
-        $data['language_id'] = $this->config->get('config_language_id');
-        $data['local'] = $this->prepareLocal();
-        $data['options'] = $this->prepareOptions();
-
-        $state = array();
-        $state['config']['save_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/save');
-        $state['config']['save_template_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveTemplateUrl');
-        $state['config']['update_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/updateSetting');
-        $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadState');
-        $state['config']['save_iframe_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveIframeUrl');
-        $data['state'] = $state;
-        //out put view
-        $data['setup'] = false;
-        if (!$this->{'model_extension_module_' . $this->codename}->checkInstallModule()) {
-            $data = $this->setup($data);
-        }
         $this->uninstallTheme();
         if ($this->status_visualize) {
             $this->installTheme();
         }
+        if ($this->setting_visualize['engine'] == 'nuxt') {
+            $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
+            $data['app'] = file_get_contents($nuxt_dist . '/index.html');
+            $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
+            $files = glob($nuxt_dist . '/' . '_nuxt' . '/manifest*.js', GLOB_BRACE);
+            //check manifest for 1.4.0 version
+            foreach ($files as $file) {
+                $file_content = file_get_contents($file);
+                $pos = strpos($file_content, HTTPS_SERVER . $nuxt_dist);
+                if ($pos === false) {
+                    echo 'new';
+                    file_put_contents($file, str_replace('/_nuxt/', HTTPS_SERVER . $nuxt_dist . '/_nuxt/', $file_content));
+                }
+            }
+            $this->response->setOutput($this->load->view($this->route . '_nuxt', $data));
+        } else {
+
+            //Vue JS with Vuex and
+            $this->document->addScript("view/javascript/d_vue/vue.min.js");
+            $this->document->addScript("view/javascript/d_vuex/vuex.min.js");
+            $this->document->addScript("view/javascript/d_vue_i18n/vue-i18n.min.js");
+            $this->document->addScript("view/javascript/d_vue_router/vue-router.min.js");
+
+            //Alertify
+            $this->document->addScript('view/javascript/d_alertify/alertify.min.js');
+            $this->document->addStyle('view/javascript/d_alertify/css/alertify.css');
+            $this->document->addStyle('view/javascript/d_alertify/css/themes/bootstrap.css');
+
+            //Other libraries
+            $this->document->addScript('view/javascript/d_visualize/lib/sync.js');
+            $this->document->addScript('view/javascript/d_visualize/lib/topgress.js');
+            $this->document->addScript('view/javascript/d_visualize/lib/VueOptions.js');
+            $this->document->addScript('view/javascript/d_visualize/lib/vue-model-vuex.js');
+            $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
+
+            //visualize styles
+            $this->document->addStyle('view/stylesheet/' . $this->codename . '/dist/' . $this->codename . '.css');
+
+            //loader
+            $this->document->addStyle('view/stylesheet/' . $this->codename . '/lib/load-awesome-1.1.0/css/timer.css');
+
+            //font-awesome
+            $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/all.min.css');
+            $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
+//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/all.min.css');
+//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/v4-shims.min.css');
+//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
+//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
+            // Module data
+            $data['vueTemplates'] = $this->{'model_extension_module_' . $this->codename}->getVueTemplates();
+            $view_scripts = $this->{'model_extension_module_' . $this->codename}->getVueScripts();
+            foreach ($view_scripts as $script) {
+                $this->document->addScript($script);
+            }
+
+            $data['language_id'] = $this->config->get('config_language_id');
+            $data['local'] = $this->prepareLocal();
+            $data['options'] = $this->prepareOptions();
+
+            $state = array();
+            $state['config']['save_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/save');
+            $state['config']['save_template_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveTemplateUrl');
+            $state['config']['update_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/updateSetting');
+            $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadState');
+            $state['config']['save_iframe_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveIframeUrl');
+            $data['state'] = $state;
+            //out put view
+            $data['setup'] = false;
+            if (!$this->{'model_extension_module_' . $this->codename}->checkInstallModule()) {
+                $data = $this->setup($data);
+            }
+            $data['header'] = $this->load->controller('common/header');
+            $data['column_left'] = $this->load->controller('common/column_left');
+            $data['footer'] = $this->load->controller('common/footer');
+            $this->response->setOutput($this->load->view($this->route, $data));
+        }
+    }
+
+    public function opencartData()
+    {
+        $data['styles'] = $this->document->getStyles();
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
-        if ($this->setting_visualize['engine'] == 'nuxt') {
-            $nuxt_dist = 'view/javascript/d_visualize/nuxt/dist';
-            $data['app'] = file_get_contents($nuxt_dist . '/index.html');
-            $data['app'] = str_replace('/_nuxt/', HTTPS_SERVER . $nuxt_dist . '/_nuxt/',$data['app']);
-//            $html_dom = new d_simple_html_dom();
-//
-//            $html_dom->load($data['app'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-//            foreach ($html_dom->find('script') as $script)
-//                $script->src = HTTPS_SERVER . $nuxt_dist . $script->src;
-//            foreach ($html_dom->find('link') as $script) {
-//                if ($script->as == 'script') {
-//                    $script->href = HTTPS_SERVER . $nuxt_dist . $script->href;
-//                }
-//            }
-//            $data['app'] = (string)$html_dom;
-            $this->response->setOutput($this->load->view($this->route . '_nuxt', $data));
-        } else {
-            $this->response->setOutput($this->load->view($this->route, $data));
-        }
+        $this->response->setOutput(json_encode($data));
     }
 
     public function setup($data)
@@ -206,8 +215,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $saved_template = $this->{$this->model_template}->saveTemplate(
             array(
                 'template_codename' => $this->request->post['template_codename'],
-                'template'          => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
-                'store_id'          => $this->store_id)
+                'template' => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
+                'store_id' => $this->store_id)
         );
         $this->response->setOutput(json_encode(array('success' => $this->language->get('text_success_template'), 'template' => $saved_template)));
 
@@ -235,15 +244,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         }
     }
 
-    public function login()
-    {
-    }
-
-    public function load_state()
-    {
-
-        $this->loadState();
-    }
 
     public function loadState()
     {
