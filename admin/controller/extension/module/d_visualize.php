@@ -142,8 +142,24 @@ class ControllerExtensionModuleDVisualize extends Controller
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
+        if ($this->setting_visualize['engine'] == 'nuxt') {
+            $nuxt_dist = 'view/javascript/d_visualize/nuxt/dist';
+            $data['app'] = file_get_contents($nuxt_dist . '/index.html');
+            $html_dom = new d_simple_html_dom();
 
-        $this->response->setOutput($this->load->view($this->route, $data));
+            $html_dom->load($data['app'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+            foreach ($html_dom->find('script') as $script)
+                $script->src = HTTPS_SERVER . $nuxt_dist . $script->src;
+            foreach ($html_dom->find('link') as $script) {
+                if ($script->as == 'script') {
+                    $script->href = HTTPS_SERVER . $nuxt_dist . $script->href;
+                }
+            }
+            $data['app'] = (string)$html_dom;
+            $this->response->setOutput($this->load->view($this->route . '_nuxt', $data));
+        } else {
+            $this->response->setOutput($this->load->view($this->route, $data));
+        }
     }
 
     public function setup($data)
@@ -172,6 +188,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         );
         $data['text_button_setup'] = $this->language->get('button_setup');
         $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setupUrl');
+
         return $data;
     }
 
@@ -188,8 +205,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $saved_template = $this->{$this->model_template}->saveTemplate(
             array(
                 'template_codename' => $this->request->post['template_codename'],
-                'template'          => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
-                'store_id'          => $this->store_id)
+                'template' => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
+                'store_id' => $this->store_id)
         );
         $this->response->setOutput(json_encode(array('success' => $this->language->get('text_success_template'), 'template' => $saved_template)));
 
@@ -217,8 +234,13 @@ class ControllerExtensionModuleDVisualize extends Controller
         }
     }
 
+    public function load_state(){
+
+        $this->loadState();
+    }
     public function loadState()
     {
+        echo 'd';
         $json = array();
         $setting = array();
         $templates = array();
@@ -230,9 +252,12 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting['status'] = (int)$this->status_visualize;
         $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
         $json['iframe_src'] = $this->session->data['iframe_url'];
-        $json['templates'] = $templates;
+        $json['templates'] = $template;
         $json['setting'] = $setting;
         $json['success'] = $this->language->get('text_success');
+//        $this->response->addHeader('Access-Control-Allow-Origin: *');
+//        $this->response->addHeader('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+        $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
 
@@ -326,9 +351,9 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
         $option['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $option['img']['no_image'] = $this->model_tool_image->resize("no_image.png", 300, 400);
-        $option['img']['no_data_img'] = 'view/image/'.$this->codename.'/nodata.png';
-        $option['img']['desktop_frame'] = 'view/image/'.$this->codename.'/desktop_frame.png';
-        $option['img']['mobile_frame'] = 'view/image/'.$this->codename.'/mobile_frame.png';
+        $option['img']['no_data_img'] = 'view/image/' . $this->codename . '/nodata.png';
+        $option['img']['desktop_frame'] = 'view/image/' . $this->codename . '/desktop_frame.png';
+        $option['img']['mobile_frame'] = 'view/image/' . $this->codename . '/mobile_frame.png';
 
         return $option;
     }

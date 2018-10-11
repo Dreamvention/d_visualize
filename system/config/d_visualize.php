@@ -2,6 +2,7 @@
 $_['module_d_visualize_setting'] = array(
     'active_template' => 'default',
     'auto_save' => 1,
+    'engine' => 'nuxt',
 );
 
 $_['events'] = array(
