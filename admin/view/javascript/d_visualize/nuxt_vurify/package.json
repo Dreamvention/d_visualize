@@ -1,0 +1,27 @@
+{
+  "name": "nuxt_vurify",
+  "version": "1.0.0",
+  "description": "My stellar Nuxt.js project",
+  "author": "paveldrvn",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.0.0",
+    "vuetify": "^1.2.4",
+    "@nuxtjs/axios": "^5.0.0",
+    "dotenv": "^5.0.1",
+    "url-parse": "^1.4.3",
+    "vue-i18n": "^7.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
+  }
+}
