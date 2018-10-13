@@ -2,7 +2,12 @@
 import {map} from 'lodash'
 
 export const state = () => ({
-    opData: null,
+    opData: {
+        title:false,
+        header:false,
+        footer:false,
+        base_url:null
+    },
 });
 // getters
 export const getters = {
@@ -18,7 +23,7 @@ export const mutations = {
 // actions
 export const actions = {
     async GET_OPDATA({commit}) {
-        const {data} = await this.$axios.get('extension/module/d_visualize/opencartData')
+        const {data} = await this.$axios.get('extension/d_visualize/opencart')
         commit('SET_OP_DATA', data)
     }
 };

@@ -154,6 +154,16 @@ class ControllerExtensionModuleDVisualize extends Controller
         }
     }
 
+    public function opencartData()
+    {
+        $data['title'] = $this->language->get('heading_title_main');
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['base_url'] = HTTPS_CATALOG;
+        $data['footer'] = $this->load->controller('common/footer');
+        $this->response->setOutput(json_encode($data));
+    }
+
     public function setup($data)
     {
         $data['setup'] = true;
@@ -193,6 +203,7 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     public function saveTemplateUrl()
     {
+
         $saved_template = $this->{$this->model_template}->saveTemplate(
             array(
                 'template_codename' => $this->request->post['template_codename'],
@@ -230,14 +241,23 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         $json = array();
         $setting = array();
+        $templates = array();
+        foreach ($this->{'model_extension_' . $this->codename . '_template'}->getAvailableTemplates() as $template_k => $template) {
+            $templates[$template_k] = $template;
+
+        }
+        $setting['active_template'] = $this->setting_visualize['active_template'];
+        $setting['auto_save'] = $this->setting_visualize['auto_save'];
+        $setting['status'] = (int)$this->status_visualize;
         $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
         $json['iframe_src'] = $this->session->data['iframe_url'];
+        $json['templates'] = $templates;
+        $json['setting'] = $setting;
+        $json['success'] = $this->language->get('text_success');
+//        $this->response->addHeader('Access-Control-Allow-Origin: *');
+//        $this->response->addHeader('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+//        $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
-    }
-
-    public function load_language()
-    {
-        $this->response->setOutput(json_encode(array('locale' => $this->config->get('config_language_id'), 'messages' => $this->prepareLocal())));
     }
 
     public function prepareLocal()
@@ -252,23 +272,16 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['text_edit'] = $this->language->get('text_edit');
         $local['common']['text_yes'] = $this->language->get('text_yes');
         $local['common']['text_no'] = $this->language->get('text_no');
-        $local['common']['preview'] = $this->language->get('entry_preview_store');
-        $local['common']['current_theme'] = 'Current theme';
-        $local['common']['current_theme_description'] = 'This is the theme customers see when they visit your store.';
+        $local['common']['text_enabled'] = $this->language->get('text_enabled');
+        $local['common']['entry_status'] = $this->language->get('entry_status');
+        $local['common']['entry_edit_theme'] = $this->language->get('entry_edit_theme');
+        $local['common']['entry_deactivate'] = $this->language->get('entry_deactivate');
+        $local['common']['entry_activate'] = $this->language->get('entry_activate');
+        $local['common']['entry_collapse'] = $this->language->get('entry_collapse');
 
         $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
 
         $local['dashboard']['entry_available_templates'] = $this->language->get('entry_available_templates');
-
-        $local['template']['customize'] = $this->language->get('entry_edit_customize');
-        $local['template']['last_saved_on'] = $this->language->get('last_saved_on');
-        $local['template']['entry_activate'] = $this->language->get('entry_activate');
-        $local['template']['entry_deactivate'] = $this->language->get('entry_deactivate');
-        $local['template']['actions'] = $this->language->get('entry_actions');
-        $local['template']['preview'] = $this->language->get('entry_preview');
-        $local['template']['rename'] = $this->language->get('entry_rename');
-        $local['template']['download'] = $this->language->get('entry_download_template');
-        $local['template']['rename_form'] = 'rename_form';
 
         $local['edit']['current_template'] = $this->language->get('entry_current_template');
         $local['edit']['active_template'] = $this->language->get('entry_active_template');

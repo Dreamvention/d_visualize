@@ -4,6 +4,7 @@ d_visualize.state.loading = {
 	content_loaded: false,
 	loader_stack: 0
 };
+
 d_visualize.mutations['LOADING_START'] = function (state, payload) {
 	Vue.set(state, 'loading', $.extend({}, state.loading, {
 		status: Index.LOADING,

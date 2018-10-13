@@ -1,4 +1,7 @@
 .opencart {
+  .v-toolbar__content, .v-toolbar__extension{
+    padding: 0;
+  }
   &-header,&-footer {
     width: 100%;
   }
@@ -6,7 +9,12 @@
     height: 100%;
     #column-left {
       margin: 0;
+      left: 0 !important;
+      padding-top: 0;
       width: initial;
     }
+  }
+  #container{
+    overflow: visible;
   }
 }

@@ -13,7 +13,6 @@ Vue.component('visualize', {
 	methods: {},
 	updated() {},
 	beforeUpdate() {
-
 		if (this.last_action !== this.loading.status) { // change from one state to other
 			if (this.loading.status === Index.LOADING) {
 				setTimeout(()=>{

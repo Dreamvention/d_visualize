@@ -72,7 +72,9 @@ module.exports = {
     plugins: [
         '@/plugins/vuetify',
         '~plugins/axios',
+        '~plugins/i18n',
         '~plugins/nuxt-client-init',
+        '~plugins/opencart_helpers',
     ],
 
     /*
@@ -81,8 +83,7 @@ module.exports = {
     modules: [
         // Doc: https://github.com/nuxt-community/axios-module#usage
         '@nuxtjs/axios',
-
-        '@nuxtjs/proxy' // OFF on dev
+        // '@nuxtjs/proxy' // OFF on dev
 
     ],
     /*
@@ -92,7 +93,7 @@ module.exports = {
         // See https://github.com/nuxt-community/axios-module#options
     },
     proxy: {
-        '/api/': 'http://localhost/302/d_visualize/admin/index.php', // OFF on dev
+        // '/api/': 'http://localhost/302/d_visualize/admin/index.php', // OFF on dev
         '/shopunity/': 'http://api.shopunity.net'
     },
     /*

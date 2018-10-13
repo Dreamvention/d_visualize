@@ -119,6 +119,7 @@ class ModelExtensionModuleDVisualize extends Model
             store_id INT(11) NOT NULL,
             codename VARCHAR(255) NOT NULL,
             source VARCHAR(55) DEFAULT NULL,
+            title VARCHAR(255) DEFAULT NULL,
             description VARCHAR(255) DEFAULT NULL,
             setting TEXT NOT NULL,
             history_id INT(11) NOT NULL,

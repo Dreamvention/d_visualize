@@ -84,14 +84,25 @@ class ModelExtensionDVisualizeTemplate extends Model
             $codename = basename($file, '.php');
             $this->config->load($this->codename . '/template/' . $codename);
             $config = $this->config->get($this->codename . '_template_' . $codename . '_setting');
+            $source = 'config';
             $setting = $this->loadTemplateSetting($config, $codename);
-            $result[$codename] = array(
-                'source' => 'config',
-                'setting' => $setting,
-                'skines' => $this->loadAvailableSkines($setting['codename']),
-                'img_desktop' => $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png' : "no_image.png"), 600, 300),
-                'img_mobile' => $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png' : "no_image.png"), 600, 300),
-            );
+            $db_saved_template_setting = $this->getTemplateByCodename($setting['codename']);
+            $response=array();
+            if (!empty($db_saved_template_setting)) {
+                $setting = (array)json_decode($db_saved_template_setting['setting'], true);
+                $response['db_saved'] = true;
+                $source = $db_saved_template_setting['source'];
+                $response['description'] = $db_saved_template_setting['description'];
+                $response['title'] = $db_saved_template_setting['title'];
+                $response['date_modified'] = $db_saved_template_setting['date_modified'];
+            }
+            $response['source'] = $source;
+            $response['setting'] = $setting;
+            $response['skines'] = $this->loadAvailableSkines($setting['codename']);
+            $response['img_desktop'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png' : "no_image.png"), 600, 300);
+            $response['img_mobile'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png' : "no_image.png"), 600, 300);
+
+            $result[$codename] = $response;
         }
         return $result;
     }
@@ -126,8 +137,7 @@ class ModelExtensionDVisualizeTemplate extends Model
             }
         }
         //if there will be changes from DB it will replace
-        $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
-        return $db_saved_template_setting ? (array)json_decode($db_saved_template_setting['setting'], true) : $active_template;
+        return $active_template;
     }
 
     /*

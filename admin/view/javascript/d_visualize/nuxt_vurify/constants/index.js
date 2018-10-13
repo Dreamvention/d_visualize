@@ -1,4 +1,4 @@
-var Index = {
+export const LOAD = {
     LOADING: 'loading',
     WAITING: 'waiting',
     SUCCESS: 'success',
