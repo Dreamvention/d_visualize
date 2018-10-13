@@ -59,15 +59,6 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->model_extension_module_d_twig_manager->installCompatibility();
         }
 
-        if ($this->d_admin_style) {
-            $this->load->model('extension/d_admin_style/style');
-            $themes = $this->model_extension_d_admin_style_style->getAvailableThemes();
-            foreach ($themes as $theme) {
-                if ($theme == 'light') {
-                    $this->model_extension_d_admin_style_style->getAdminStyle($theme);
-                }
-            }
-        }
         //init iframe_src
         if (!isset($this->session->data['iframe_url'])) {
             $param = array();
@@ -165,9 +156,10 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     public function opencartData()
     {
-        $data['styles'] = $this->document->getStyles();
+        $data['title'] = $this->language->get('heading_title_main');
         $data['header'] = $this->load->controller('common/header');
         $data['column_left'] = $this->load->controller('common/column_left');
+        $data['base_url'] = HTTPS_CATALOG;
         $data['footer'] = $this->load->controller('common/footer');
         $this->response->setOutput(json_encode($data));
     }

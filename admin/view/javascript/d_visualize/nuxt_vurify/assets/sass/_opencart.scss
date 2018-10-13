@@ -1,0 +1,12 @@
+.opencart {
+  &-header,&-footer {
+    width: 100%;
+  }
+  &-column-left {
+    height: 100%;
+    #column-left {
+      margin: 0;
+      width: initial;
+    }
+  }
+}

@@ -31,6 +31,7 @@ module.exports = {
     */
     head: {
         title: process.env.APP_NAME,
+        titleTemplate: '%s - ' + process.env.APP_NAME, // title is now "My Example App - Yay!"
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1'},
@@ -41,7 +42,11 @@ module.exports = {
             {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'}
         ],
         script: [
-            {src: `https://cdn.polyfill.io/v2/polyfill.min.js?features=${polyfills.join(',')}`}
+            {src: `https://cdn.polyfill.io/v2/polyfill.min.js?features=${polyfills.join(',')}`},
+
+            //opencart issue
+            {src: 'https://code.jquery.com/jquery-2.2.4.min.js'},
+            {src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'}
         ]
 
     },
@@ -57,7 +62,8 @@ module.exports = {
     ** Global CSS
     */
     css: [
-        '~/assets/style/app.styl'
+        '~/assets/style/app.styl',
+        '~/assets/sass/app.scss',
     ],
 
     /*
@@ -75,7 +81,8 @@ module.exports = {
     modules: [
         // Doc: https://github.com/nuxt-community/axios-module#usage
         '@nuxtjs/axios',
-        // '@nuxtjs/proxy' // OFF on dev
+
+        '@nuxtjs/proxy' // OFF on dev
 
     ],
     /*
@@ -85,7 +92,7 @@ module.exports = {
         // See https://github.com/nuxt-community/axios-module#options
     },
     proxy: {
-        // '/api/': 'http://localhost/302/d_visualize/admin/index.php', // OFF on dev
+        '/api/': 'http://localhost/302/d_visualize/admin/index.php', // OFF on dev
         '/shopunity/': 'http://api.shopunity.net'
     },
     /*
@@ -99,7 +106,7 @@ module.exports = {
             pages: false,
             commons: false
         },
-        optimization:{
+        optimization: {
             minimize: true,
             minimizer: [
                 // terser-webpack-plugin
