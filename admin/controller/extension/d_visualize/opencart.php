@@ -12,6 +12,7 @@ class ControllerExtensionDVisualizeOpencart extends Controller
     public function index()
     {
         $this->load->language('extension/module/d_visualize');
+        $this->load->model('extension/d_opencart_patch/url');
 
         //font-awesome
         $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/all.min.css');
