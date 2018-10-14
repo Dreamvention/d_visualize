@@ -7,7 +7,7 @@
                     clipped
                     app
                     mobile-break-point="768"
-                    width="270"
+                    width="235"
             >
                 <div class="opencart-column-left" v-html="opData.column_left">
                 </div>
@@ -18,6 +18,7 @@
                     clipped-left
                     app
                     fixed
+
             >
                 <div v-html="opData.header" class="opencart-header"></div>
             </v-toolbar>
