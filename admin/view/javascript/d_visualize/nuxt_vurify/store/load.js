@@ -18,6 +18,7 @@ export const getters = {
 // mutations
 export const mutations = {
     LOADING_START(state, payload) {
+
         Vue.set(state, 'loading', $.extend({}, state.loading, {
             status: LOAD.LOADING,
             on_progress: true,

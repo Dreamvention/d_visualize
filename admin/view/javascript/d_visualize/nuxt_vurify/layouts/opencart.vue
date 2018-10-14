@@ -23,9 +23,11 @@
             </v-toolbar>
             <v-content>
                 <div class="content" :class="{'loading':loading.on_progress}" v-if="loading.content_loaded">
-                    <nuxt />
+                    <top-line :breadcrumbs="opData.breadcrumbs" :title="opData.title"
+                              :opAction="opData.action"></top-line>
+                    <nuxt/>
                     <div v-if="loading.status==load.FAIL" class="no_data_found">
-                        <img :src="$o('img.no_data_img')" alt="nodata">
+                        <img :src="opData.img.no_data_img" alt="nodata">
                     </div>
                     <div class="opencart-footer" v-html="opData.footer"></div>
                 </div>
@@ -34,14 +36,16 @@
 
     </div>
 </template>
-
+<style scoped>
+</style>
 <script>
     import {mapGetters} from 'vuex'
     import {LOAD} from '~/constants'
+    import TopLine from '~/components/opencart/TopLine.vue'
 
     export default {
         data: () => ({
-            load:LOAD,
+            load: LOAD,
             drawer: null
         }),
         computed: mapGetters({
@@ -54,12 +58,18 @@
             }
         },
         mounted() {
-            if (this.opData.header) {
-                document.querySelector('#button-menu').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.drawer = !this.drawer;
-                })
-            }
+            /*opencart eto odni kostili (*/
+            setTimeout(() => {
+                if (this.opData.header) {
+                    document.querySelector('#button-menu').addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.drawer = !this.drawer;
+                    })
+                }
+            }, 500)
+        },
+        components: {
+            TopLine
         }
     }
 </script>

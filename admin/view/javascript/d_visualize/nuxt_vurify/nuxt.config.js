@@ -12,17 +12,33 @@ const polyfills = [
     'String.prototype.startsWith',
     'String.prototype.endsWith'
 ];
+let isDev = process.env.DEV === 'true';
+let modules = [
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy' // OFF on dev
 
+];
+let proxy = {
+    '/api/': "http://localhost/302/d_visualize/admin/index.php",
+    '/shopunity/': 'http://api.shopunity.net'
+};
+if (isDev) {
+    modules = ['@nuxtjs/axios']
+    proxy = {
+        '/shopunity/': 'http://api.shopunity.net'
+    }
+}
 module.exports = {
     mode: 'spa',
     srcDir: __dirname,
-    dev: process.env.DEV,
+    dev: isDev,
     env: {
         appUrl: process.env.APP_URL || '/302/d_visualize/admin/index.php?',
         appName: process.env.APP_NAME || 'Laravel-Nuxt',
         appLocale: process.env.APP_LOCALE || 'en',
         user_token: process.env.USER_TOKEN,
-        isDev: process.env.DEV === 'true',
+        isDev: isDev,
         githubAuth: !!process.env.GITHUB_CLIENT_ID
     },
 
@@ -39,7 +55,10 @@ module.exports = {
         ],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-            {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'}
+            {
+                rel: 'stylesheet',
+                href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+            }
         ],
         script: [
             {src: `https://cdn.polyfill.io/v2/polyfill.min.js?features=${polyfills.join(',')}`},
@@ -75,27 +94,20 @@ module.exports = {
         '~plugins/i18n',
         '~plugins/nuxt-client-init',
         '~plugins/opencart_helpers',
+        '~components/global',
     ],
 
     /*
     ** Nuxt.js modules
     */
-    modules: [
-        // Doc: https://github.com/nuxt-community/axios-module#usage
-        '@nuxtjs/axios',
-        // '@nuxtjs/proxy' // OFF on dev
-
-    ],
+    modules: modules,
     /*
     ** Axios module configuration
     */
     axios: {
         // See https://github.com/nuxt-community/axios-module#options
     },
-    proxy: {
-        // '/api/': 'http://localhost/302/d_visualize/admin/index.php', // OFF on dev
-        '/shopunity/': 'http://api.shopunity.net'
-    },
+    proxy: proxy,
     /*
     ** Build configuration
     */

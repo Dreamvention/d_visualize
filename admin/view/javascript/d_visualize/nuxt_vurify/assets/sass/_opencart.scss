@@ -1,8 +1,8 @@
 .opencart {
-  .v-toolbar__content, .v-toolbar__extension{
+  .v-toolbar__content, .v-toolbar__extension {
     padding: 0;
   }
-  &-header,&-footer {
+  &-header, &-footer {
     width: 100%;
   }
   &-column-left {
@@ -12,9 +12,17 @@
       left: 0 !important;
       padding-top: 0;
       width: initial;
+      position:relative !important;
     }
   }
-  #container{
+  #container {
     overflow: visible;
+  }
+  .row{
+    margin-left: 0;
+    margin-right: 0;
+  }
+  hr{
+    margin-top: 0;
   }
 }

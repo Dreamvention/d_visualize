@@ -42,11 +42,12 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         $this->load->language($this->route);
         $this->document->setTitle($this->language->get('heading_title_main'));
-        if ($this->d_shopunity) {
-            $this->load->model('extension/d_shopunity/mbooth');
-            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
-        }
-
+//        if ($this->d_shopunity) {
+//            $this->load->model('extension/d_shopunity/mbooth');
+//            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
+//        }
+//        echo 'n';
+//        exit;
         if ($this->d_event_manager) {
             $this->load->model('extension/module/d_event_manager');
             if (!$this->model_extension_module_d_event_manager->isCompatible()) {
@@ -77,6 +78,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->installTheme();
         }
         if ($this->setting_visualize['engine'] == 'nuxt') {
+
             $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
             $data['app'] = file_get_contents($nuxt_dist . '/index.html');
             $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
@@ -252,7 +254,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['text_edit'] = $this->language->get('text_edit');
         $local['common']['text_yes'] = $this->language->get('text_yes');
         $local['common']['text_no'] = $this->language->get('text_no');
-        $local['common']['preview'] = $this->language->get('entry_preview_store');
+        $local['common']['preview'] = 'View your store';
+        $local['common']['themes'] = 'Themes';
         $local['common']['current_theme'] = 'Current theme';
         $local['common']['current_theme_description'] = 'This is the theme customers see when they visit your store.';
 
@@ -260,15 +263,19 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $local['dashboard']['entry_available_templates'] = $this->language->get('entry_available_templates');
 
-        $local['template']['customize'] = $this->language->get('entry_edit_customize');
-        $local['template']['last_saved_on'] = $this->language->get('last_saved_on');
+        $local['template']['customize'] = 'Customize';
+        $local['template']['last_saved_on'] = 'Last saved on';
         $local['template']['entry_activate'] = $this->language->get('entry_activate');
         $local['template']['entry_deactivate'] = $this->language->get('entry_deactivate');
-        $local['template']['actions'] = $this->language->get('entry_actions');
-        $local['template']['preview'] = $this->language->get('entry_preview');
-        $local['template']['rename'] = $this->language->get('entry_rename');
-        $local['template']['download'] = $this->language->get('entry_download_template');
-        $local['template']['rename_form'] = 'rename_form';
+        $local['template']['actions'] = 'Actions';
+        $local['template']['preview'] = 'Preview';
+        $local['template']['rename'] = 'Rename';
+        $local['template']['download'] = 'Download theme config';
+        $local['template']['rename_form'] = 'Rename theme';
+        $local['template']['rename_form_description'] = 'Provide a new name for this theme';
+        $local['template']['available_templates'] = 'Available themes';
+        $local['template']['available_templates_description'] = 'Manage your store\'s themes. Add and publish themes to change your online store\'s appearance.';
+        $local['template']['explore'] = 'Explore';
 
         $local['edit']['current_template'] = $this->language->get('entry_current_template');
         $local['edit']['active_template'] = $this->language->get('entry_active_template');

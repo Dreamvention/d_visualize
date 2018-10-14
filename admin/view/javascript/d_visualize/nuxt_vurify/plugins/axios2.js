@@ -6,10 +6,11 @@ export default ({$axios, store, redirect}) => {
     if (process.server) {
         return;
     }
+    console.log('ass')
     // Request interceptor
     $axios.onRequest(request => {
         console.log('req start')
-        store.dispatch('load/LOADING_START')
+        // store.commit('load/LOADING_START')
         if (!process.env.isDev) {
             request.baseURL = window.location.origin + window.location.pathname
         }
@@ -20,23 +21,24 @@ export default ({$axios, store, redirect}) => {
         }
         request.baseURL = url.makeUrl();
         request.url = '';
+        console.log(request.baseURL)
         return request;
     });
     $axios.onResponse(response => {
         console.log('resp end')
-        store.dispatch('load/LOADING_END');
+        // store.commit('load/LOADING_END');
     });
     $axios.onRequestError(err => {
         if (err) {
             console.log('error on request')
-            // store.dispatch('error.onRequest',err)
+            // store.commit('error.onRequest',err)
         }
     });
     $axios.onResponseError(err => {
-        store.dispatch('load/LOADING_FAIL');
+        store.commit('load/LOADING_FAIL');
         if (err.code === 500) {
             console.log('error on response')
-            store.dispatch('error/onResponse', err)
+            // store.commit('error/onResponse', err)
         }
     });
 

@@ -6,7 +6,8 @@ export const state = () => ({
         title:false,
         header:false,
         footer:false,
-        base_url:null
+        base_url:null,
+        breadcrumbs:null
     },
 });
 // getters
