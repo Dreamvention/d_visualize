@@ -10,7 +10,9 @@
                 </p>
             </v-flex>
             <v-flex>
-                <v-btn color="primary">
+                <v-btn color="primary"
+                       to="/editor"
+                >
                     {{$t('template.customize')}}
                 </v-btn>
                 <v-menu transition="slide-y-transition"

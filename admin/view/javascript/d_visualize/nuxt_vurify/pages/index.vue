@@ -31,7 +31,7 @@
                     <h3 class="display-2">{{$t('template.available_templates')}}</h3>
                     <p> {{$t('template.available_templates_description')}}</p>
                 </v-flex>
-                <v-flex xs9 f-auto>
+                <v-flex xs9>
                     <available-themes :templates="templates"/>
                 </v-flex>
             </v-layout>

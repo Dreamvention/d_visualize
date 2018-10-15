@@ -23,12 +23,12 @@ let proxy = {
     '/api/': "http://localhost/302/d_visualize/admin/index.php",
     '/shopunity/': 'http://api.shopunity.net'
 };
-if (isDev) {
-    modules = ['@nuxtjs/axios']
-    proxy = {
-        '/shopunity/': 'http://api.shopunity.net'
-    }
-}
+// if (!isDev) {
+//     modules = ['@nuxtjs/axios']
+//     proxy = {
+//         '/shopunity/': 'http://api.shopunity.net'
+//     }
+// }
 module.exports = {
     mode: 'spa',
     srcDir: __dirname,

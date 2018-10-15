@@ -22,7 +22,7 @@
             >
                 <div v-html="opData.header" class="opencart-header"></div>
             </v-toolbar>
-            <v-content>
+            <v-content fluid>
                 <div class="content" :class="{'loading':loading.on_progress}" v-if="loading.content_loaded">
                     <top-line :breadcrumbs="opData.breadcrumbs" :title="opData.title"
                               :opAction="opData.action"></top-line>
