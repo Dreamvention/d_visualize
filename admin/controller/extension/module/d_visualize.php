@@ -42,12 +42,10 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         $this->load->language($this->route);
         $this->document->setTitle($this->language->get('heading_title_main'));
-//        if ($this->d_shopunity) {
-//            $this->load->model('extension/d_shopunity/mbooth');
-//            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
-//        }
-//        echo 'n';
-//        exit;
+        if ($this->d_shopunity) {
+            $this->load->model('extension/d_shopunity/mbooth');
+            $this->model_extension_d_shopunity_mbooth->validateDependencies($this->codename);
+        }
         if ($this->d_event_manager) {
             $this->load->model('extension/module/d_event_manager');
             if (!$this->model_extension_module_d_event_manager->isCompatible()) {
@@ -82,6 +80,17 @@ class ControllerExtensionModuleDVisualize extends Controller
             $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
             $data['app'] = file_get_contents($nuxt_dist . '/index.html');
             $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
+            //stupid opencart make header very unsufull
+            //make costili
+//            $html_dom = new d_simple_html_dom();
+//            $html_dom->load($this->load->controller('common/header'), $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+//            $html_dom_app = new d_simple_html_dom();
+//            $html_dom_app->load($data['app'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+//            $html_dom->find('head', 0);
+//            echo "<pre>"; print_r($html_dom->find('head', 0));echo "</pre>";
+
+//            $html_dom_app->find('head', 0)->innertext = $html_dom->find('head', 0)->innertext . $html_dom_app->find('head', 0)->innertext;
+//            $data['app'] = (string)$html_dom_app;
             $files = glob($nuxt_dist . '/' . '_nuxt' . '/manifest*.js', GLOB_BRACE);
             //check manifest for 1.4.0 version
             foreach ($files as $file) {
@@ -198,8 +207,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $saved_template = $this->{$this->model_template}->saveTemplate(
             array(
                 'template_codename' => $this->request->post['template_codename'],
-                'template' => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
-                'store_id' => $this->store_id)
+                'template'          => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
+                'store_id'          => $this->store_id)
         );
         $this->response->setOutput(json_encode(array('success' => $this->language->get('text_success_template'), 'template' => $saved_template)));
 
@@ -256,6 +265,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['text_no'] = $this->language->get('text_no');
         $local['common']['preview'] = 'View your store';
         $local['common']['themes'] = 'Themes';
+        $local['common']['setting'] = 'Setting';
         $local['common']['current_theme'] = 'Current theme';
         $local['common']['current_theme_description'] = 'This is the theme customers see when they visit your store.';
 
@@ -263,6 +273,9 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $local['dashboard']['entry_available_templates'] = $this->language->get('entry_available_templates');
 
+        $local['template']['live_demo'] = 'View Live Demo';
+        $local['template']['replace_content'] = 'Replace existing content';
+        $local['template']['use_this'] = 'Use This Template';
         $local['template']['customize'] = 'Customize';
         $local['template']['last_saved_on'] = 'Last saved on';
         $local['template']['entry_activate'] = $this->language->get('entry_activate');

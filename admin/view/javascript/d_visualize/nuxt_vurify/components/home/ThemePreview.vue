@@ -3,7 +3,7 @@
         <v-layout>
             <v-flex>
                 <h4 class="display-1">
-                    {{template.db_saved?template.title:template.setting.title}}
+                    {{template.title ? template.title:template.setting.title}}
                 </h4>
                 <p class="body-2" v-if="template.db_saved">
                     {{$t('template.last_saved_on')}} {{template.date_modified |formatDate}}
@@ -13,6 +13,7 @@
                 <v-btn color="primary"
                        to="/editor"
                 >
+
                     {{$t('template.customize')}}
                 </v-btn>
                 <v-menu transition="slide-y-transition"
@@ -100,24 +101,11 @@
                 </v-menu>
             </v-flex>
         </v-layout>
-        <div class="vz-theme-preview-images" @click="popup">
-            <div class="vz-theme-preview__img">
-                <img class="vz-theme-preview__img__frame" :src="'desktop_frame.png'|image" alt="desktop-frame"/>
-                <div class="vz-theme-preview__img__overlay">
-                    <img :src="template.img_desktop" alt="img_desktop"/>
-                </div>
-            </div>
-            <div class="vz-theme-preview__img  vz-theme-preview__img--mobile">
-                <img class="vz-theme-preview__img__frame" :src="'mobile_frame.png'|image"
-                     alt="mobile-frame"/>
-                <div class="vz-theme-preview__img__overlay">
-                    <img :src="template.img_mobile" alt="img_mobile"/>
-                </div>
-            </div>
-        </div>
+        <ThemePreviewImage :template="template"></ThemePreviewImage>
     </v-card>
 </template>
 <script>
+    import ThemePreviewImage from '~/components/home/ThemePreviewImage'
     export default {
         name: "theme-preview",
         props: ['template', 'status'],
@@ -148,6 +136,9 @@
             rename_chage_input(val) {
                 this.rename_input = val
             }
+        },
+        components:{
+	        ThemePreviewImage
         }
     }
 </script>

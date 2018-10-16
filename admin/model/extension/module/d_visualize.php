@@ -60,7 +60,7 @@ class ModelExtensionModuleDVisualize extends Model
             $this->load->controller('extension/' . $this->codename . '/installTheme');
             $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, array(
                 $this->codename . '_setting' => $setting,
-                $this->codename . '_status' => 1
+                $this->codename . '_status'  => 1
             ));
         }
     }
@@ -132,6 +132,22 @@ class ModelExtensionModuleDVisualize extends Model
         ENGINE=MyISAM;";
 
         $this->db->query($sql);
+    }
+
+    /**
+     * @return string
+     */
+    public function dropDataBase()
+    {
+        return $this->db->query('DROP TABLE IF EXISTS ' . DB_PREFIX . 'vz_templates');
+    }
+
+    /**
+     * @return string
+     */
+    public function tranceDataBase()
+    {
+        return $this->db->query('TRUNCATE TABLE IF EXISTS ' . DB_PREFIX . 'vz_templates');
     }
 
     public function installEvents($active_skin)

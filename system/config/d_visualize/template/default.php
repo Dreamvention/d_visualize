@@ -1,9 +1,9 @@
 <?php
 $_['d_visualize_template_default_setting'] = array(
-    'title' => 'default template',
+    'title' => 'Default',
     'codename' => 'default',
     'active_skin' => 'opencart',
-    'description' => 'template from default opencart',
+    'description' => 'This default template pack with some pre defined style. This include some skin like opencart hydrys. It\'s contain some variants of components on your commmon pages like product, categories, account. Fell free to expirement with changing default settings to get best expirience from our theme module.',
     'debug' => 0,
     'page' => array(
         'default' => array(

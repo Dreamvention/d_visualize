@@ -26,5 +26,11 @@ export const actions = {
     async GET_OPDATA({commit}) {
         const {data} = await this.$axios.get('extension/d_visualize/opencart')
         commit('SET_OP_DATA', data)
-    }
+    },
+    async REFRESH_DB({commit}) {
+        const {data} = await this.$axios.get('extension/d_visualize/opencart/refresh_db')
+    },
+    async TRANCE_DB({commit}) {
+        const {data} = await this.$axios.get('extension/d_visualize/opencart/trunce_db')
+    },
 };

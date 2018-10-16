@@ -1,9 +1,9 @@
 <template>
     <div class="available-themes">
         <v-container grid-list-lg fluid>
-            <v-layout row reverse  wrap available-themes__item>
+            <v-layout row reverse wrap available-themes__item>
                 <v-flex
-                        v-for="template,key in templates"
+                        v-for="template, key in templates"
                         :key="key"
                         lg4
                         md6
@@ -25,9 +25,16 @@
                             </div>
                         </v-card-title>
                         <v-card-actions class="available-themes__btns">
-                            <v-btn flat color="black">{{$t('template.explore')}}</v-btn>
-                        </v-card-actions>
+                            <ThemePopUp :codename="template.setting.codename">
+                                <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
 
+                                <!--<v-btn flat color="black">{{$t('template.explore')}}</v-btn>-->
+                                <!--<slot name="activator">-->
+                                    <!--asdfasdf-->
+                                <!--</slot>-->
+                            </ThemePopUp>
+
+                        </v-card-actions>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -35,13 +42,18 @@
     </div>
 </template>
 <script>
-    export default {
-        name: "available-themes",
-        props: ['templates'],
-        data() {
-            return {}
-        }
-    }
+	import ThemePopUp from '~/components/home/ThemePopUp';
+
+	export default {
+		name: "available-themes",
+		props: ['templates'],
+		data() {
+			return {};
+		},
+		components: {
+			ThemePopUp
+		}
+	};
 </script>
 <style scoped lang="scss">
     .available-themes__item {
@@ -51,7 +63,8 @@
             transform: scale(1.2);
         }
     }
-    .available-themes__btns{
+
+    .available-themes__btns {
         display: flex;
         justify-content: flex-end;
     }

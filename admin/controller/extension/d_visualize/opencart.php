@@ -15,11 +15,19 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $this->load->model('extension/d_opencart_patch/url');
 
         //font-awesome
-        $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/all.min.css');
-        $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
+        $this->document->addStyle(HTTPS_SERVER.'view/javascript/' . $this->codename . '/font/awesome/all.min.css');
+        $this->document->addStyle(HTTPS_SERVER.'view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
+        $this->document->addStyle(HTTPS_SERVER.'view/stylesheet/bootstrap.css');
+        $this->document->addStyle(HTTPS_SERVER.'view/stylesheet/stylesheet.css');
 
+        foreach ($this->document->getStyles() as $style) {
+            $data['styles'][] = $style;
+        }
         $data['title'] = $this->language->get('heading_title_main');
-        $data['header'] = $this->load->controller('common/header');
+        $html_dom = new d_simple_html_dom();
+        $html_dom->load($this->load->controller('common/header'), $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
+
+        $data['header'] = $html_dom->find('body', 0)->innertext;
         $data['column_left'] = $this->load->controller('common/column_left');
         $data['footer'] = $this->load->controller('common/footer');
         $data['base_url'] = HTTPS_CATALOG;
@@ -66,5 +74,26 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $data['img']['desktop_frame'] = 'view/image/' . $this->codename . '/desktop_frame.png';
         $data['img']['mobile_frame'] = 'view/image/' . $this->codename . '/mobile_frame.png';
         $this->response->setOutput(json_encode($data));
+    }
+
+    /**
+     * @return string
+     */
+    public function refresh_db()
+    {
+        $this->load->model('extension/module/d_visualize');
+        $this->model_extension_module_d_visualize->dropDataBase();
+        $this->model_extension_module_d_visualize->installDataBase();
+        $this->response->setOutput(json_encode(array('sussess' => true)));
+    }
+
+    /**
+     * @return string
+     */
+    public function trance_db()
+    {
+        $this->load->model_extension_module_d_visualize->installDataBase();
+
+        return $this->codename;
     }
 }
