@@ -20,18 +20,12 @@
                                     {{template.db_saved?template.title:template.setting.title}}
                                 </h3>
                                 <div>
-                                    {{template.db_saved?template.description:template.setting.description}}
+                                    {{template.db_saved?template.description:template.setting.description|truncate(100)}}
                                 </div>
                             </div>
                         </v-card-title>
                         <v-card-actions class="available-themes__btns">
                             <ThemePopUp :codename="template.setting.codename">
-                                <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
-
-                                <!--<v-btn flat color="black">{{$t('template.explore')}}</v-btn>-->
-                                <!--<slot name="activator">-->
-                                    <!--asdfasdf-->
-                                <!--</slot>-->
                             </ThemePopUp>
 
                         </v-card-actions>

@@ -1,8 +1,7 @@
 <template>
     <div class="theme-pop-up">
-        <slot></slot>
         <v-dialog v-model="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
-            <v-btn slot="activator" color="primary" dark>Open Dialog</v-btn>
+            <v-btn slot="activator" color="primary" dark>{{$t('template.explore')}}</v-btn>
             <v-card>
                 <v-toolbar color="primary" dark>
                     <v-toolbar-title color="white"> {{template.setting.title}}
@@ -12,12 +11,12 @@
                         <v-icon>close</v-icon>
                     </v-btn>
                 </v-toolbar>
-                <v-content>
+                <v-container>
                     <v-layout row wrap>
                         <v-flex md5>
                             <ThemePreviewImage :template="template"></ThemePreviewImage>
                             <!--<v-btn value="left" color="light-blue" dark d-none>-->
-                                <!--{{$t('template.live_demo')}}-->
+                            <!--{{$t('template.live_demo')}}-->
                             <!--</v-btn>-->
                             <v-btn value="center" color="teal accent-3" dark>
                                 {{$t('template.use_this')}}
@@ -38,7 +37,7 @@
                             </p>
                         </v-flex>
                     </v-layout>
-                </v-content>
+                </v-container>
                 <!--<v-list three-line subheader>-->
                 <!--<v-subheader>User Controls</v-subheader>-->
                 <!--<v-list-tile avatar>-->
@@ -110,7 +109,8 @@
 				dialog: false,
 				notifications: false,
 				sound: false,
-				widgets: false
+				widgets: false,
+				replace_content: false
 			};
 		},
 		computed: {

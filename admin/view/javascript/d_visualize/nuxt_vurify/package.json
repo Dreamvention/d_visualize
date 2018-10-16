@@ -20,6 +20,7 @@
     "sass-loader": "^7.1.0",
     "url-parse": "^1.4.3",
     "vue-i18n": "^7.6.0",
+    "vue-truncate-filter": "^1.1.7",
     "vuetify": "^1.2.4"
   },
   "devDependencies": {

@@ -7,12 +7,14 @@ var LOAD = {
 	SUCCESS: 'success',
 	FAIL: 'fail',
 };
+var VueTruncate = require('vue-truncate-filter')
+Vue.use(VueTruncate)
 
 Vue.filter('image', function (value) {
 	if (!value) return '';
 	value = value.toString();
 	if (process.env.isDev) {
-		return process.env.DevServer + '/view/image/d_visualize/' + value;
+		return process.env.DevServer + 'view/image/d_visualize/' + value;
 	} else {
 		return 'view/image/d_visualize/' + value;
 	}

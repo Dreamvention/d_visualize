@@ -1,6 +1,6 @@
 <template>
     <div class="opencart ">
-        <v-app id="inspire" v-if="opData">
+        <v-app id="inspire" v-if="loading.content_loaded">
             <v-navigation-drawer
                     v-model="drawer"
                     fixed
@@ -23,53 +23,67 @@
                 <div v-html="opData.header" class="opencart-header"></div>
             </v-toolbar>
             <v-content fluid>
-                <div class="content" :class="{'loading':loading.on_progress}" v-if="loading.content_loaded">
+                <div class="content" :class="{'loading':loading.on_progress}">
                     <top-line :breadcrumbs="opData.breadcrumbs" :title="opData.title"
-                              :opAction="opData.action"></top-line>
+                    :opAction="opData.action"></top-line>
                     <nuxt/>
-                    <div v-if="loading.status==load.FAIL" class="no_data_found">
-                        <img :src="opData.img.no_data_img" alt="nodata">
-                    </div>
                     <div class="opencart-footer" v-html="opData.footer"></div>
                 </div>
+
             </v-content>
         </v-app>
+        <div v-else>
+            <v-container error>
+                <v-layout align-center justify-center row fill-height wrap text-center>
+                    <v-flex xs12>
+                        <img :src="'nodata.png'|image" alt="nodata">
+                    </v-flex>
+                    <v-flex xs12>
+                        <div>{{error}}</div>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        </div>
     </div>
 </template>
 <style scoped>
+    .error{
+        margin-top: 100px;
+    }
 </style>
 <script>
-    import {mapGetters} from 'vuex'
-    import {LOAD} from '~/constants'
-    import TopLine from '~/components/opencart/TopLine.vue'
+	import {mapGetters} from 'vuex';
+	import {LOAD} from '~/constants';
+	import TopLine from '~/components/opencart/TopLine.vue';
 
-    export default {
-        data: () => ({
-            load: LOAD,
-            drawer: null
-        }),
-        computed: mapGetters({
-            opData: 'opencart/opData',
-            loading: 'load/loading',
-        }),
-        head() {
-            return {
-                title: this.opData.title,
-            }
-        },
-        mounted() {
+	export default {
+		data: ()=>({
+			load: LOAD,
+			drawer: null
+		}),
+		computed: mapGetters({
+			opData: 'opencart/opData',
+			loading: 'load/loading',
+			error: 'error/getMessage',
+		}),
+		head() {
+			return {
+				title: this.opData.title,
+			};
+		},
+		mounted() {
             /*opencart eto odni kostili (*/
-            setTimeout(() => {
-                if (this.opData.header) {
-                    document.querySelector('#button-menu').addEventListener('click', (e) => {
-                        e.preventDefault();
-                        this.drawer = !this.drawer;
-                    })
-                }
-            }, 500)
-        },
-        components: {
-            TopLine
-        }
-    }
+			setTimeout(()=>{
+				if (this.opData.header) {
+					document.querySelector('#button-menu').addEventListener('click', (e)=>{
+						e.preventDefault();
+						this.drawer = !this.drawer;
+					});
+				}
+			}, 500);
+		},
+		components: {
+			TopLine
+		}
+	};
 </script>

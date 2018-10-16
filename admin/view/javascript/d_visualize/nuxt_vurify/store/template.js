@@ -7,7 +7,7 @@ export const getters = {
     templates: state => state.templates,
     active_template: (state, getters, rootState, rootGetters) => {
         //for some reasons nuxt make a call if there is rootState which is needed
-        if (rootState.setting.all_setting) {
+        if (rootState.setting.all_setting&&getters.templates) {
             return (getters.templates[rootState.setting.all_setting.active_template])
         }
     },
