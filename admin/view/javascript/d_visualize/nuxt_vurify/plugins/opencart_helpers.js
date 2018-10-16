@@ -14,7 +14,7 @@ Vue.filter('image', function (value) {
 	if (process.env.isDev) {
 		return process.env.DevServer + '/view/image/d_visualize/' + value;
 	} else {
-		return '/view/image/d_visualize/' + value;
+		return 'view/image/d_visualize/' + value;
 	}
 });
 
