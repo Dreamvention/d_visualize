@@ -49,10 +49,10 @@
 				if (!route) {
 					route = 'default';
 				}
-				// this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
+				this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
 				// this.$store.dispatch('CHANGE_PAGE', route);
 				// this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
-				// this.$store.commit('load/LOADING_END');
+				this.$store.commit('load/LOADING_END');
 			}
 		}
 

@@ -20,7 +20,13 @@ export const getters = {
 export const mutations = {
     SET_IFRAME(state, payload) {
         state.iframe = payload
+    },
+	PUSH_IFRAME_HISTORY(state,payload){
+		state.iframe_history.push(payload);
+		var new_history = JSON.parse(JSON.stringify(state.iframe_history));
+		Vue.set(state, 'iframe_history', new_history);
     }
+
 };
 
 // actions
@@ -49,6 +55,26 @@ export const actions = {
     },
     HIDE_MENU({commit}, payload) {
         commit('HIDE_MENU', payload)
+    },
+	PUSH_IFRAME_HISTORY({commit}, payload) {
+
+		commit('PUSH_IFRAME_HISTORY', payload);
+		// dispatch('CHANGE_PAGE', payload);
+		//saving on the server last url
+		// let last_visited_url = 'http://localhost/index.php?route=common/home';
+		// if (getters.iframe_history[getters.iframe_history.length - 1].href) {
+		// 	last_visited_url = getters.iframe_history[context.getters.iframe_history.length - 1].href;
+		// }
+		// $.post(state.config.save_iframe_url, {
+		// 	last_url: last_visited_url
+		// }, function (data, status) {
+		// 	if (status === 'success') {
+		// 	}
+		// }, 'json').fail(function (e, m) {
+		// 	// context.commit('LOADING_END');
+		// 	error(m);
+		// 	error(app.$i18n.t('error.save_content'));
+		// });
     },
 
 };

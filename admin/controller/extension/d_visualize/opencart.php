@@ -15,10 +15,10 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $this->load->model('extension/d_opencart_patch/url');
 
         //font-awesome
-        $this->document->addStyle(HTTPS_SERVER.'view/javascript/' . $this->codename . '/font/awesome/all.min.css');
-        $this->document->addStyle(HTTPS_SERVER.'view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
-        $this->document->addStyle(HTTPS_SERVER.'view/stylesheet/bootstrap.css');
-        $this->document->addStyle(HTTPS_SERVER.'view/stylesheet/stylesheet.css');
+        $this->document->addStyle(HTTPS_SERVER . 'view/javascript/' . $this->codename . '/font/awesome/all.min.css');
+        $this->document->addStyle(HTTPS_SERVER . 'view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
+        $this->document->addStyle(HTTPS_SERVER . 'view/stylesheet/bootstrap.css');
+        $this->document->addStyle(HTTPS_SERVER . 'view/stylesheet/stylesheet.css');
 
         foreach ($this->document->getStyles() as $style) {
             $data['styles'][] = $style;
