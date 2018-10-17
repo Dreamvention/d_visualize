@@ -1,24 +1,31 @@
 <template>
     <div class="vz-edit-iframe">
-        <iframe id="iframe" :src="iframe.src" @load="iframeLoad" frameborder="0" borderwidth="0"></iframe>
+        <iframe id="iframe" :src="iframe.src" @load="iframeLoad" frameborder="0" borderwidth="0" v-if="loading"></iframe>
+        <div v-else>
+            loading
+        </div>
     </div>
-
 </template>
 <style scoped>
     iframe {
         width: 100%;
         height: 100%;
+        display: flex;
     }
 </style>
 <script>
 	export default {
 		name: "EditorIframe",
-		props: ['iframe'],
+		props: ['iframe','loading'],
 		mounted() {
-			this.iframeURLChange(document.getElementById("iframe"), (newURL)=>{
-				console.log("URL changed:", newURL);
-			});
+			var frame = document.getElementById('iframe');
 
+			frame.contentWindow.postMessage({data:1}, '*');
+
+			// this.iframeURLChange(document.getElementById("iframe"), (newURL)=>{
+			// 	this.store.commit('load/LOADING_START');
+			// 	console.log("URL changed:", newURL);
+			// });
 		},
 		methods: {
 			iframeURLChange(iframe, callback) {
@@ -32,28 +39,27 @@
 						}
 					}, 0);
 				};
-
 				function attachUnload() {
 					// Remove the unloadHandler in case it was already attached.
 					// Otherwise, the change will be dispatched twice.
 					iframe.contentWindow.removeEventListener("unload", unloadHandler);
 					iframe.contentWindow.addEventListener("unload", unloadHandler);
 				}
-
-				// iframe.addEventListener("load", attachUnload);
+				iframe.addEventListener("load", attachUnload);
 				attachUnload();
 			},
 			iframeLoad(e) {
-				let iFrameDOM = $("iframe#iframe").contents();
-				let route = iFrameDOM.find("#content").data('route');
-				if (!route) {
-					route = 'default';
+				// this.store.commit('load/LOADING_END');
+				// let iFrameDOM = $("iframe#iframe").contents();
+				// let route = iFrameDOM.find("#content").data('route');
+				// if (!route) {
+				// 	route = 'default';
 				}
-				this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
-				// this.$store.dispatch('CHANGE_PAGE', route);
-				// this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
-				this.$store.commit('load/LOADING_END');
-			}
+			// 	this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
+			// 	// this.$store.dispatch('CHANGE_PAGE', route);
+			// 	// this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
+			// 	this.$store.commit('load/LOADING_END');
+			// }
 		}
 
 	};

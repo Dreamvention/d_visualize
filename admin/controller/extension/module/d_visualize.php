@@ -191,58 +191,14 @@ class ControllerExtensionModuleDVisualize extends Controller
         );
         $data['text_button_setup'] = $this->language->get('button_setup');
         $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setupUrl');
-
         return $data;
     }
-
-    public function saveIframeUrl()
-    {
-        $this->session->data['iframe_url'] = html_entity_decode($this->request->post['last_url']);
-        $json['success'] = $this->language->get('text_success');
-        $this->response->setOutput(json_encode($json));
-    }
-
-    public function saveTemplateUrl()
-    {
-        $saved_template = $this->{$this->model_template}->saveTemplate(
-            array(
-                'template_codename' => $this->request->post['template_codename'],
-                'template'          => json_decode(html_entity_decode($this->request->post['template'], ENT_QUOTES, 'UTF-8'), true),
-                'store_id'          => $this->store_id)
-        );
-        $this->response->setOutput(json_encode(array('success' => $this->language->get('text_success_template'), 'template' => $saved_template)));
-
-    }
-
-    public function save()
-    {
-        try {
-            $this->uninstallTheme();
-            $new_post = array();
-            foreach ($this->request->post as $k => $v) {
-                $new_post['module_' . $this->codename . '_' . $k] = $v;
-            }
-            $this->model_extension_d_opencart_patch_setting->editSetting('module_' . $this->codename, $new_post, $this->store_id);
-            $this->session->data['success'] = $this->language->get('text_success');
-            $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
-            $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
-            if ($this->request->post['status']) {
-                $this->installTheme();
-            }
-            $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
-        } catch (Exception $e) {
-            $this->session->data['error'] = $e;
-            $this->response->setOutput(json_encode(array('error' => $this->session->data['error'])));
-        }
-    }
-
 
     public function loadState()
     {
         $json = array();
         $setting = array();
         $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
-        $json['iframe_src'] = $this->session->data['iframe_url'];
         $this->response->setOutput(json_encode($json));
     }
 
@@ -362,34 +318,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         $option['img']['mobile_frame'] = 'view/image/' . $this->codename . '/mobile_frame.png';
 
         return $option;
-    }
-
-    public function setupUrl()
-    {
-        $this->load->model('extension/d_opencart_patch/url');
-        $this->{$this->model}->installConfig();
-        $this->response->redirect($this->model_extension_d_opencart_patch_url->ajax($this->route));
-    }
-
-    public function uninstallTheme()
-    {
-        $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
-        $setting['theme_default_directory'] = 'default';
-        $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
-        $this->{$this->model}->uninstallEvents();
-    }
-
-    public function installTheme()
-    {
-        $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
-        $setting['theme_default_directory'] = $this->codename; // 32 work
-        $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
-        $this->{$this->model}->uninstallEvents($this->setting_visualize['active_template']);
-        $this->{$this->model}->installEvents($this->setting_visualize['active_template']);
-        $this->{$this->model_helper}->installVD($this->setting_visualize['active_template']);
-        $this->{$this->model_helper}->installDependencyModules($this->setting_visualize['active_template']);
-        $this->{$this->model_helper}->installConfigThemeDefaults();
-        $this->{$this->model_helper}->installTemplateThemeDefaults($this->setting_visualize['active_template']);
     }
 
     public function install()

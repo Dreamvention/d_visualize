@@ -32,14 +32,16 @@ export const actions = {
     async TOGGLE_STATUS({commit}) {
         commit('TOGGLE_STATUS')
     },
-    async SAVE({$store}) {
+    async SAVE(context) {
+        console.log(context.getters.all_setting)
         let {data} = await this.$axios.post('extension/d_visualize/setting/save', {
-            status: $store.getters['setting/status'],
-            setting: $store.getters['setting/all_status'],
+            status: context.getters.status,
+            setting: context.getters.all_setting,
         })
-        data = await this.$axios.post('extension/d_visualize/template/save', {
-            template: $store.getters['template/active_template'],
-        })
+        console.log(data)
+        // data = await this.$axios.post('extension/d_visualize/template/save', {
+        //     template: getters['template/active_template'],
+        // })
         // commit('SET_STATUS', data.status)
     }
 };

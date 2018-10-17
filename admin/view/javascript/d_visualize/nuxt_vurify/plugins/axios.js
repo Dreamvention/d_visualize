@@ -1,4 +1,4 @@
-import {getUrlOpencart} from '~/utils';
+import {getUrlOpencart,getDataOpencart} from '~/utils';
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -8,7 +8,7 @@ export default ({$axios, store})=>{
 	}
 	// Request interceptor
 	$axios.interceptors.request.use(request=>{
-		store.commit('load/LOADING_START');
+		// store.commit('load/LOADING_START');
 		if (!process.env.isDev) {
 			request.baseURL = window.location.origin + window.location.pathname;
 		}
@@ -20,6 +20,13 @@ export default ({$axios, store})=>{
 		}
 		request.baseURL = url.makeUrl();
 		request.url = '';
+
+		if (request.method==='post'){
+			request.transformRequest = (data,header)=>{
+				return getDataOpencart(data,header)
+			}
+			console.log(request)
+		}
 		return request;
 	}, (err)=>{
 		console.log(err);

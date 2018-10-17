@@ -49,6 +49,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
         if (!empty($this->setting_active_template) && $this->status_visualize) {
             //inject dat from setting on the view
+
             $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'], $data);
             //if some one add to specific page scripts need to add this to header
             foreach (array_keys($this->setting_active_template['page']) as $key) {

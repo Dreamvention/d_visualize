@@ -8,6 +8,7 @@
  * token= asjdfkasdf
  */
 var URL = require('url-parse');
+import _ from 'lodash';
 
 export function getUrlOpencart(url, isDev) {
     if (!isDev) {
@@ -29,6 +30,15 @@ export function getUrlOpencart(url, isDev) {
         }
     };
     return parsed_url;
+}
+
+export function getDataOpencart(data, header) {
+	let res = '';
+	_.each(data, (val, key)=>{
+		val = JSON.stringify(val);
+		res += `${key}=${val}&`;
+	});
+	return res;
 }
 
 export function cookieFromRequest(req, key) {

@@ -187,7 +187,6 @@ class ModelExtensionDVisualizeTemplate extends Model
      * store_id
      *
      */
-
     public function saveTemplate($data)
     {
         $template = $this->getTemplateByCodename($data['template_codename']);
@@ -231,6 +230,32 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $this->db->query($sql)->row;
     }
 
+    public function installTheme($active_template)
+    {
+        $this->load->model('extension/module/d_visualize');
+        $this->load->model('extension/d_visualize/extension_helper');
+        $this->model = 'model_extension_module_' . $this->codename;
+        $this->model_helper = 'model_extension_' . $this->codename . '_extension_helper';
+        $this->load->model('extension/d_opencart_patch/setting');
+        $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
+        $setting['theme_default_directory'] = $this->codename; // 302 work
+        $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
+        $this->{$this->model}->uninstallEvents($active_template);
+        $this->{$this->model}->installEvents($active_template);
+        $this->{$this->model_helper}->installVD($active_template);
+        $this->{$this->model_helper}->installDependencyModules($active_template);
+        $this->{$this->model_helper}->installConfigThemeDefaults();
+        $this->{$this->model_helper}->installTemplateThemeDefaults($active_template);
+    }
+
+    public function uninstallTheme()
+    {
+        $this->model = 'model_extension_module_' . $this->codename;
+        $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
+        $setting['theme_default_directory'] = 'default';
+        $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
+        $this->{$this->model}->uninstallEvents();
+    }
     public function imgeResize($filename, $width, $height, $original_size = false)
     {
 
@@ -240,6 +265,5 @@ class ModelExtensionDVisualizeTemplate extends Model
             return HTTP_CATALOG . 'image/' . $filename;
         }
     }
-
 
 }

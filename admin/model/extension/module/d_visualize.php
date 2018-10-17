@@ -17,6 +17,7 @@ class ModelExtensionModuleDVisualize extends Model
         $this->config->load($this->codename);
         $this->config_visualize = $this->config->get('module_' . $this->codename . '_setting');
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
+        $this->d_event_manager = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . 'd_event_manager' . '.json'), true);
     }
 
     public function checkInstallModule()

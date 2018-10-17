@@ -34,13 +34,17 @@
                 </v-flex>
             </v-layout>
         </div>
-        <div v-else>
-            else
-        </div>
+        <v-layout loading v-else align-center justify-center row fill-height wrap text-center>
+            <Loader :loading="true"></Loader>
+        </v-layout>
+
 
     </div>
 </template>
 <style lang="scss">
+    .themes .loading {
+        min-height: 400px;
+    }
     .home__view-store {
         color: #5a6781;
         .theme--light.v-icon {

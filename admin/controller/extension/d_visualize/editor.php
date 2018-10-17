@@ -23,15 +23,14 @@ class ControllerExtensionDVisualizeEditor extends Controller
             }
             $this->session->data['iframe_url'] = $catalog_url;
         }
-        $data['iframe']['save_iframe_url'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visualize/editor' . '/saveIframeUrl');
-        $data['iframe']['src'] = HTTPS_CATALOG;
+        $data['iframe']['src'] = $this->session->data['iframe_url'];
         $this->response->setOutput(json_encode($data));
     }
 
     public function saveIframeUrl()
     {
         $this->session->data['iframe_url'] = html_entity_decode($this->request->post['last_url']);
-        $json['success'] = $this->language->get('text_success');
+        $json['success'] = $this->session->data['iframe_url'];
         $this->response->setOutput(json_encode($json));
     }
 

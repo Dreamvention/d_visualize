@@ -42,6 +42,12 @@
 
 	export default {
 		layout: 'opencart_hmr',
-
+        async fetch({store}){
+	        store.commit('load/LOADING_START');
+	        store.dispatch('opencart/GET_OPDATA');
+	        store.dispatch('setting/GET_SETTING');
+	        store.dispatch('template/GET_TEMPLATES');
+	        store.commit('load/LOADING_END');
+        }
 	};
 </script>
