@@ -71,10 +71,10 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->session->data['iframe_url'] = $catalog_url;
         }
 
-        $this->uninstallTheme();
-        if ($this->status_visualize) {
-            $this->installTheme();
-        }
+//        $this->uninstallTheme();
+//        if ($this->status_visualize) {
+//            $this->installTheme();
+//        }
         if ($this->setting_visualize['engine'] == 'nuxt') {
 
             $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
