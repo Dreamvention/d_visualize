@@ -11,12 +11,18 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.4",
+    "@fortawesome/pro-light-svg-icons": "^5.3.1",
+    "@fortawesome/pro-regular-svg-icons": "^5.3.1",
+    "@fortawesome/pro-solid-svg-icons": "^5.3.1",
+    "@fortawesome/vue-fontawesome": "^0.1.1",
     "@nuxtjs/axios": "^5.0.0",
     "cross-env": "^5.2.0",
     "dotenv": "^5.0.1",
     "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "nuxt": "^2.0.0",
+    "nuxt-fontawesome": "^0.3.0",
     "sass-loader": "^7.1.0",
     "url-parse": "^1.4.3",
     "vue-i18n": "^7.6.0",
@@ -25,6 +31,9 @@
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
+    "postcss-custom-properties": "^8.0.8",
+    "postcss-pxtorem": "^4.0.1",
+    "precss": "^3.1.2",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
   }

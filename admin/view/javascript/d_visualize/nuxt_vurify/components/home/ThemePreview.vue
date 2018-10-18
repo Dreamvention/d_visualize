@@ -13,7 +13,6 @@
                 <v-btn color="primary"
                        to="/editor"
                 >
-
                     {{$t('template.customize')}}
                 </v-btn>
                 <v-menu transition="slide-y-transition"

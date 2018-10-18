@@ -1,8 +1,10 @@
+import {RESPONSIVE} from '~/constants'
 // state
 export const state = () => ({
     menu: {
         hidden: false
     },
+	mobile_toggle:RESPONSIVE.MOBILE,
     components: null,
     iframe: null
 });
@@ -11,6 +13,7 @@ export const state = () => ({
 export const getters = {
     menu: state => state.menu,
     iframe: state => state.iframe,
+	mobile_toggle: state => state.mobile_toggle,
     components: state => {
         return state.components
     }
@@ -25,6 +28,9 @@ export const mutations = {
 		state.iframe_history.push(payload);
 		var new_history = JSON.parse(JSON.stringify(state.iframe_history));
 		Vue.set(state, 'iframe_history', new_history);
+    },
+	SET_MOBILE_TOGGLE(state,payload){
+		state.mobile_toggle = payload;
     }
 
 };
@@ -76,7 +82,6 @@ export const actions = {
 		// 	error(app.$i18n.t('error.save_content'));
 		// });
     },
-
 };
 
 /*

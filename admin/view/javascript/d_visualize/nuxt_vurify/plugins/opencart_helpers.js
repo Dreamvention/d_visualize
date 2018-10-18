@@ -7,6 +7,12 @@ var LOAD = {
 	SUCCESS: 'success',
 	FAIL: 'fail',
 };
+var RESPONSIVE = {
+	MOBILE: '320px',
+	TABLET: '768px',
+	FULL: '100%',
+};
+
 var VueTruncate = require('vue-truncate-filter')
 Vue.use(VueTruncate)
 

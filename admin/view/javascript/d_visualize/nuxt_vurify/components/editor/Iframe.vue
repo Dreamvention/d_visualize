@@ -1,6 +1,6 @@
 <template>
     <div class="vz-edit-iframe">
-        <iframe id="iframe" :src="iframe.src" @load="iframeLoad" frameborder="0" borderwidth="0" v-if="loading"></iframe>
+        <iframe id="iframe" :src="iframe.src" @load="iframeLoad" frameborder="0" borderwidth="0" v-if="loading" :style="`width:${width}`"></iframe>
         <div v-else>
             loading
         </div>
@@ -8,20 +8,18 @@
 </template>
 <style scoped>
     iframe {
-        width: 100%;
+        transition:width .2s;
+        margin: auto;
         height: 100%;
-        display: flex;
     }
 </style>
 <script>
 	export default {
 		name: "EditorIframe",
-		props: ['iframe','loading'],
+		props: ['iframe','loading','width'],
 		mounted() {
 			var frame = document.getElementById('iframe');
-
 			frame.contentWindow.postMessage({data:1}, '*');
-
 			// this.iframeURLChange(document.getElementById("iframe"), (newURL)=>{
 			// 	this.store.commit('load/LOADING_START');
 			// 	console.log("URL changed:", newURL);
