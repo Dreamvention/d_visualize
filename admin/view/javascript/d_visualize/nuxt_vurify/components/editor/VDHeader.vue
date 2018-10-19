@@ -1,5 +1,7 @@
 <template>
-    
+    <div>
+        vdh
+    </div>
 </template>
 
 <script>
