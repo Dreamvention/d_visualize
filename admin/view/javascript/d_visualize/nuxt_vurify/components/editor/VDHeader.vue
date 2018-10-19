@@ -6,7 +6,7 @@
 
 <script>
 	export default {
-		name: "NavigationContext"
+		name: "VDHeader"
 	};
 </script>
 
