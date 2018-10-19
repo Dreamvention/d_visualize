@@ -260,6 +260,16 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['edit']['entry_breadcrumb'] = $this->language->get('entry_breadcrumb');
         $local['edit']['entry_d_product_sort'] = $this->language->get('entry_d_product_sort');
         $local['edit']['entry_*'] = $this->language->get('entry_*');
+        $local['editor']['section'] = 'Section';
+        $local['editor']['theme_set'] = 'Theme set';
+        //can't use '/'
+        $local['page']['common_home'] = 'Home Page';
+        $local['page']['product_product'] = 'Product Page';
+        $local['page']['product_category'] = 'Category Page';
+        $local['page']['checkout_cart'] = 'Cart Page';
+        $local['page']['account_all'] = 'Account/*';
+        $local['page']['account_login'] = 'Login Page';
+        $local['page']['checkout_all'] = 'Checkout/*';
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');

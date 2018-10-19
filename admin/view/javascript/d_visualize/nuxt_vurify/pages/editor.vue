@@ -1,12 +1,12 @@
 <template>
-    <v-app id="vz-edit" v-if="iframe" :class="{'loading':loading.on_progress}">
+    <v-app id="editor" v-if="loading.content_loaded && iframe" :class="{'loading':loading.on_progress}">
         <v-navigation-drawer
                 v-model="drawer"
                 fixed
                 clipped
                 app
                 mobile-break-point="768"
-                width="300"
+                width="320"
                 class="editor-menu"
         >
             <v-layout class="editor-menu__header">
@@ -19,12 +19,21 @@
                         solo
                         hide-details
                         full-width
-                        :value="'Foo'"
-                        :items="items"
+                        :value="iframe.page"
+                        :items="iframe_pages"
+                        :item-text="(e)=>this.$t(e.text)"
                 ></v-select>
-                <v-btn color="success"
-                > save
+                <v-btn color="success" @click="console.log('enable and save')"
+                > {{$t('common.button_save')}}
                 </v-btn>
+            </v-layout>
+            <v-layout class="editor-menu__header--nav">
+                <v-btn class="flex" flat nuxt to="/editor" exact color="primary">{{$t('editor.section')}}</v-btn>
+                <v-btn class="flex" flat nuxt to="/editor/theme_set" exact color="primary">{{$t('editor.theme_set')}}
+                </v-btn>
+            </v-layout>
+            <v-layout column full-height>
+                <nuxt-child></nuxt-child>
             </v-layout>
             <v-footer fixed class="editor-toggle" height="auto">
                 <v-btn-toggle xs12 v-model="toggle" mandatory>
@@ -46,7 +55,6 @@
                     v-if="loading.content_loaded"></Iframe>
         </v-content>
     </v-app>
-    <!--&lt;!&ndash;<vz-edit-menu></vz-edit-menu>&ndash;&gt;-->
 </template>
 <style lang="scss">
     .editor-toggle {
@@ -60,15 +68,22 @@
             }
         }
     }
-
     .editor-menu {
         border: 1px solid var(--secondary);
-    }
-
-    .editor-menu {
         &__header {
-            padding-top: 12px;
-            padding-bottom: 12px;
+            padding-top: 14px;
+            padding-bottom: 14px;
+
+            .v-toolbar__content {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            &--nav {
+                .v-btn {
+                    margin: 0;
+                    height: 74px;
+                }
+            }
             background-color: var(--info);
             .theme--light.v-text-field--solo .v-input__slot{
                 background-color:transparent;
@@ -93,6 +108,7 @@
 			},
 			...mapGetters({
 				iframe: 'editor/iframe',
+				iframe_pages: 'editor/iframe_pages',
 				menu: 'editor/menu',
 				loading: 'load/loading'
 			})
@@ -121,6 +137,9 @@
 		methods: {
 			changeIfrmeSize(size) {
 
+			},
+			itemsText(e) {
+				return;
 			},
 			toggle_show() {
 

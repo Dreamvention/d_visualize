@@ -1,10 +1,10 @@
-import {RESPONSIVE} from '~/constants'
+import {RESPONSIVE} from '~/constants';
 // state
 export const state = () => ({
     menu: {
         hidden: false
     },
-	mobile_toggle:RESPONSIVE.MOBILE,
+	mobile_toggle: RESPONSIVE.FULL,
     components: null,
     iframe: null
 });
@@ -16,7 +16,12 @@ export const getters = {
 	mobile_toggle: state => state.mobile_toggle,
     components: state => {
         return state.components
-    }
+    },
+	iframe_pages: (state, getters, rootState, rootGetters)=>{
+		return _.map(_.keys(rootGetters['template/active_template'].setting.page), (n)=>{
+			return {value: n, text: `page.${n.replace('/', '_').replace('*','all')}`};
+		}).splice(1);
+	}
 };
 
 // mutations

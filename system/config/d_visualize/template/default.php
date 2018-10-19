@@ -121,15 +121,15 @@ $_['d_visualize_template_default_setting'] = array(
                     ),
 
                 ),
-                'extension' => array(
-                    'd_blog_module' => array(
-                        'component' => array(
-                            'd_post_thumb' => array(
-                                'template' => 'd_visualize/template/component/d_post_thumb/'
-                            )
-                        ),
-                    )
-                ),
+//                'extension' => array(
+//                    'd_blog_module' => array(
+//                        'component' => array(
+//                            'd_post_thumb' => array(
+//                                'template' => 'd_visualize/template/component/d_post_thumb/'
+//                            )
+//                        ),
+//                    )
+//                ),
                 'columns' => array(
                     'left' => 'col-12 col-md-3 d-sm-block d-none',
                     'main' => array(
@@ -222,17 +222,17 @@ $_['d_visualize_template_default_setting'] = array(
             ),
             'scripts' => array()
         ),
-        'extension/d_blog_module/*' => array(
-            'layout' => array(
-                'columns' => array(
-                    'left' => 'col-12 col-sm-4',
-                    'main' => array(
-                        'two_col' => 'col-12 col-sm-8',
-                    ),
-                    'right' => 'col-12 col-sm-4'
-                )
-            )
-        ),
+//        'extension/d_blog_module/*' => array(
+//            'layout' => array(
+//                'columns' => array(
+//                    'left' => 'col-12 col-sm-4',
+//                    'main' => array(
+//                        'two_col' => 'col-12 col-sm-8',
+//                    ),
+//                    'right' => 'col-12 col-sm-4'
+//                )
+//            )
+//        ),
         'account/*' => array(
             'layout' => array(
                 'component' => array(

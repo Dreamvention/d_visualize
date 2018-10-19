@@ -179,7 +179,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $component;
     }
-
     /**
      * @param $data_array
      * extected next one data attrs
@@ -265,5 +264,4 @@ class ModelExtensionDVisualizeTemplate extends Model
             return HTTP_CATALOG . 'image/' . $filename;
         }
     }
-
 }

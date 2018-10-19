@@ -24,6 +24,7 @@ class ControllerExtensionDVisualizeEditor extends Controller
             $this->session->data['iframe_url'] = $catalog_url;
         }
         $data['iframe']['src'] = $this->session->data['iframe_url'];
+        $data['iframe']['page'] = 'common/home';
         $this->response->setOutput(json_encode($data));
     }
 

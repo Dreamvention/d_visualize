@@ -1,5 +1,5 @@
 <template>
-    <div class="opencart ">
+    <div class="opencart">
         <v-app id="inspire" v-if="opData">
             <v-navigation-drawer
                     v-model="drawer"
