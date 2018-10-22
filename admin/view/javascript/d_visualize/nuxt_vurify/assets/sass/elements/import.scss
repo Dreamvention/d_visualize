@@ -1,7 +1,15 @@
+/*inputs*/
 .v-input{
   font-size: 15px;
 }
+
+/*images*/
 img{
   max-width: 100%;
   height: auto;
 }
+
+#__nuxt {
+  @import "btn";
+}
+

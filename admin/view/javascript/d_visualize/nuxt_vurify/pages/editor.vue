@@ -12,17 +12,19 @@
             <v-layout class="editor-menu__header">
                 <v-btn nuxt to="/" flat icon color="accent">
                     <v-icon small>fas fa-times</v-icon>
+
                 </v-btn>
-                <v-select
+                <v-autocomplete
                         flat
                         height="auto"
                         solo
                         hide-details
+                        append-icon="fas fa-caret-down"
                         full-width
-                        :value="iframe.page"
+                        :value="current_page"
                         :items="iframe_pages"
                         :item-text="(e)=>this.$t(e.text)"
-                ></v-select>
+                ></v-autocomplete>
                 <v-btn color="success" @click="console.log('enable and save')"
                 > {{$t('common.button_save')}}
                 </v-btn>
@@ -35,7 +37,7 @@
             <v-layout column full-height>
                 <nuxt-child></nuxt-child>
             </v-layout>
-            <v-footer fixed class="editor-toggle" height="auto">
+            <v-footer absolute class="editor-toggle" height="auto">
                 <v-btn-toggle xs12 v-model="toggle" mandatory>
                     <v-btn :value="respons.MOBILE" flat color="primary">
                         <v-icon>fas fa-mobile</v-icon>
@@ -57,22 +59,11 @@
     </v-app>
 </template>
 <style lang="scss">
-    .editor-toggle {
-        border: 1px solid var(--primary);
-        .v-btn-toggle {
-            width: 100%;
-            display: flex;
-            .v-btn {
-                flex: 1;
-                height: 50px;
-            }
-        }
-    }
     .editor-menu {
-        border: 1px solid var(--secondary);
         &__header {
             padding-top: 14px;
             padding-bottom: 14px;
+            border-bottom: 1px solid var(--secondary);
 
             .v-toolbar__content {
                 padding-left: 0;
@@ -82,11 +73,31 @@
                 .v-btn {
                     margin: 0;
                     height: 74px;
+                    color: #000 !important;
+                    &--active {
+                        color: white !important;
+                        &:before {
+                            opacity: 1;
+                            background: var(--primary);
+                        }
+                    }
                 }
             }
             background-color: var(--info);
             .theme--light.v-text-field--solo .v-input__slot{
                 background-color:transparent;
+            }
+        }
+    }
+
+    .editor-toggle {
+        border: 1px solid var(--primary);
+        .v-btn-toggle {
+            width: 100%;
+            display: flex;
+            .v-btn {
+                flex: 1;
+                height: 50px;
             }
         }
     }
@@ -108,6 +119,7 @@
 			},
 			...mapGetters({
 				iframe: 'editor/iframe',
+				current_page: 'editor/current_page',
 				iframe_pages: 'editor/iframe_pages',
 				menu: 'editor/menu',
 				loading: 'load/loading'

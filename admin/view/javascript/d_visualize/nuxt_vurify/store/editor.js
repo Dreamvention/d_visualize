@@ -18,26 +18,33 @@ export const getters = {
         return state.components
     },
 	iframe_pages: (state, getters, rootState, rootGetters)=>{
-		return _.map(_.keys(rootGetters['template/active_template'].setting.page), (n)=>{
-			return {value: n, text: `page.${n.replace('/', '_').replace('*','all')}`};
-		}).splice(1);
+		if (rootGetters['template/active_template'])
+			return _.map(_.keys(rootGetters['template/active_template'].setting.page), (n)=>{
+				return {value: n, text: `page.${n.replace('/', '_').replace('*','all')}`};
+			}).splice(1);
+	},
+	current_page: (state, getters)=>{
+		let current_page = getters.iframe.page;
+		_.map(getters.iframe_pages, (page)=>{
+			var matches = getters.iframe.page.match(page.value.replace('/', '\/'));
+			if (matches) {
+				current_page = page.value;
+			}
+		});
+		return current_page;
 	}
 };
-
 // mutations
 export const mutations = {
     SET_IFRAME(state, payload) {
         state.iframe = payload
     },
-	PUSH_IFRAME_HISTORY(state,payload){
-		state.iframe_history.push(payload);
-		var new_history = JSON.parse(JSON.stringify(state.iframe_history));
-		Vue.set(state, 'iframe_history', new_history);
-    },
 	SET_MOBILE_TOGGLE(state,payload){
 		state.mobile_toggle = payload;
-    }
-
+	},
+	CHANGE_IFRAME_PAGE(state, payload) {
+		state.iframe.page = payload;
+	},
 };
 
 // actions
@@ -67,25 +74,10 @@ export const actions = {
     HIDE_MENU({commit}, payload) {
         commit('HIDE_MENU', payload)
     },
-	PUSH_IFRAME_HISTORY({commit}, payload) {
-
-		commit('PUSH_IFRAME_HISTORY', payload);
-		// dispatch('CHANGE_PAGE', payload);
-		//saving on the server last url
-		// let last_visited_url = 'http://localhost/index.php?route=common/home';
-		// if (getters.iframe_history[getters.iframe_history.length - 1].href) {
-		// 	last_visited_url = getters.iframe_history[context.getters.iframe_history.length - 1].href;
-		// }
-		// $.post(state.config.save_iframe_url, {
-		// 	last_url: last_visited_url
-		// }, function (data, status) {
-		// 	if (status === 'success') {
-		// 	}
-		// }, 'json').fail(function (e, m) {
-		// 	// context.commit('LOADING_END');
-		// 	error(m);
-		// 	error(app.$i18n.t('error.save_content'));
-		// });
+	async SAVE_IFRAME_HISTORY({commit}, payload) {
+		await this.$axios.post('extension/d_visualize/editor/save_iframe_url', {
+			last_url: payload
+		});
     },
 };
 

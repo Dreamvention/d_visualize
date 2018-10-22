@@ -1,8 +1,14 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
     <div class="vz-edit-iframe">
-        <iframe id="iframe" :src="iframe.src" @load="iframeLoad" frameborder="0" borderwidth="0" v-if="loading" :style="`width:${width}`"></iframe>
+        <v-btn style="display:none" @click="iframeLoad">
+            Click to post message
+        </v-btn >
+        <iframe id="iframe" :src="iframe.src" @load="iframeLoad" frameborder="0" borderwidth="0" v-if="loading"
+                :style="`width:${width}`">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
         <div v-else>
-            loading
+            loading...
         </div>
     </div>
 </template>
@@ -17,47 +23,22 @@
 	export default {
 		name: "EditorIframe",
 		props: ['iframe','loading','width'],
+		data() {
+			return {};
+		},
 		mounted() {
-			var frame = document.getElementById('iframe');
-			frame.contentWindow.postMessage({data:1}, '*');
-			// this.iframeURLChange(document.getElementById("iframe"), (newURL)=>{
-			// 	this.store.commit('load/LOADING_START');
-			// 	console.log("URL changed:", newURL);
-			// });
+			window.addEventListener('message', (event)=>{
+				if (event.data.vz_ifame_data) {
+					this.$store.commit('editor/CHANGE_IFRAME_PAGE', event.data.vz_ifame_data.route);
+					this.$store.dispatch('editor/SAVE_IFRAME_HISTORY', event.data.vz_ifame_data.location);
+				}
+				// this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
+			});
 		},
 		methods: {
-			iframeURLChange(iframe, callback) {
-				var unloadHandler = ()=>{
-					// Timeout needed because the URL changes immediately after
-					// the `unload` event is dispatched.
-					setTimeout(()=>{
-						if (iframe.contentWindow) {
-							this.$store.commit('load/LOADING_START');
-							callback(iframe.contentWindow.location.href);
-						}
-					}, 0);
-				};
-				function attachUnload() {
-					// Remove the unloadHandler in case it was already attached.
-					// Otherwise, the change will be dispatched twice.
-					iframe.contentWindow.removeEventListener("unload", unloadHandler);
-					iframe.contentWindow.addEventListener("unload", unloadHandler);
-				}
-				iframe.addEventListener("load", attachUnload);
-				attachUnload();
-			},
 			iframeLoad(e) {
-				// this.store.commit('load/LOADING_END');
-				// let iFrameDOM = $("iframe#iframe").contents();
-				// let route = iFrameDOM.find("#content").data('route');
-				// if (!route) {
-				// 	route = 'default';
-				}
-			// 	this.$store.dispatch('PUSH_IFRAME_HISTORY', $.extend(true, {}, $('iframe')[0].contentWindow.location));
-			// 	// this.$store.dispatch('CHANGE_PAGE', route);
-			// 	// this.$store.dispatch('CHANGE_NAVIGATION_CONTEXT');
-			// 	this.$store.commit('load/LOADING_END');
-			// }
+				document.getElementById('iframe').contentWindow.postMessage({vz_token: true}, '*');
+			}
 		}
 
 	};

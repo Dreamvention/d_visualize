@@ -28,9 +28,9 @@ class ControllerExtensionDVisualizeEditor extends Controller
         $this->response->setOutput(json_encode($data));
     }
 
-    public function saveIframeUrl()
+    public function save_iframe_url()
     {
-        $this->session->data['iframe_url'] = html_entity_decode($this->request->post['last_url']);
+        $this->session->data['iframe_url'] = json_decode(html_entity_decode($this->request->post['last_url']));
         $json['success'] = $this->session->data['iframe_url'];
         $this->response->setOutput(json_encode($json));
     }
