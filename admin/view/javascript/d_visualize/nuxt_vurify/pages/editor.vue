@@ -34,10 +34,11 @@
                 <v-btn class="flex" flat nuxt to="/editor/theme_set" exact color="primary">{{$t('editor.theme_set')}}
                 </v-btn>
             </v-layout>
-            <v-layout column full-height>
+            <v-layout column full-height class="editor-menu__holder">
+                <Loader :loading="loading.status===load.LOADING"></Loader>
                 <nuxt-child></nuxt-child>
             </v-layout>
-            <v-footer absolute class="editor-toggle" height="auto">
+            <v-footer  class="editor-menu__toggle" height="auto">
                 <v-btn-toggle xs12 v-model="toggle" mandatory>
                     <v-btn :value="respons.MOBILE" flat color="primary">
                         <v-icon>fas fa-mobile</v-icon>
@@ -53,7 +54,7 @@
         </v-navigation-drawer>
         <v-content fluid
                    app>
-            <Iframe :iframe="iframe" :loading="loading.status===load.WAITING" :width="toggle"
+            <Iframe :iframe="iframe" :loading="loading.status===load.LOADING" :width="toggle"
                     v-if="loading.content_loaded"></Iframe>
         </v-content>
     </v-app>
@@ -64,7 +65,6 @@
             padding-top: 14px;
             padding-bottom: 14px;
             border-bottom: 1px solid var(--secondary);
-
             .v-toolbar__content {
                 padding-left: 0;
                 padding-right: 0;
@@ -80,6 +80,12 @@
                             opacity: 1;
                             background: var(--primary);
                         }
+                        &:hover {
+                            &:before {
+                                opacity: 1;
+                                background: var(--primary);
+                            }
+                        }
                     }
                 }
             }
@@ -88,16 +94,41 @@
                 background-color:transparent;
             }
         }
-    }
-
-    .editor-toggle {
-        border: 1px solid var(--primary);
-        .v-btn-toggle {
-            width: 100%;
-            display: flex;
-            .v-btn {
-                flex: 1;
-                height: 50px;
+        &__holder {
+            .loading & div {
+                opacity: .85;
+            }
+            .loader {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                margin-left: -32px;
+                margin-top: -32px;
+                z-index: 2;
+            }
+        }
+        &__toggle {
+            border: 1px solid var(--primary);
+            .v-btn-toggle {
+                width: 100%;
+                display: flex;
+                .v-btn {
+                    flex: 1;
+                    height: 50px;
+                    &--active {
+                        color: white !important;
+                        &:before {
+                            opacity: 1;
+                            background: var(--primary);
+                        }
+                        &:hover {
+                            &:before {
+                                opacity: 1;
+                                background: var(--primary);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -121,7 +152,6 @@
 				iframe: 'editor/iframe',
 				current_page: 'editor/current_page',
 				iframe_pages: 'editor/iframe_pages',
-				menu: 'editor/menu',
 				loading: 'load/loading'
 			})
 		},

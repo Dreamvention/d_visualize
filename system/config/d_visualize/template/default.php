@@ -12,6 +12,7 @@ $_['d_visualize_template_default_setting'] = array(
                 'container_width' => '1440',
                 'component' => array(
                     'd_product_thumb' => array(
+                        'skin'=>'hydrus',
                         'template' => 'd_visualize/template/component/d_product_thumb/', //зафиксировано
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_product_thumb/',
                         'editable' => true,
@@ -111,7 +112,7 @@ $_['d_visualize_template_default_setting'] = array(
                     ),
                     'd_loader' => array(
                         'template' => 'd_visualize/template/component/product/remove/',
-                        'editable' => true,
+                        'editable' => false,
                     ),
                     'default_quantity_items' => array(
                         'template' => 'd_visualize/template/component/default/quantity_items/',
@@ -119,7 +120,6 @@ $_['d_visualize_template_default_setting'] = array(
                     'default_remove_btn' => array(
                         'template' => 'd_visualize/template/component/default/remove_btn/',
                     ),
-
                 ),
 //                'extension' => array(
 //                    'd_blog_module' => array(
@@ -197,6 +197,7 @@ $_['d_visualize_template_default_setting'] = array(
             'layout' => array(
                 'component' => array(
                     'product_category' => array(
+                        'editable'=>true,
                         'skin' => 'opencart',
                         'template' => 'd_visualize/template/component/product_category/',
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_category/',
@@ -293,7 +294,7 @@ $_['d_visualize_template_default_setting'] = array(
         'catalog/view/theme/d_visualize/font/awesome/v4-shims.min.css',
         'catalog/view/theme/d_visualize/stylesheet/dist/bootstrap.css',
         'catalog/view/theme/d_visualize/stylesheet/dist/bootstrap-grid.css',
-        'catalog/view/theme/default/stylesheet/stylesheet.css',
+//        'catalog/view/theme/default/stylesheet/stylesheet.css',
     ),
     'custom_styles' => array(
         ''
@@ -304,6 +305,6 @@ $_['events'] = array(
 );
 $_['config_theme_default'] = array(
     'size' => array(
-        'product_thumb' => array('width' => '707', 'height' => '707'),
+        'product_thumb' => array('width' => '330', 'height' => '330'),
     )
 );

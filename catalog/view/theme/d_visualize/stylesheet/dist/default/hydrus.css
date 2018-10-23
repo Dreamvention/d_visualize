@@ -93,6 +93,7 @@
   --link-color: #000;
   --padding-button: 1.07143rem 3.21429rem;
   --link-color-hover: #e63072;
+  --link-color-hover: #e63072;
   --link-color-hover: var(--color-primary);
   --font-main: 'Open Sans';
   --font-secondary: 'Blogger Sans';
@@ -114,21 +115,25 @@
 body,html{
   font-size: 14px;
   font-family: 'Open Sans';
+  font-family: 'Open Sans';
   font-family: var(--font-main);
   font-weight: normal;
 }
 a{
+  color: #000;
   color: #000;
   color: var(--link-color)
 }
 a:hover {
   text-decoration: none;
   color: #e63072;
+  color: #e63072;
   color: var(--link-color-hover);
 
 }
 .vz-button {
   padding: 1.07143rem 3.21429rem;
+  padding: 15px 45px;
   padding: var(--padding-button);
   font-size: 1.14286rem;
   -webkit-border-radius: 0;
@@ -136,50 +141,68 @@ a:hover {
 }
 .vz-button.btn-link {
   color: #000;
+  color: #000;
   color: var(--link-color);
 
 }
 .vz-button.btn-link:hover {
   text-decoration: none;
   color: #e63072;
+  color: #e63072;
   color: var(--link-color-hover);
 
 }
 .vz-button.btn-primary {
   background: #e63072;
+  background: #e63072;
   background: var(--color-primary);
   border: var(--border-primary);
   border: var(--border-primary);
+  border: var(--border-primary);
+  border: var(--border-primary);
+  border-color: #c1245d;
   border-color: #c1245d;
   border-color: var(--color-primary-darken);
 
 }
 .vz-button.btn-primary:hover, .vz-button.btn-primary:focus:active {
   background: #c1245d;
+  background: #c1245d;
   background: var(--color-primary-darken);
+  border-color: #c1245d;
   border-color: #c1245d;
   border-color: var(--color-primary-darkenx3);
 
 }
 .vz-button.btn-danger {
   background: #e31d27;
+  background: #e31d27;
   background: var(--color-danger);
   border: var(--border-danger);
   border: var(--border-danger);
+  border: var(--border-danger);
+  border: var(--border-danger);
+  border-color: #b61820;
   border-color: #b61820;
   border-color: var(--color-danger-darken);
 
 }
 .vz-button.btn-danger:hover {
   background: #b61820;
+  background: #b61820;
   background: var(--color-danger-darken);
+  border-color: var(--color-danger-darkenx3);
+  border-color: var(--color-danger-darkenx3);
   border-color: var(--color-danger-darkenx3);
   border-color: var(--color-danger-darkenx3);
 
 }
 .vz-button.btn-danger:focus:active {
   background: #b61820;
+  background: #b61820;
   background: var(--color-danger-darkenx2);
+  border-color: var(--color-danger-darkenx3);
+  border-color: var(--color-danger-darkenx3);
   border-color: var(--color-danger-darkenx3);
   border-color: var(--color-danger-darkenx3);
   outline: none;
@@ -187,23 +210,31 @@ a:hover {
 }
 .vz-button.btn-warning {
   background: #f26522;
+  background: #f26522;
   background: var(--color-warning);
   border: var(--border-warning);
   border: var(--border-warning);
+  border: var(--border-warning);
+  border: var(--border-warning);
+  border-color: #d24b09;
   border-color: #d24b09;
   border-color: var(--color-warning-darken);
 
 }
 .vz-button.btn-warning:hover {
   background: #d24b09;
+  background: #d24b09;
   background: var(--color-warning-darken);
+  border-color: #d24b09;
   border-color: #d24b09;
   border-color: var(--color-warning-darkenx3);
 
 }
 .vz-button.btn-warning:focus:active {
   background: #d24b09;
+  background: #d24b09;
   background: var(--color-warning-darkenx2);
+  border-color: #d24b09;
   border-color: #d24b09;
   border-color: var(--color-warning-darkenx3);
   outline: none;
@@ -211,23 +242,33 @@ a:hover {
 }
 .vz-button.btn-info {
   background: #546ac0;
+  background: #546ac0;
   background: var(--color-info);
   border: var(--border-info);
   border: var(--border-info);
+  border: var(--border-info);
+  border: var(--border-info);
+  border-color: #253d9c;
   border-color: #253d9c;
   border-color: var(--color-info-darken);
 
 }
 .vz-button.btn-info:hover {
   background: #253d9c;
+  background: #253d9c;
   background: var(--color-info-darken);
+  border-color: var(--color-info-darkenx3);
+  border-color: var(--color-info-darkenx3);
   border-color: var(--color-info-darkenx3);
   border-color: var(--color-info-darkenx3);
 
 }
 .vz-button.btn-info:focus:active {
   background: #253d9c;
+  background: #253d9c;
   background: var(--color-info-darkenx2);
+  border-color: var(--color-info-darkenx3);
+  border-color: var(--color-info-darkenx3);
   border-color: var(--color-info-darkenx3);
   border-color: var(--color-info-darkenx3);
   outline: none;
@@ -235,23 +276,33 @@ a:hover {
 }
 .vz-button.btn-default {
   background: #f3f4f8;
+  background: #f3f4f8;
   background: var(--color-default);
   border: var(--border-default);
   border: var(--border-default);
+  border: var(--border-default);
+  border: var(--border-default);
+  border-color: #9da6af;
   border-color: #9da6af;
   border-color: var(--color-default-darken);
 
 }
 .vz-button.btn-default:hover {
   background: #9da6af;
+  background: #9da6af;
   background: var(--color-default-darken);
+  border-color: var(--color-default-darkenx3);
+  border-color: var(--color-default-darkenx3);
   border-color: var(--color-default-darkenx3);
   border-color: var(--color-default-darkenx3);
 
 }
 .vz-button.btn-default:focus:active {
   background: #9da6af;
+  background: #9da6af;
   background: var(--color-default-darkenx2);
+  border-color: var(--color-default-darkenx3);
+  border-color: var(--color-default-darkenx3);
   border-color: var(--color-default-darkenx3);
   border-color: var(--color-default-darkenx3);
   outline: none;
@@ -259,23 +310,31 @@ a:hover {
 }
 .vz-button.btn-success {
   background: #62a600;
+  background: #62a600;
   background: var(--color-success);
   border: var(--border-success);
   border: var(--border-success);
+  border: var(--border-success);
+  border: var(--border-success);
+  border-color: #578810;
   border-color: #578810;
   border-color: var(--color-success-darken);
 
 }
 .vz-button.btn-success:hover {
   background: #578810;
+  background: #578810;
   background: var(--color-success-darken);
+  border-color: #578810;
   border-color: #578810;
   border-color: var(--color-success-darkenx3);
 
 }
 .vz-button.btn-success:focus:active {
   background: #578810;
+  background: #578810;
   background: var(--color-success-darkenx2);
+  border-color: #578810;
   border-color: #578810;
   border-color: var(--color-success-darkenx3);
   outline: none;
@@ -296,6 +355,8 @@ a:hover {
 
 }
 .vz-product-thumb_default {
+    border: var(--border-primary);
+    border: var(--border-primary);
     border: var(--border-primary);
     border: var(--border-primary);
 }

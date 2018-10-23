@@ -2,21 +2,33 @@
     <div class="sections">
         <div class="sections__list">
             <v-btn class="sections__list-item sections__list-item--header" block nuxt exact
-                   to="editor/header">
-                {{$t('edit.vdh')}}
+                   to="editor/vdh">
+                {{$t('editor.vdh')}}
                 <v-icon>fas fa-chevron-right</v-icon>
             </v-btn>
-            <v-list class="py-0">
-            <template v-for="(item, index) in items">
-                <v-btn class="sections__list-item" block nuxt exact to="editor/header">
-                    {{$t('common.header')}}
-                    <v-icon>fas fa-chevron-right</v-icon>
-                </v-btn>
+            <v-list class="py-0" v-if="menu.navigation.common.length">
+                <v-subheader> {{$t('editor.common_components')}}
+                </v-subheader>
+                <template v-for="(item, index) in menu.navigation.common">
+                    <v-btn class="sections__list-item" block nuxt exact :to="item.href">
+                        {{$t(item.text)}}
+                        <v-icon>fas fa-chevron-right</v-icon>
+                    </v-btn>
             </template>
-        </v-list>
+            </v-list>
+            <v-list class="py-0" v-if="menu.navigation.current_page.length">
+                <v-subheader> {{$t('editor.current_page_components')}}
+                </v-subheader>
+                <template v-for="(item, index) in menu.navigation.current_page">
+                    <v-btn class="sections__list-item" block nuxt exact :to="item.href">
+                        {{$t(item.text)}}
+                        <v-icon>fas fa-chevron-right</v-icon>
+                    </v-btn>
+                </template>
+            </v-list>
             <v-btn class="sections__list-item sections__list-item--footer" block nuxt exact
-                   to="editor/footer">
-                {{$t('edit.vdf')}}
+                   to="editor/vdf">
+                {{$t('editor.vdf')}}
                 <v-icon>fas fa-chevron-right</v-icon>
             </v-btn>
         </div>
@@ -24,28 +36,14 @@
 </template>
 
 <script>
-	import VDHeader from '~/components/editor/VDHeader';
+	import {mapGetters} from 'vuex';
 
 	export default {
 		name: "index",
-        components:{
-	        VDHeader
-        },
-		data () {
-			return {
-				items: [
-					{
-						title: 'Header',
-						to: ''
-					},
-					{
-						title: 'Summer BBQ ',
-					},
-					{
-						title: 'Footer',
-					}
-				]
-			}
+		computed: {
+			...mapGetters({
+				menu: 'editor/menu',
+			})
 		}
 	};
 </script>

@@ -1,11 +1,15 @@
 import {RESPONSIVE} from '~/constants';
+import Vue from 'vue';
 // state
 export const state = () => ({
     menu: {
-        hidden: false
+	    hidden: false,
+	    navigation: {
+	    	common:[],
+		    current_page:[]
+	    }
     },
 	mobile_toggle: RESPONSIVE.FULL,
-    components: null,
     iframe: null
 });
 
@@ -14,8 +18,23 @@ export const getters = {
     menu: state => state.menu,
     iframe: state => state.iframe,
 	mobile_toggle: state => state.mobile_toggle,
-    components: state => {
-        return state.components
+	default_components: (state, getters, rootState, rootGetters)=>{
+		let components = _.reduce(rootGetters['template/active_template'].setting.page['default'].layout.component, (memo, component, key)=>{
+			if (component.editable) {
+				memo[key] = component;
+			}
+			return memo;
+		}, []);
+		return components;
+    },
+	page_components: (state, getters, rootState, rootGetters)=>{
+		let components = _.reduce(rootGetters['template/active_template'].setting.page[getters.current_page].layout.component, (memo, component, key)=>{
+			if (component.editable) {
+				memo[key] = component;
+			}
+			return memo;
+		}, []);
+		return components;
     },
 	iframe_pages: (state, getters, rootState, rootGetters)=>{
 		if (rootGetters['template/active_template'])
@@ -32,7 +51,7 @@ export const getters = {
 			}
 		});
 		return current_page;
-	}
+	},
 };
 // mutations
 export const mutations = {
@@ -45,6 +64,9 @@ export const mutations = {
 	CHANGE_IFRAME_PAGE(state, payload) {
 		state.iframe.page = payload;
 	},
+	CHANGE_NAVIGATION_CONTEXT(state, payload) {
+		Vue.set(state.menu, 'navigation', payload);
+	}
 };
 
 // actions
@@ -53,31 +75,29 @@ export const actions = {
         let {data: {iframe: iframe}} = await this.$axios.get('extension/d_visualize/editor')
         commit('SET_IFRAME', iframe)
     },
-    CHANGE_NAVIGATION_CONTEXT({commit}) {
-        var navigation = [];
-        navigation.push({
-            href: '/editor/vdh',
-            text: 'edit.vdh'
-        });
-        // navigation = navigation.concat(Object.keys(context.getters.components).map(function (c) {
-        //     return {
-        //         href: '/editor/components/' + c,
-        //         text: 'editor.entry_' + c
-        //     };
-        // }));
-        navigation.push({
-            href: '/editor/vdf',
-            text: 'edit.vdf'
-        });
-        commit('CHANGE_NAVIGATION_CONTEXT', navigation);
-    },
-    HIDE_MENU({commit}, payload) {
-        commit('HIDE_MENU', payload)
-    },
 	async SAVE_IFRAME_HISTORY({commit}, payload) {
 		await this.$axios.post('extension/d_visualize/editor/save_iframe_url', {
 			last_url: payload
 		});
+	},
+	CHANGE_NAVIGATION_CONTEXT({commit, getters}) {
+        var navigation = {};
+		navigation.common = Object.keys(getters.default_components).map(function (c) {
+			return {
+				href: '/editor/component/' + c,
+				text: 'component.entry_' + c
+			};
+		});
+		navigation.current_page = Object.keys(getters.page_components).map(function (c) {
+			return {
+				href: '/editor/component/' + c,
+				text: 'component.entry_' + c
+			};
+		});
+        commit('CHANGE_NAVIGATION_CONTEXT', navigation);
+    },
+    HIDE_MENU({commit}, payload) {
+        commit('HIDE_MENU', payload)
     },
 };
 

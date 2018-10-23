@@ -3,6 +3,11 @@
 {% endfor %}
 {# only for devs #}
 <script>
+	window.onbeforeunload = function (event) {
+		if (parent) {
+			parent.postMessage({vz_ifame_loading: {url: event.target.URL}}, "*");
+		}
+	};
 	window.addEventListener('message', function(event) {
 		if (event.data.vz_token){
 			var route = $('#content').data('route');

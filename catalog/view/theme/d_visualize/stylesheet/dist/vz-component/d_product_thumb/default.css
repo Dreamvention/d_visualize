@@ -1,6 +1,8 @@
 .vz-product-thumb{
   border: var(--border-primary);
   border: var(--border-primary);
+  border: var(--border-primary);
+  border: var(--border-primary);
 }
   .vz-product-thumb__image img{
       margin: auto;

@@ -229,6 +229,7 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $local['dashboard']['entry_available_templates'] = $this->language->get('entry_available_templates');
 
+        //dashboard
         $local['template']['live_demo'] = 'View Live Demo';
         $local['template']['replace_content'] = 'Replace existing content';
         $local['template']['use_this'] = 'Use This Template';
@@ -246,22 +247,36 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['template']['available_templates_description'] = 'Manage your store\'s themes. Add and publish themes to change your online store\'s appearance.';
         $local['template']['explore'] = 'Explore';
 
-        $local['edit']['current_template'] = $this->language->get('entry_current_template');
-        $local['edit']['active_template'] = $this->language->get('entry_active_template');
-        $local['edit']['change_template'] = $this->language->get('entry_change');
-        $local['edit']['change_template'] = $this->language->get('entry_change');
-        $local['edit']['publish'] = $this->language->get('entry_publish');
-        $local['edit']['vdh'] = $this->language->get('entry_visual_header');
-        $local['edit']['vdf'] = $this->language->get('entry_visual_footer');
-        $local['edit']['entry_common_components'] = $this->language->get('entry_common_components');
-        $local['edit']['entry_component_skin'] = $this->language->get('entry_component_skin');
-        $local['edit']['entry_custom_style'] = $this->language->get('entry_custom_style');
-        $local['edit']['entry_d_product_thumb'] = $this->language->get('entry_d_product_thumb');
-        $local['edit']['entry_breadcrumb'] = $this->language->get('entry_breadcrumb');
-        $local['edit']['entry_d_product_sort'] = $this->language->get('entry_d_product_sort');
-        $local['edit']['entry_*'] = $this->language->get('entry_*');
+        //common
+        $local['editor']['current_template'] = $this->language->get('entry_current_template');
+        $local['editor']['active_template'] = $this->language->get('entry_active_template');
+        $local['editor']['change_template'] = $this->language->get('entry_change');
+        $local['editor']['entry_component_skin'] = $this->language->get('entry_component_skin');
+        $local['editor']['entry_custom_style'] = $this->language->get('entry_custom_style');
+        $local['editor']['publish'] = $this->language->get('entry_publish');
+
+        //header
         $local['editor']['section'] = 'Section';
         $local['editor']['theme_set'] = 'Theme set';
+        $local['editor']['common_components'] = 'Common';
+        $local['editor']['current_page_components'] = 'Current page';
+
+        //menu
+        $local['editor']['vdh'] = 'Header';
+        $local['editor']['vdf'] = 'Footer';
+
+        //component
+        $local['component']['entry_d_product_thumb'] = $this->language->get('entry_d_product_thumb');
+        $local['component']['entry_d_product_thumb_description'] = $this->language->get('entry_d_product_thumb_description');
+        $local['component']['entry_d_product_sort'] = $this->language->get('entry_d_product_sort');
+        $local['component']['entry_breadcrumb'] = $this->language->get('entry_breadcrumb');
+        $local['component']['entry_d_notification'] = 'Notification';
+        $local['component']['entry_d_mini_cart'] = 'Mini Cart';
+        $local['component']['entry_product_product'] = 'Product Page';
+        $local['component']['entry_product_category'] = 'Category Page';
+        $local['component']['entry_common_components'] = $this->language->get('entry_common_components');
+
+
         //can't use '/'
         $local['page']['common_home'] = 'Home Page';
         $local['page']['product_product'] = 'Product Page';
@@ -270,6 +285,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['page']['account_all'] = 'Account/*';
         $local['page']['account_login'] = 'Login Page';
         $local['page']['checkout_all'] = 'Checkout/*';
+
+
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');
