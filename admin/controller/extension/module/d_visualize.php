@@ -198,7 +198,6 @@ class ControllerExtensionModuleDVisualize extends Controller
     {
         $json = array();
         $setting = array();
-        $json['available_components'] = $this->{'model_extension_' . $this->codename . '_template'}->getAvailableComponents();
         $this->response->setOutput(json_encode($json));
     }
 

@@ -11,10 +11,15 @@ class ControllerExtensionDVisualizeTemplate extends Controller
 
     public function index()
     {
+        return $this->all();
     }
     public function all()
     {
         $this->response->setOutput(json_encode($this->model_extension_d_visualize_template->getAvailableTemplates()));
+    }
+    public function components()
+    {
+        $this->response->setOutput(json_encode(array('components'=>$this->model_extension_d_visualize_template->getAvailableComponents())));
     }
     public function save()
     {

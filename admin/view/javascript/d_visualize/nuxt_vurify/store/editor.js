@@ -18,33 +18,9 @@ export const getters = {
     menu: state => state.menu,
     iframe: state => state.iframe,
 	mobile_toggle: state => state.mobile_toggle,
-	default_components: (state, getters, rootState, rootGetters)=>{
-		let components = _.reduce(rootGetters['template/active_template'].setting.page['default'].layout.component, (memo, component, key)=>{
-			if (component.editable) {
-				memo[key] = component;
-			}
-			return memo;
-		}, []);
-		return components;
-    },
-	page_components: (state, getters, rootState, rootGetters)=>{
-		let components = _.reduce(rootGetters['template/active_template'].setting.page[getters.current_page].layout.component, (memo, component, key)=>{
-			if (component.editable) {
-				memo[key] = component;
-			}
-			return memo;
-		}, []);
-		return components;
-    },
-	iframe_pages: (state, getters, rootState, rootGetters)=>{
-		if (rootGetters['template/active_template'])
-			return _.map(_.keys(rootGetters['template/active_template'].setting.page), (n)=>{
-				return {value: n, text: `page.${n.replace('/', '_').replace('*','all')}`};
-			}).splice(1);
-	},
-	current_page: (state, getters)=>{
+	current_page: (state, getters, rootState, rootGetters)=>{
 		let current_page = getters.iframe.page;
-		_.map(getters.iframe_pages, (page)=>{
+		_.map(rootGetters['template/available_pages'], (page)=>{
 			var matches = getters.iframe.page.match(page.value.replace('/', '\/'));
 			if (matches) {
 				current_page = page.value;
@@ -80,15 +56,15 @@ export const actions = {
 			last_url: payload
 		});
 	},
-	CHANGE_NAVIGATION_CONTEXT({commit, getters}) {
+	CHANGE_NAVIGATION_CONTEXT({commit, getters,rootGetters }) {
         var navigation = {};
-		navigation.common = Object.keys(getters.default_components).map(function (c) {
+		navigation.common = Object.keys(rootGetters['template/default_components']).map(function (c) {
 			return {
 				href: '/editor/component/' + c,
 				text: 'component.entry_' + c
 			};
 		});
-		navigation.current_page = Object.keys(getters.page_components).map(function (c) {
+		navigation.current_page = Object.keys(rootGetters['template/page_components']).map(function (c) {
 			return {
 				href: '/editor/component/' + c,
 				text: 'component.entry_' + c
