@@ -70,8 +70,25 @@ export const actions = {
     async RENAME_TEMPLATE_TITLE({commit},payload) {
         commit('RENAME_TEMPLATE_TITLE', payload)
     },
-	async SET_VARIATION({commit}, payload) {
+	async SAVE({commit}, payload) {
+		let {data} = await this.$axios.post('extension/d_visualize/template/save', {
+			template_id: payload.setting.codename,
+			template: payload,
+		});
+	},
+	async SET_VARIATION({commit, dispatch, getters}, payload) {
 		commit('SET_VARIATION', payload);
-		//dispatch on save
+		await dispatch('SAVE', getters.active_template);
+		//dispatch to make ajax reload
+		document.getElementById('iframe').contentWindow.postMessage({
+			vz_token: true,
+			vz_change_component_variation: {
+				template_id: payload.template_id,
+				page: payload.page,
+				component_id: payload.component_id,
+				skin: payload.variation
+			}
+		}, '*');
+
 	},
 };

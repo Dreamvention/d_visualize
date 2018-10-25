@@ -1,0 +1,12 @@
+body,html{
+  font-size: 14px;
+  font-family: var(--font-main);
+  font-weight: normal;
+}
+a{
+  color: var(--link-color);
+  &:hover{
+    text-decoration: none;
+    color: var(--link-color-hover);
+  }
+}

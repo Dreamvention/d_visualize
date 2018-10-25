@@ -8,3 +8,6 @@
     width: calc(100%);
   }
 }
+body,html{
+  overflow: auto !important;
+}

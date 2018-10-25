@@ -66,13 +66,32 @@
 		computed: {
 			component_variation: {
 				get() {
-					return this.$store.getters['template/active_template'].setting.page.default.layout.component[this.component_id].skin;
+					//return if it's a default component
+					if (this.$store.getters['template/active_template'].setting.page.default.layout.component[this.component_id]) {
+						return this.$store.getters['template/active_template']
+							.setting
+							.page
+							.default
+							.layout
+							.component[this.component_id].skin;
+					} else if (this.$store.getters['template/active_template']
+						.setting
+						.page[this.$store.getters['editor/current_page']]
+						.layout
+						.component[this.component_id]) {
+						return this.$store.getters['template/active_template']
+							.setting
+							.page[this.$store.getters['editor/current_page']]
+							.layout
+							.component[this.component_id].skin;
+					}
 				},
 				set(value) {
 					this.$store.dispatch('template/SET_VARIATION', {
 						template_id:this.$store.getters['template/active_template'].setting.codename,
                         component_id: this.component_id,
-                        page: 'default',
+						page: this.$store.getters['template/active_template'].setting.page.default.layout.component[this.component_id]
+                            ? 'default' : this.$store.getters['editor/current_page'],
                         variation: value
                     });
 				}

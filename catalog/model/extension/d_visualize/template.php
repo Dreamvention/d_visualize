@@ -45,8 +45,13 @@ class ModelExtensionDVisualizeTemplate extends Model
 
     public function loadTemplateSetting($active_template_codename = 'default')
     {
-        $active_template = $this->getAvailableTemplates()[$active_template_codename]['setting'];
         $this->components = $this->getAvailableComponents();
+        $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
+        if ($db_saved_template_setting){
+            $active_template = (array)json_decode($db_saved_template_setting['setting'], true);
+        }else{
+            $active_template = $this->getAvailableTemplates()[$active_template_codename]['setting'];
+        }
         //check on skin overloading the components
         // add some magic here
         foreach (array_keys($active_template['page']) as $path) {
@@ -62,8 +67,7 @@ class ModelExtensionDVisualizeTemplate extends Model
             }
         }
         //if there will be changes from DB it will replace
-        $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
-        return $db_saved_template_setting ? (array)json_decode($db_saved_template_setting['setting'], true) : $active_template;
+        return $active_template;
     }
 
     /*

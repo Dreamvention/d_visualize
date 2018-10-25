@@ -1,5 +1,7 @@
 <?php
 
+use Leafo\ScssPhp\Compiler;
+
 class ControllerExtensionDVisualizeEditor extends Controller
 {
     private $codename = 'd_visualize';
@@ -35,4 +37,23 @@ class ControllerExtensionDVisualizeEditor extends Controller
         $this->response->setOutput(json_encode($json));
     }
 
+    public function compile_scss()
+    {
+        $colors = DIR_CATALOG . 'view/theme/d_visualize/stylesheet/template/default/skin/opencart/base/_colors.scss';
+        if (@is_file($colors)) {
+            echo @file_get_contents($colors);
+        }else{
+            echo $colors;
+        }
+        exit;
+        include_once(DIR_SYSTEM . 'library/' . $this->codename . '/scssphp/scss.inc.php');
+        $scss = new Compiler();
+        $scss->setVariables(array(
+            'color' => 'blue',
+        ));
+        echo $scss->compile('
+        div { color: lighten($color, 20%); }
+');
+
+    }
 }

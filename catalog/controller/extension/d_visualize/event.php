@@ -77,6 +77,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             // if last view is loaded we add scripts and Style from our d_visualize
             if ($view == $view_route) {
                 $data['page_route'] = $view_route;
+                $data['site_url'] = HTTPS_SERVER;
                 if (isset($data['header'])) {
                     $data['header'] = $this->model_helper->addDocumentPageData(
                         array('scripts' => $this->pageScripts,
@@ -166,5 +167,11 @@ class ControllerExtensionDVisualizeEvent extends Controller
         curl_setopt($ch, CURLOPT_URL, HTTPS_CATALOG . '?screnshot');
         // close curl resource to free up system resources
         curl_close($ch);
+    }
+
+    public function get_component_templates()
+    {
+        $this->response->addHeader('Content-Type: application/html');
+        $this->response->setOutput('<p>ss</p>');
     }
 }

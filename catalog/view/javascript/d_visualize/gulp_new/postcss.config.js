@@ -1,8 +1,14 @@
-module.exports = function () {
+module.exports = function (data) {
+	console.log(data.options.skin)
+	console.log(data.options.path_skin)
 	return {
 		syntax:'postcss-scss',
 		plugins: [
-			require('precss')({}),
+			require('precss')({
+				variables: {
+					'site-width': '960px'
+				}
+			}),
 
 			require('postcss-import')({
 				plugins: ['precss']

@@ -54,7 +54,7 @@
 		},
 		methods: {
 			iframeLoad(e) {
-				document.getElementById('iframe').contentWindow.postMessage({vz_token: true}, '*');
+				document.getElementById('iframe').contentWindow.postMessage({vz_token: true,vz_get_iframe_info:true}, '*');
 				this.$store.commit('load/LOADING_END');
 			}
 		}

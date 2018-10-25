@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');
+var sass = require('gulp-sass');
 var browserSync = require("browser-sync");
 var path = require("path");
 var fs = require('fs');
@@ -76,9 +77,30 @@ gulp.task('postCSS:templates', function () {
 	folders.map(function (folderTemplate) {
 		var folders_skin = getFolders(path.join(templatesDir, folderTemplate, 'skin'));
 		tasks.push(folders_skin.map((skin_folder)=>{
-			return gulp.src(path.join(templatesDir, folderTemplate, 'skin',skin_folder, skin_folder + '.css'))
+			let path_skin = path.join(templatesDir, folderTemplate, 'skin', skin_folder);
+			return gulp.src(path.join(path_skin, skin_folder + '.css'))
 				.pipe(sourcemaps.init())
-				.pipe(postcss()).on('error', (e)=>console.log(e.message))
+				.pipe(postcss({skin: skin_folder, path: path_skin})).on('error', (e)=>console.log(e.message))
+				.pipe(require('gulp-autoprefixer')({browsers: ['last 15 versions']}))
+				.pipe(sourcemaps.write(path.join(stylesheetDir, 'dist', folderTemplate)))
+				.pipe(gulp.dest(path.join(stylesheetDir, 'dist', folderTemplate)))
+				.pipe(browserSync.stream({match: '**/*.css'}));
+		}));
+	});
+	return tasks;
+});
+/*
+* For php support we use scss for skin templates. This function uses for dev only */
+gulp.task('scssCSS:templates', function () {
+	var folders = getFolders(templatesDir);
+	var tasks = [];
+	folders.map(function (folderTemplate) {
+		var folders_skin = getFolders(path.join(templatesDir, folderTemplate, 'skin'));
+		tasks.push(folders_skin.map((skin_folder)=>{
+			let path_skin = path.join(templatesDir, folderTemplate, 'skin', skin_folder);
+			return gulp.src(path.join(path_skin, skin_folder + '.scss'))
+				.pipe(sourcemaps.init())
+				.pipe(sass()).on('error', (e)=>console.log(e.message))
 				.pipe(require('gulp-autoprefixer')({browsers: ['last 15 versions']}))
 				.pipe(sourcemaps.write(path.join(stylesheetDir, 'dist', folderTemplate)))
 				.pipe(gulp.dest(path.join(stylesheetDir, 'dist', folderTemplate)))
@@ -96,7 +118,6 @@ gulp.task('postCSS:vz-core', function () {
 		.pipe(gulp.dest(path.join(stylesheetDir, 'dist', 'vz-core')))
 		.pipe(browserSync.stream({match: '**/*.css'}));
 });
-
 gulp.task('CSS:watch', function () {
 	var cssFiles = [];
 	cssFiles.push(path.join(templatesDir, '**','skin', '**', '*.*css'));
@@ -110,7 +131,6 @@ gulp.task('CSS:watch', function () {
 
 	gulp.watch([cssFiles], ['postCSS:vz-core', 'postCSS:templates', 'postCSS:components']);
 });
-
 gulp.task('scripts:watch', function () {
 	gulp.watch(
 		scripts_src, ['scripts:core']
@@ -123,7 +143,6 @@ gulp.task("browser_sync_init", function () {
 		});
 	}
 });
-
 gulp.task('default', ["browser_sync_init"], function () {
 	if (typeof process.env.HOST !== "undefined") {
 		gulp.watch([

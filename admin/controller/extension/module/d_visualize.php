@@ -264,26 +264,32 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['editor']['vdh'] = 'Header';
         $local['editor']['vdf'] = 'Footer';
 
-        //component
-        $local['component']['entry_d_product_thumb'] = $this->language->get('entry_d_product_thumb');
-        $local['component']['entry_d_product_thumb_description'] = $this->language->get('entry_d_product_thumb_description');
-        $local['component']['entry_d_product_sort'] = $this->language->get('entry_d_product_sort');
-        $local['component']['entry_breadcrumb'] = $this->language->get('entry_breadcrumb');
-        $local['component']['entry_d_notification'] = 'Notification';
-        $local['component']['entry_d_mini_cart'] = 'Mini Cart';
-        $local['component']['entry_product_product'] = 'Product Page';
-        $local['component']['entry_product_category'] = 'Category Page';
-        $local['component']['entry_common_components'] = $this->language->get('entry_common_components');
-
-
         //can't use '/'
         $local['page']['common_home'] = 'Home Page';
         $local['page']['product_product'] = 'Product Page';
         $local['page']['product_category'] = 'Category Page';
         $local['page']['checkout_cart'] = 'Cart Page';
+        $local['page']['checkout_checkout'] = 'Checkout Page';
         $local['page']['account_all'] = 'Account/*';
         $local['page']['account_login'] = 'Login Page';
         $local['page']['checkout_all'] = 'Checkout/*';
+
+        //component
+        $local['component']['entry_d_product_thumb'] = $this->language->get('entry_d_product_thumb');
+        $local['component']['entry_d_product_thumb_description'] = $this->language->get('entry_d_product_thumb_description');
+        $local['component']['entry_d_product_sort'] = $this->language->get('entry_d_product_sort');
+        $local['component']['entry_breadcrumb'] = $this->language->get('entry_breadcrumb');
+        $local['component']['entry_form_group'] = 'Form group';
+        $local['component']['entry_d_notification'] = 'Notification';
+        $local['component']['entry_d_mini_cart'] = 'Mini Cart';
+        $local['component']['entry_product_product'] = $local['page']['product_product'];
+        $local['component']['entry_product_category'] = $local['page']['product_category'];
+        $local['component']['entry_checkout_cart'] = $local['page']['checkout_cart'];
+        $local['component']['entry_checkout_checkout'] = $local['page']['checkout_checkout'];
+
+        $local['component']['entry_common_components'] = $this->language->get('entry_common_components');
+
+
 
 
 

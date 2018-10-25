@@ -53,7 +53,16 @@
             <v-tab-item
                     key="theme_set">
                 <div class="sections__theme">
-                    buttons
+                    <div class="sections__list">
+                        <v-list class="py-0" >
+                            <template v-for="(item, index) in items">
+                                <v-btn class="sections__list-item" block nuxt exact :to="item.href">
+                                    {{$t(item.text)}}
+                                    <v-icon>fas fa-chevron-right</v-icon>
+                                </v-btn>
+                            </template>
+                        </v-list>
+                    </div>
                 </div>
             </v-tab-item>
         </v-tabs>
@@ -72,6 +81,11 @@
 		data () {
 			return {
 				active: 'section',
+				items:[
+                    {href:'editor/colors',text:'Colors'},
+                    {href:'editor/colors',text:'Buttons'},
+                    {href:'editor/colors',text:'Typography'}
+                ]
 			}
 		},
 		methods: {

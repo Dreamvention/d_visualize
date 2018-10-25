@@ -10,13 +10,24 @@
 	};
 	window.addEventListener('message', function(event) {
 		if (event.data.vz_token){
-			var route = $('#content').data('route');
-			var location = this.location.href;
-			// IMPORTANT: Check the origin of the data!
-			if (~event.origin.indexOf('http://localhost:3000')) {
-				parent.postMessage({vz_ifame_data: {route: route, location: location}}, "*");
-			} else {
-				return;
+			if (event.data.vz_get_iframe_info) {
+				var route = $('#content').data('route');
+				var location = this.location.href;
+				// IMPORTANT: Check the origin of the data!
+				if (~event.origin.indexOf('http://localhost:3000'||'{{ site_url }}')) {
+					parent.postMessage({vz_ifame_data: {route: route, location: location}}, "*");
+				} else {
+					return;
+				}
+			}
+			if (event.data.vz_change_component_variation) {
+				this.location.reload();
+			// 	$.post(
+			// 		'index.php?route=extension/d_visualize/event/get_component_templates',
+			// 		event.data.vz_change_component_variation,
+			// 		function (res) {
+			// 			console.log(res);
+			// 		});
 			}
 		}
 	});

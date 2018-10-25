@@ -40,10 +40,10 @@
             background-color: var(--info);
             display: flex;
             min-height: 50px + 20px;
+            position: relative;
             h2 {
                 margin-bottom: 0;
                 text-align: center;
-                position: absolute;
                 width: 100%;
                 padding: 20px 40px;
             }
@@ -51,6 +51,9 @@
                 font-size: 15px;
             }
             .v-btn{
+                position: absolute;
+                left: 0;
+                top: calc(50% - 32px);
                 margin-top: 15px;
                 margin-bottom: 15px;
             }

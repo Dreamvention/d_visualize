@@ -24,7 +24,7 @@
                             :items="iframe_pages"
                             :item-text="(e)=>this.$t(e.text)"
                     ></v-autocomplete>
-                    <v-btn color="success" @click="console.log('enable and save')"
+                    <v-btn color="success" @click="saveTemplate"
                     > {{$t('common.button_save')}}
                     </v-btn>
                 </div>
@@ -161,15 +161,12 @@
             }
 		},
 		methods: {
-			changeIfrmeSize(size) {
+			async saveTemplate(){
+				this.$store.commit('load/LOADING_START');
+				await this.$store.dispatch('template/SAVE',this.$store.getters['template/active_template']);
+				this.$store.commit('load/LOADING_END');
 
 			},
-			itemsText(e) {
-				return;
-			},
-			toggle_show() {
-
-			}
 		}
 	};
 </script>

@@ -158,9 +158,6 @@ $_['d_visualize_template_default_setting'] = array(
         'product/product' => array(
             'layout' => array(
                 'component' => array(
-                    'd_review' => array(
-                        'template' => 'd_visualize/template/component/d_review/'
-                    ),
                     'product_product' => array(
                         'editable'=>true,
                         'template' => 'd_visualize/template/component/product_product/',
@@ -213,16 +210,6 @@ $_['d_visualize_template_default_setting'] = array(
             'scripts' => array(),
             'styles' => array()
         ),
-        'checkout/cart' => array(
-            'layout' => array(
-                'component' => array(
-                    'checkout_cart' => array(
-                        'template' => 'd_visualize/template/component/checkout_cart/',
-                    )
-                ),
-            ),
-            'scripts' => array()
-        ),
 //        'extension/d_blog_module/*' => array(
 //            'layout' => array(
 //                'columns' => array(
@@ -261,6 +248,7 @@ $_['d_visualize_template_default_setting'] = array(
                 )
             )
         ),
+        //follow priority
         'checkout/*' => array(
             'layout' => array(
                 'component' => array(
@@ -274,7 +262,19 @@ $_['d_visualize_template_default_setting'] = array(
                 )
             )
 
-        )
+        ),
+        'checkout/cart' => array(
+            'layout'  => array(
+                'component' => array(
+                    'checkout_cart' => array(
+                        'editable' => true,
+                        'template' => 'd_visualize/template/component/checkout_cart/',
+                    )
+                ),
+            ),
+            'scripts' => array()
+        ),
+
     ),
     'pre_scripts' => array(
         'catalog/view/javascript/bootstrap/js/bootstrap.min.js',
