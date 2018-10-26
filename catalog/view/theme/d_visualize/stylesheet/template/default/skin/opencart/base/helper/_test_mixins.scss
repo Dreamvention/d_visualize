@@ -1,0 +1,68 @@
+.clearfix {
+  @include clearfix();
+}
+
+.arrow {
+  @include arrow(up, 20px, red);
+}
+
+.push-auto {
+  @include push-auto();
+}
+
+.pseudo {
+  @include pseudo($content: '22');
+}
+
+.triangle {
+  @include triangle(red, up, $round: true);
+}
+
+.retina {
+  @include retina('asset/image.png', 300, 500);
+}
+
+.font-face {
+  @include font-face('Open', 'path/Open');
+}
+
+.center-transform {
+  @include center-transform();
+}
+
+.center-y-transform {
+  @include center-y-transform();
+}
+
+.center-margin {
+  @include center-margin(30px, 40px);
+}
+
+.truncate {
+  @include truncate(500px);
+}
+
+.flex-align-center {
+  @include flex-align-center()
+}
+
+.full-space {
+  @include full-space()
+}
+
+.mq-phone {
+  @include mq('phone') {
+    background-color: red;
+  }
+}
+
+.mq-tablet {
+  @include mq('tablet') {
+    background-color: blue;
+  }
+}
+.adaptive {
+  @include adaptive('body') {
+    background-color: blue;
+  }
+}

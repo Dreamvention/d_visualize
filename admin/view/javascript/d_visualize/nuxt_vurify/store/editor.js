@@ -7,7 +7,8 @@ export const state = () => ({
 	    navigation: {
 	    	common:[],
 		    current_page:[]
-	    }
+	    },
+	    active_tab:1
     },
 	mobile_toggle: RESPONSIVE.FULL,
     iframe: null
@@ -42,6 +43,9 @@ export const mutations = {
 	},
 	CHANGE_NAVIGATION_CONTEXT(state, payload) {
 		Vue.set(state.menu, 'navigation', payload);
+	},
+	CHANGE_ACTIVE_TAB(state, payload) {
+		Vue.set(state.menu, 'active_tab', payload);
 	}
 };
 
@@ -60,13 +64,13 @@ export const actions = {
         var navigation = {};
 		navigation.common = Object.keys(rootGetters['template/default_components']).map(function (c) {
 			return {
-				href: '/editor/component/' + c,
+				href: '/editor/' + c,
 				text: 'component.entry_' + c
 			};
 		});
 		navigation.current_page = Object.keys(rootGetters['template/page_components']).map(function (c) {
 			return {
-				href: '/editor/component/' + c,
+				href: '/editor  /' + c,
 				text: 'component.entry_' + c
 			};
 		});
@@ -75,6 +79,7 @@ export const actions = {
     HIDE_MENU({commit}, payload) {
         commit('HIDE_MENU', payload)
     },
+
 };
 
 /*

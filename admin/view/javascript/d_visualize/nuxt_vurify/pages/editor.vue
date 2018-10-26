@@ -10,29 +10,99 @@
                 class="editor-menu"
         >
             <v-layout column fill-height>
-                <div class="editor-menu__header">
-                    <v-btn nuxt to="/" flat icon color="accent">
-                        <v-icon small>fas fa-times</v-icon>
-                    </v-btn>
-                    <v-autocomplete
-                            flat
-                            height="auto"
-                            solo
-                            hide-details
-                            full-width
-                            :value="current_page"
-                            :items="iframe_pages"
-                            :item-text="(e)=>this.$t(e.text)"
-                    ></v-autocomplete>
-                    <v-btn color="success" @click="saveTemplate"
-                    > {{$t('common.button_save')}}
-                    </v-btn>
-                </div>
-                <div class="editor-menu__holder">
+                <div class="editor-menu__wrap">
+                    <div class="editor-menu__header">
+                        <v-btn nuxt to="/" flat icon color="accent">
+                            <v-icon small>fas fa-times</v-icon>
+                        </v-btn>
+                        <v-autocomplete
+                                flat
+                                height="auto"
+                                solo
+                                hide-details
+                                full-width
+                                :value="current_page"
+                                :items="iframe_pages"
+                                :item-text="(e)=>this.$t(e.text)"
+                        ></v-autocomplete>
+                        <v-btn color="success" @click="saveTemplate"
+                        > {{$t('common.button_save')}}
+                        </v-btn>
+                    </div>
+                    <div class="editor-menu__sections sections">
+                        <v-tabs
+                                v-model="active"
+                                grow
+                                height="70"
+                                hide-slider
+                                mandatory
+                                class="sections__nav">
+                            <v-tab
+                                    :key="0">
+                                {{$t('editor.section')}}
+                            </v-tab>
+                            <v-tab-item
+                                    :key="0"
+                            >
+                                <div class="sections__list">
+                                    <v-btn class="sections__list-item sections__list-item--header" block nuxt exact
+                                           to="editor/vdh">
+                                        {{$t('editor.vdh')}}
+                                        <v-icon>fas fa-chevron-right</v-icon>
+                                    </v-btn>
+                                    <v-list class="py-0" v-if="menu.navigation.common.length">
+                                        <v-subheader> {{$t('editor.common_components')}}
+                                        </v-subheader>
+                                        <template v-for="(item, index) in menu.navigation.common">
+                                            <v-btn class="sections__list-item" block nuxt exact :to="item.href">
+                                                {{$t(item.text)}}
+                                                <v-icon>fas fa-chevron-right</v-icon>
+                                            </v-btn>
+                                        </template>
+                                    </v-list>
+                                    <v-list class="py-0" v-if="menu.navigation.current_page.length">
+                                        <v-subheader> {{$t('editor.current_page_components')}}
+                                        </v-subheader>
+                                        <template v-for="(item, index) in menu.navigation.current_page">
+                                            <v-btn class="sections__list-item" block nuxt exact :to="item.href">
+                                                {{$t(item.text)}}
+                                                <v-icon>fas fa-chevron-right</v-icon>
+                                            </v-btn>
+                                        </template>
+                                    </v-list>
+                                    <v-btn class="sections__list-item sections__list-item--footer" block nuxt exact
+                                           to="editor/vdf">
+                                        {{$t('editor.vdf')}}
+                                        <v-icon>fas fa-chevron-right</v-icon>
+                                    </v-btn>
+                                </div>
+                            </v-tab-item>
+                            <v-tab
+                                    :key="1">
+                                {{$t('editor.theme_set')}}
+                            </v-tab>
+                            <v-tab-item
+                                    :key="1">
+                                <div class="sections__theme">
+                                    <div class="sections__list">
+                                        <v-list class="py-0">
+                                            <template v-for="(item, index) in theme_set">
+                                                <v-btn class="sections__list-item" block nuxt exact :to="item.href">
+                                                    <v-icon>{{item.icon}}</v-icon>
+                                                    {{$t(item.text)}}
+                                                    <v-icon>fas fa-chevron-right</v-icon>
+                                                </v-btn>
+                                            </template>
+                                        </v-list>
+                                    </div>
+                                </div>
+                            </v-tab-item>
+                        </v-tabs>
+                    </div>
                     <Loader :loading="loading.status===load.LOADING"></Loader>
-                    <nuxt-child></nuxt-child>
+                    <nuxt-child :key="$route.params.id"/>
                 </div>
-                <v-footer  class="editor-menu__toggle" height="auto">
+                <v-footer class="editor-menu__toggle" height="auto">
                     <v-btn-toggle xs12 v-model="toggle" mandatory>
                         <v-btn :value="respons.MOBILE" flat color="primary">
                             <v-icon>fas fa-mobile</v-icon>
@@ -46,7 +116,6 @@
                     </v-btn-toggle>
                 </v-footer>
             </v-layout>
-
         </v-navigation-drawer>
         <v-content fluid
                    app>
@@ -60,22 +129,8 @@
 </template>
 <style lang="scss">
     .editor-menu {
-        &__header {
-            display: flex;
-            flex: 0 0 auto;
-            padding-top: 14px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid var(--secondary);
-            background-color: var(--info);
-            .v-toolbar__content {
-                padding-left: 0;
-                padding-right: 0;
-            }
-            .theme--light.v-text-field--solo .v-input__slot{
-                background-color:transparent;
-            }
-        }
-        &__holder {
+        &__wrap {
+            position: relative;
             flex: 1 1 auto;
             margin-bottom: 1px;
             .loading & div {
@@ -88,6 +143,21 @@
                 margin-left: -32px;
                 margin-top: -32px;
                 z-index: 2;
+            }
+        }
+        &__header {
+            display: flex;
+            flex: 0 0 auto;
+            padding-top: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--secondary);
+            background-color: var(--info);
+            .v-toolbar__content {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .theme--light.v-text-field--solo .v-input__slot {
+                background-color: transparent;
             }
         }
         &__toggle {
@@ -115,6 +185,68 @@
             }
         }
     }
+
+    .sections {
+        &__nav {
+            .v-tabs__item--active {
+                color: white;
+                background-color: var(--primary);
+            }
+        }
+        &__list {
+            padding-top: 0;
+            padding-bottom: 0;
+            border-top: 1px solid var(--secondary);
+            border-bottom: 1px solid var(--secondary);
+        }
+        &__list-item {
+            &.v-btn {
+                padding-left: 40px;
+                margin: 0;
+                text-transform: none;
+                height: 50px;
+                &:before {
+                    background-color: #fff;
+                    opacity: 1;
+                }
+                &--active, &:hover {
+                    color: var(--primary);
+                    &:before {
+                        background-color: #fff;
+                        opacity: 1;
+                    }
+                }
+                .v-icon {
+                    font-size: 18px;
+                }
+            }
+            .v-btn__content {
+                justify-content: flex-start;
+                .fas{
+                    margin-right: 20px;
+                }
+                .fa-chevron-right{
+                    flex: 1;
+                    display: flex;
+                    justify-content: flex-end;
+                }
+
+            }
+            &--header, &--footer {
+                &.v-btn {
+                    height: 70px;
+                }
+            }
+        }
+        &__list-item--footer {
+            border-top: 1px solid var(--secondary);
+        }
+        &__list-item--header {
+            border-bottom: 1px solid var(--secondary);
+        }
+
+    }
+
 </style>
 <script>
 	import {mapGetters} from 'vuex';
@@ -123,6 +255,14 @@
 
 	export default {
 		computed: {
+			active: {
+				get() {
+					return this.$store.getters['editor/menu'].active_tab;
+				},
+				set(value) {
+					this.$store.commit('editor/CHANGE_ACTIVE_TAB', value);
+				}
+			},
 			toggle: {
 				get() {
 					return this.$store.getters['editor/mobile_toggle'];
@@ -135,35 +275,45 @@
 				iframe: 'editor/iframe',
 				current_page: 'editor/current_page',
 				iframe_pages: 'template/available_pages',
-				loading: 'load/loading'
+				loading: 'load/loading',
+				menu: 'editor/menu',
+
 			})
 		},
 		data: ()=>({
 			load: LOAD,
 			respons: RESPONSIVE,
 			drawer: null,
-			items: ['Foo', 'Bar', 'Fizz', 'Buzz']
+			theme_set: [
+				{href: 'editor/skin', text: 'editor.entry_skin', icon: 'fas fa-paint-brush'},
+				{href: 'editor/colors', text: 'editor.entry_colors', icon: 'fas fa-palette'},
+				{href: 'editor/buttons', text: 'editor.entry_buttons', icon: 'fas fa-chalkboard '},
+				{href: 'editor/typography', text: 'editor.entry_typography', icon: 'fas fa-font'},
+				{href: 'editor/inputs', text: 'editor.entry_forms', icon: 'fas fa-keyboard'},
+				{href: 'editor/layout', text: 'editor.entry_layout', icon: 'fas fa-columns'},
+			]
+
 		}),
 		async fetch({store}) {
-			 store.commit('load/LOADING_START');
+			store.commit('load/LOADING_START');
 			await store.dispatch('setting/GET_SETTING');
 			await store.dispatch('template/GET_TEMPLATES');
 			await store.dispatch('template/GET_COMPONENTS');
 			await store.dispatch('editor/GET_EDITOR_IFRAME');
-			 store.commit('load/LOADING_END');
+			store.commit('load/LOADING_END');
 		},
 		components: {
 			Iframe
 		},
 		head() {
 			return {
-				title:'Visualize editor'
-            }
+				title: 'Visualize editor'
+			};
 		},
 		methods: {
-			async saveTemplate(){
+			async saveTemplate() {
 				this.$store.commit('load/LOADING_START');
-				await this.$store.dispatch('template/SAVE',this.$store.getters['template/active_template']);
+				await this.$store.dispatch('template/SAVE', this.$store.getters['template/active_template']);
 				this.$store.commit('load/LOADING_END');
 
 			},

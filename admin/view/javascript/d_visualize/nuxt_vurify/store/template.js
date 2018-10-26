@@ -56,6 +56,11 @@ export const mutations = {
 			.layout.component[payload.component_id]
 			.skin = payload.variation;
 	},
+	SET_SKIN(state, payload) {
+		state.templates[payload.template_id]
+			.setting
+			.active_skin = payload.skin;
+	},
 };
 // actions
 export const actions = {
@@ -88,6 +93,16 @@ export const actions = {
 				component_id: payload.component_id,
 				skin: payload.variation
 			}
+		}, '*');
+	},
+	async SET_SKIN({commit, dispatch, getters}, payload) {
+		commit('SET_SKIN', payload);
+		console.log(getters.active_template);
+		await dispatch('SAVE', getters.active_template);
+		//dispatch to make ajax reload
+		document.getElementById('iframe').contentWindow.postMessage({
+			vz_token: true,
+			vz_change_component_variation: true
 		}, '*');
 
 	},

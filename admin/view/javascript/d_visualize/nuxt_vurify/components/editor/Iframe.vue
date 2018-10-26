@@ -16,7 +16,6 @@
         margin: auto;
         height: 100%;
     }
-
     .loading {
         iframe {
             opacity: .55;

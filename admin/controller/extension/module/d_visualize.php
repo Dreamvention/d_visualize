@@ -263,6 +263,15 @@ class ControllerExtensionModuleDVisualize extends Controller
         //menu
         $local['editor']['vdh'] = 'Header';
         $local['editor']['vdf'] = 'Footer';
+        $local['editor']['entry_skin'] = 'Skin';
+        $local['editor']['entry_colors'] = 'Colors';
+        $local['editor']['entry_buttons'] = 'Buttons';
+        $local['editor']['entry_typography'] = 'Typography';
+        $local['editor']['entry_forms'] = 'Forms & Inputs';
+        $local['editor']['entry_layout'] = 'Layout';
+
+        //skin page
+        $local['editor']['entry_change_skin'] = 'You can change whole skin for your theme.';
 
         //can't use '/'
         $local['page']['common_home'] = 'Home Page';

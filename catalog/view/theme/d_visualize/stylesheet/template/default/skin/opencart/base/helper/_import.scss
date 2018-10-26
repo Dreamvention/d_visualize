@@ -1,3 +1,8 @@
 @import "mixins";
 @import "functions";
-@import "sprite";
+/*TEST*/
+.test{
+  @import "test_mixins";
+@import "test_functions";
+}
+/*TEST*/

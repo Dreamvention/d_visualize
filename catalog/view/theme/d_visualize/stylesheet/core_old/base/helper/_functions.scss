@@ -23,14 +23,12 @@
 
     @return $outputPixels / $inputPixels;
 }
-$fontSizeBase:  15px;
 // calculate $fontSizeBase to custom px
 @function fz($output) {
     @if (unitless($output)) {
         $output: $output * 1px;
     }
-
-    @return $output - $fontSizeBase + $fontSizeBase;
+    @return $output - $font-size-base + $font-size-base;
 }
 // set tne z-index position
 @function z($name) {

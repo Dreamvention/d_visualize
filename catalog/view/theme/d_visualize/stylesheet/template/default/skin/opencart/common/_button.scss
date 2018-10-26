@@ -1,0 +1,122 @@
+/*BUTTON*/
+.vz-button,
+a.vz-button,
+a:not([href]):not([tabindex]).vz-button {
+  color: $button-color;
+  font-size:$button-font_size;
+  background:$button-background;
+  text-align: $button-text_align;
+  padding: $button-padding;
+  border-width: $button-border_width;
+  border-style: $button-border_style;
+  border-radius: $button-border_radius;
+  border-color: $button-border_color;
+  transition: $button-transition;
+  line-height:$button-line_height;
+  letter-spacing: $button-letter_spacing;
+  appearance: none;
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  /*size*/
+  &--sm {
+    line-height: 24px;
+    height: 24px;
+    font-size: 13px;
+    padding: 0 8px;
+  }
+  &--md {
+    line-height: 32px;
+    height: 32px;
+    font-size: 15px;
+  }
+  &--lg {
+    line-height: 40px;
+    height: 40px;
+    font-size: 17px;
+    padding: 0 18px;
+  }
+  &--hg {
+    line-height: 48px;
+    height: 48px;
+    font-size: 19px;
+    padding: 0 20px;
+  }
+  /*state*/
+  /*
+  &--primary {
+    background: $color-primary;
+    color: findColorInvert($color-primary);
+    &:hover {
+      background: lighten($color-primary, 2%);
+    }
+    &:active {
+      background: darken($color-primary, 15%);
+    }
+  }
+  &--danger {
+    background: $color-danger;
+    color: findColorInvert($color-danger);
+    &:hover {
+      background: lighten($color-danger, 2%);
+    }
+    &:active {
+      background: darken($color-danger, 15%);
+    }
+  }
+  &--warning {
+    background: $color-warning;
+    color: findColorInvert($color-warning);
+    &:hover {
+      background: lighten($color-warning, 2%);
+    }
+    &:active {
+      background: darken($color-warning, 15%);
+    }
+  }
+  &--success {
+    background: $color-success;
+    color: findColorInvert($color-success);
+    &:hover {
+      background: lighten($color-success, 2%);
+    }
+    &:active {
+      background: darken($color-success, 15%);
+    }
+  }
+  &--info {
+    background: $color-info;
+    color: findColorInvert($color-info);
+    &:hover {
+      background: lighten($color-info, 2%);
+    }
+    &:active {
+      background: darken($color-info, 15%);
+    }
+  }
+  &--default {
+    background: #fff;
+    color: findColorInvert(#fff);
+    &:active {
+      background: darken(#efefef, 15%);
+    }
+  }
+  &--outline {}
+  &--block {
+    width: 100%;
+  }
+  */
+  &.btn-primary {
+    @extend %btn_primary
+  }
+  &.btn-danger {
+    @extend %btn_danger
+  }
+  &.btn-default {
+    @extend %btn_default
+  }
+  &.btn-warning {
+    @extend %btn_warning
+  }
+}
+/*END BUTTON */

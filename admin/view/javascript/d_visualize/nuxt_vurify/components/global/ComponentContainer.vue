@@ -1,7 +1,9 @@
 <template>
-    <div class="component-container" :style="'margin-left:'+container_width">
+    <div class="component-container" :style="'margin-left:'+pull_left">
         <header class="component-container__header">
-            <slot name="header"></slot>
+            <slot name="header">
+                <div class="display-3">{{component_name}}</div>
+            </slot>
             <v-btn nuxt to="/editor" flat icon exact color="accent">
                 <v-icon small>fas fa-chevron-left</v-icon>
             </v-btn>
@@ -15,15 +17,24 @@
 <script>
 	export default {
 		name: "ComponentContainer",
+		// props: ['pull_left'],
 		data() {
 			return {
-				container_width: '320px'
-			};
+				pull_left: '320px'
+			}
+		},
+		computed: {
+			component_name() {
+				return this.$t('common.entry_' + this.$route.params.id);
+			},
+		},
+		validate({params}) {
+			return !isNaN(+params.id);
 		},
 		mounted() {
 			setTimeout(()=>{
-				this.container_width = '0px';
-            },100)
+				this.pull_left = 0;
+			},)
 		}
 	};
 </script>
@@ -33,15 +44,20 @@
         position: absolute;
         top: 0px;
         left: 0px;
+        right: 0;
+        bottom: 0;
         width: calc(100% - 1px);
         z-index: 3;
         transition: margin-left .2s;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--info);
         &__header {
             background-color: var(--info);
             display: flex;
             min-height: 50px + 20px;
             position: relative;
-            h2 {
+            .display-3 {
                 margin-bottom: 0;
                 text-align: center;
                 width: 100%;
@@ -61,6 +77,7 @@
         &__main {
             background: #fff;
             padding: 15px;
+            flex-grow: 1;
             }
     }
 </style>

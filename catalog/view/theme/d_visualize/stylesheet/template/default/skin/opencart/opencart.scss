@@ -1,9 +1,5 @@
-/*Opencart */
-@import "base/colors";
-.vz-button{
-  color: $color-text-primary;
-  background-color: $color-primary;
-}
-body{
-  background: $color-body;
-}
+/*Opencart stylesheet */
+@import "config";
+@import "base/import";
+@import "common/import";
+/*End stylesheet */

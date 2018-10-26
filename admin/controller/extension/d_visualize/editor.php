@@ -37,23 +37,38 @@ class ControllerExtensionDVisualizeEditor extends Controller
         $this->response->setOutput(json_encode($json));
     }
 
-    public function compile_scss()
+    public function test_compile_scss()
     {
-        $colors = DIR_CATALOG . 'view/theme/d_visualize/stylesheet/template/default/skin/opencart/base/_colors.scss';
-        if (@is_file($colors)) {
-            echo @file_get_contents($colors);
-        }else{
-            echo $colors;
-        }
-        exit;
-        include_once(DIR_SYSTEM . 'library/' . $this->codename . '/scssphp/scss.inc.php');
-        $scss = new Compiler();
-        $scss->setVariables(array(
-            'color' => 'blue',
-        ));
-        echo $scss->compile('
-        div { color: lighten($color, 20%); }
-');
+        $colors = DIR_CATALOG . 'view/theme/d_visualize/stylesheet/template/default/skin/opencart/base/variables/_colors.scss';
+        $skin = DIR_CATALOG . 'view/theme/d_visualize/stylesheet/template/default/skin/opencart/opencart.scss';
+        if (@is_file($colors) && @is_file($skin)) {
+            $re = '/\$([^:$})\s]+):([^\s]+);/';
+            preg_match_all($re, @file_get_contents($colors), $matches, PREG_SET_ORDER, 0);
+            $variables_color = array();
+            foreach ($matches as $match) {
+                /*VAR name*/                 /*VAR value*/
+                $variables_color[$match[1]] = $match[2];
+            }
+            include_once(DIR_SYSTEM . 'library/' . $this->codename . '/scssphp/scss.inc.php');
+            $scss = new Compiler();
+            $scss->setImportPaths(DIR_CATALOG . 'view/theme/d_visualize/stylesheet/template/default/skin/opencart/');
+            $variables_color['color-body'] = 'blue';
+            $scss->setVariables($variables_color);
+            $compiled_css = $scss->compile(@file_get_contents($skin));
+            if (false) {
+                //todo make a call to 3-rd party server to compile this css.
+//                require_once DIR_SYSTEM . 'library/' . $this->codename . '/autoprefixer/autoload.php';
+//                $autoprefixer = new Autoprefixer(['ff > 2', '> 2%', 'ie 8']);
+//                $compiled_css = $autoprefixer->compile($compiled_css);
+            }
+            echo "<pre>";
+            print_r($compiled_css);
+            echo "</pre>";
+            @file_put_contents(DIR_CATALOG . 'view/theme/d_visualize/stylesheet/dist/default/opencart_custom.css', $compiled_css);
 
+        } else {
+            echo 'no files found';
+        }
     }
+
 }

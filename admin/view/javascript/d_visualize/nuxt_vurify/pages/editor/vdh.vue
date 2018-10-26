@@ -1,6 +1,10 @@
 <template>
     <div class="vdh">
-        vdh
+        <ComponentContainer :container_width="'120px'">
+            <template slot="header">header</template>
+            vdh
+        </ComponentContainer>
+
     </div>
 </template>
 

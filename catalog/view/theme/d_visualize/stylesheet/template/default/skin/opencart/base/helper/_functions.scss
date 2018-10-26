@@ -1,5 +1,5 @@
 // calculate rem to px
-@function rem($pixels, $context: 16px) {
+@function rem($pixels, $context: $font-size-base) {
     @if (unitless($pixels)) {
         $pixels: $pixels * 1px;
     }
@@ -10,7 +10,6 @@
 
     @return $pixels / $context * 1rem;
 }
-
 // calculate px to factor
 @function lh($inputPixels, $outputPixels) {
     @if (unitless($inputPixels)) {
@@ -23,14 +22,12 @@
 
     @return $outputPixels / $inputPixels;
 }
-$fontSizeBase:  15px;
-// calculate $fontSizeBase to custom px
 @function fz($output) {
     @if (unitless($output)) {
         $output: $output * 1px;
     }
 
-    @return $output - $fontSizeBase + $fontSizeBase;
+    @return $output - $font-size-base + $font-size-base;
 }
 // set tne z-index position
 @function z($name) {
@@ -39,5 +36,40 @@ $fontSizeBase:  15px;
     } @else {
         @warn 'There is no item "#{$name}" in this list; choose one of: #{$z-indexes}';
         @return null;
+    }
+}
+
+@function pow($number, $exponent) {
+    $value: 1;
+    @if $exponent>0 {
+        @for $i from 1 through $exponent {
+            $value: $value * $number;
+        }
+    }
+    @return $value;
+}
+@function colorLuminance($color) {
+    $colors: ( 'red': red($color), 'green': green($color), 'blue': blue($color));
+    @each $name,
+    $value in $colors {
+        $adjusted: 0;
+        $value: $value / 255;
+        @if $value < 0.03928 {
+            $value: $value / 12.92;
+        }
+        @else {
+            $value: ($value + .055) / 1.055;
+            $value: pow($value, 2.4);
+        }
+        $colors: map-merge($colors, ($name: $value));
+    }
+    @return (map-get($colors, 'red') * .2126)+(map-get($colors, 'green') * .7152)+(map-get($colors, 'blue') * .0722);
+}
+@function findColorInvert($color) {
+    @if (colorLuminance($color) > 0.55) {
+        @return rgba(#000, 0.7)
+    }
+    @else {
+        @return #fff
     }
 }

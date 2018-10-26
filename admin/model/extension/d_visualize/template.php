@@ -98,7 +98,9 @@ class ModelExtensionDVisualizeTemplate extends Model
             }
             $response['source'] = $source;
             $response['setting'] = $setting;
-            $response['skines'] = $this->loadAvailableSkines($setting['codename']);
+            foreach ($this->getAvailableSkines($setting['codename']) as $skin) {
+                $response['skines'][$skin]['colors'] = $this->getSkinColors($setting['codename'], $skin);
+            }
             $response['img_desktop'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png' : "no_image.png"), 600, 300);
             $response['img_mobile'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png' : "no_image.png"), 600, 300);
 
@@ -107,7 +109,24 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $result;
     }
 
-    public function loadAvailableSkines($active_template_codename)
+    public function getSkinColors($template_id, $skin)
+    {
+        $colors = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $template_id . '/skin/' . $skin . '/base/variables/_colors.scss';
+        if (@is_file($colors)) {
+            $re = '/\$([^:$})\s]+):[\s]+([^\s]+)[\s]+!default;/';
+            preg_match_all($re, @file_get_contents($colors), $matches, PREG_SET_ORDER, 0);
+            $variables_color = array();
+            foreach ($matches as $match) {
+                /*VAR name*/                 /*VAR value*/
+                $variables_color[$match[1]] = $match[2];
+            }
+            return $variables_color;
+        } else {
+        }
+
+    }
+
+    public function getAvailableSkines($active_template_codename)
     {
         $result = array();
         $componenDir = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $active_template_codename . '/skin';
@@ -123,7 +142,7 @@ class ModelExtensionDVisualizeTemplate extends Model
     public function loadTemplateSetting($active_template, $active_template_codename = 'default')
     {
         $this->components = $this->getAvailableComponents();
-        //check on skin overloading the components
+        // check on skin overloading the components
         // add some magic here
         foreach (array_keys($active_template['page']) as $path) {
             if (isset($active_template['page'][$path]['layout']['component'])) {
