@@ -1,10 +1,10 @@
 const pkg = require('./package');
 require('dotenv').config();
-
 const polyfills = [
 	'Promise',
 	'Object.assign',
 	'Object.values',
+	'Array.from',
 	'Array.prototype.find',
 	'Array.prototype.findIndex',
 	'Array.prototype.includes',

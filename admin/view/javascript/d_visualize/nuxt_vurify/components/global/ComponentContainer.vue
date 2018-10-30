@@ -46,7 +46,7 @@
         left: 0px;
         right: 0;
         bottom: 0;
-        width: calc(100% - 1px);
+        width: calc(100% + 1px);
         z-index: 3;
         transition: margin-left .2s;
         display: flex;

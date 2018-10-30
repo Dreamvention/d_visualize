@@ -29,6 +29,28 @@
 			// 			console.log(res);
 			// 		});
 			}
+			if (event.data.vz_change_css) {
+				$.ajax({
+					url: 'index.php?route=extension/d_visualize/event/get_css',
+					type: 'post',
+					data: event.data.vz_change_css,
+					success: function (style) {
+						var sheetToBeRemoved = document.getElementById('vis-custom-style');
+						if (sheetToBeRemoved){
+							var sheetParent = sheetToBeRemoved.parentNode;
+							sheetParent.removeChild(sheetToBeRemoved);
+						}
+						var sheet = document.createElement('style')
+						sheet.id = 'vis-custom-style';
+						sheet.innerHTML = style;
+						document.head.appendChild(sheet);
+					},
+					failure: function () {
+						console.log('Failed to setup get css');
+					}
+				});
+
+			}
 		}
 	});
 </script>

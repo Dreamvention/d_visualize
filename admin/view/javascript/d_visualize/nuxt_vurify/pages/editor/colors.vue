@@ -15,28 +15,27 @@
         <v-menu
                 v-model="picker.showMenu"
                 :close-on-content-click="false"
-                :nudge-width="200"
                 :position-x="picker.x"
                 :position-y="picker.y"
                 absolute
                 offset-y
+                transition="scale-transition"
         >
-            <chrome-picker :value="picker.color" v-show="picker.showMenu"/>
+            <chrome-picker :value="picker.color" @input="updatePicker"/>
         </v-menu>
     </ComponentContainer>
 </template>
 <script>
 	import {mapGetters} from 'vuex';
-	import {Photoshop,Sketch,Chrome,Material} from 'vue-color';
+	import {Sketch} from 'vue-color';
+	import moment from 'moment';
 
 	export default {
 		name: "colors",
 		computed: {
-			skin_colors() {
-				return this.template.skines[this.template.setting.active_skin].colors;
-			},
 			...mapGetters({
 				template: 'template/active_template',
+				skin_colors: 'template/active_skin_colors',
 			})
 		},
 		data() {
@@ -47,7 +46,8 @@
 					y: 0,
                     key: '',
 					showMenu: false
-				}
+				},
+				last_change_picker: moment().valueOf()
 			};
 		},
 		components: {
@@ -56,6 +56,7 @@
 		methods: {
 			showPicker(key, value,e) {
 				e.preventDefault();
+				this.picker.key = key;
 				this.picker.color = value;
 				this.picker.x = e.clientX;
 				this.picker.y = e.clientY;
@@ -63,6 +64,17 @@
 				this.$nextTick(() => {
 					this.picker.showMenu = true
 				})
+			},
+			updatePicker(value) {
+				_.once(_.throttle(()=>{
+					this.picker.color = `rgba(${value.rgba.r},${value.rgba.g},${value.rgba.b},${value.rgba.a});`;
+					this.$store.dispatch('template/CHANGE_SKIN_COLOR', {
+						template_id: this.template.setting.codename,
+						skin: this.template.setting.active_skin,
+						color_key: this.picker.key,
+						color_value: this.picker.color,
+					});
+				}, 1000))();
 			}
 		}
 	};
@@ -75,12 +87,13 @@
             padding: 5px;
             margin-bottom: 20px;
             width: auto;
-            min-width: 160px;
+            min-width: 180px;
             display: inline-flex;
             align-items: center;
             justify-content: space-between;
         }
         &__color-icon {
+            margin-left: 10px;
             cursor: pointer;
             border: 1px solid var(--secondary);
             display: inline-block;

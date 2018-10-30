@@ -131,8 +131,17 @@ class ModelExtensionModuleDVisualize extends Model
         )
         COLLATE='utf8_general_ci'
         ENGINE=MyISAM;";
-
         $this->db->query($sql);
+//        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_templates (
+//            colors_id INT(11) NOT NULL AUTO_INCREMENT,
+//            template_id INT(11) NOT NULL ,
+//            colors TEXT NOT NULL,
+//            PRIMARY KEY (colors_id)
+//        )
+//        COLLATE='utf8_general_ci'
+//        ENGINE=MyISAM;";
+//        $this->db->query($sql);
+
     }
 
     /**

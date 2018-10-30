@@ -367,7 +367,7 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->load->model('extension/d_shopunity/mbooth');
             $this->model_extension_d_shopunity_mbooth->installDependencies($this->codename);
         }
-        $this->{$this->model}->installDataBase();
+        $this->model_extension_module_d_visualize->installDataBase();
     }
 
     public function uninstall()

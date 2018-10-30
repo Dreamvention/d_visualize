@@ -134,7 +134,7 @@
             flex: 1 1 auto;
             margin-bottom: 1px;
             .loading & div {
-                opacity: .85;
+                opacity: 1;
             }
             .loader {
                 position: absolute;

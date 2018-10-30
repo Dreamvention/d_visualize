@@ -9,7 +9,6 @@ $_['d_visualize_template_default_setting'] = array(
         'default' => array(
             'layout' => array(
                 'template' => 'd_visualize/template/layout/default.twig', // here can be custom settings for this template
-                'container_width' => '1440',
                 'component' => array(
                     'd_product_thumb' => array(
                         'skin'=>'hydrus',

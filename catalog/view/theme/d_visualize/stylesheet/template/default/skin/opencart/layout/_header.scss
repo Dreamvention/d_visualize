@@ -1,0 +1,15 @@
+#menu {
+  background-color: $color-primary;
+  @include flex();
+flex();
+  a {
+    color: $color-body;
+  }
+  @include placeholder() {
+    color: red;
+  }
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: darken($color-primary, 5%);
+}

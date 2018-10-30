@@ -30,7 +30,7 @@
                     <nuxt/>
                     <div class="opencart-footer" v-html="opData.footer"></div>
                 </div>
-                <v-layout error v-else-if="loading.status===load.FAIL" align-center justify-center row fill-height wrap
+                <v-layout  v-else-if="loading.status===load.FAIL" align-center justify-center row fill-height wrap
                           text-center>
                     <v-flex xs12>
                         <img :src="'nodata.png'|image" alt="nodata">

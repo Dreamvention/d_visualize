@@ -99,7 +99,10 @@ class ModelExtensionDVisualizeTemplate extends Model
             $response['source'] = $source;
             $response['setting'] = $setting;
             foreach ($this->getAvailableSkines($setting['codename']) as $skin) {
-                $response['skines'][$skin]['colors'] = $this->getSkinColors($setting['codename'], $skin);
+                $response['skines'][$skin] = $this->getSCSSVariables( $setting['codename'], $skin);
+//                $response['skines'][$skin]['typography'] = $this->getSCSSVariables('_font.scss', $setting['codename'], $skin);
+//                $response['skines'][$skin]['buttons'] = $this->getSCSSVariables('_buttons.scss', $setting['codename'], $skin);
+//                $response['skines'][$skin]['grid'] = $this->getSCSSVariables('_grid.scss', $setting['codename'], $skin);
             }
             $response['img_desktop'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png' : "no_image.png"), 600, 300);
             $response['img_mobile'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png' : "no_image.png"), 600, 300);
@@ -109,21 +112,22 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $result;
     }
 
-    public function getSkinColors($template_id, $skin)
-    {
-        $colors = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $template_id . '/skin/' . $skin . '/base/variables/_colors.scss';
-        if (@is_file($colors)) {
-            $re = '/\$([^:$})\s]+):[\s]+([^\s]+)[\s]+!default;/';
-            preg_match_all($re, @file_get_contents($colors), $matches, PREG_SET_ORDER, 0);
-            $variables_color = array();
-            foreach ($matches as $match) {
-                /*VAR name*/                 /*VAR value*/
-                $variables_color[$match[1]] = $match[2];
-            }
-            return $variables_color;
-        } else {
-        }
 
+    private function getSCSSVariables($template_id, $skin)
+    {
+        $this->load->config('d_visualize/' . $template_id . '/' . $skin);
+        return $this->config->get('d_visualize_template_' . $template_id . '_' . $skin . '_css');
+//        $colors = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $template_id . '/skin/' . $skin . '/base/variables/' . $file_name;
+//        if (@is_file($colors)) {
+//            $re = '/\$([^:$})\s]+):[\s]+([^\s]+)[\s]+!default;/';
+//            preg_match_all($re, @file_get_contents($colors), $matches, PREG_SET_ORDER, 0);
+//            $variables_color = array();
+//            foreach ($matches as $match) {
+//                /*VAR name*/                 /*VAR value*/
+//                $variables_color[$match[1]] = $match[2];
+//            }
+//            return $variables_color;
+//        }
     }
 
     public function getAvailableSkines($active_template_codename)

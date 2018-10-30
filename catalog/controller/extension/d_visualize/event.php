@@ -1,4 +1,5 @@
 <?php
+use Leafo\ScssPhp\Compiler;
 
 class ControllerExtensionDVisualizeEvent extends Controller
 {
@@ -169,9 +170,21 @@ class ControllerExtensionDVisualizeEvent extends Controller
         curl_close($ch);
     }
 
-    public function get_component_templates()
+    public function get_css()
     {
-        $this->response->addHeader('Content-Type: application/html');
-        $this->response->setOutput('<p>ss</p>');
+        $this->request->post['colors'];
+        $skin_path = DIR_APPLICATION . 'view/theme/' . $this->codename . '/stylesheet/template/' . $this->request->post['template_id'] . '/skin/' . $this->request->post['skin'] . '/';
+        if (@is_file($skin_path . $this->request->post['skin'] . '.scss')) {
+            include_once(DIR_SYSTEM . 'library/' . $this->codename . '/scssphp/scss.inc.php');
+            $scss = new Compiler();
+            $scss->setImportPaths($skin_path);
+            $scss->setVariables($this->request->post['colors']);
+            $compiled_css = $scss->compile(@file_get_contents($skin_path . $this->request->post['skin'] . '.scss'));
+            $this->response->addHeader('Content-Type: text/css');
+            $this->response->setOutput($compiled_css);
+//            @file_put_contents($skin_path . $this->request->post['skin'] . '_custom.css', $compiled_css);
+        } else {
+            $this->response->setOutput('no files found');
+        }
     }
 }

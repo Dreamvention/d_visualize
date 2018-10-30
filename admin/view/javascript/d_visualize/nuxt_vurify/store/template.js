@@ -37,6 +37,18 @@ export const getters = {
 			return {value: n, text: `page.${n.replace('/', '_').replace('*', 'all')}`};
 		}).splice(1);
 	},
+	active_skin_colors: (state, getters)=>{
+		return getters.active_template.skines[getters.active_template.setting.active_skin].colors;
+	},
+	active_skin_typography: (state, getters)=>{
+		return getters.active_template.skines[getters.active_template.setting.active_skin].typography;
+	},
+	active_skin_buttons: (state, getters)=>{
+		return getters.active_template.skines[getters.active_template.setting.active_skin].buttons;
+	},
+	active_skin_grid: (state, getters)=>{
+		return getters.active_template.skines[getters.active_template.setting.active_skin].grid;
+	},
 };
 // mutations
 export const mutations = {
@@ -60,6 +72,11 @@ export const mutations = {
 		state.templates[payload.template_id]
 			.setting
 			.active_skin = payload.skin;
+	},
+	CHANGE_SKIN_COLOR(state, payload) {
+		state.templates[payload.template_id]
+			.skines[payload.skin]
+			.colors[payload.color_key] = payload.color_value;
 	},
 };
 // actions
@@ -97,13 +114,22 @@ export const actions = {
 	},
 	async SET_SKIN({commit, dispatch, getters}, payload) {
 		commit('SET_SKIN', payload);
-		console.log(getters.active_template);
 		await dispatch('SAVE', getters.active_template);
-		//dispatch to make ajax reload
 		document.getElementById('iframe').contentWindow.postMessage({
 			vz_token: true,
 			vz_change_component_variation: true
 		}, '*');
 
 	},
+	async CHANGE_SKIN_COLOR({commit, dispatch, getters}, payload) {
+		commit('CHANGE_SKIN_COLOR', payload);
+		document.getElementById('iframe').contentWindow.postMessage({
+			vz_token: true,
+			vz_change_css: {
+				template_id: payload.template_id,
+				skin: payload.skin,
+				colors: getters.active_skin_colors
+			}
+		}, '*');
+	}
 };
