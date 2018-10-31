@@ -1,39 +1,61 @@
 @import "base/import";
-
-
+@import 'https://fonts.googleapis.com/css?family=' + $font-family;
+//@font-face {
+//  font-family: '${font.family}';
+//  font-style: normal;
+//  font-weight: 400;
+//  src: local('${font.family}'),url($font-) format('truetype');
+//}
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: '' + $font-family+ '', sans-serif;
   font-weight: 400;
   color: $color-text-body;
-  font-size: 12px;
-  line-height: 20px;
+  font-size: $font-size-base;
+  line-height: $font-line-height;
   width: 100%;
 }
 h1, h2, h3, h4, h5, h6 {
   color: $color-heading;
+  font-size: $font-headings-size-base;
+  line-height: $font-headings-line-height;
+  @if index($font-headings-text-transform, 'bold') {
+    font-weight: bold;
+  }
+  @if index($font-headings-text-transform, 'italic') {
+    font-style: italic;
+  }
+  @if index($font-headings-text-transform, 'underline') {
+    text-decoration:underline;
+  }
+  @if index($font-headings-text-transform, 'capitalize') {
+    text-transform: capitalize;
+  }
+  @if index($font-headings-text-transform, 'uppercase') {
+    text-transform: uppercase;
+  }
 }
-/* default font size */
+    /* default font size */
 .fa {
-  font-size: 14px;
+  font-size: $color-text-body;
 }
 /* Override the bootstrap defaults */
 h1 {
-  font-size: 33px;
+  font-size: $font-headings-size-base*2;
 }
 h2 {
-  font-size: 27px;
+  font-size: $font-headings-size-base*1.8;
 }
 h3 {
-  font-size: 21px;
+  font-size: $font-headings-size-base*1.2;
 }
 h4 {
-  font-size: 15px;
+  font-size: $font-headings-size-base*1.2;
 }
 h5 {
-  font-size: 12px;
+  font-size: $font-headings-size-base*1;
 }
 h6 {
-  font-size: 10.2px;
+  font-size: $font-headings-size-base*.8;
 }
 
 a {

@@ -7,9 +7,13 @@
         <div v-for="(value,color_key) in skin_colors" class="color-box">
             <div class="colors-box__item">
                 {{color_key}}
-                <div class="colors-box__color-icon" @click="showPicker(color_key,value,$event)"
-                     :style="'background-color:'+ value">
-                </div>
+                {{value}}
+                <v-tooltip right>
+                    <div slot="activator" class="colors-box__color-icon" @click="showPicker(color_key,value,$event)"
+                         :style="'background-color: '+ value| sanitaze_css"></div>
+                    <span>{{value|sanitaze_css}}</span>
+                </v-tooltip>
+
             </div>
         </div>
         <v-menu
@@ -50,6 +54,16 @@
 				last_change_picker: moment().valueOf()
 			};
 		},
+		filters: {
+			sanitaze_css(value) {
+				if (value.indexOf('!default') !== -1) {
+					return value.substr(0, value.indexOf('!default'));
+				} else {
+					return value;
+				}
+
+			}
+		},
 		components: {
 			'chrome-picker': Sketch,
 		},
@@ -60,21 +74,25 @@
 				this.picker.color = value;
 				this.picker.x = e.clientX;
 				this.picker.y = e.clientY;
-				this.picker.showMenu = false;
+				this.picker.showMenu = true;
 				this.$nextTick(() => {
 					this.picker.showMenu = true
 				})
 			},
 			updatePicker(value) {
-				_.once(_.throttle(()=>{
-					this.picker.color = `rgba(${value.rgba.r},${value.rgba.g},${value.rgba.b},${value.rgba.a});`;
-					this.$store.dispatch('template/CHANGE_SKIN_COLOR', {
-						template_id: this.template.setting.codename,
-						skin: this.template.setting.active_skin,
-						color_key: this.picker.key,
-						color_value: this.picker.color,
-					});
-				}, 1000))();
+				this.last_change_picker = moment().valueOf()
+				_.debounce(()=>{
+					if (moment().valueOf() - this.last_change_picker>50){
+						this.picker.color = `rgba(${value.rgba.r},${value.rgba.g},${value.rgba.b},${value.rgba.a});`;
+						this.$store.dispatch('template/SET_SKIN_VARIABLE', {
+							template_id: this.template.setting.codename,
+							skin: this.template.setting.active_skin,
+							holder: 'color',
+							key: this.picker.key,
+							value: this.picker.color,
+						});
+                    }
+				}, 50, true)();
 			}
 		}
 	};

@@ -100,9 +100,6 @@ class ModelExtensionDVisualizeTemplate extends Model
             $response['setting'] = $setting;
             foreach ($this->getAvailableSkines($setting['codename']) as $skin) {
                 $response['skines'][$skin] = $this->getSCSSVariables( $setting['codename'], $skin);
-//                $response['skines'][$skin]['typography'] = $this->getSCSSVariables('_font.scss', $setting['codename'], $skin);
-//                $response['skines'][$skin]['buttons'] = $this->getSCSSVariables('_buttons.scss', $setting['codename'], $skin);
-//                $response['skines'][$skin]['grid'] = $this->getSCSSVariables('_grid.scss', $setting['codename'], $skin);
             }
             $response['img_desktop'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png' : "no_image.png"), 600, 300);
             $response['img_mobile'] = $this->imgeResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png' : "no_image.png"), 600, 300);
@@ -116,7 +113,9 @@ class ModelExtensionDVisualizeTemplate extends Model
     private function getSCSSVariables($template_id, $skin)
     {
         $this->load->config('d_visualize/' . $template_id . '/' . $skin);
-        return $this->config->get('d_visualize_template_' . $template_id . '_' . $skin . '_css');
+        $cssSetting = $this->config->get('d_visualize_template_' . $template_id . '_' . $skin . '_css');
+        $settings = $cssSetting['settings'];
+        return array_merge_recursive(json_decode(@file_get_contents(DIR_CATALOG.$cssSetting['config_file_path']),true),array('settings'=>$settings));
 //        $colors = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $template_id . '/skin/' . $skin . '/base/variables/' . $file_name;
 //        if (@is_file($colors)) {
 //            $re = '/\$([^:$})\s]+):[\s]+([^\s]+)[\s]+!default;/';

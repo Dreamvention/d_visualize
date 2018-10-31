@@ -10,6 +10,8 @@ var uglify = require('gulp-uglify');
 var postcss = require('gulp-postcss');
 var pump = require('pump');
 var rename = require("gulp-rename");
+//modified
+var jsonToSass = require('gulp-json-to-sass');
 var baseDir = path.resolve(__dirname, "../../../../");
 var themeDir = path.join(baseDir, 'view/theme/d_visualize');
 var stylesheetDir = path.join(themeDir, 'stylesheet');
@@ -100,6 +102,10 @@ gulp.task('scssCSS:templates', function () {
 			let path_skin = path.join(templatesDir, folderTemplate, 'skin', skin_folder);
 			return gulp.src(path.join(path_skin, skin_folder + '.scss'))
 				.pipe(sourcemaps.init())
+				.pipe(jsonToSass({
+					jsonPath: path.join(path_skin, 'config.json'),
+					scssPath: path.join(path_skin, '_config.scss')
+				}))
 				.pipe(sass()).on('error', (e)=>console.log(e.message))
 				.pipe(require('gulp-autoprefixer')({browsers: ['last 15 versions']}))
 				.pipe(sourcemaps.write(path.join(stylesheetDir, 'dist', folderTemplate)))
@@ -131,6 +137,14 @@ gulp.task('CSS:watch', function () {
 
 	gulp.watch([cssFiles], ['postCSS:vz-core', 'postCSS:templates', 'postCSS:components']);
 });
+gulp.task('CSSTemplatesSkins:watch', function () {
+	var cssFiles = [];
+	//any template and any skin
+	cssFiles.push(path.join(templatesDir, '**', 'skin', '**', '*.*css'));
+	cssFiles.push(path.join(templatesDir, '**', 'skin', '**', '**', '*.*css'));
+
+	gulp.watch([cssFiles], ['scssCSS:templates']);
+});
 gulp.task('scripts:watch', function () {
 	gulp.watch(
 		scripts_src, ['scripts:core']
@@ -151,5 +165,5 @@ gulp.task('default', ["browser_sync_init"], function () {
 			baseDir + "/view/template/extension/**/**/*.twig"
 		], browserSync.reload);
 	}
-	gulp.start(["CSS:watch", "scripts:watch"]);
+	gulp.start(["CSSTemplatesSkins:watch", "scripts:watch"]);
 });

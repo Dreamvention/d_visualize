@@ -1,14 +1,15 @@
+import Vue from 'vue';
 // state
 export const state = () => ({
-    templates: null,
+	templates: null,
 });
 // getters
 export const getters = {
-    templates: state => state.templates,
-    active_template: (state, getters, rootState, rootGetters) => {
-	    //for some reasons dev tools make first call of this getters
-	    return (getters.templates[rootState.setting.all_setting.active_template]);
-    },
+	templates: state=>state.templates,
+	active_template: (state, getters, rootState, rootGetters)=>{
+		//for some reasons dev tools make first call of this getters
+		return (getters.templates[rootState.setting.all_setting.active_template]);
+	},
 	available_components: state=>state.available_components,
 	component: (state, getters)=>id=>{
 		return getters.available_components[id];
@@ -38,10 +39,10 @@ export const getters = {
 		}).splice(1);
 	},
 	active_skin_colors: (state, getters)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin].colors;
+		return getters.active_template.skines[getters.active_template.setting.active_skin].color;
 	},
 	active_skin_typography: (state, getters)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin].typography;
+		return getters.active_template.skines[getters.active_template.setting.active_skin].font;
 	},
 	active_skin_buttons: (state, getters)=>{
 		return getters.active_template.skines[getters.active_template.setting.active_skin].buttons;
@@ -49,12 +50,15 @@ export const getters = {
 	active_skin_grid: (state, getters)=>{
 		return getters.active_template.skines[getters.active_template.setting.active_skin].grid;
 	},
+	active_skin_holder_settings: (state, getters)=>(holder)=>{
+		return getters.active_template.skines[getters.active_template.setting.active_skin].settings[holder];
+	},
 };
 // mutations
 export const mutations = {
-    SET_TEMPLATES(state, payload) {
-        state.templates = payload;
-    },
+	SET_TEMPLATES(state, payload) {
+		state.templates = payload;
+	},
 	SET_COMPONENTS(state, payload) {
 		state.available_components = payload;
 	},
@@ -73,25 +77,33 @@ export const mutations = {
 			.setting
 			.active_skin = payload.skin;
 	},
-	CHANGE_SKIN_COLOR(state, payload) {
-		state.templates[payload.template_id]
+	SET_SKIN_VARIABLE(state, payload) {
+		let holder = JSON.parse(JSON.stringify(state.templates[payload.template_id]
 			.skines[payload.skin]
-			.colors[payload.color_key] = payload.color_value;
+			[payload.holder]
+		));
+		holder[payload.key] = payload.value;
+		console.log(holder)
+		Vue.set(state.templates[payload.template_id].skines[payload.skin], payload.holder, holder);
+		// state.templates[payload.template_id]
+		// 	.skines[payload.skin]
+		// 	[payload.holder]
+		// 	[payload.key] = payload.value;
 	},
 };
 // actions
 export const actions = {
-    async GET_TEMPLATES({commit}) {
-        let {data} =  await this.$axios.get('extension/d_visualize/template/all');
-        commit('SET_TEMPLATES', data)
-    },
+	async GET_TEMPLATES({commit}) {
+		let {data} = await this.$axios.get('extension/d_visualize/template/all');
+		commit('SET_TEMPLATES', data);
+	},
 	async GET_COMPONENTS({commit}) {
 		let {data: {components: components}} = await this.$axios.get('extension/d_visualize/template/components');
 		commit('SET_COMPONENTS', components);
 	},
-    async RENAME_TEMPLATE_TITLE({commit},payload) {
-        commit('RENAME_TEMPLATE_TITLE', payload)
-    },
+	async RENAME_TEMPLATE_TITLE({commit}, payload) {
+		commit('RENAME_TEMPLATE_TITLE', payload);
+	},
 	async SAVE({commit}, payload) {
 		let {data} = await this.$axios.post('extension/d_visualize/template/save', {
 			template_id: payload.setting.codename,
@@ -121,14 +133,14 @@ export const actions = {
 		}, '*');
 
 	},
-	async CHANGE_SKIN_COLOR({commit, dispatch, getters}, payload) {
-		commit('CHANGE_SKIN_COLOR', payload);
+	async SET_SKIN_VARIABLE({commit, dispatch, getters}, payload) {
+		commit('SET_SKIN_VARIABLE', payload);
 		document.getElementById('iframe').contentWindow.postMessage({
 			vz_token: true,
 			vz_change_css: {
 				template_id: payload.template_id,
 				skin: payload.skin,
-				colors: getters.active_skin_colors
+				variables: getters.templates[payload.template_id].skines[payload.skin]
 			}
 		}, '*');
 	}

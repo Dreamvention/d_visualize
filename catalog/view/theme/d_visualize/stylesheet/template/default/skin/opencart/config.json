@@ -1,0 +1,39 @@
+{
+  "color": {
+    "text-primary": "white",
+    "primary": "#229ac8",
+    "text-body": "#666",
+    "heading": "#444",
+    "link": "#23a1d1"
+  },
+  "font":{
+    "size-base": "14px",
+    "family": "'Open Sans'",
+    "line-height": "1",
+    "headings-family": "'Montserrat'",
+    "headings-size-base": "14px",
+    "headings-line-height": "1",
+    "headings-letter-spacing": "1.2",
+    "headings-text-transform": "('bold' ,'italic')"
+  },
+  "breakpoints": "('phone': 320px,'phone-wide': 480px,'phablet': 560px,'tablet-small': 640px,'tablet': 769px,'tablet-wide': 991px,'laptop': 1199px,'desktop': 1248px,'desktop-wide': 1440px)",
+  "container-width": "980px",
+  "button":{
+    "color": "white",
+    "font-size": "14px",
+    "background": "#fff",
+    "text-align": "center",
+    "padding": "0 14px",
+    "border-width": "1px",
+    "border-style": "solid",
+    "border-color": "transparent",
+    "border-radius": "2px",
+    "transition": "all .15s ease",
+    "line-height": "32px",
+    "letter_spacing": ".025em",
+    "cursor": "pointer",
+    "text-decoration": "none"
+  },
+  "z-indexes": "('alert', 'modal','menu', 'product-thumb', 'site-header','loader','backdrop', 'page-wrapper', 'site-footer', 'mobile-menu-button', 'select-arrow','main-wrapper','modal-backdrop',)"
+
+}

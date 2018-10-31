@@ -1,13 +1,39 @@
 <?php
 $_['d_visualize_template_default_opencart_css'] = array(
-    'colors' => json_decode(file_get_contents(DIR_CATALOG."/view/theme/d_visualize/stylesheet/template/default/skin/opencart/variables/colors.json")),
-    'typography' => json_decode(file_get_contents(DIR_CATALOG."/view/theme/d_visualize/stylesheet/template/default/skin/opencart/variables/typography.json")),
-    'buttons' => json_decode(file_get_contents(DIR_CATALOG."/view/theme/d_visualize/stylesheet/template/default/skin/opencart/variables/buttons.json")),
-    'grid' => json_decode(file_get_contents(DIR_CATALOG."/view/theme/d_visualize/stylesheet/template/default/skin/opencart/variables/grid.json")),
+    'config_file_path' => '/view/theme/d_visualize/stylesheet/template/default/skin/opencart/config.json',
+    'settings'         => array(
+        'font' => array(
+            'size-base' => array(
+                'type'   => 'slider',
+                'min'    => '9',
+                'max'    => '20',
+                'suffix' => 'px',
+                'step'    => '1',
 
+            ),
+            'headings-size-base' => array(
+                'type'   => 'slider',
+                'min'    => '10',
+                'max'    => '25',
+                'suffix' => 'px',
+                'step'    => '1',
+
+            ),
+            'line-height' => array(
+                'type'   => 'slider',
+                'min'    => '.9',
+                'max'    => '2',
+                'step'    => '0.1',
+            ),
+            'headings-line-height' => array(
+                'type'   => 'slider',
+                'min'    => '.9',
+                'max'    => '2',
+                'step'    => '0.1',
+            )
+        )
+    )
 );
-
 $_['d_visualize_template_default_opencart_language'] = array(
-    'Color primary' => 'text_cart',
-
+    'font_size_base' => 'text_cart',
 );
