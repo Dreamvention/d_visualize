@@ -8,11 +8,11 @@ $header_cart-bgc: #363636;
   background-image: linear-gradient(to bottom, #eeeeee, #dddddd);
   background-repeat: repeat-x;
   border-color: #dddddd #dddddd #b3b3b3 #b7b7b7;
-  /*&:hover,&.active {
+  /*&:hover,&.active_tab {
       background: var(--color-default-darken);
       border-color: var(--color-default-darkenx2);
     }
-    &:focus:active{
+    &:focus:active_tab{
       background: var(--color-default-darkenx2);
       border-color: var(--color-default-darkenx2);
       outline: none;

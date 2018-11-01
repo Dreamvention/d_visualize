@@ -57,10 +57,10 @@
   background-size: 40px 40px;
 }
 
-// Call animation for the active one
+// Call animation for the active_tab one
 //
-// `.progress.active .progress-bar` is deprecated as of v3.2.0 in favor of the
-// `.progress-bar.active` approach.
+// `.progress.active_tab .progress-bar` is deprecated as of v3.2.0 in favor of the
+// `.progress-bar.active_tab` approach.
 .progress.active .progress-bar,
 .progress-bar.active {
   @include animation(progress-bar-stripes 2s linear infinite);

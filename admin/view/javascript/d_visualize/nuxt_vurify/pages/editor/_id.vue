@@ -12,9 +12,9 @@
                     v-model="component_variation"
                     solo
             ></v-autocomplete>
-            <v-btn color="primary" block>
-                show settings for current page
-            </v-btn>
+            <!--<v-btn color="primary" block>-->
+                <!--show settings for current page-->
+            <!--</v-btn>-->
         </ComponentContainer>
         <!--<div class="form-group">-->
         <!--<label for=""> {{$t('edit.entry_component_skin')}} - {{ componentKey}}</label>-->

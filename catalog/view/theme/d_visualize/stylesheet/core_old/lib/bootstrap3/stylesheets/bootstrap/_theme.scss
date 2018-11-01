@@ -80,7 +80,7 @@
 
 // Common styles
 .btn {
-  // Remove the gradient for the pressed/active state
+  // Remove the gradient for the pressed/active_tab state
   &:active,
   &.active {
     background-image: none;
@@ -170,7 +170,7 @@
   border-radius: 0;
 }
 
-// Fix active state of dropdown items in collapsed mode
+// Fix active_tab state of dropdown items in collapsed mode
 @media (max-width: $grid-float-breakpoint-max) {
   .navbar .navbar-nav .open .dropdown-menu > .active > a {
     &,

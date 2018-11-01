@@ -3,17 +3,14 @@
         <template slot="header">
             <h2 class="editor-component__heading display-3"> {{$t('editor.entry_colors')}}</h2>
         </template>
-        <p class="display-1">Colors</p>
-        <div v-for="(value,color_key) in skin_colors" class="color-box">
-            <div class="colors-box__item">
-                {{color_key}}
-                {{value}}
-                <v-tooltip right>
-                    <div slot="activator" class="colors-box__color-icon" @click="showPicker(color_key,value,$event)"
-                         :style="'background-color: '+ value| sanitaze_css"></div>
-                    <span>{{value|sanitaze_css}}</span>
-                </v-tooltip>
-
+        <div v-for="(settings,color_key) in settings" class="color-box">
+            <div class="color-box__text">
+                {{$t(settings.text)}}
+            </div>
+            <div class="color-box__item">
+                <div class="color-box__color-icon" @click="showPicker(color_key,values[color_key],settings,$event)"
+                     :style="'background-color: '+ values[color_key]| sanitaze_css"></div>
+                <span>{{values[color_key]|sanitaze_css}}</span>
             </div>
         </div>
         <v-menu
@@ -23,6 +20,8 @@
                 :position-y="picker.y"
                 absolute
                 offset-y
+                nudge-left="50"
+                nudge-bottom="10"
                 transition="scale-transition"
         >
             <chrome-picker :value="picker.color" @input="updatePicker"/>
@@ -35,11 +34,16 @@
 	import moment from 'moment';
 
 	export default {
-		name: "colors",
+		name: "color",
 		computed: {
+			values() {
+				return this.$store.getters['template/active_skin_holder']('color');
+			},
+			settings() {
+				return this.$store.getters['template/active_skin_holder_variables']('color');
+			},
 			...mapGetters({
 				template: 'template/active_template',
-				skin_colors: 'template/active_skin_colors',
 			})
 		},
 		data() {
@@ -68,13 +72,13 @@
 			'chrome-picker': Sketch,
 		},
 		methods: {
-			showPicker(key, value,e) {
+			showPicker(key, value, settings, e) {
 				e.preventDefault();
 				this.picker.key = key;
 				this.picker.color = value;
 				this.picker.x = e.clientX;
 				this.picker.y = e.clientY;
-				this.picker.showMenu = true;
+				this.picker.showMenu = false;
 				this.$nextTick(() => {
 					this.picker.showMenu = true
 				})
@@ -83,7 +87,8 @@
 				this.last_change_picker = moment().valueOf()
 				_.debounce(()=>{
 					if (moment().valueOf() - this.last_change_picker>50){
-						this.picker.color = `rgba(${value.rgba.r},${value.rgba.g},${value.rgba.b},${value.rgba.a});`;
+						// this.picker.color = `rgba(${value.rgba.r},${value.rgba.g},${value.rgba.b},${value.rgba.a});`;
+						this.picker.color = value.hex.toLowerCase();
 						this.$store.dispatch('template/SET_SKIN_VARIABLE', {
 							template_id: this.template.setting.codename,
 							skin: this.template.setting.active_skin,
@@ -92,23 +97,30 @@
 							value: this.picker.color,
 						});
                     }
-				}, 50, true)();
+				}, 50)();
 			}
 		}
 	};
 </script>
 
 <style lang="scss">
-    .colors-box {
+    .color-box {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        &__text {
+            min-width: 140px;
+        }
         &__item {
+            min-width: 160px;
             border: 1px solid var(--info);
             padding: 5px;
-            margin-bottom: 20px;
             width: auto;
-            min-width: 180px;
             display: inline-flex;
             align-items: center;
-            justify-content: space-between;
+            span {
+                margin-left: 10px;
+            }
         }
         &__color-icon {
             margin-left: 10px;

@@ -2,34 +2,31 @@
     <script src="{{ script }}" type="text/javascript"></script>
 {% endfor %}
 {# only for devs #}
-<script>
+{% if admin %}
+	<script>
 	window.onbeforeunload = function (event) {
 		if (parent) {
 			parent.postMessage({vz_ifame_loading: {url: event.target.URL}}, "*");
 		}
 	};
 	window.addEventListener('message', function(event) {
-		if (event.data.vz_token){
+		// IMPORTANT: Check the origin of the data!
+		if (event.data.vz_token
+			&& ~event.origin.indexOf('http://localhost:3000') !== -1 || ~event.origin.indexOf('{{ site_url }}') !== -1) {
 			if (event.data.vz_get_iframe_info) {
 				var route = $('#content').data('route');
 				var location = this.location.href;
-				// IMPORTANT: Check the origin of the data!
-				if (~event.origin.indexOf('http://localhost:3000'||'{{ site_url }}')) {
-					parent.postMessage({vz_ifame_data: {route: route, location: location}}, "*");
-				} else {
-					return;
-				}
+				parent.postMessage({vz_ifame_data: {route: route, location: location}}, "*");
 			}
 			if (event.data.vz_change_component_variation) {
+				//we can't load all components on ajax so we just reload page
+				//at this moment we think that all saved into DB and load this new component's variants
 				this.location.reload();
-			// 	$.post(
-			// 		'index.php?route=extension/d_visualize/event/get_component_templates',
-			// 		event.data.vz_change_component_variation,
-			// 		function (res) {
-			// 			console.log(res);
-			// 		});
 			}
 			if (event.data.vz_change_css) {
+				//make a call to server to render css 
+				//we have scss compiler so can pass to him variables
+				//we don't save this settings now just pass it onto style section
 				$.ajax({
 					url: 'index.php?route=extension/d_visualize/event/get_css',
 					type: 'post',
@@ -45,8 +42,9 @@
 						sheet.innerHTML = style;
 						document.head.appendChild(sheet);
 					},
-					failure: function () {
-						console.log('Failed to setup get css');
+					failure: function (e) {
+						alert('FAIL TO COMPILE SCSS');
+						console.log(e);
 					}
 				});
 
@@ -54,4 +52,5 @@
 		}
 	});
 </script>
+{% endif %}
 </body></html>

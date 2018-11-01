@@ -1,5 +1,5 @@
 <template id="vz-theme-thumb">
-    <div class="vz-theme-thumb" :class="{active: activeThumb}" @click="handleChange">
+    <div class="vz-theme-thumb" :class="{active_tab: activeThumb}" @click="handleChange">
         <img :src="item.img" alt="">
         <div>
             <h2>{{item.setting.title}} </h2>

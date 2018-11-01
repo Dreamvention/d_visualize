@@ -85,10 +85,15 @@
                                     :key="1">
                                 <div class="sections__theme">
                                     <div class="sections__list">
+                                        <v-btn class="sections__list-item" block nuxt exact to="editor/skin">
+                                            <v-icon>fas fa-paint-brush</v-icon>
+                                            {{$t('editor.entry_skin')}}
+                                            <v-icon>fas fa-chevron-right</v-icon>
+                                        </v-btn>
                                         <v-list class="py-0">
-                                            <template v-for="(item, index) in theme_set">
+                                            <template v-for="(item, index) in theme_navigation">
                                                 <v-btn class="sections__list-item" block nuxt exact :to="item.href">
-                                                    <v-icon>{{item.icon}}</v-icon>
+                                                    <v-icon v-if="item.icon">{{item.icon}}</v-icon>
                                                     {{$t(item.text)}}
                                                     <v-icon>fas fa-chevron-right</v-icon>
                                                 </v-btn>
@@ -127,6 +132,83 @@
         <Loader :loading="!loading.content_loaded"></Loader>
     </div>
 </template>
+<script>
+	import {mapGetters} from 'vuex';
+	import Iframe from '~/components/editor/Iframe.vue';
+	import {LOAD, RESPONSIVE} from '~/constants';
+
+	export default {
+		computed: {
+			active: {
+				get() {
+					return this.$store.getters['editor/menu'].active_tab;
+				},
+				set(value) {
+					this.$store.commit('editor/CHANGE_ACTIVE_TAB', value);
+				}
+			},
+			toggle: {
+				get() {
+					return this.$store.getters['editor/mobile_toggle'];
+				},
+				set(value) {
+					this.$store.commit('editor/SET_MOBILE_TOGGLE', value);
+				}
+			},
+            theme_navigation(){
+	            // {href: 'editor/skin', text: 'editor.entry_skin', icon: 'fas fa-paint-brush'},
+	            return _.reduce(this.$store.getters['template/active_template_skin'].settings,(memory,element,key)=>{
+                    if (element.navigation){
+	                    let link = _.extend({},element.navigation);
+	                    link.href=`editor/${key}`;
+	                    memory[key] = link;
+                    }
+	            	return memory;
+                },{})
+            },
+			...mapGetters({
+				iframe: 'editor/iframe',
+				current_page: 'editor/current_page',
+				iframe_pages: 'template/available_pages',
+				loading: 'load/loading',
+				menu: 'editor/menu',
+                active_template_skin:'template/active_template_skin'
+			})
+		},
+		data: ()=>({
+			load: LOAD,
+			respons: RESPONSIVE,
+			drawer: null,
+			theme_set: [
+				]
+
+		}),
+		async fetch({store}) {
+			store.commit('load/LOADING_START');
+			await store.dispatch('setting/GET_SETTING');
+			await store.dispatch('template/GET_TEMPLATES');
+			await store.dispatch('template/GET_COMPONENTS');
+			await store.dispatch('editor/GET_EDITOR_IFRAME');
+			store.commit('load/LOADING_END');
+		},
+		components: {
+			Iframe
+		},
+		head() {
+			return {
+				title: 'Visualize editor'
+			};
+		},
+		methods: {
+			async saveTemplate() {
+				this.$store.commit('load/LOADING_START');
+				await this.$store.dispatch('template/SAVE', this.$store.getters['template/active_template']);
+				this.$store.commit('load/LOADING_END');
+
+			},
+		}
+	};
+</script>
 <style lang="scss">
     .editor-menu {
         &__wrap {
@@ -248,75 +330,3 @@
     }
 
 </style>
-<script>
-	import {mapGetters} from 'vuex';
-	import Iframe from '~/components/editor/Iframe.vue';
-	import {LOAD, RESPONSIVE} from '~/constants';
-
-	export default {
-		computed: {
-			active: {
-				get() {
-					return this.$store.getters['editor/menu'].active_tab;
-				},
-				set(value) {
-					this.$store.commit('editor/CHANGE_ACTIVE_TAB', value);
-				}
-			},
-			toggle: {
-				get() {
-					return this.$store.getters['editor/mobile_toggle'];
-				},
-				set(value) {
-					this.$store.commit('editor/SET_MOBILE_TOGGLE', value);
-				}
-			},
-			...mapGetters({
-				iframe: 'editor/iframe',
-				current_page: 'editor/current_page',
-				iframe_pages: 'template/available_pages',
-				loading: 'load/loading',
-				menu: 'editor/menu',
-
-			})
-		},
-		data: ()=>({
-			load: LOAD,
-			respons: RESPONSIVE,
-			drawer: null,
-			theme_set: [
-				{href: 'editor/skin', text: 'editor.entry_skin', icon: 'fas fa-paint-brush'},
-				{href: 'editor/colors', text: 'editor.entry_colors', icon: 'fas fa-palette'},
-				{href: 'editor/buttons', text: 'editor.entry_buttons', icon: 'fas fa-chalkboard '},
-				{href: 'editor/typography', text: 'editor.entry_typography', icon: 'fas fa-font'},
-				{href: 'editor/inputs', text: 'editor.entry_forms', icon: 'fas fa-keyboard'},
-				{href: 'editor/layout', text: 'editor.entry_layout', icon: 'fas fa-columns'},
-			]
-
-		}),
-		async fetch({store}) {
-			store.commit('load/LOADING_START');
-			await store.dispatch('setting/GET_SETTING');
-			await store.dispatch('template/GET_TEMPLATES');
-			await store.dispatch('template/GET_COMPONENTS');
-			await store.dispatch('editor/GET_EDITOR_IFRAME');
-			store.commit('load/LOADING_END');
-		},
-		components: {
-			Iframe
-		},
-		head() {
-			return {
-				title: 'Visualize editor'
-			};
-		},
-		methods: {
-			async saveTemplate() {
-				this.$store.commit('load/LOADING_START');
-				await this.$store.dispatch('template/SAVE', this.$store.getters['template/active_template']);
-				this.$store.commit('load/LOADING_END');
-
-			},
-		}
-	};
-</script>

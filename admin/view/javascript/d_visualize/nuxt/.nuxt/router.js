@@ -68,8 +68,8 @@ export function createRouter () {
   return new Router({
     mode: 'hash',
     base: '/',
-    linkActiveClass: 'nuxt-link-active',
-    linkExactActiveClass: 'nuxt-link-exact-active',
+    linkActiveClass: 'nuxt-link-active_tab',
+    linkExactActiveClass: 'nuxt-link-exact-active_tab',
     scrollBehavior,
     routes: [
 		{

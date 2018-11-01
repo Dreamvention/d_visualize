@@ -219,7 +219,7 @@
 // Tabbable tabs
 // -------------------------
 
-// Hide tabbable panes to start, show them when `.active`
+// Hide tabbable panes to start, show them when `.active_tab`
 .tab-content {
   > .tab-pane {
     display: none;

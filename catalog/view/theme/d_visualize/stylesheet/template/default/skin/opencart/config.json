@@ -6,34 +6,178 @@
     "heading": "#444",
     "link": "#23a1d1"
   },
+  "button": {
+    "radius": "5px",
+    "font-size": "14px",
+    "border-width": "1px",
+    "text-transform": "('bold' ,'italic')",
+    "box-shadow": ""
+  },
   "font":{
     "size-base": "14px",
     "family": "'Open Sans'",
-    "line-height": "1",
+    "line-height": "1.1",
     "headings-family": "'Montserrat'",
     "headings-size-base": "14px",
-    "headings-line-height": "1",
+    "headings-line-height": "1.1",
     "headings-letter-spacing": "1.2",
     "headings-text-transform": "('bold' ,'italic')"
   },
   "breakpoints": "('phone': 320px,'phone-wide': 480px,'phablet': 560px,'tablet-small': 640px,'tablet': 769px,'tablet-wide': 991px,'laptop': 1199px,'desktop': 1248px,'desktop-wide': 1440px)",
-  "container-width": "980px",
-  "button":{
-    "color": "white",
-    "font-size": "14px",
-    "background": "#fff",
-    "text-align": "center",
-    "padding": "0 14px",
-    "border-width": "1px",
-    "border-style": "solid",
-    "border-color": "transparent",
-    "border-radius": "2px",
-    "transition": "all .15s ease",
-    "line-height": "32px",
-    "letter_spacing": ".025em",
-    "cursor": "pointer",
-    "text-decoration": "none"
+  "layout": {
+    "container-width": "980"
   },
-  "z-indexes": "('alert', 'modal','menu', 'product-thumb', 'site-header','loader','backdrop', 'page-wrapper', 'site-footer', 'mobile-menu-button', 'select-arrow','main-wrapper','modal-backdrop',)"
+  "z-indexes": "('alert', 'modal','menu', 'product-thumb', 'site-header','loader','backdrop', 'page-wrapper', 'site-footer', 'mobile-menu-button', 'select-arrow','main-wrapper','modal-backdrop',)",
+  "settings": {
+    "font": {
+      "navigation": {
+        "text": "editor.entry_font",
+        "icon": "fas fa-font"
+      },
+      "variables": {
+        "size-base": {
+          "text": "font.size_base",
+          "type": "slider",
+          "min": "12",
+          "max": "18",
+          "step": "1",
+          "suffix": "px"
 
+        },
+        "line-height": {
+          "text": "font.line_height",
+          "type": "slider",
+          "min": "1",
+          "max": "2",
+          "step": ".1"
+        },
+        "family": {
+          "type": "font-family",
+          "text": "font.family"
+        },
+        "headings-family": {
+          "type": "font-family",
+          "text": "font.headings_family"
+        },
+        "headings-size-base": {
+          "text": "font.headings_size_base",
+          "type": "slider",
+          "min": "12",
+          "max": "20",
+          "step": "1",
+          "suffix": "px"
+        },
+        "headings-line-height": {
+          "text": "font.headings_line_height",
+          "type": "slider",
+          "min": "1",
+          "max": "2",
+          "step": ".1"
+        },
+        "headings-letter-spacing": {
+          "text": "font.headings_letter_spacing",
+          "type": "slider",
+          "min": "1",
+          "max": "2",
+          "step": ".1"
+        },
+        "headings-text-transform": {
+          "text": "font.headings_text_transform",
+          "type": "toggle",
+          "values": [
+            {
+              "icon": "fas fa-bold",
+              "text": "text-bold",
+              "value": "bold"
+            },
+            {
+              "icon": "fas fa-bold",
+              "text": "text-underline",
+              "value": "bold"
+            }
+          ]
+        }
+      }
+    },
+    "color": {
+      "navigation": {
+        "text": "editor.entry_colors",
+        "icon": "fas fa-palette"
+      },
+      "variables": {
+        "text-primary": {
+          "color": true,
+          "preset": [
+            "red",
+            "blue"
+          ],
+          "text": "color.text_primary"
+        },
+        "primary": {
+          "color": true,
+          "text": "color.primary"
+        },
+        "text-body": {
+          "color": true,
+          "text": "color.text_body"
+        },
+        "heading": {
+          "color": true,
+          "text": "color.heading"
+        },
+        "link": {
+          "color": true,
+          "text": "color.link"
+        }
+      }
+    },
+    "button": {
+      "navigation": {
+        "text": "editor.entry_buttons",
+        "icon": "fas fa-chalkboard"
+      },
+      "variables": {
+        "radius": {
+          "type": "slider",
+          "min": "0",
+          "max": "50",
+          "step": "1",
+          "suffix": "px"
+        },
+        "font-size": {
+          "type": "slider",
+          "min": "12",
+          "max": "23",
+          "step": "1",
+          "suffix": "px"
+        },
+        "border-width": {
+          "type": "slider",
+          "min": "0",
+          "max": "5",
+          "step": ".1",
+          "suffix": "px"
+        },
+        "text-transform": {
+          "type": "toggle",
+          "values": [
+            {
+              "icon": "fas fa-bold",
+              "text": "text-bold",
+              "value": "bold"
+            },
+            {
+              "icon": "fas fa-bold",
+              "text": "text-underline",
+              "value": "bold"
+            }
+          ]
+        },
+        "box-shadow": {
+          "type": "custom",
+          "text": "<a href='https://www.cssmatic.com/box-shadow' ref=blank>Shadow generator</a>"
+        }
+      }
+    }
+  }
 }

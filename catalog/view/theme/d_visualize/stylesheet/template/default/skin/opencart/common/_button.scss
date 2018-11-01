@@ -50,7 +50,7 @@ a:not([href]):not([tabindex]).vz-button {
     &:hover {
       background: lighten($color-primary, 2%);
     }
-    &:active {
+    &:active_tab {
       background: darken($color-primary, 15%);
     }
   }
@@ -60,7 +60,7 @@ a:not([href]):not([tabindex]).vz-button {
     &:hover {
       background: lighten($color-danger, 2%);
     }
-    &:active {
+    &:active_tab {
       background: darken($color-danger, 15%);
     }
   }
@@ -70,7 +70,7 @@ a:not([href]):not([tabindex]).vz-button {
     &:hover {
       background: lighten($color-warning, 2%);
     }
-    &:active {
+    &:active_tab {
       background: darken($color-warning, 15%);
     }
   }
@@ -80,7 +80,7 @@ a:not([href]):not([tabindex]).vz-button {
     &:hover {
       background: lighten($color-success, 2%);
     }
-    &:active {
+    &:active_tab {
       background: darken($color-success, 15%);
     }
   }
@@ -90,14 +90,14 @@ a:not([href]):not([tabindex]).vz-button {
     &:hover {
       background: lighten($color-info, 2%);
     }
-    &:active {
+    &:active_tab {
       background: darken($color-info, 15%);
     }
   }
   &--default {
     background: #fff;
     color: findColorInvert(#fff);
-    &:active {
+    &:active_tab {
       background: darken(#efefef, 15%);
     }
   }

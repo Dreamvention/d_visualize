@@ -27,6 +27,12 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $this->setting_active_template = $this->model_template->loadTemplateSetting($this->setting_visualize['active_template']);
         $this->pageScripts = array();
         $this->pageStyles = array();
+        if (VERSION >= '2.2.0.0') {
+            $this->user = new Cart\User($this->registry);
+        } else {
+            $this->user = new User($this->registry);
+        }
+        //this code generate a cache
         //        if (!empty($this->cache->get('setting_active_template')) && !empty($this->cache->get('active_template')) && ($this->setting_visualize['active_template'] === $this->cache->get('active_template'))) {
 //            $this->setting_active_template = $this->cache->get('setting_active_template');
 //        } else {
@@ -43,7 +49,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
     /**
      * Event for overwrite styles for custom page
      * like for product/product need custom scripts and styles
-     * here we add this from config our active template
+     * here we add this from config our active_tab template
      * @void
      */
     public function view_all_before_d_visualize(&$view, &$data)
@@ -51,7 +57,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
         if (!empty($this->setting_active_template) && $this->status_visualize) {
             //inject dat from setting on the view
-
             $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'], $data);
             //if some one add to specific page scripts need to add this to header
             foreach (array_keys($this->setting_active_template['page']) as $key) {
@@ -75,17 +80,21 @@ class ControllerExtensionDVisualizeEvent extends Controller
                 }
             }
             if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
+
             }
             // if last view is loaded we add scripts and Style from our d_visualize
             if ($view == $view_route) {
                 $data['page_route'] = $view_route;
-                $data['site_url'] = HTTPS_SERVER;
                 if (isset($data['header'])) {
                     $data['header'] = $this->model_helper->addDocumentPageData(
                         array('scripts' => $this->pageScripts,
                             'styles' => $this->pageStyles),
                         $data['header']);
                 }
+            }
+            if ($this->user->isLogged()) {
+                $data['admin'] = true;
+                $data['site_url'] = HTTPS_SERVER;
             }
         }
     }
@@ -182,7 +191,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
             foreach ($this->request->post['variables'] as $holder => $holder_vars) {
                if (strripos($holder,'settings')===0){
                    continue;
-
                }
                 if (is_array($holder_vars)) {
                     //not so much var so don't worry it's fast

@@ -10,6 +10,15 @@ export const getters = {
 		//for some reasons dev tools make first call of this getters
 		return (getters.templates[rootState.setting.all_setting.active_template]);
 	},
+	active_template_skin: (state, getters)=>{
+		return getters.active_template.skines[getters.active_template.setting.active_skin];
+	},
+	active_skin_holder: (state, getters)=>(holder_key)=>{
+		return getters.active_template_skin[holder_key];
+	},
+	active_skin_holder_variables: (state, getters)=>(holder_key)=>{
+		return getters.active_template_skin.settings[holder_key].variables;
+	},
 	available_components: state=>state.available_components,
 	component: (state, getters)=>id=>{
 		return getters.available_components[id];
@@ -38,21 +47,6 @@ export const getters = {
 			return {value: n, text: `page.${n.replace('/', '_').replace('*', 'all')}`};
 		}).splice(1);
 	},
-	active_skin_colors: (state, getters)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin].color;
-	},
-	active_skin_typography: (state, getters)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin].font;
-	},
-	active_skin_buttons: (state, getters)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin].buttons;
-	},
-	active_skin_grid: (state, getters)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin].grid;
-	},
-	active_skin_holder_settings: (state, getters)=>(holder)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin].settings[holder];
-	},
 };
 // mutations
 export const mutations = {
@@ -78,17 +72,13 @@ export const mutations = {
 			.active_skin = payload.skin;
 	},
 	SET_SKIN_VARIABLE(state, payload) {
+		console.log(payload)
 		let holder = JSON.parse(JSON.stringify(state.templates[payload.template_id]
 			.skines[payload.skin]
 			[payload.holder]
 		));
 		holder[payload.key] = payload.value;
-		console.log(holder)
 		Vue.set(state.templates[payload.template_id].skines[payload.skin], payload.holder, holder);
-		// state.templates[payload.template_id]
-		// 	.skines[payload.skin]
-		// 	[payload.holder]
-		// 	[payload.key] = payload.value;
 	},
 };
 // actions

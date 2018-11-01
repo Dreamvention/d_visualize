@@ -26,7 +26,7 @@ class ModelExtensionDVisualizeTemplate extends Model
     public function getTemplateExtensions($skin_name)
     {
         //todo make this work
-        //load json of active skin pack
+        //load json of active_tab skin pack
         $modules_json = array();
         if (is_file(DIR_SYSTEM . 'library/d_shopunity/extension/' . $skin_name . '.json')) {
             $skin = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $skin_name . '.json'), true);
@@ -114,8 +114,10 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $this->load->config('d_visualize/' . $template_id . '/' . $skin);
         $cssSetting = $this->config->get('d_visualize_template_' . $template_id . '_' . $skin . '_css');
-        $settings = $cssSetting['settings'];
-        return array_merge_recursive(json_decode(@file_get_contents(DIR_CATALOG.$cssSetting['config_file_path']),true),array('settings'=>$settings));
+        if ($cssSetting && @is_file(DIR_CATALOG . $cssSetting['config_file_path'])) {
+            $settings = $cssSetting['settings'];
+            return array_merge_recursive( json_decode(@file_get_contents(DIR_CATALOG . $cssSetting['config_file_path']), true),array('settings' => $settings));
+        }
 //        $colors = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $template_id . '/skin/' . $skin . '/base/variables/' . $file_name;
 //        if (@is_file($colors)) {
 //            $re = '/\$([^:$})\s]+):[\s]+([^\s]+)[\s]+!default;/';

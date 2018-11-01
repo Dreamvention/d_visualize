@@ -11,7 +11,7 @@
   > .btn {
     position: relative;
     float: left;
-    // Bring the "active" button to the front
+    // Bring the "active_tab" button to the front
     &:hover,
     &:focus,
     &:active,
@@ -82,7 +82,7 @@
   @include border-left-radius(0);
 }
 
-// On active and open, don't show outline
+// On active_tab and open, don't show outline
 .btn-group .dropdown-toggle:active,
 .btn-group.open .dropdown-toggle {
   outline: 0;
@@ -112,7 +112,7 @@
 }
 
 // The clickable button for toggling the menu
-// Remove the gradient and set the same inset shadow as the :active state
+// Remove the gradient and set the same inset shadow as the :active_tab state
 .btn-group.open .dropdown-toggle {
   @include box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
 

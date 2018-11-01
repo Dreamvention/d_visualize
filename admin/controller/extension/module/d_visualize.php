@@ -266,7 +266,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['editor']['entry_skin'] = 'Skin';
         $local['editor']['entry_colors'] = 'Colors';
         $local['editor']['entry_buttons'] = 'Buttons';
-        $local['editor']['entry_typography'] = 'Typography';
+        $local['editor']['entry_font'] = 'Typography';
         $local['editor']['entry_forms'] = 'Forms & Inputs';
         $local['editor']['entry_layout'] = 'Layout';
 
@@ -298,9 +298,20 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $local['component']['entry_common_components'] = $this->language->get('entry_common_components');
 
+        $local['color']['text_primary'] = 'Primary-text color';
+        $local['color']['primary'] = 'Primary color';
+        $local['color']['text_body'] = 'Text color';
+        $local['color']['heading'] = 'Headings color';
+        $local['color']['link'] = 'Link color';
 
-
-
+        $local['font']['size_base'] = 'Text base size';
+        $local['font']['line_height'] = 'Line height';
+        $local['font']['family'] = 'Text font family';
+        $local['font']['headings_family'] = 'Headings font family';
+        $local['font']['headings_size_base'] = 'Headings base size';
+        $local['font']['headings_line_height'] = 'Headings line height';
+        $local['font']['headings_letter_spacing'] = 'Headings letter spacing';
+        $local['font']['headings_text_transform'] = 'Headings text transform';
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');

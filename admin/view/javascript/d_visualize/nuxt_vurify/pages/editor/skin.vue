@@ -7,7 +7,7 @@
         <v-autocomplete
                 hide-details
                 :items="skines"
-                v-model="active"
+                v-model="active_tab"
                 solo
         ></v-autocomplete>
 
@@ -23,7 +23,7 @@
 			skines() {
 				return _.keys(this.template.skines);
 			},
-			active: {
+			active_tab: {
 				get() {
 					return this.template.setting.active_skin;
 				},

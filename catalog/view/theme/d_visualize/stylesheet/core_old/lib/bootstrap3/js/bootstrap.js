@@ -2011,7 +2011,7 @@ if (typeof jQuery === 'undefined') {
 
   ScrollSpy.prototype.clear = function () {
     $(this.selector)
-      .parentsUntil(this.options.target, '.active')
+      .parentsUntil(this.options.target, '.active_tab')
       .removeClass('active')
   }
 
@@ -2094,7 +2094,7 @@ if (typeof jQuery === 'undefined') {
 
     if ($this.parent('li').hasClass('active')) return
 
-    var $previous = $ul.find('.active:last a')
+    var $previous = $ul.find('.active_tab:last a')
     var hideEvent = $.Event('hide.bs.tab', {
       relatedTarget: $this[0]
     })

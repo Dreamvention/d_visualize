@@ -8936,7 +8936,9 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
   hr {
     margin-top: 0;
   }
-  .container {
+  .container{
     width: auto !important;
+  }.container ,.content{
+    width: 100% !important;
   }
 }

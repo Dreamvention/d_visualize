@@ -246,7 +246,7 @@
   -o-transition: opacity .5s;
   transition: opacity .5s;
 }
-.visualize .fade-enter, .visualize .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+.visualize .fade-enter, .visualize .fade-leave-to /* .fade-leave-active_tab до версии 2.1.8 */ {
   opacity: 0;
 }
 /* Анимации появления и исчезновения могут иметь */
@@ -259,7 +259,7 @@
 .slide-fade-leave-active {
 }
 .slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active до версии 2.1.8 */ {
+  /* .slide-fade-leave-active_tab до версии 2.1.8 */ {
   -webkit-transform: translateX(1rem);
       -ms-transform: translateX(1rem);
           transform: translateX(1rem);
@@ -284,7 +284,7 @@
 .list-leave-to{
   opacity: 0;
 }
-.list-enter /* .list-leave-active до версии 2.1.8 */ {
+.list-enter /* .list-leave-active_tab до версии 2.1.8 */ {
   opacity: 0;
 }
 .help{
