@@ -198,7 +198,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
                         if (is_array($value)){
                             $value='("'.implode($value,'","').'")';
                         }
-                        FB::log($value);
                         $variables[$holder . '-' . $var] = $value;
                     }
                 } else {

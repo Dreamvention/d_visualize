@@ -95,13 +95,14 @@
 				}
 			},
 			apendStylesFontFace(list) {
+				console.log(list);
 				let css = '/* start */ \n';
 				for (let font of list) {
 					let font_face = `@font-face {
                     font-family: '${font.family}';
                     font-style: normal;
                     font-weight: 400;
-                    src: local('${font.family}'),url('${font.files[font.variants[0]]}') format('truetype');
+                    src: local('${font.family}'),url('${font.files[font.variants[0]].replace('http://', 'https://')}') format('truetype');
                 }\n`;
 					css += font_face;
 				}

@@ -1,6 +1,6 @@
 {
   "codename": "d_visualize",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "name": "Visualize",
   "description": "Visualize theme",
   "index": "extension/module/d_visualize",
@@ -10,7 +10,6 @@
     "url": "https://dreamvention.com/"
   },
   "opencart_version": [
-    "2.0.0.0",
     "2.0.1.1",
     "2.0.1.1",
     "2.0.2.0",
@@ -42,14 +41,9 @@
     "d_twig_manager": ">= 1.0.0",
     "d_twig_partial": ">=1.0.0",
     "d_event_manager": ">= 1.0.0",
-    "d_admin_style": ">= 1.0.4",
     "d_visual_designer": ">=3.0.0",
     "d_visual_designer_header": ">=1.0.0",
     "d_visual_designer_footer": ">=1.0.0",
-    "d_vue": ">=1.0.0",
-    "d_vuex": ">=1.0.0",
-    "d_vue_i18n": ">=1.0.0",
-    "d_vue_router": ">=1.0.0",
     "d_alertify": ">=1.0.0",
     "d_underscore": ">=1.0.0",
     "d_blog_module": ">=1.0.0"
@@ -169,6 +163,8 @@
     "catalog/view/theme/d_visualize/template/extension/module/category.twig",
     "catalog/view/theme/d_visualize/template/extension/module/d_blog_module_latest_posts.twig",
     "catalog/view/theme/d_visualize/template/extension/module/d_blog_module_related_post.twig",
+    "catalog/view/theme/d_visualize/template/extension/module/d_visual_designer_header.twig",
+    "catalog/view/theme/d_visualize/template/extension/module/d_visual_designer_footer.twig",
     "catalog/view/theme/d_visualize/template/extension/module/ebay_listing.twig",
     "catalog/view/theme/d_visualize/template/extension/module/featured.twig",
     "catalog/view/theme/d_visualize/template/extension/module/filter.twig",
@@ -238,19 +234,25 @@
 
   ],
   "dirs": [
-    "catalog/view/theme/d_visualize/stylesheet/vz-core",
-    "catalog/view/theme/d_visualize/stylesheet/vz-component",
-    "catalog/view/theme/d_visualize/stylesheet/dist",
-    "catalog/view/theme/d_visualize/javascript/vz-core",
-    "catalog/view/theme/d_visualize/template/component/default",
     "admin/controller/extension/d_visualize",
     "admin/model/extension/d_visualize",
-    "admin/view/javascript/d_visualize/dist",
     "admin/view/javascript/d_visualize/nuxt_vurify/dist",
+    "admin/view/javascript/d_visualize/dist",
     "admin/view/stylesheet/d_visualize",
-    "admin/view/template/extension/d_visualize"
+    "admin/view/template/extension/d_visualize",
+    "catalog/view/theme/d_visualize/stylesheet/dist/vz-core",
+    "catalog/view/theme/d_visualize/stylesheet/dist/library",
+    "catalog/view/theme/d_visualize/stylesheet/dist/default",
+    "catalog/view/theme/d_visualize/javascript/vz-core",
+    "catalog/view/theme/d_visualize/javascript/default",
+    "catalog/view/theme/d_visualize/template/component/default",
+    "system/config/d_visualize/default"
   ],
   "changelog": [
+    {
+      "version":"2.0.0",
+      "change": "New Visualize theme editor"
+    },
     {
       "version":"2.0.0",
       "change": "New Visualize theme editor"

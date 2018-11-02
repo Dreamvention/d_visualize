@@ -28,8 +28,8 @@
                                 :items="iframe_pages"
                                 :item-text="(e)=>this.$t(e.text)"
                         ></v-autocomplete>
-                        <v-btn color="success" @click="saveTemplate"
-                        > {{$t('common.button_save')}}
+                        <v-btn color="success" @click="saveTemplate">
+                            {{$t('common.button_save')}}
                         </v-btn>
                     </div>
                     <div class="editor-menu__sections sections">
@@ -76,6 +76,11 @@
                                     <v-btn class="sections__list-item sections__list-item--footer" block nuxt exact
                                            to="editor/vdf">
                                         {{$t('editor.vdf')}}
+                                        <v-icon>fas fa-chevron-right</v-icon>
+                                    </v-btn>
+                                    <v-btn class="sections__list-item sections__list-item--custom" block nuxt exact
+                                           to="editor/custom">
+                                        {{$t('editor.custom')}}
                                         <v-icon>fas fa-chevron-right</v-icon>
                                     </v-btn>
                                 </div>
@@ -247,6 +252,7 @@
         }
         &__toggle {
             border: 1px solid var(--primary);
+            height: 50px !important;
             .v-btn-toggle {
                 width: 100%;
                 display: flex;

@@ -1,19 +1,19 @@
 <template>
     <div class="home">
         <v-container fluid>
-            <v-toolbar flat color="transparent">
-                <v-toolbar-items>
-                    <v-btn flat nuxt exact to="/home">
-                        <h3 class="display-2">{{$t('common.themes')}}</h3>
-                    </v-btn>
-                    <v-btn flat nuxt exact to="/home/setting">
-                        <h3 class="display-2">{{$t('common.setting')}}</h3>
-                    </v-btn>
-                </v-toolbar-items>
-                <v-spacer></v-spacer>
-            </v-toolbar>
-            <v-divider></v-divider>
             <nuxt-child/>
+            <!--<v-toolbar flat color="transparent">-->
+                <!--<v-toolbar-items>-->
+                    <!--<v-btn flat nuxt exact to="/home">-->
+                        <!--<h3 class="display-2">{{$t('common.themes')}}</h3>-->
+                    <!--</v-btn>-->
+                    <!--<v-btn flat nuxt exact to="/home/setting">-->
+                        <!--<h3 class="display-2">{{$t('common.setting')}}</h3>-->
+                    <!--</v-btn>-->
+                <!--</v-toolbar-items>-->
+                <!--<v-spacer></v-spacer>-->
+            <!--</v-toolbar>-->
+            <v-divider></v-divider>
         </v-container>
     </div>
 </template>

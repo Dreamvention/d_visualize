@@ -1,1 +1,0 @@
-{"version":3,"sources":["default.css"],"names":[],"mappings":"AACE;IACE;EACF;IACE,qBAAc;IAAd,sBAAc;IAAd,qBAAc;IAAd,cAAc;GACf","file":"../../../../../../../../../../../../../../default.css","sourcesContent":[".vz-product_product {\r\n  &__images {\r\n   }\r\n  &__images_additionals {\r\n    display: flex;\r\n  }\r\n\r\n}"]}

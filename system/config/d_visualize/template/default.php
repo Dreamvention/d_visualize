@@ -291,8 +291,8 @@ $_['d_visualize_template_default_setting'] = array(
 //        'https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css',
         'catalog/view/theme/d_visualize/font/awesome/all.min.css',
         'catalog/view/theme/d_visualize/font/awesome/v4-shims.min.css',
-        'catalog/view/theme/d_visualize/stylesheet/dist/bootstrap.css',
-        'catalog/view/theme/d_visualize/stylesheet/dist/bootstrap-grid.css',
+        'catalog/view/theme/d_visualize/stylesheet/dist/library/bootstrap.css',
+        'catalog/view/theme/d_visualize/stylesheet/dist/library/bootstrap-grid.css',
 //        'catalog/view/theme/default/stylesheet/stylesheet.css',
     ),
     'custom_styles' => array(

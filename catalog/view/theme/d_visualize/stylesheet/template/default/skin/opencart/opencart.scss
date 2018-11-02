@@ -1,12 +1,12 @@
 @import "base/import";
-@import 'https://fonts.googleapis.com/css?family=' + $font-family;
-@import 'https://fonts.googleapis.com/css?family=' + $font-headings-family;
-//@font-face {
-//  font-family: '${font.family}';
-//  font-style: normal;
-//  font-weight: 400;
-//  src: local('${font.family}'),url($font-) format('truetype');
-//}
+@import "config";
+
+@include google-font {
+  @include google-font($font-family);
+  @include google-font($font-headings-family);
+}
+
+/**/
 body {
   font-family: '' + $font-family+ '', sans-serif;
   font-weight: 400;
@@ -15,36 +15,42 @@ body {
   line-height: $font-line-height;
   width: 100%;
 }
+
+@mixin text-transformations($variable_list) {
+  @if index($variable_list, 'bold') {
+    font-weight: bold;
+  } @else {
+    font-weight: normal;
+  }
+  @if index($variable_list, 'italic') {
+    font-style: italic;
+  } @else {
+    font-style: normal;
+  }
+  @if index($variable_list, 'underline') {
+    text-decoration: underline;
+  } @else {
+    text-decoration: none;
+  }
+  @if index($variable_list, 'capitalize') {
+    text-transform: capitalize;
+  } @else {
+    text-transform: none;
+  }
+  @if index($variable_list, 'uppercase') {
+    text-transform: uppercase;
+  } @else {
+    text-transform: none;
+  }
+}
 h1, h2, h3, h4, h5, h6 {
   color: $color-heading;
   font-family: '' + $font-headings-family+ '', sans-serif;
   font-size: $font-headings-size-base;
   line-height: $font-headings-line-height;
   letter-spacing: $font-headings-letter-spacing;
-  @if index($font-headings-text-transform, 'bold') {
-    font-weight: bold;
-  } @else {
-    font-weight: normal;
-  }
-  @if index($font-headings-text-transform, 'italic') {
-    font-style: italic;
-  } @else {
-    font-style: normal;
-  }
-  @if index($font-headings-text-transform, 'underline') {
-    text-decoration:underline;
-  } @else {
-    text-decoration: none;
-  }
-  @if index($font-headings-text-transform, 'capitalize') {
-    text-transform: capitalize;
-  } @else {
-    text-transform: none;
-  }
-  @if index($font-headings-text-transform, 'uppercase') {
-    text-transform: uppercase;
-  } @else {
-    text-transform: none;
+  @if variable-exists(font-headings-text-transform){
+    @include text-transformations($font-headings-text-transform);
   }
 }
     /* default font size */
@@ -426,30 +432,8 @@ footer h5 {
   border-width: $button-border-width;
   border-radius: $button-radius;
   outline: none !important;
-  @if index($button-text-transform, 'bold') {
-    font-weight: bold;
-  } @else {
-    font-weight: normal;
-  }
-  @if index($button-text-transform, 'italic') {
-    font-style: italic;
-  } @else {
-    font-style: normal;
-  }
-  @if index($button-text-transform, 'underline') {
-    text-decoration:underline;
-  } @else {
-    text-decoration: none;
-  }
-  @if index($button-text-transform, 'capitalize') {
-    text-transform: capitalize;
-  } @else {
-    text-transform: none;
-  }
-  @if index($button-text-transform, 'uppercase') {
-    text-transform: uppercase;
-  } @else {
-    text-transform: none;
+  @if variable-exists(button-text-transform){
+    @include text-transformations($button-text-transform);
   }
 }
 .btn-xs {

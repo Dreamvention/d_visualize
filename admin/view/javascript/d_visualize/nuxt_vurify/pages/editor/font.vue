@@ -10,7 +10,7 @@
             <span class="subheading">{{$t(setting.text)}}</span>
             <template v-if="setting.type === 'slider'">
                 <v-slider
-                        :label="values[font_key]"
+                        :label="values[font_key]+''"
                         inverse-label
                         :min="setting.min"
                         :max="setting.max"
@@ -130,6 +130,7 @@
 		        if (this.settings[font_key] && this.settings[font_key].suffix) {
 			        value += this.settings[font_key].suffix;
 		        }
+		        console.log(value)
 		        if (!this.settings[font_key]) {
 			        key = this.picker.key;
 			        this.picker.value = font_key;

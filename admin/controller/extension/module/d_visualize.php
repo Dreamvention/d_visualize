@@ -32,6 +32,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
 
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
+        $this->visualize_version = $setting_visualize['module_' . $this->codename . '_version'];
         $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
         $this->model = 'model_extension_module_' . $this->codename;
         $this->model_template = 'model_extension_' . $this->codename . '_template';
@@ -57,26 +58,13 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->load->model('extension/module/d_twig_manager');
             $this->model_extension_module_d_twig_manager->installCompatibility();
         }
-
-        //init iframe_src
-        if (!isset($this->session->data['iframe_url'])) {
-            $param = array();
-            if ($this->request->server['HTTPS']) {
-                $store_url = HTTPS_SERVER;
-                $catalog_url = HTTPS_CATALOG;
-            } else {
-                $store_url = HTTP_SERVER;
-                $catalog_url = HTTP_CATALOG;
-            }
-            $this->session->data['iframe_url'] = $catalog_url;
-        }
-
 //        $this->uninstallTheme();
 //        if ($this->status_visualize) {
 //            $this->installTheme();
 //        }
+        $this->model_extension_module_d_visualize->inc($this->visualize_version,intval(implode('', explode('.', $this->extension['version']))));
+        exit;
         if ($this->setting_visualize['engine'] == 'nuxt') {
-
             $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
             $data['app'] = file_get_contents($nuxt_dist . '/index.html');
             $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
@@ -103,7 +91,6 @@ class ControllerExtensionModuleDVisualize extends Controller
             }
             $this->response->setOutput($this->load->view($this->route . '_nuxt', $data));
         } else {
-
             //Vue JS with Vuex and
             $this->document->addScript("view/javascript/d_vue/vue.min.js");
             $this->document->addScript("view/javascript/d_vuex/vuex.min.js");
@@ -226,6 +213,12 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['change'] = 'Change';
         $local['common']['load_more'] = 'Show more';
         $local['common']['search'] = 'Search';
+        $local['editor']['header'] = 'Header';
+        $local['editor']['footer'] = 'Footer';
+        $local['editor']['custom'] = 'Custom section';
+        $local['editor']['custom_help'] = 'Here you can edit your custom styles for current template skin';
+        $local['common']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_header');
+        $local['common']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_footer');
 
         $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
 

@@ -100,6 +100,10 @@ export const actions = {
 			template: payload,
 		});
 	},
+	async SAVE_CUSTOM({commit}, payload) {
+
+	},
+
 	async SET_VARIATION({commit, dispatch, getters}, payload) {
 		commit('SET_VARIATION', payload);
 		await dispatch('SAVE', getters.active_template);

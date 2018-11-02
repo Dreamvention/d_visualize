@@ -70,7 +70,7 @@ export const actions = {
 		});
 		navigation.current_page = Object.keys(rootGetters['template/page_components']).map(function (c) {
 			return {
-				href: '/editor  /' + c,
+				href: '/editor/' + c,
 				text: 'component.entry_' + c
 			};
 		});

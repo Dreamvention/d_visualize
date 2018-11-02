@@ -91,9 +91,8 @@ gulp.task('postCSS:templates', function () {
 	});
 	return tasks;
 });
-/*
-* For php support we use scss for skin templates. This function uses for dev only */
-gulp.task('scssCSS:templates', function () {
+/** For php support we use scss for skin templates. This function uses for dev only */
+gulp.task('scss:templates', function () {
 	var folders = getFolders(templatesDir);
 	var tasks = [];
 	folders.map(function (folderTemplate) {
@@ -115,6 +114,18 @@ gulp.task('scssCSS:templates', function () {
 	});
 	return tasks;
 });
+gulp.task('scss:libraries', function () {
+	return gulp.src([
+		path.join(stylesheetDir, 'library') + '/bootstrap3/stylesheets/bootstrap.scss',
+		path.join(stylesheetDir, 'library') + '/bootstrap4/scss/bootstrap-grid.scss',
+	])
+		.pipe(sourcemaps.init())
+		.pipe(sass().on('error', sass.logError))
+		.pipe(require('gulp-autoprefixer')({browsers: ['last 15 versions']}))
+		.pipe(sourcemaps.write(path.join(stylesheetDir, 'dist','library')))
+		.pipe(gulp.dest(path.join(stylesheetDir, 'dist','library')))
+		.pipe(browserSync.stream({match: '**/*.css'}));
+})
 gulp.task('postCSS:vz-core', function () {
 	return gulp.src(path.join(stylesheetDir, 'vz-core', 'core' + '.css'))
 		.pipe(sourcemaps.init())

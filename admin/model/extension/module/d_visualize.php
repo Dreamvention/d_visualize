@@ -132,18 +132,57 @@ class ModelExtensionModuleDVisualize extends Model
         COLLATE='utf8_general_ci'
         ENGINE=MyISAM;";
         $this->db->query($sql);
-//        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_templates (
-//            colors_id INT(11) NOT NULL AUTO_INCREMENT,
-//            template_id INT(11) NOT NULL ,
-//            colors TEXT NOT NULL,
-//            PRIMARY KEY (colors_id)
-//        )
-//        COLLATE='utf8_general_ci'
-//        ENGINE=MyISAM;";
-//        $this->db->query($sql);
-
     }
 
+    public function inc($old_version, $new_version)
+    {
+        if ($old_version < $new_version) {
+            $this->{'inc_' . $old_version}();
+        }
+    }
+
+    public function inc_200()
+    {
+        $this->inc_200_201();
+    }
+//
+//    public function inc_201()
+//    {
+//        $this->inc_201_202();
+//    }
+//
+//    public function inc_202()
+//    {
+//    }
+
+    public function inc_200_201()
+    {
+
+        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_style (
+            style_id INT(11) NOT NULL AUTO_INCREMENT,
+            template_id INT(11) NOT NULL ,
+            skin VARCHAR(255) NOT NULL ,
+            config TEXT NOT NULL,
+            custom_style TEXT NOT NULL,
+            compiled_css_path VARCHAR(255) NOT NULL,
+            PRIMARY KEY (style_id)
+        )
+        COLLATE='utf8_general_ci'
+        ENGINE=MyISAM;";
+        $this->db->query($sql);
+//        $this->inc_202_203();
+
+    }
+//
+//    public function inc_201_202()
+//    {
+//        $this->inc_202_203();
+//    }
+//
+//    public function inc_202_203()
+//    {
+//
+//    }
     /**
      * @return string
      */

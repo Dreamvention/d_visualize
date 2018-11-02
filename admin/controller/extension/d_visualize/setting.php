@@ -13,6 +13,7 @@ class ControllerExtensionDVisualizeSetting extends Controller
         $this->store_id = (isset($this->request->post['store_id'])) ? $this->request->post['store_id'] : 0;
         $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
+        $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
         $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
     }
 
@@ -26,12 +27,17 @@ class ControllerExtensionDVisualizeSetting extends Controller
             $this->load->model('extension/d_visualize/template');
             $this->model_extension_d_visualize_template->uninstallTheme();
             $new_post = array();
+            $old_post = array();
             foreach ($this->request->post as $k => $v) {
                 $new_post['module_' . $this->codename . '_' . $k] = json_decode(html_entity_decode($v, ENT_QUOTES, 'UTF-8'), true);
+                $old_post[$this->codename . '_' . $k] = json_decode(html_entity_decode($v, ENT_QUOTES, 'UTF-8'), true);
             }
+            //version save
+            $old_post[$this->codename . '_' . 'version'] = $new_post['module_' . $this->codename . '_' . 'version'] = intval(implode('', explode('.', $this->extension['version'])));
             $this->model_extension_d_opencart_patch_setting->editSetting('module_' . $this->codename, $new_post, $this->store_id);
+            $this->model_extension_d_opencart_patch_setting->editSetting($this->codename, $old_post, $this->store_id);
             $this->session->data['success'] = $this->language->get('text_success');
-            $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
+            $setting_visualize = $this->model_extension_module_d_visualize->loadSetting();
             $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
             if ($setting_visualize['module_' . $this->codename . '_status']) {
                 $this->model_extension_d_visualize_template->installTheme($this->setting_visualize['active_template']);
