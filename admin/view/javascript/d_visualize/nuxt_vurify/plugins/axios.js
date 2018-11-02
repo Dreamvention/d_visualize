@@ -25,7 +25,6 @@ export default ({$axios, store})=>{
 			request.transformRequest = (data,header)=>{
 				return getDataOpencart(data,header)
 			}
-			console.log(request)
 		}
 		return request;
 	}, (err)=>{

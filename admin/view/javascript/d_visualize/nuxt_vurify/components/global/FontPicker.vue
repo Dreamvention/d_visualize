@@ -1,25 +1,41 @@
 <template>
     <div class="font-picker">
-        <slot name="input">
-            <div class="font-picker__input">
-                <i class="fa fa-search"></i>
-                <input v-model="valueSearch"/>
-            </div>
-        </slot>
+        <div class="font-picker__input">
+            <slot name="input">
+                <v-text-field
+                        v-model="valueSearch"
+                        hide-details
+                        :label="$t('common.search')"
+                        append-icon="search"
+                ></v-text-field>
+
+            </slot>
+        </div>
+
         <div v-for="font in fonts">
             <div class="font-list__item" :style='
             `font-family:${font.family}, sans ,sans-serif;`' @click="selectFont(font.family,font.files[font.variants[0]])">
                 <span class="font-list__item__font-holder">{{font.family}}</span>
-                <div class="font-list__item__checker-box" v-if="value===font.family">
+                <div class="font-list__item__checker-box" v-show="value===font.family">
                     <slot name="selector">
-                        <i class="fa fa-check"></i>
+                        <v-icon small>check</v-icon>
                     </slot>
                 </div>
             </div>
         </div>
-        <slot name="load_more" v-if="limit<=fonts.length">
-            <button @click="loadMore">More</button>
-        </slot>
+        <div v-if="fonts.length <= 0">
+                <div class="font-picker__not-found heading">
+                    <slot name="not_found">
+                        Not found
+                    </slot>
+                </div>
+        </div>
+        <div class="font-picker__load-more" @click="loadMore" v-if="limit<=fonts.length">
+            <slot name="load_more">
+                <button>More</button>
+            </slot>
+        </div>
+
     </div>
 </template>
 
@@ -59,7 +75,7 @@
 			fonts() {
 				let fonts = this.font_list
 					.filter(font=>font.family.toLocaleLowerCase()
-						.match(`.*${this.valueSearch}.*`))
+						.match(`.*${this.valueSearch.toLocaleLowerCase()}.*`))
 					.sort((a, b)=>{
 							return a.family > b.family ? 1 : a.family < b.family ? -1 : 0;
 						}
@@ -112,7 +128,7 @@
 			},
 			selectFont(value,url) {
 				this.$emit('input', value);
-				this.$emit('font-url', url);
+				this.$emit('font_url', {value: value, ulr: url});
 			}
 		}
 	};
@@ -122,10 +138,19 @@
 .font-picker {
     max-height: 400px;
     overflow: auto;
-    padding: 20px;
+    background-color: #fff;
+    font-size: 18px;
+    &__load-more,&__not-found{
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-bottom: 5px;
+    }
     &__input {
-        padding: 3px;
-        border: 1px solid gray;
+        padding-top: 10px;
+        .v-input__slot{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
         display: flex;
         align-items: center;
         margin-bottom: 10px;
@@ -143,8 +168,35 @@
 .font-list__item {
     cursor: pointer;
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    padding: 5px 20px;
+    transition: all .2s;
     &:hover {
+        background-color: var(--info);
+        .font-list__item__checker-box{
+            display: block !important;
+            background-color: var(--info);
+            .theme--light.v-icon{
+                color: #000;
+            }
+        }
     }
+}
+
+.font-list__item__checker-box {
+    background-color: var(--primary);
+    width: 25px;
+    height: 25px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    .theme--light.v-icon {
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        margin-left: 4px;
+        margin-bottom: 4px;
+    }
+    border-radius: 100%;
 }
 </style>

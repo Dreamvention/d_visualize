@@ -10,18 +10,18 @@
     "radius": "5px",
     "font-size": "14px",
     "border-width": "1px",
-    "text-transform": "('bold' ,'italic')",
+    "text-transform": ["bold"],
     "box-shadow": ""
   },
   "font":{
     "size-base": "14px",
-    "family": "'Open Sans'",
+    "family": "Open Sans",
     "line-height": "1.1",
-    "headings-family": "'Montserrat'",
+    "headings-family": "Montserrat",
     "headings-size-base": "14px",
     "headings-line-height": "1.1",
-    "headings-letter-spacing": "1.2",
-    "headings-text-transform": "('bold' ,'italic')"
+    "headings-letter-spacing": "1px",
+    "headings-text-transform": ["bold"]
   },
   "breakpoints": "('phone': 320px,'phone-wide': 480px,'phablet': 560px,'tablet-small': 640px,'tablet': 769px,'tablet-wide': 991px,'laptop': 1199px,'desktop': 1248px,'desktop-wide': 1440px)",
   "layout": {
@@ -77,23 +77,39 @@
         "headings-letter-spacing": {
           "text": "font.headings_letter_spacing",
           "type": "slider",
-          "min": "1",
-          "max": "2",
-          "step": ".1"
+          "min": "-1",
+          "max": "15",
+          "step": "1",
+          "suffix": "px"
         },
         "headings-text-transform": {
           "text": "font.headings_text_transform",
           "type": "toggle",
           "values": [
             {
-              "icon": "fas fa-bold",
-              "text": "text-bold",
+              "icon": "format_bold",
+              "text": "font.bold",
               "value": "bold"
             },
             {
-              "icon": "fas fa-bold",
-              "text": "text-underline",
-              "value": "bold"
+              "icon": "format_italic",
+              "text": "font.italic",
+              "value": "italic"
+            },
+            {
+              "icon": "format_underlined",
+              "text": "font.underline",
+              "value": "underline"
+            },
+            {
+              "icon": "text_fields",
+              "text": "font.capitalize",
+              "value": "capitalize"
+            },
+            {
+              "icon": "title",
+              "text": "font.uppercase",
+              "value": "uppercase"
             }
           ]
         }
@@ -138,6 +154,7 @@
       },
       "variables": {
         "radius": {
+          "text": "button.radius",
           "type": "slider",
           "min": "0",
           "max": "50",
@@ -145,6 +162,7 @@
           "suffix": "px"
         },
         "font-size": {
+          "text": "button.font_size",
           "type": "slider",
           "min": "12",
           "max": "23",
@@ -152,6 +170,7 @@
           "suffix": "px"
         },
         "border-width": {
+          "text": "button.border_width",
           "type": "slider",
           "min": "0",
           "max": "5",
@@ -159,23 +178,35 @@
           "suffix": "px"
         },
         "text-transform": {
+          "text": "button.transform",
           "type": "toggle",
           "values": [
             {
-              "icon": "fas fa-bold",
-              "text": "text-bold",
+              "icon": "format_bold",
+              "text": "font.bold",
               "value": "bold"
             },
             {
-              "icon": "fas fa-bold",
-              "text": "text-underline",
-              "value": "bold"
+              "icon": "format_italic",
+              "text": "font.italic",
+              "value": "italic"
+            },
+            {
+              "icon": "format_underlined",
+              "text": "font.underline",
+              "value": "underline"
+            },
+            {
+              "icon": "text_fields",
+              "text": "font.capitalize",
+              "value": "capitalize"
+            },
+            {
+              "icon": "title",
+              "text": "font.uppercase",
+              "value": "uppercase"
             }
           ]
-        },
-        "box-shadow": {
-          "type": "custom",
-          "text": "<a href='https://www.cssmatic.com/box-shadow' ref=blank>Shadow generator</a>"
         }
       }
     }

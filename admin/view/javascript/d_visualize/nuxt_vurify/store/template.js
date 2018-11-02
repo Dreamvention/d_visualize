@@ -56,7 +56,7 @@ export const mutations = {
 	SET_COMPONENTS(state, payload) {
 		state.available_components = payload;
 	},
-	RENAME_TEMPLATE_TITLE(state, rootState, payload) {
+	RENAME_TEMPLATE_TITLE(state,  payload) {
 		state.templates[payload.template_codename].title = payload.value;
 	},
 	SET_VARIATION(state, payload) {

@@ -195,6 +195,10 @@ class ControllerExtensionDVisualizeEvent extends Controller
                 if (is_array($holder_vars)) {
                     //not so much var so don't worry it's fast
                     foreach ($holder_vars as $var => $value) {
+                        if (is_array($value)){
+                            $value='("'.implode($value,'","').'")';
+                        }
+                        FB::log($value);
                         $variables[$holder . '-' . $var] = $value;
                     }
                 } else {

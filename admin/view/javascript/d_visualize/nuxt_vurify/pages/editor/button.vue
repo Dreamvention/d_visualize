@@ -1,33 +1,32 @@
 <template>
     <ComponentContainer :container_width="'120px'">
         <template slot="header">
-            <h2 class="editor-component__heading display-3"> {{$t('editor.entry_font')}}</h2>
+            <h2 class="editor-component__heading display-3"> {{$t('editor.entry_button')}}</h2>
         </template>
-        <div v-for="(setting,font_key) in settings"
-             :key="font_key"
-             class="font-var"
-        >
+            <div v-for="(setting,button_key) in settings"
+             :key="button_key"
+             class="button-var">
             <span class="subheading">{{$t(setting.text)}}</span>
             <template v-if="setting.type === 'slider'">
                 <v-slider
-                        :label="values[font_key]"
+                        :label="values[button_key]"
                         inverse-label
                         :min="setting.min"
                         :max="setting.max"
                         :step="setting.step"
-                        :value="parseFloat(values[font_key])"
-                        @change="changeVariable(font_key,$event)"
+                        :value="parseFloat(values[button_key])"
+                        @change="changeVariable(button_key,$event)"
                 ></v-slider>
             </template>
-            <template v-else-if="setting.type === 'font-family'">
-                <div class="font-box">
-                    <div class="font-box__family" :style='`font-family:${values[font_key]}, sans ,sans-serif;`'>
-                        {{values[font_key]}}
+            <template v-else-if="setting.type ==='button-family'">
+                <div class="button-box">
+                    <div class="button-box__family" :style='`button-family:${values[button_key]}, sans ,sans-serif;`'>
+                        {{values[button_key]}}
                     </div>
                     <v-btn block
                            color="info"
-                           class="my-0 font-box__change"
-                           @click="showPicker(font_key,values[font_key],setting,$event)">
+                           class="my-0 button-box__change"
+                           @click="showPicker(button_key,values[button_key],setting,$event)">
                         {{$t('common.change')}}
                     </v-btn>
                 </div>
@@ -36,8 +35,8 @@
             <div v-else-if="setting.type === 'toggle'">
                 <div class="toggler">
                     <v-btn-toggle
-                            :value="values[font_key]"
-                            @change="changeVariable(font_key,$event)"
+                            :value="values[button_key]"
+                            @change="changeVariable(button_key,$event)"
                             class="transparent"
                             multiple>
                         <template v-for="toggle in setting.values">
@@ -66,14 +65,14 @@
                 nudge-left="50"
                 nudge-bottom="10"
                 transition="scale-transition">
-            <FontPicker :value="picker.value" @input="changeVariable">
+            <buttonPicker :value="picker.value" @input="changeVariable">
                 <template slot="load_more">
                     <v-btn block color="primary">{{$t('common.load_more')}}</v-btn>
                 </template>
                 <template slot="not_found">
-                    {{$t('font.not_found')}}
+                    {{$t('button.not_found')}}
                 </template>
-            </FontPicker>
+            </buttonPicker>
         </v-menu>
         <!--<v-checkbox-->
         <!--:label="`Checkbox 1: ${checkbox.toString()}`"-->
@@ -106,10 +105,10 @@
         },
 		computed: {
 			values() {
-				return this.$store.getters['template/active_skin_holder']('font');
+				return this.$store.getters['template/active_skin_holder']('button');
 			},
 			settings() {
-				return this.$store.getters['template/active_skin_holder_variables']('font');
+				return this.$store.getters['template/active_skin_holder_variables']('button');
 			},
 			...mapGetters({
 				template: 'template/active_template',
@@ -121,24 +120,24 @@
 			}
 		},
         methods:{
-	        changeToggle(font_key, $event) {
+	        changeToggle(button_key, $event) {
 		        console.log($event);
 	        },
-	        changeVariable(font_key, $event) {
-		        let key = font_key;
+	        changeVariable(button_key, $event) {
+		        let key = button_key;
 		        let value = $event;
-		        if (this.settings[font_key] && this.settings[font_key].suffix) {
-			        value += this.settings[font_key].suffix;
+		        if (this.settings[button_key] && this.settings[button_key].suffix) {
+			        value += this.settings[button_key].suffix;
 		        }
-		        if (!this.settings[font_key]) {
+		        if (!this.settings[button_key]) {
 			        key = this.picker.key;
-			        this.picker.value = font_key;
-			        value = font_key;
+			        this.picker.value = button_key;
+			        value = button_key;
 		        }
 		        this.$store.dispatch('template/SET_SKIN_VARIABLE', {
 			        template_id: this.template.setting.codename,
 			        skin: this.template.setting.active_skin,
-			        holder: 'font',
+			        holder: 'button',
 			        key: key,
 			        value: value,
 		        });
@@ -156,7 +155,7 @@
 </script>
 
 <style lang="scss">
-    .font-var {
+    .button-var {
         margin-bottom: 10px;
         .subheading {
             display: inline-block;
@@ -204,11 +203,11 @@
         }
     }
 
-    .font-box {
+    .button-box {
         border: 1px solid var(--secondary);
         &__family {
             text-align: center;
-            font-size: 16px;
+            button-size: 16px;
             border-bottom: 1px solid var(--secondary);
             padding-top: 20px;
             padding-bottom: 20px;

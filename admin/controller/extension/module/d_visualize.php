@@ -223,6 +223,9 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['setting'] = 'Setting';
         $local['common']['current_theme'] = 'Current theme';
         $local['common']['current_theme_description'] = 'This is the theme customers see when they visit your store.';
+        $local['common']['change'] = 'Change';
+        $local['common']['load_more'] = 'Show more';
+        $local['common']['search'] = 'Search';
 
         $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
 
@@ -312,6 +315,19 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['font']['headings_line_height'] = 'Headings line height';
         $local['font']['headings_letter_spacing'] = 'Headings letter spacing';
         $local['font']['headings_text_transform'] = 'Headings text transform';
+        $local['font']['not_found'] = 'No font found';
+        $local['font']['bold'] = '<b>bold</b>';
+        $local['font']['underline'] = '<span style="text-decoration: underline">underline</span>';
+        $local['font']['italic'] = '<i>italic</i>';
+        $local['font']['capitalize'] = 'Capitalize Headings';
+        $local['font']['uppercase'] = 'UPPERCASE';
+
+
+        $local['editor']['entry_button'] = 'Button';
+        $local['button']['radius'] = 'Button radius';
+        $local['button']['font_size'] = 'Button font-size';
+        $local['button']['border_width'] = 'Button border-width';
+        $local['button']['transform'] = 'Button text transformations';
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');

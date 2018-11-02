@@ -15,11 +15,14 @@
                         <v-btn nuxt to="/" flat icon color="accent">
                             <v-icon small>fas fa-times</v-icon>
                         </v-btn>
+                        <div class="display-1">
+                        </div>
                         <v-autocomplete
                                 flat
                                 height="auto"
                                 solo
                                 hide-details
+                                disabled
                                 full-width
                                 :value="current_page"
                                 :items="iframe_pages"

@@ -1,5 +1,6 @@
 @import "base/import";
 @import 'https://fonts.googleapis.com/css?family=' + $font-family;
+@import 'https://fonts.googleapis.com/css?family=' + $font-headings-family;
 //@font-face {
 //  font-family: '${font.family}';
 //  font-style: normal;
@@ -16,22 +17,34 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   color: $color-heading;
+  font-family: '' + $font-headings-family+ '', sans-serif;
   font-size: $font-headings-size-base;
   line-height: $font-headings-line-height;
+  letter-spacing: $font-headings-letter-spacing;
   @if index($font-headings-text-transform, 'bold') {
     font-weight: bold;
+  } @else {
+    font-weight: normal;
   }
   @if index($font-headings-text-transform, 'italic') {
     font-style: italic;
+  } @else {
+    font-style: normal;
   }
   @if index($font-headings-text-transform, 'underline') {
     text-decoration:underline;
+  } @else {
+    text-decoration: none;
   }
   @if index($font-headings-text-transform, 'capitalize') {
     text-transform: capitalize;
+  } @else {
+    text-transform: none;
   }
   @if index($font-headings-text-transform, 'uppercase') {
     text-transform: uppercase;
+  } @else {
+    text-transform: none;
   }
 }
     /* default font size */
@@ -408,32 +421,59 @@ footer h5 {
 
 .btn {
   padding: 7.5px 12px;
-  font-size: 12px;
+  font-size: $button-font-size;
   border: 1px solid #cccccc;
-  border-radius: 4px;
+  border-width: $button-border-width;
+  border-radius: $button-radius;
   outline: none !important;
+  @if index($button-text-transform, 'bold') {
+    font-weight: bold;
+  } @else {
+    font-weight: normal;
+  }
+  @if index($button-text-transform, 'italic') {
+    font-style: italic;
+  } @else {
+    font-style: normal;
+  }
+  @if index($button-text-transform, 'underline') {
+    text-decoration:underline;
+  } @else {
+    text-decoration: none;
+  }
+  @if index($button-text-transform, 'capitalize') {
+    text-transform: capitalize;
+  } @else {
+    text-transform: none;
+  }
+  @if index($button-text-transform, 'uppercase') {
+    text-transform: uppercase;
+  } @else {
+    text-transform: none;
+  }
 }
 .btn-xs {
-  font-size: 9px;
+  font-size: $button-font-size*.8;
+
 }
 .btn-sm {
-  font-size: 10.2px;
+  font-size:$button-font-size*1.2;
 }
 .btn-lg {
   padding: 10px 16px;
-  font-size: 15px;
+  font-size: $button-font-size*1.5;
 }
 .btn-group > .btn, .btn-group > .dropdown-menu, .btn-group > .popover {
-  font-size: 12px;
+  font-size: $button-font-size*1.1;
 }
 .btn-group > .btn-xs {
-  font-size: 9px;
+  font-size: $button-font-size*.8;
 }
 .btn-group > .btn-sm {
-  font-size: 10.2px;
+  font-size: $button-font-size*1.2;
 }
 .btn-group > .btn-lg {
-  font-size: 15px;
+  font-size: $button-font-size*1.5;
 }
 .btn-default {
   color: #777;
