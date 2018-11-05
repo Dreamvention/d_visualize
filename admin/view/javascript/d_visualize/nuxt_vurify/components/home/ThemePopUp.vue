@@ -18,10 +18,11 @@
                             <!--<v-btn value="left" color="light-blue" dark d-none>-->
                             <!--{{$t('template.live_demo')}}-->
                             <!--</v-btn>-->
-                            <v-btn value="center" color="teal accent-3" dark>
+                            <v-btn value="center" color="teal accent-3" dark @click="changeTheme">
                                 {{$t('template.use_this')}}
                             </v-btn>
                             <v-checkbox
+                                    style="display: none"
                                     v-model="replace_content"
                                     :label="$t('template.replace_content')"
                                     color="primary"
@@ -123,7 +124,13 @@
 		},
 		components: {
 			ThemePreviewImage
-		}
+		},
+        methods:{
+	        changeTheme(){
+	        	this.$emit('changeTheme',this.codename);
+		        this.dialog = false
+            }
+        }
 
 	};
 </script>

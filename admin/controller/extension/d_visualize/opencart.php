@@ -90,10 +90,11 @@ class ControllerExtensionDVisualizeOpencart extends Controller
     /**
      * @return string
      */
-    public function trance_db()
+    public function trunce_db()
     {
-        $this->load->model_extension_module_d_visualize->installDataBase();
+        $this->load->model('extension/module/d_visualize');
+        $this->model_extension_module_d_visualize->tranceDataBase();
+        $this->response->setOutput(json_encode(array('sussess' => true)));
 
-        return $this->codename;
     }
 }

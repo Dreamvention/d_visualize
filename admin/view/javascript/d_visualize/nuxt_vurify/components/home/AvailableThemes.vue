@@ -25,7 +25,7 @@
                             </div>
                         </v-card-title>
                         <v-card-actions class="available-themes__btns">
-                            <ThemePopUp :codename="template.setting.codename">
+                            <ThemePopUp :codename="template.setting.codename" @changeTheme="changeTheme">
                             </ThemePopUp>
 
                         </v-card-actions>
@@ -46,7 +46,12 @@
 		},
 		components: {
 			ThemePopUp
-		}
+		},
+        methods:{
+	        changeTheme(value){
+	        	this.$store.dispatch('setting/CHANGE_ACTIVE_TEMPLATE',value)
+            }
+        }
 	};
 </script>
 <style scoped lang="scss">

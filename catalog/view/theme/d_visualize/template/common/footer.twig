@@ -24,7 +24,7 @@
 				this.location.reload();
 			}
 			if (event.data.vz_change_css) {
-				//make a call to server to render css 
+				//make a call to server to render css
 				//we have scss compiler so can pass to him variables
 				//we don't save this settings now just pass it onto style section
 				$.ajax({
@@ -32,15 +32,7 @@
 					type: 'post',
 					data: event.data.vz_change_css,
 					success: function (style) {
-						var sheetToBeRemoved = document.getElementById('vis-custom-style');
-						if (sheetToBeRemoved){
-							var sheetParent = sheetToBeRemoved.parentNode;
-							sheetParent.removeChild(sheetToBeRemoved);
-						}
-						var sheet = document.createElement('style')
-						sheet.id = 'vis-custom-style';
-						sheet.innerHTML = style;
-						document.head.appendChild(sheet);
+						appendStyle('vis-custom-style',style);
 					},
 					failure: function (e) {
 						alert('FAIL TO COMPILE SCSS');
@@ -49,8 +41,27 @@
 				});
 
 			}
+			if (event.data.vz_global_custom_style){
+				appendStyle('viz-global-custom_style',event.data.vz_global_custom_style)
+			}
+			if (event.data.vz_skin_custom_style){
+				appendStyle('viz-skin-custom_style',event.data.vz_skin_custom_style)
+			}
+		}else{
+			console.log('no token')
 		}
 	});
+	function appendStyle(id,style) {
+		var sheetToBeRemoved = document.getElementById(id);
+		if (sheetToBeRemoved){
+			var sheetParent = sheetToBeRemoved.parentNode;
+			sheetParent.removeChild(sheetToBeRemoved);
+		}
+		var sheet = document.createElement('style')
+		sheet.id = id;
+		sheet.innerHTML = style;
+		document.head.appendChild(sheet);
+	}
 </script>
 {% endif %}
 </body></html>

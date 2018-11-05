@@ -73,6 +73,24 @@ gulp.task('postCSS:components', function () {
 	});
 	return tasks;
 });
+gulp.task('watch:components', function () {
+	var cssFiles = [];
+	//any template and any skin
+	cssFiles.push(path.join(compoenentDir, '**', '**', '*.*css'));
+	cssFiles.push(path.join(compoenentDir, '**', '*.*css'));
+
+	gulp.watch([cssFiles], ['postCSS:components']);
+});
+gulp.task('run:components', ["browser_sync_init"], function () {
+	if (typeof process.env.HOST !== "undefined") {
+		gulp.watch([
+			baseDir + "/controller/extension/**/**/*.php",
+			baseDir + "/view/template/extension/**/**/*.vue",
+			baseDir + "/view/template/extension/**/**/*.twig"
+		], browserSync.reload);
+	}
+	gulp.start(["CSSTemplatesSkins:watch", "scripts:watch"]);
+})
 gulp.task('postCSS:templates', function () {
 	var folders = getFolders(templatesDir);
 	var tasks = [];
@@ -148,6 +166,7 @@ gulp.task('CSS:watch', function () {
 
 	gulp.watch([cssFiles], ['postCSS:vz-core', 'postCSS:templates', 'postCSS:components']);
 });
+
 gulp.task('CSSTemplatesSkins:watch', function () {
 	var cssFiles = [];
 	//any template and any skin
@@ -164,10 +183,12 @@ gulp.task('scripts:watch', function () {
 gulp.task("browser_sync_init", function () {
 	if (typeof process.env.HOST !== "undefined") {
 		browserSync({
-			proxy: process.env.HOST
+			proxy: process.env.HOST,
+			port: 3333
 		});
 	}
 });
+
 gulp.task('default', ["browser_sync_init"], function () {
 	if (typeof process.env.HOST !== "undefined") {
 		gulp.watch([

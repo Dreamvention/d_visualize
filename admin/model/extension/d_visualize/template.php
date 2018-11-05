@@ -3,7 +3,6 @@
 class ModelExtensionDVisualizeTemplate extends Model
 {
     private $codename = 'd_visualize';
-
     public function getRoute($name = 'd_visualize')
     {
         $results = array();
@@ -22,7 +21,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $results;
     }
-
     public function getTemplateExtensions($skin_name)
     {
         //todo make this work
@@ -48,7 +46,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $modules_json;
 
     }
-
     public function searchComponent($dir, $result)
     {
         $componenDir = DIR_CATALOG . 'view/theme/' . $this->codename . '/template/component';
@@ -63,7 +60,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $component;
     }
-
     public function getAvailableComponents()
     {
         $componenDir = DIR_CATALOG . 'view/theme/' . $this->codename . '/template/component';
@@ -74,7 +70,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $result;
     }
-
     public function getAvailableTemplates()
     {
         $files = glob(DIR_CONFIG . $this->codename . '/template/*.php', GLOB_BRACE);
@@ -109,28 +104,59 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $result;
     }
 
-
-    private function getSCSSVariables($template_id, $skin)
+    public function updateStyleCSSPath($data){
+        $sql = "UPDATE " . DB_PREFIX . "vz_style
+            SET
+            css_path = '" . $this->db->escape($data['css_path']) . "',
+            date_modified = NOW() WHERE template_codename = '" . $data['template_id'] . "'" . " AND skin='" . $data['skin'] . "'";
+        $this->db->query($sql);
+    }
+    public function saveCustomStyles($data)
     {
-        $this->load->config('d_visualize/' . $template_id . '/' . $skin);
-        $cssSetting = $this->config->get('d_visualize_template_' . $template_id . '_' . $skin . '_css');
-        if ($cssSetting && @is_file(DIR_CATALOG . $cssSetting['config_file_path'])) {
-            $settings = $cssSetting['settings'];
-            return array_merge_recursive( json_decode(@file_get_contents(DIR_CATALOG . $cssSetting['config_file_path']), true),array('settings' => $settings));
+        $custom = $this->getCustomStyles($data['template_id'], $data['skin']);
+        if (!$custom) {
+            $this->db->query("INSERT INTO " . DB_PREFIX . "vz_style
+                SET template_codename = '" . $this->db->escape($data['template_id']) . "',
+                skin = '" . $this->db->escape($data['skin']) . "',
+                custom_style = '" . $this->db->escape($data['custom_style']) . "',
+                config = '" . $this->db->escape(json_encode($data['config'], true)) . "',
+                date_created = '" . 'NOW()' . "',
+				date_modified = '" . 'NOW()' . "'"
+            );
+        } else {
+            $sql = "UPDATE " . DB_PREFIX . "vz_style
+            SET
+            skin = '" . $this->db->escape($data['skin']) . "',
+            custom_style = '" . $this->db->escape($data['custom_style']) . "',
+            config ='" . $this->db->escape(json_encode($data['config'], true)) . "',
+            date_modified = NOW() WHERE template_codename = '" . $data['template_id'] . "'" . " AND skin='" . $data['skin'] . "'";
+            $this->db->query($sql);
         }
-//        $colors = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $template_id . '/skin/' . $skin . '/base/variables/' . $file_name;
-//        if (@is_file($colors)) {
-//            $re = '/\$([^:$})\s]+):[\s]+([^\s]+)[\s]+!default;/';
-//            preg_match_all($re, @file_get_contents($colors), $matches, PREG_SET_ORDER, 0);
-//            $variables_color = array();
-//            foreach ($matches as $match) {
-//                /*VAR name*/                 /*VAR value*/
-//                $variables_color[$match[1]] = $match[2];
-//            }
-//            return $variables_color;
-//        }
+        return $this->getCustomStyles($data['template_id'], $data['skin']);
     }
 
+    public function getCustomStyles($template_id, $skin)
+    {
+        $sql = 'SELECT * from ' . DB_PREFIX . "vz_style where template_codename='" . $template_id . "' AND skin='" . $skin . "'";
+        return $this->db->query($sql)->row;
+    }
+    private function getSCSSVariables($template_id, $skin)
+    {
+        //check in db config
+        $custom = $this->getCustomStyles($template_id, $skin);
+        if (!$custom) {
+            //php config is not use full.
+            //just ignore this
+            $this->load->config('d_visualize/' . $template_id . '/' . $skin);
+            $cssSetting = $this->config->get('d_visualize_template_' . $template_id . '_' . $skin . '_css');
+            if ($cssSetting && @is_file(DIR_CATALOG . $cssSetting['config_file_path'])) {
+                $settings = $cssSetting['settings'];
+                return array_merge_recursive(json_decode(@file_get_contents(DIR_CATALOG . $cssSetting['config_file_path']), true), array('settings' => $settings));
+            }
+        } else {
+            return json_decode($custom['config'], true);
+        }
+    }
     public function getAvailableSkines($active_template_codename)
     {
         $result = array();
@@ -143,7 +169,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $result;
     }
-
     public function loadTemplateSetting($active_template, $active_template_codename = 'default')
     {
         $this->components = $this->getAvailableComponents();
@@ -163,7 +188,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         //if there will be changes from DB it will replace
         return $active_template;
     }
-
     /*
      * this method set template and css which needed to component
      * if no files finded in this available components
@@ -190,16 +214,11 @@ class ModelExtensionDVisualizeTemplate extends Model
         if (!isset($component['skin'])) {
             $component['skin'] = $skin; //set default values template
         }
-//        if (isset($component['template'])) {
-//            $component['template'] = $component['template'] . $skin . '.twig'; //set default values template
-//        }
-//        if (isset($component['stylesheet'])) {
-//            $component['stylesheet'] = $component['stylesheet'] . $skin . '.css';
-//        }
         return $component;
     }
-    /**
-     * @param $data_array
+
+    /*
+     * data_array
      * extected next one data attrs
      * template
      * store_id
@@ -214,6 +233,7 @@ class ModelExtensionDVisualizeTemplate extends Model
                 codename = '" . $this->db->escape($data['template_codename']) . "',
                 source = '" . $this->db->escape($data['template']['source']) . "',
                 description = '" . $this->db->escape($data['template']['setting']['description']) . "',
+                title = '" . $this->db->escape($data['template']['title'] ? $data['template']['title'] : $data['template']['setting']['title']) . "',
                 setting = '" . $this->db->escape(json_encode($data['template']['setting'], true)) . "',
                 history_id = '" . 0 . "',
                 date_created = '" . 'NOW()' . "',
@@ -225,29 +245,24 @@ class ModelExtensionDVisualizeTemplate extends Model
             store_id = '" . $data['store_id'] . "',
             source = '" . $this->db->escape($data['template']['source']) . "',
             description ='" . $this->db->escape($data['template']['setting']['description']) . "',
+            title ='" . $this->db->escape($data['template']['title'] ? $data['template']['title'] : $data['template']['setting']['title']) . "',
             setting ='" . $this->db->escape(json_encode($data['template']['setting'], true)) . "', 
             date_modified = NOW() WHERE codename = '" . $template['codename'] . "'";
             $this->db->query($sql);
-//            FB::log($sql);
-//            $te = $this->getTemplateByCodename($data['template_codename']);
-//            FB::log((array)json_decode($te['setting'],true)['page']['default']['layout']['partial']);
         }
-        return $template;
+        return $this->getTemplateByCodename($data['template_codename']);
     }
-
     public function getTemplates($data_filter = array())
     {
         $sql = 'SELECT * from ' . DB_PREFIX . 'vz_templates';
 
         return $this->db->query($sql)->rows;
     }
-
     public function getTemplateByCodename($template_codename)
     {
         $sql = 'SELECT * from ' . DB_PREFIX . "vz_templates where codename='" . $template_codename . "'";
         return $this->db->query($sql)->row;
     }
-
     public function installTheme($active_template)
     {
         $this->load->model('extension/module/d_visualize');
@@ -265,7 +280,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         $this->{$this->model_helper}->installConfigThemeDefaults();
         $this->{$this->model_helper}->installTemplateThemeDefaults($active_template);
     }
-
     public function uninstallTheme()
     {
         $this->model = 'model_extension_module_' . $this->codename;
@@ -276,7 +290,6 @@ class ModelExtensionDVisualizeTemplate extends Model
     }
     public function imgeResize($filename, $width, $height, $original_size = false)
     {
-
         if ($this->request->server['HTTPS']) {
             return HTTPS_CATALOG . 'image/' . $filename;
         } else {

@@ -32,7 +32,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
 
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
-        $this->visualize_version = $setting_visualize['module_' . $this->codename . '_version'];
+//        $this->visualize_version = $setting_visualize['module_' . $this->codename . '_version'];
         $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
         $this->model = 'model_extension_module_' . $this->codename;
         $this->model_template = 'model_extension_' . $this->codename . '_template';
@@ -260,6 +260,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['editor']['vdh'] = 'Header';
         $local['editor']['vdf'] = 'Footer';
         $local['editor']['entry_skin'] = 'Skin';
+        $local['editor']['entry_global'] = 'Global';
         $local['editor']['entry_colors'] = 'Colors';
         $local['editor']['entry_buttons'] = 'Buttons';
         $local['editor']['entry_font'] = 'Typography';

@@ -122,7 +122,7 @@
 		},
         methods:{
 	        changeToggle(font_key, $event) {
-		        console.log($event);
+		        // console.log($event);
 	        },
 	        changeVariable(font_key, $event) {
 		        let key = font_key;
@@ -130,7 +130,6 @@
 		        if (this.settings[font_key] && this.settings[font_key].suffix) {
 			        value += this.settings[font_key].suffix;
 		        }
-		        console.log(value)
 		        if (!this.settings[font_key]) {
 			        key = this.picker.key;
 			        this.picker.value = font_key;

@@ -18,9 +18,9 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $this->load->model($this->route);
         $this->load->model('extension/' . $this->codename . '/template');
         $this->load->model('extension/' . $this->codename . '/extension_helper');
-        $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
-        $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
-        $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
+        $setting_visualize = $this->model_extension_module_d_visualize->loadSetting();
+        $this->setting_visualize = $setting_visualize[ $this->codename . '_setting'];
+        $this->status_visualize = isset($setting_visualize[ $this->codename . '_status']) ? $setting_visualize[$this->codename . '_status'] : false;
         $this->model = $this->{'model_extension_module_' . $this->codename};
         $this->model_template = $this->{'model_extension_' . $this->codename . '_template'};
         $this->model_helper = $this->{'model_extension_' . $this->codename . '_extension_helper'};
@@ -45,7 +45,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
 //        }->
 
     }
-
     /**
      * Event for overwrite styles for custom page
      * like for product/product need custom scripts and styles
@@ -79,9 +78,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
                     }
                 }
             }
-            if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
-
-            }
             // if last view is loaded we add scripts and Style from our d_visualize
             if ($view == $view_route) {
                 $data['page_route'] = $view_route;
@@ -95,6 +91,9 @@ class ControllerExtensionDVisualizeEvent extends Controller
             if ($this->user->isLogged()) {
                 $data['admin'] = true;
                 $data['site_url'] = HTTPS_SERVER;
+                if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
+
+                }
             }
         }
     }
@@ -124,6 +123,21 @@ class ControllerExtensionDVisualizeEvent extends Controller
         $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_visualize['active_template'] . '.css';
         if (isset($this->setting_active_template['active_skin'])) {
             $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_active_template['active_skin'] . '.css';
+            //skin custom section
+            $custom = $this->model_extension_d_visualize_template->getCustomStyles($this->setting_visualize['active_template'], $this->setting_active_template['active_skin']);
+            if ($custom) {
+                $template_style = false;
+                if ($custom['css_path']) {
+                    $this->document->addStyle($custom['css_path']);
+                }
+                if ($custom['custom_style']) {
+                    $data['custom_styles'][]=$custom['custom_style'];
+                }
+            }
+        }
+        $global_custom_style = $this->model_extension_module_d_visualize->loadCustomStyle();
+        if ($global_custom_style){
+            $data['custom_styles'][]=$global_custom_style;
         }
         if (file_exists(DIR_APPLICATION . '../' . $template_style)) {
             $this->document->addStyle($template_style);
@@ -153,7 +167,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
             foreach ($this->setting_active_template['post_scripts'] as $script) {
                 array_unshift($data['scripts'], $script);//default place for scripts our will be latest
             }
-        $data['custom_styles'] = ['custom_styles'];
 
     }
 
@@ -180,6 +193,9 @@ class ControllerExtensionDVisualizeEvent extends Controller
         curl_close($ch);
     }
 
+    /*
+     * compile css from scss for template skin
+     * */
     public function get_css()
     {
         $skin_path = DIR_APPLICATION . 'view/theme/' . $this->codename . '/stylesheet/template/' . $this->request->post['template_id'] . '/skin/' . $this->request->post['skin'] . '/';

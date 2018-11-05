@@ -87,6 +87,7 @@
                             </v-list-tile-content>
                         </v-list-tile>
                         <v-list-tile
+                                style="display: none"
                                 disabled
                                 @click="download"
                                 dense>

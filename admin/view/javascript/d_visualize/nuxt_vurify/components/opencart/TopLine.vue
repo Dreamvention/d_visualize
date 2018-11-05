@@ -16,16 +16,18 @@
                 <v-flex xs2
                         d-flex
                         justify-end
-                        f-auto>
+                        f-auto
+                        top-buttons
+                >
                     <v-tooltip bottom>
-                        <v-btn @click="save" slot="activator" fab dark small color="success">
+                        <v-btn @click="save" slot="activator" dark   color="success">
                             <v-icon dark>save</v-icon>
                         </v-btn>
                         <span>{{$t('common.button_save')}}</span>
                     </v-tooltip>
                     <a :href="opAction['cancel']" v-if="opAction">
                         <v-tooltip bottom>
-                            <v-btn slot="activator" fab dark small color="white">
+                            <v-btn slot="activator" dark  color="white">
                                 <v-icon dark color="black">reply</v-icon>
                             </v-btn>
                             <span>{{$t('common.button_cancel')}}</span>
@@ -51,8 +53,13 @@
         }
     }
 </script>
-<style scoped>
+<style scoped lang="scss">
     .display-4, .breadcrumb {
         margin-bottom: 0px;
+    }
+    .top-buttons .v-btn{
+        padding: 0 12px;
+        min-width: auto;
+        border: 1px solid var(--secondary) !important;
     }
 </style>

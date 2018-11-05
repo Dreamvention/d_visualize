@@ -13,17 +13,20 @@ class ModelExtensionModuleDVisualize extends Model
     public function loadSetting($suffix = '')
     {
         //check if exist config in db
-        $loadSetting = $this->model_setting_setting->getSetting('module_' . $this->codename, $this->store_id);
+        $loadSetting = $this->model_setting_setting->getSetting($this->codename, $this->store_id);
         if ($loadSetting) {
             $dbSetting = ($loadSetting) ? $loadSetting : array();
         } else {
             $dbSetting = array();
         }
-        //inherit users data
-        $setting = array();
-        $setting = array_replace_recursive(array('module_' . $this->codename . '_setting' => $this->config_visualize), $dbSetting);
+        $setting = array_replace_recursive(array($this->codename . '_setting' => $this->config_visualize), $dbSetting);
 
         return $setting;
+    }
+
+    public function loadCustomStyle()
+    {
+        return $this->model_setting_setting->getSetting('custom_style_'.$this->codename, $this->store_id)['custom_style_'.$this->codename];
     }
 
 }

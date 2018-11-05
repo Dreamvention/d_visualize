@@ -9,7 +9,7 @@ export const state = () => ({
         base_url:null,
         breadcrumbs:null
     },
-	menu: true
+	menu: true,
 });
 // getters
 export const getters = {
@@ -23,7 +23,8 @@ export const mutations = {
     },
 	TOGGLE_MENU(state, payload) {
 		state.menu = !state.menu;
-	}
+	},
+
 };
 // actions
 export const actions = {
@@ -37,4 +38,5 @@ export const actions = {
     async TRANCE_DB({commit}) {
         const {data} = await this.$axios.get('extension/d_visualize/opencart/trunce_db')
     },
+
 };

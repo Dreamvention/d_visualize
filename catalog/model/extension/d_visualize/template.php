@@ -119,6 +119,11 @@ class ModelExtensionDVisualizeTemplate extends Model
         return $this->db->query($sql)->row;
     }
 
+    public function getCustomStyles($template_id, $skin)
+    {
+        $sql = 'SELECT * from ' . DB_PREFIX . "vz_style where template_codename='" . $template_id . "' AND skin='" . $skin . "'";
+        return $this->db->query($sql)->row;
+    }
     /**
      * @param $page_array
      * @param string $search

@@ -95,7 +95,7 @@
 				}
 			},
 			apendStylesFontFace(list) {
-				console.log(list);
+				// console.log(list);
 				let css = '/* start */ \n';
 				for (let font of list) {
 					let font_face = `@font-face {
@@ -106,6 +106,8 @@
                 }\n`;
 					css += font_face;
 				}
+				css += '/* end */';
+
 				var sheetToBeRemoved = document.getElementById('font-picker-face');
 				if (sheetToBeRemoved) {
 					var sheetParent = sheetToBeRemoved.parentNode;

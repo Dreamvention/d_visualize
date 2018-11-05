@@ -112,6 +112,10 @@ class ModelExtensionModuleDVisualize extends Model
 
         return $setting;
     }
+    public function loadCustomStyle()
+    {
+        return $this->model_setting_setting->getSetting('custom_style_'.$this->codename, $this->store_id)['custom_style_'.$this->codename];
+    }
 
     public function installDataBase()
     {
@@ -132,63 +136,62 @@ class ModelExtensionModuleDVisualize extends Model
         COLLATE='utf8_general_ci'
         ENGINE=MyISAM;";
         $this->db->query($sql);
+        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_style (
+            template_codename  VARCHAR(128) NOT NULL ,
+            skin VARCHAR(128) NOT NULL ,
+            config TEXT NOT NULL,
+            custom_style TEXT NOT NULL,
+            css_path VARCHAR(255) NOT NULL,
+            date_created DATETIME NOT NULL,
+            date_modified DATETIME NOT NULL,
+            PRIMARY KEY (template_codename,skin)
+        )
+        COLLATE='utf8_general_ci'
+        ENGINE=MyISAM;";
+        $this->db->query($sql);
     }
 
     public function inc($old_version, $new_version)
     {
+
         if ($old_version < $new_version) {
-            $this->{'inc_' . $old_version}();
-        }
-    }
-
-    public function inc_200()
-    {
-        $this->inc_200_201();
-    }
-//
-//    public function inc_201()
-//    {
-//        $this->inc_201_202();
-//    }
-//
-//    public function inc_202()
-//    {
-//    }
-
-    public function inc_200_201()
-    {
-
-        $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_style (
+            try {
+                switch (true) {
+                    case $old_version < '2.0.1':
+                        {
+                            $sql = "CREATE TABLE IF NOT EXISTS " . DB_PREFIX . "vz_style (
             style_id INT(11) NOT NULL AUTO_INCREMENT,
             template_id INT(11) NOT NULL ,
             skin VARCHAR(255) NOT NULL ,
             config TEXT NOT NULL,
             custom_style TEXT NOT NULL,
-            compiled_css_path VARCHAR(255) NOT NULL,
+            css_path VARCHAR(255) NOT NULL,
+            date_created DATETIME NOT NULL,
+            date_modified DATETIME NOT NULL,
             PRIMARY KEY (style_id)
         )
         COLLATE='utf8_general_ci'
         ENGINE=MyISAM;";
-        $this->db->query($sql);
-//        $this->inc_202_203();
-
+                            $this->db->query($sql);
+                        }
+                    case $old_version < '2.1.0':
+                        {
+                            echo "<pre>"; print_r('it will be in future ');echo "</pre>";
+                        }
+                }
+            } catch (Exception $e) {
+                return $e;
+            }
+            //update DB version if all ok
+        }
     }
-//
-//    public function inc_201_202()
-//    {
-//        $this->inc_202_203();
-//    }
-//
-//    public function inc_202_203()
-//    {
-//
-//    }
     /**
      * @return string
      */
     public function dropDataBase()
     {
-        return $this->db->query('DROP TABLE IF EXISTS ' . DB_PREFIX . 'vz_templates');
+        $this->db->query('DROP TABLE IF EXISTS ' . DB_PREFIX . 'vz_templates');
+        $this->db->query('DROP TABLE IF EXISTS ' . DB_PREFIX . 'vz_style');
     }
 
     /**
@@ -196,7 +199,8 @@ class ModelExtensionModuleDVisualize extends Model
      */
     public function tranceDataBase()
     {
-        return $this->db->query('TRUNCATE TABLE IF EXISTS ' . DB_PREFIX . 'vz_templates');
+        $this->db->query('TRUNCATE TABLE ' . DB_PREFIX . 'vz_templates');
+        $this->db->query('TRUNCATE TABLE ' . DB_PREFIX . 'vz_style');
     }
 
     public function installEvents($active_skin)

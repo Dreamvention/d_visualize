@@ -65,14 +65,14 @@
                 nudge-left="50"
                 nudge-bottom="10"
                 transition="scale-transition">
-            <buttonPicker :value="picker.value" @input="changeVariable">
+            <FontPicker :value="picker.value" @input="changeVariable">
                 <template slot="load_more">
                     <v-btn block color="primary">{{$t('common.load_more')}}</v-btn>
                 </template>
                 <template slot="not_found">
                     {{$t('button.not_found')}}
                 </template>
-            </buttonPicker>
+            </FontPicker>
         </v-menu>
         <!--<v-checkbox-->
         <!--:label="`Checkbox 1: ${checkbox.toString()}`"-->
@@ -87,10 +87,12 @@
 <script>
 	import {mapGetters} from 'vuex';
 	import moment from 'moment';
+	import FontPicker from "~//components/global/FontPicker";
 
 	export default {
 		name: "typography",
-        data(){
+		components: {FontPicker},
+		data(){
 			return{
 				picker: {
 					key: '',
