@@ -23,7 +23,7 @@ let modules = [
 ];
 let proxy = {
 	'/api/': dev_server + 'index.php',
-	'/shopunity/': 'http://api.shopunity.net'
+	'/shopunity/': 'https://api.shopunity.net/'
 };
 let public_path = '/_nuxt/';
 let links = [

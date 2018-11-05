@@ -63,7 +63,6 @@ class ControllerExtensionModuleDVisualize extends Controller
 //            $this->installTheme();
 //        }
         $this->model_extension_module_d_visualize->inc($this->visualize_version,intval(implode('', explode('.', $this->extension['version']))));
-        exit;
         if ($this->setting_visualize['engine'] == 'nuxt') {
             $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
             $data['app'] = file_get_contents($nuxt_dist . '/index.html');

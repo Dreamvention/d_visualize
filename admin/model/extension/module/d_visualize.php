@@ -172,11 +172,10 @@ class ModelExtensionModuleDVisualize extends Model
         )
         COLLATE='utf8_general_ci'
         ENGINE=MyISAM;";
-                            $this->db->query($sql);
+//                            $this->db->query($sql);
                         }
                     case $old_version < '2.1.0':
                         {
-                            echo "<pre>"; print_r('it will be in future ');echo "</pre>";
                         }
                 }
             } catch (Exception $e) {

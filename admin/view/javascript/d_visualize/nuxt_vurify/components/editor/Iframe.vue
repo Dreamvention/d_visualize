@@ -33,11 +33,17 @@
 
 </style>
 <script>
+	import {mapGetters} from 'vuex';
 	export default {
 		name: "EditorIframe",
 		props: ['iframe','loading','width'],
 		data() {
 			return {};
+		},
+        computed: {
+			...mapGetters({
+				template: 'template/active_template',
+			})
 		},
 		mounted() {
 			window.addEventListener('message', (event)=>{
@@ -54,6 +60,15 @@
 		methods: {
 			iframeLoad(e) {
 				document.getElementById('iframe').contentWindow.postMessage({vz_token: true,vz_get_iframe_info:true}, '*');
+				// save current state customizing after refresh
+				document.getElementById('iframe').contentWindow.postMessage({
+					vz_token: true,
+					vz_change_css: {
+						template_id: this.template.setting.codename,
+						skin: this.template.setting.active_skin,
+						variables: this.template.skines[this.template.setting.active_skin]
+					}
+				}, '*')
 				this.$store.commit('load/LOADING_END');
 			}
 		}
