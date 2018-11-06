@@ -134,7 +134,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $this->getCustomStyles($data['template_id'], $data['skin']);
     }
-
     public function getCustomStyles($template_id, $skin)
     {
         $sql = 'SELECT * from ' . DB_PREFIX . "vz_style where template_codename='" . $template_id . "' AND skin='" . $skin . "'";
@@ -145,14 +144,7 @@ class ModelExtensionDVisualizeTemplate extends Model
         //check in db config
         $custom = $this->getCustomStyles($template_id, $skin);
         if (!$custom) {
-            //php config is not use full.
-            //just ignore this
-            $this->load->config('d_visualize/' . $template_id . '/' . $skin);
-            $cssSetting = $this->config->get('d_visualize_template_' . $template_id . '_' . $skin . '_css');
-            if ($cssSetting && @is_file(DIR_CATALOG . $cssSetting['config_file_path'])) {
-                $settings = $cssSetting['settings'];
-                return array_merge_recursive(json_decode(@file_get_contents(DIR_CATALOG . $cssSetting['config_file_path']), true), array('settings' => $settings));
-            }
+            return json_decode(@file_get_contents(DIR_CATALOG . '/view/theme/'.$this->codename.'/stylesheet/template/'.$template_id.'/skin/'.$skin.'/config.json'), true);
         } else {
             return json_decode($custom['config'], true);
         }

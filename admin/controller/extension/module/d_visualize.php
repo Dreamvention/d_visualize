@@ -398,6 +398,6 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     public function uninstall()
     {
-        $this->uninstallTheme();
+        $this->model_extension_d_visualize_template->uninstallTheme();
     }
 }
