@@ -59,7 +59,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'], $data);
             //if some one add to specific page scripts need to add this to header
             foreach (array_keys($this->setting_active_template['page']) as $key) {
-                if (preg_match('/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($key, '/')) . '/', $view)) {
+                if (preg_match('/' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($key, '/')) . '/', $view)) {
                     if (isset($this->setting_active_template['page'][$key]['layout'])) {
                         //inject data from setting on the view
                         $data = array_replace_recursive($data, $this->setting_active_template['page'][$key]['layout']);
@@ -79,7 +79,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
                 }
             }
             // if last view is loaded we add scripts and Style from our d_visualize
-            if ($view == $view_route) {
+            if (stristr($view,$view_route)) {
                 $data['page_route'] = $view_route;
                 if (isset($data['header'])) {
                     $data['header'] = $this->model_helper->addDocumentPageData(
@@ -102,7 +102,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
      * Event for adding scripts and styles preseted in skin
      * @void
      */
-    public function header_view_before_d_visualize(&$view, &$data, &$out)
+    public function header_view_before_d_visualize(&$view, &$data)
     {
         //  pre style for lib like bootstrap etc for overwriting them by modules and theme
         $data['pre_styles'] = $this->setting_active_template['pre_styles'];

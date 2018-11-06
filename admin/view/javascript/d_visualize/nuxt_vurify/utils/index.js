@@ -19,7 +19,7 @@ export function getUrlOpencart(url, isDev) {
         c => c.trim().startsWith(`route=`)
     );
     parsed_url.user_token = parsed_url.query.replace('?', '').split('&').find(
-        c => c.trim().startsWith(`user_token=`)
+        c => c.trim().startsWith(`user_token=`)||c.trim().startsWith(`token=`)
     );
     parsed_url.makeUrl = function () {
         parsed_url.query = 'route=' + parsed_url.route + '&' + parsed_url.user_token;

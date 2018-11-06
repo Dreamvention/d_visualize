@@ -34,11 +34,11 @@ let links = [
 	},
 	{
 		rel: 'stylesheet',
-		href: 'view/javascript/d_visualize/font/awesome/all.min.css'
+		href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
 	},
 	{
 		rel: 'stylesheet',
-		href: 'view/javascript/d_visualize/font/awesome/v4-shims.min.css'
+		href: 'https://use.fontawesome.com/releases/v5.5.0/css/v4-shims.css'
 	}
 ];
 if (isDev) {
