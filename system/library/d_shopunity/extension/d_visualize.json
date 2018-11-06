@@ -61,7 +61,7 @@
 
     "catalog/controller/extension/d_visualize/event.php",
     "catalog/controller/extension/d_visualize/mobile.php",
-    "catalog/module/extension/module/d_visualize.php",
+    "catalog/model/extension/module/d_visualize.php",
 
     "catalog/view/theme/d_visualize/stylesheet/d_ajax_filter/d_ajax_filter.css",
     "catalog/view/theme/d_visualize/stylesheet/d_ajax_filter/la-ball-scale-ripple-multiple.css",
