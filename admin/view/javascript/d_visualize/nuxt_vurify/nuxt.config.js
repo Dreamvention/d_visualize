@@ -133,18 +133,12 @@ module.exports = {
 			pages: false,
 			commons: false
 		},
-		optimization: {
-			minimize: true,
-			minimizer: [
-				// terser-webpack-plugin
-				// optimize-css-assets-webpack-plugin
-			],
-			splitChunks: {
-				chunks: 'all',
-				automaticNameDelimiter: '.',
-				name: undefined,
-				cacheGroups: {}
-			}
-		}
+		filenames: {
+			app: ({ isDev }) => isDev ? '[name].js' : '[name].js',
+			chunk: ({ isDev }) => isDev ? '[name].js' : '[name].js',
+			css: ({ isDev }) => isDev ? '[name].css' : '[name].css',
+			img: ({ isDev }) => isDev ? '[path][name].[ext]' : 'img/[hash:7].[ext]',
+			font: ({ isDev }) => isDev ? '[path][name].[ext]' : 'fonts/[hash:7].[ext]',
+			video: ({ isDev }) => isDev ? '[path][name].[ext]' : 'videos/[hash:7].[ext]'},
 	}
 };

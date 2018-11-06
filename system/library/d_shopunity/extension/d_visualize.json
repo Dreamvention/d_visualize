@@ -243,15 +243,15 @@
     "catalog/view/theme/d_visualize/stylesheet/dist/vz-core",
     "catalog/view/theme/d_visualize/stylesheet/dist/library",
     "catalog/view/theme/d_visualize/stylesheet/dist/default",
-    "catalog/view/theme/d_visualize/javascript/vz-core",
-    "catalog/view/theme/d_visualize/javascript/default",
+    "catalog/view/theme/d_visualize/javascript/dist/vz-core",
+    "catalog/view/theme/d_visualize/javascript/dist/default",
     "catalog/view/theme/d_visualize/template/component/default",
     "system/config/d_visualize/default"
   ],
   "changelog": [
     {
-      "version":"2.0.0",
-      "change": "New Visualize theme editor"
+      "version":"2.0.1",
+      "change": "Add some cool stuff"
     },
     {
       "version":"2.0.0",
