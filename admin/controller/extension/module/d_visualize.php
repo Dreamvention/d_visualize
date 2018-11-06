@@ -387,6 +387,12 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->load->model('extension/d_shopunity/mbooth');
             $this->model_extension_d_shopunity_mbooth->installDependencies($this->codename);
         }
+        $this->load->model('user/user_group');
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/'.$this->codename);
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/'.$this->codename.'/opencart');
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/'.$this->codename.'/setting');
+        $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'access', 'extension/'.$this->codename.'/template');
+
         $this->model_extension_module_d_visualize->installDataBase();
     }
 
