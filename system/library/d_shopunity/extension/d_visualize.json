@@ -1,6 +1,6 @@
 {
   "codename": "d_visualize",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "name": "Visualize",
   "description": "Visualize theme",
   "index": "extension/module/d_visualize",
@@ -252,10 +252,7 @@
     "system/config/d_visualize/default"
   ],
   "changelog": [
-    {
-      "version":"2.0.1",
-      "change": "Add some cool stuff"
-    },
+
     {
       "version":"2.0.0",
       "change": "New Visualize theme editor"
