@@ -1,0 +1,55 @@
+.vz-product-thumb_jag .add-to-fave {
+    font-size: 1.28571rem;
+    cursor: pointer;
+    color: red;
+  }
+    .vz-product-thumb_jag .add-to-fave button {
+      outline: none;
+      border: none;
+      background: none;
+      height: auto;
+      line-height: 1
+    }
+    .vz-product-thumb_jag .add-to-fave button:not(.js__filed):hover {
+    -webkit-animation: PulseFadeOut .4s ease;
+            animation: PulseFadeOut .4s ease;
+}
+    @-webkit-keyframes PulseFadeOut {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    opacity: 0
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1
+  }
+}
+    @keyframes PulseFadeOut {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+    opacity: 0
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1
+  }
+}
+    .vz-product-thumb_jag {
+}
+
+
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_thumb/jag.css.map */

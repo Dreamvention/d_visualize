@@ -1,0 +1,105 @@
+.vz-product-thumb__image {
+    position: relative;
+    overflow: hidden;
+
+  }
+    .vz-product-thumb__image img {
+      margin: auto;
+    }
+    .vz-product-thumb__image__label {
+      position: absolute;
+      top: 0.85714rem;
+      left: 0.85714rem;
+    }
+    .vz-product-thumb__image__label:not(:empty) {
+    padding: 0.14286rem 0.28571rem;
+
+}
+    .vz-product-thumb__image__label {
+    color: white;
+    background-color: var(--color-info-darken);
+    background-color: var(--color-info-darken);
+    background-color: var(--color-info-darken);
+    background-color: var(--color-info-darken);
+
+}
+    .vz-product-thumb__button.vz-button {
+    padding: 0.35714rem 0.71429rem;
+
+  }
+    .vz-product-thumb__buttons {
+    position: absolute;
+    width: 100%;
+    bottom: -2.57143rem;
+    -webkit-transition: bottom .4s ease;
+    transition: bottom .4s ease;
+    left: 0;
+    right: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+    .vz-product-thumb__buttons .btn-buy{
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+          -ms-flex: 1;
+              flex: 1;
+    }
+    .vz-product-thumb__image:hover .vz-product-thumb__buttons {
+      bottom: 0;
+    }
+    .vz-product-thumb__buttons .btn {
+      -webkit-border-radius: 0;
+              border-radius: 0;
+    }
+    .vz-product-thumb__buttons .divider {
+      display: none;
+
+    }
+    .vz-product-thumb__buttons :not(.btn-buy) {
+      padding: 0.35714rem 0.57143rem;
+    }
+    .vz-product-thumb__caption {
+    padding: 0.35714rem 0.71429rem;
+  }
+    .vz-product-thumb__description {
+    display: none;
+    min-height: 3.85714rem;
+  }
+    .vz-product-thumb__price {
+    font-weight: bold;
+  }
+    .vz-product-thumb__price .price-old {
+      text-decoration: line-through;
+    }
+    .product-list .vz-product-thumb{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+    .product-list .vz-product-thumb__description {
+      display: block;
+    }
+    .product-list .vz-product-thumb__image {
+      -webkit-box-flex: 21.42857rem;
+      -webkit-flex: 21.42857rem;
+          -ms-flex: 21.42857rem;
+              flex: 21.42857rem;
+      overflow: visible;
+    }
+    .product-list .vz-product-thumb__buttons {
+      position: relative;
+      left:-webkit-calc(1.42857rem + 100%);
+      left:calc(1.42857rem + 100%);
+      bottom: 0;
+      max-width: 21.42857rem;
+    }
+    .vz-d_product_list_default .vz-product-thumb_hydrus {
+
+}
+    .vz-d_product_list_default .vz-product-thumb_hydrus {
+  margin-bottom: 1.42857rem;
+}
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_thumb/hydrus.css.map */

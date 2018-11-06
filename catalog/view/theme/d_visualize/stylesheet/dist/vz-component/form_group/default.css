@@ -1,0 +1,6 @@
+.vz-form-group--required .vz-input__label:before,.vz-form-group--required .vz-control-label:before{
+      content: '* ';
+      color: #F00;
+      font-weight: bold;
+    }
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/form_group/default.css.map */

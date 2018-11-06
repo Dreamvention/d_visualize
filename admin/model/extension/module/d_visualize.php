@@ -114,7 +114,11 @@ class ModelExtensionModuleDVisualize extends Model
     }
     public function loadCustomStyle()
     {
-        return $this->model_setting_setting->getSetting('custom_style_'.$this->codename, $this->store_id)['custom_style_'.$this->codename];
+        $settting= $this->model_setting_setting->getSetting('custom_style_'.$this->codename, $this->store_id);
+        if (!empty($settting)){
+            return $settting['custom_style_'.$this->codename];
+        }
+        return array();
     }
 
     public function installDataBase()

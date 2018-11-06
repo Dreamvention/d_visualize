@@ -1,0 +1,1 @@
+{"version":3,"sources":["default.css"],"names":[],"mappings":"AAEI;MACE,cAAc;MACd,YAAY;MACZ,kBAAkB;KACnB","file":"../../../../../../../../../../../../../../default.css","sourcesContent":[".vz-form-group{\r\n  &--required{\r\n    .vz-input__label:before,.vz-control-label:before{\r\n      content: '* ';\r\n      color: #F00;\r\n      font-weight: bold;\r\n    }\r\n  }\r\n}"]}

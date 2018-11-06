@@ -1,0 +1,47 @@
+.vz-product-thumb{
+  border: var(--border-primary);
+  border: var(--border-primary);
+  border: var(--border-primary);
+  border: var(--border-primary);
+}
+  .vz-product-thumb__image img{
+      margin: auto;
+    }
+  .vz-product-thumb__caption {
+    padding: 2.14286rem 2.42857rem;
+  }
+  .vz-product-thumb__group {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .vz-product-thumb__description{
+    min-height: 3.85714rem;
+  }
+  .vz-product-thumb__price{
+    font-size: 1.42857rem;
+    min-height: 5.71429rem;
+  }
+  .vz-product-thumb__price .price-tax {
+      display: block;
+      font-size: 1.07143rem;
+    }
+  .vz-product-thumb__price p {
+      margin-bottom: 0;
+    }
+  .vz-product-thumb__button.vz-button{
+    padding: 0.35714rem 0.71429rem;
+  }
+  .vz-d_product_list_default .vz-product-thumb_default{
+  margin-bottom: 1.42857rem;
+}
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_thumb/default.css.map */

@@ -1,0 +1,7 @@
+.vz-input--radio .vz-input__label,.vz-input--checkbox .vz-input__label{
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+    }
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/input/default.css.map */

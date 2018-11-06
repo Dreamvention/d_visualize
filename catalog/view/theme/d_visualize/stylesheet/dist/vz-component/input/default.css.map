@@ -1,0 +1,1 @@
+{"version":3,"sources":["default.css"],"names":[],"mappings":"AAEI;MACE,4BAAqB;MAArB,6BAAqB;MAArB,4BAAqB;MAArB,qBAAqB;KACtB","file":"../../../../../../../../../../../../../../default.css","sourcesContent":[".vz-input{\r\n  &--radio,&--checkbox{\r\n    .vz-input__label{\r\n      display: inline-flex;\r\n    }\r\n  }\r\n}"]}
