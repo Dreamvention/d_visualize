@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="theme-preview">
         <v-layout>
             <v-flex>
                 <h4 class="display-1">
@@ -10,7 +10,7 @@
                 </p>
             </v-flex>
             <v-flex>
-                <div v-if='status'>
+                <div v-if='status' class="theme-preview__customize">
                     <a v-if="!isDev" :href="editor_page">
                         <v-btn color="primary">
                             {{$t('template.customize')}}
@@ -155,6 +155,9 @@
     }
 </script>
 <style scoped lang="scss">
+    .theme-preview__customize{
+        display: inline-block;
+    }
     .theme-action-menu-list {
         &--status {
             &.active {

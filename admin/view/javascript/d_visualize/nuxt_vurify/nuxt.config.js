@@ -23,7 +23,7 @@ let modules = [
 ];
 let proxy = {
 	'/api/': dev_server + 'index.php',
-	'/shopunity/': 'https://api.shopunity.net/'
+	'/shopunity/': 'https://api.shopunity.net/v1/extensions?type=module&tag=d_visualize'
 };
 let public_path = '/_nuxt/';
 let links = [

@@ -43,8 +43,10 @@ export const actions = {
 	    commit('SET_GLOBAL_CUSTOM_STYLE', data.custom_style);
 	    commit('SET_PAGE', data.page);
     },
-    async TOGGLE_STATUS({commit}) {
+    async TOGGLE_STATUS({commit,dispatch}) {
         commit('TOGGLE_STATUS')
+	    dispatch('SAVE');
+
     },
 	async SET_GLOBAL_CUSTOM_STYLE({commit}, payload) {
 		commit('SET_GLOBAL_CUSTOM_STYLE', payload);

@@ -23,15 +23,22 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             $this->load->model('extension/d_visual_designer/designer');
             $this->load->model('extension/module/d_visual_designer_header');
             $this->load->model('extension/module/d_visual_designer_footer');
+            $this->load->model('extension/d_opencart_patch/extension');
             if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_header')) {
                 $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_header');
             };
             if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')) {
                 $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
             };
-            $this->model_extension_module_d_visual_designer_header->installTemplate('header', $active_template);
-            $this->model_extension_module_d_visual_designer_footer->installTemplate('footer', $active_template);
-            //todo install vd_module and crate module and ask to asign to the home;
+
+            if (!$this->model_extension_d_opencart_patch_extension->isInstalled('d_visual_designer_header')) {
+                $this->model_extension_d_opencart_patch_extension->install('module', 'd_visual_designer_header');
+                $this->model_extension_module_d_visual_designer_header->setup();
+            }
+            if (!$this->model_extension_d_opencart_patch_extension->isInstalled('d_visual_designer_footer')) {
+                $this->model_extension_d_opencart_patch_extension->install('module', 'd_visual_designer_footer');
+                $this->model_extension_module_d_visual_designer_footer->setup();
+            }
             //todo disable bootsrap
 
         }

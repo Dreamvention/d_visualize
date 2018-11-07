@@ -2,10 +2,10 @@
 /*End Typographic*/
 /*TEST*/
 /*TEST*/
-@import url('//fonts.googleapis.com/css?family=Aclonica|Open+Sans');
+@import url('//fonts.googleapis.com/css?family=Open+Sans|Open+Sans');
 /**/
 body, html {
-  font-family: 'Aclonica', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   color: #666;
   font-size: 14px;
