@@ -1,5 +1,5 @@
 const pkg = require('./package');
-require('dotenv').config();
+require('dotenv').config({systemvars:true});
 const polyfills = [
 	'Promise',
 	'Object.assign',
@@ -43,21 +43,16 @@ let links = [
 ];
 if (isDev) {
 	public_path = dev_server + 'view/javascript/d_visualze/nuxt_vurify/dist/_nuxt/';
-	links = [
-		{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+	links.push(
 		{
 			rel: 'stylesheet',
-			href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+			href: dev_server + 'view/javascript/bootstrap/css/bootstrap.css'
 		},
 		{
 			rel: 'stylesheet',
-			href: dev_server + 'view/javascript/d_visualize/font/awesome/all.min.css'
+			href: dev_server + 'view/stylesheet/stylesheet.css'
 		},
-		{
-			rel: 'stylesheet',
-			href: dev_server + 'view/javascript/d_visualize/font/awesome/v4-shims.min.css'
-		}
-	];
+	);
 }
 module.exports = {
 	mode: 'spa',
@@ -82,9 +77,6 @@ module.exports = {
 		link: links,
 		script: [
 			{src: `https://cdn.polyfill.io/v2/polyfill.min.js?features=${polyfills.join(',')}`},
-			//opencart issue
-			{src: 'https://code.jquery.com/jquery-2.2.4.min.js'},
-			{src: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'}
 		]
 	},
 	loading: {color: '#6db3ff'},
@@ -127,7 +119,9 @@ module.exports = {
 	proxy: proxy,
 	build: {
 		publicPath: public_path,
-		extractCSS: true,
+		optimization:{
+			minimize: false,
+		},
 		splitChunks: {
 			layouts: false,
 			pages: false,

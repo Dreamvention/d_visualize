@@ -1,8 +1,9 @@
 import {getUrlOpencart,getDataOpencart} from '~/utils';
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 export default ({$axios, store})=>{
+
 	if (process.server) {
 		return;
 	}
@@ -16,7 +17,7 @@ export default ({$axios, store})=>{
 		url.route = request.url;
 		/* DEV only on 302 */
 		if (process.env.isDev) {
-			url.user_token = 'user_token=' + process.env.user_token;
+			url.user_token = 'token=' + process.env.user_token;
 		}
 		request.baseURL = url.makeUrl();
 		request.url = '';

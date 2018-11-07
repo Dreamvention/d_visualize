@@ -2,22 +2,22 @@
 /*End Typographic*/
 /*TEST*/
 /*TEST*/
-@import url('//fonts.googleapis.com/css?family=Roboto|Montserrat');
+@import url('//fonts.googleapis.com/css?family=Aclonica|Open+Sans');
 /**/
 body, html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Aclonica', sans-serif;
   font-weight: 400;
   color: #666;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.3;
   width: 100%; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #444;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
   line-height: 1.1;
-  letter-spacing: 0px;
+  letter-spacing: 1px;
   font-weight: normal;
   font-style: normal;
   text-decoration: none;
@@ -28,22 +28,22 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 14px; }
 /* Override the bootstrap defaults */
 h1 {
-  font-size: 26px; }
+  font-size: 28px; }
 
 h2 {
-  font-size: 23.4px; }
+  font-size: 25.2px; }
 
 h3 {
-  font-size: 15.6px; }
+  font-size: 16.8px; }
 
 h4 {
-  font-size: 15.6px; }
+  font-size: 16.8px; }
 
 h5 {
-  font-size: 13px; }
+  font-size: 14px; }
 
 h6 {
-  font-size: 10.4px; }
+  font-size: 11.2px; }
 
 a {
   color: #23a1d1; }
@@ -86,8 +86,8 @@ div.required .control-label:before {
 .dropdown-menu li > a:hover {
   text-decoration: none;
   color: white;
-  background-color: #59c2eb;
-  background-image: linear-gradient(to bottom, #4bbde9, #35b5e7);
+  background-color: #229ac8;
+  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
   background-repeat: repeat-x; }
 /* top */
 #top {
@@ -106,8 +106,8 @@ div.required .control-label:before {
 #top #form-currency .currency-select:hover, #top #form-language .language-select:hover {
   text-shadow: none;
   color: white;
-  background-color: #59c2eb;
-  background-image: linear-gradient(to bottom, #4bbde9, #35b5e7);
+  background-color: #229ac8;
+  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
   background-repeat: repeat-x; }
 
 #top .btn-link, #top-links li, #top-links a {
@@ -196,10 +196,10 @@ div.required .control-label:before {
   margin: 20px 0; }
 /* menu */
 #menu {
-  background-color: #59c2eb;
-  background-image: linear-gradient(to bottom, #4bbde9, #35b5e7);
+  background-color: #229ac8;
+  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
   background-repeat: repeat-x;
-  border-color: #35b5e7 #35b5e7 #1eace4;
+  border-color: #1c7fa5 #1c7fa5 #186e8f;
   min-height: 40px; }
 
 #menu .nav > li > a {
@@ -246,8 +246,8 @@ div.required .control-label:before {
 #menu .see-all:hover, #menu .see-all:focus {
   text-decoration: none;
   color: white;
-  background-color: #59c2eb;
-  background-image: linear-gradient(to bottom, #4bbde9, #35b5e7);
+  background-color: #229ac8;
+  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
   background-repeat: repeat-x; }
 
 #menu #category {
@@ -265,14 +265,14 @@ div.required .control-label:before {
   color: white;
   padding: 2px 18px;
   float: right;
-  background-color: #59c2eb;
-  background-image: linear-gradient(to bottom, #4bbde9, #35b5e7);
+  background-color: #229ac8;
+  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
   background-repeat: repeat-x;
-  border-color: #35b5e7 #35b5e7 #1eace4; }
+  border-color: #1c7fa5 #1c7fa5 #186e8f; }
 
 #menu .btn-navbar:hover, #menu .btn-navbar:focus, #menu .btn-navbar:active, #menu .btn-navbar.disabled, #menu .btn-navbar[disabled] {
   color: white;
-  background-color: #59c2eb; }
+  background-color: #229ac8; }
 
 @media (min-width: 768px) {
   #menu .dropdown:hover .dropdown-menu {
@@ -376,10 +376,10 @@ footer h5 {
 
 .btn {
   padding: 7.5px 12px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #ccc;
   border-width: 1px;
-  border-radius: 41px;
+  border-radius: 5px;
   outline: none !important;
   font-weight: normal;
   font-style: normal;
@@ -388,26 +388,26 @@ footer h5 {
   text-transform: none; }
 
 .btn-xs {
-  font-size: 12.8px; }
+  font-size: 11.2px; }
 
 .btn-sm {
-  font-size: 19.2px; }
+  font-size: 16.8px; }
 
 .btn-lg {
   padding: 10px 16px;
-  font-size: 24px; }
+  font-size: 21px; }
 
 .btn-group > .btn, .btn-group > .dropdown-menu, .btn-group > .popover {
-  font-size: 17.6px; }
+  font-size: 15.4px; }
 
 .btn-group > .btn-xs {
-  font-size: 12.8px; }
+  font-size: 11.2px; }
 
 .btn-group > .btn-sm {
-  font-size: 19.2px; }
+  font-size: 16.8px; }
 
 .btn-group > .btn-lg {
-  font-size: 24px; }
+  font-size: 21px; }
 
 .btn-default {
   color: #777;
@@ -420,13 +420,13 @@ footer h5 {
 .btn-primary {
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #59c2eb;
-  background-image: linear-gradient(to bottom, #4bbde9, #35b5e7);
+  background-color: #229ac8;
+  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
   background-repeat: repeat-x;
-  border-color: #35b5e7 #35b5e7 #2bb1e6; }
+  border-color: #1c7fa5 #1c7fa5 #1b789c; }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:hover:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
-  background-color: #35b5e7 !important;
+  background-color: #1c7fa5 !important;
   background-position: 0 -15px; }
 
 .btn-warning {
@@ -477,7 +477,7 @@ footer h5 {
 .btn-link {
   border-color: rgba(0, 0, 0, 0);
   cursor: pointer;
-  color: #4bbde9;
+  color: #2090bb;
   border-radius: 0; }
 
 .btn-link, .btn-link:active, .btn-link[disabled] {

@@ -12,21 +12,24 @@
             <v-layout column fill-height>
                 <div class="editor-menu__wrap">
                     <div class="editor-menu__header">
-                        <v-btn nuxt to="/" flat icon color="accent">
+                        <a v-if="!isDev" :href="opData.action.home_page">
+                            <v-btn flat icon color="accent">
+                                <v-icon small>fas fa-times</v-icon>
+                            </v-btn>
+                        </a>
+                        <v-btn v-else nuxt to="/home" flat icon color="accent">
                             <v-icon small>fas fa-times</v-icon>
                         </v-btn>
-                        <div class="display-1">
-                        </div>
                         <v-autocomplete
                                 flat
+                                v-if="iframe_pages"
                                 height="auto"
                                 solo
                                 hide-details
                                 disabled
                                 full-width
                                 :value="current_page"
-                                :items="iframe_pages"
-                                :item-text="(e)=>this.$t(e.text)"
+                                :items="iframe_pages_lang"
                         ></v-autocomplete>
                         <v-btn color="success" @click="saveTemplate">
                             {{$t('common.button_save')}}
@@ -164,7 +167,6 @@
 				}
 			},
             theme_navigation(){
-	            // {href: 'editor/skin', text: 'editor.entry_skin', icon: 'fas fa-paint-brush'},
 	            return _.reduce(this.$store.getters['template/active_template_skin'].settings,(memory,element,key)=>{
                     if (element.navigation){
 	                    let link = _.extend({},element.navigation);
@@ -174,29 +176,39 @@
 	            	return memory;
                 },{})
             },
+			iframe_pages_lang() {
+				let lang = _.map(this.iframe_pages, (e, key)=>{
+					e.text = this.$t(e.text);
+					return e;
+				});
+				return lang;
+			},
 			...mapGetters({
 				iframe: 'editor/iframe',
 				current_page: 'editor/current_page',
 				iframe_pages: 'template/available_pages',
 				loading: 'load/loading',
 				menu: 'editor/menu',
-                active_template_skin:'template/active_template_skin'
+				active_template_skin: 'template/active_template_skin',
+				opData: 'opencart/opData'
 			})
 		},
-		data: ()=>({
+		data() {
+			return {
+				isDev: process.env.isDev,
 			load: LOAD,
 			respons: RESPONSIVE,
 			drawer: null,
-			theme_set: [
-				]
-
-		}),
+			}
+		},
 		async fetch({store}) {
 			store.commit('load/LOADING_START');
+			await store.dispatch('opencart/GET_OPDATA');
 			await store.dispatch('setting/GET_SETTING');
 			await store.dispatch('template/GET_TEMPLATES');
 			await store.dispatch('template/GET_COMPONENTS');
 			await store.dispatch('editor/GET_EDITOR_IFRAME');
+			console.log('loaded');
 			store.commit('load/LOADING_END');
 		},
 		components: {

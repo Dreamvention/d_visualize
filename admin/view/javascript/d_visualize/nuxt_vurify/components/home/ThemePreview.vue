@@ -10,9 +10,17 @@
                 </p>
             </v-flex>
             <v-flex>
-                <v-btn color="primary"
-                       to="/editor"
-                >
+                <div v-if='status'>
+                    <a v-if="!isDev" :href="editor_page">
+                        <v-btn color="primary">
+                            {{$t('template.customize')}}
+                        </v-btn>
+                    </a>
+                    <v-btn v-else to='/editor' nuxt color="primary">
+                        {{$t('template.customize')}}
+                    </v-btn>
+                </div>
+                <v-btn v-else disabled nuxt color="primary">
                     {{$t('template.customize')}}
                 </v-btn>
                 <v-menu transition="slide-y-transition"
@@ -106,14 +114,17 @@
     </v-card>
 </template>
 <script>
-    import ThemePreviewImage from '~/components/home/ThemePreviewImage'
-    export default {
+	import ThemePreviewImage from '~/components/home/ThemePreviewImage';
+
+	export default {
         name: "theme-preview",
         props: ['template', 'status'],
         data() {
             return {
                 rename_dialog: false,
-                rename_input: ''
+	            rename_input: '',
+	            editor_page: this.$store.getters['opencart/opData'].action.editor_page,
+	            isDev: process.env.isDev
             }
         },
         methods: {

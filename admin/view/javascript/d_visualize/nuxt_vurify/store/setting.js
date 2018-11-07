@@ -4,11 +4,13 @@ export const state = () => ({
     all_setting: null,
     status: null,
 	custom_style: '',
+	page: '',
 });
 // getters
 export const getters = {
     all_setting: state => state.all_setting,
 	status: state=>state.status,
+	page: state=>state.page,
 	custom_style: state=>state.custom_style,
 };
 // mutations
@@ -18,6 +20,9 @@ export const mutations = {
     },
     SET_STATUS(state, payload) {
         state.status = payload;
+    },
+	SET_PAGE(state, payload) {
+        state.page = payload;
     },
     TOGGLE_STATUS(state, payload) {
         state.status = !state.status;
@@ -36,6 +41,7 @@ export const actions = {
         commit('SET_SETTING', data.setting)
         commit('SET_STATUS', data.status)
 	    commit('SET_GLOBAL_CUSTOM_STYLE', data.custom_style);
+	    commit('SET_PAGE', data.page);
     },
     async TOGGLE_STATUS({commit}) {
         commit('TOGGLE_STATUS')
