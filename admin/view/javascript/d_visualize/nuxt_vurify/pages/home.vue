@@ -21,27 +21,21 @@
     .home .v-toolbar {
         margin-bottom: 15px;
     }
-
     .home .v-toolbar__items .v-btn{
         margin-right: 10px !important;
     }
-
     .home .container {
         padding-top: 0;
     }
-
     .theme-holder {
         padding-bottom: 15px;
     }
 
-    .display-2 {
-        margin-top: 15px;
-    }
 </style>
 <script>
 
 	export default {
-		layout: 'opencart_hmr',
+		layout: 'opencart',
         async fetch({store}){
 	        store.commit('load/LOADING_START');
 	        await store.dispatch('opencart/GET_OPDATA');

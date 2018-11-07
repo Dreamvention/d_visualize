@@ -15,21 +15,8 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $this->load->model('extension/d_opencart_patch/url');
 
         //font-awesome
-        $this->document->addStyle(HTTPS_SERVER . 'view/javascript/' . $this->codename . '/font/awesome/all.min.css');
-        $this->document->addStyle(HTTPS_SERVER . 'view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
-        $this->document->addStyle(HTTPS_SERVER . 'view/stylesheet/bootstrap.css');
-        $this->document->addStyle(HTTPS_SERVER . 'view/stylesheet/stylesheet.css');
 
-        foreach ($this->document->getStyles() as $style) {
-            $data['styles'][] = $style;
-        }
         $data['title'] = $this->language->get('heading_title_main');
-        $html_dom = new d_simple_html_dom();
-        $html_dom->load($this->load->controller('common/header'), $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-
-        $data['header'] = $html_dom->find('body', 0)->innertext;
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer'] = $this->load->controller('common/footer');
         $data['base_url'] = HTTPS_CATALOG;
 
         // Breadcrumbs
@@ -64,7 +51,11 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         if (isset($this->request->get['store_id'])) {
             $url .= '&store_id=' . $store_id;
         }
-
+        $this->load->model('tool/image');
+        //todo check all who need this actions
+        //it's links on other pages like cancel etc
+        $data['action']['editor_page'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visualize/editor','',true);
+        $data['action']['home_page'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visualize', '', true);
         $data['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $data['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_header&id=0');
         $data['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_footer&id=0');

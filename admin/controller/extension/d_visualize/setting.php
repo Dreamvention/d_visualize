@@ -20,7 +20,13 @@ class ControllerExtensionDVisualizeSetting extends Controller
 
     public function index()
     {
-        $this->response->setOutput(json_encode(array('setting' => $this->setting_visualize, 'status' => $this->status_visualize,'custom_style'=>$this->custom_style)));
+        $data = array(
+            'setting'      => $this->setting_visualize,
+            'status'       => $this->status_visualize,
+            'page'         => isset($this->session->data['d_visualize_page_admin']) ? $this->session->data['d_visualize_page_admin'] : 'home',
+            'custom_style' => $this->custom_style);
+
+        $this->response->setOutput(json_encode($data));
     }
 
     public function save()

@@ -30,9 +30,7 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $this->store_id = (isset($this->request->post['store_id'])) ? $this->request->post['store_id'] : 0;
         $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
-
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
-//        $this->visualize_version = $setting_visualize['module_' . $this->codename . '_version'];
         $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
         $this->model = 'model_extension_module_' . $this->codename;
         $this->model_template = 'model_extension_' . $this->codename . '_template';
@@ -53,104 +51,34 @@ class ControllerExtensionModuleDVisualize extends Controller
                 $this->model_extension_module_d_event_manager->installCompatibility();
             }
         }
-
         if ($this->d_twig_manager) {
             $this->load->model('extension/module/d_twig_manager');
             $this->model_extension_module_d_twig_manager->installCompatibility();
         }
-//        $this->uninstallTheme();
-//        if ($this->status_visualize) {
-//            $this->installTheme();
-//        }
-        $this->model_extension_module_d_visualize->inc($this->visualize_version,intval(implode('', explode('.', $this->extension['version']))));
+        $this->model_extension_d_visualize_template->uninstallTheme();
+        if ($this->status_visualize) {
+            $this->model_extension_d_visualize_template->installTheme($this->setting_visualize['active_template']);
+        }
+        $this->session->data['d_visualize_page_admin']='home';
+//        $this->model_extension_module_d_visualize->inc($this->visualize_version,intval(implode('', explode('.', $this->extension['version']))));
         if ($this->setting_visualize['engine'] == 'nuxt') {
             $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
             $data['app'] = file_get_contents($nuxt_dist . '/index.html');
             $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
-            //stupid opencart make header very unsufull
-            //make costili
-//            $html_dom = new d_simple_html_dom();
-//            $html_dom->load($this->load->controller('common/header'), $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-//            $html_dom_app = new d_simple_html_dom();
-//            $html_dom_app->load($data['app'], $lowercase = true, $stripRN = false, $defaultBRText = DEFAULT_BR_TEXT);
-//            $html_dom->find('head', 0);
-//            echo "<pre>"; print_r($html_dom->find('head', 0));echo "</pre>";
-
-//            $html_dom_app->find('head', 0)->innertext = $html_dom->find('head', 0)->innertext . $html_dom_app->find('head', 0)->innertext;
-//            $data['app'] = (string)$html_dom_app;
-            $files = glob($nuxt_dist . '/' . '_nuxt' . '/manifest*.js', GLOB_BRACE);
-            //check manifest for 1.4.0 version
-            foreach ($files as $file) {
-                $file_content = file_get_contents($file);
-                $pos = strpos($file_content, HTTPS_SERVER . $nuxt_dist);
-                if ($pos === false) {
-                    echo 'new';
-                    file_put_contents($file, str_replace('/_nuxt/', HTTPS_SERVER . $nuxt_dist . '/_nuxt/', $file_content));
-                }
-            }
-            $this->response->setOutput($this->load->view($this->route . '_nuxt', $data));
-        } else {
-            //Vue JS with Vuex and
-            $this->document->addScript("view/javascript/d_vue/vue.min.js");
-            $this->document->addScript("view/javascript/d_vuex/vuex.min.js");
-            $this->document->addScript("view/javascript/d_vue_i18n/vue-i18n.min.js");
-            $this->document->addScript("view/javascript/d_vue_router/vue-router.min.js");
-
-            //Alertify
-            $this->document->addScript('view/javascript/d_alertify/alertify.min.js');
-            $this->document->addStyle('view/javascript/d_alertify/css/alertify.css');
-            $this->document->addStyle('view/javascript/d_alertify/css/themes/bootstrap.css');
-
-            //Other libraries
-            $this->document->addScript('view/javascript/d_visualize/lib/sync.js');
-            $this->document->addScript('view/javascript/d_visualize/lib/topgress.js');
-            $this->document->addScript('view/javascript/d_visualize/lib/VueOptions.js');
-            $this->document->addScript('view/javascript/d_visualize/lib/vue-model-vuex.js');
-            $this->document->addScript('view/javascript/d_underscore/underscore-min.js');
-
-            //visualize styles
-            $this->document->addStyle('view/stylesheet/' . $this->codename . '/dist/' . $this->codename . '.css');
-
-            //loader
-            $this->document->addStyle('view/stylesheet/' . $this->codename . '/lib/load-awesome-1.1.0/css/timer.css');
-
-            //font-awesome
-            $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/all.min.css');
-            $this->document->addStyle('view/javascript/' . $this->codename . '/font/awesome/v4-shims.min.css');
-//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/all.min.css');
-//        $this->document->addStyle(HTTPS_CATALOG . 'catalog/view/theme/' . $this->codename . '/font/awesome/v4-shims.min.css');
-//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/all.css');
-//        $this->document->addStyle('https://use.fontawesome.com/releases/v5.2.0/css/v4-shims.css');
-            // Module data
-            $data['vueTemplates'] = $this->{'model_extension_module_' . $this->codename}->getVueTemplates();
-            $view_scripts = $this->{'model_extension_module_' . $this->codename}->getVueScripts();
-            foreach ($view_scripts as $script) {
-                $this->document->addScript($script);
-            }
-
-            $data['language_id'] = $this->config->get('config_language_id');
-            $data['local'] = $this->prepareLocal();
-            $data['options'] = $this->prepareOptions();
-
-            $state = array();
-            $state['config']['save_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/save');
-            $state['config']['save_template_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveTemplateUrl');
-            $state['config']['update_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/updateSetting');
-            $state['config']['load_setting_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/loadState');
-            $state['config']['save_iframe_url'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/saveIframeUrl');
-            $data['state'] = $state;
-            //out put view
-            $data['setup'] = false;
-            if (!$this->{'model_extension_module_' . $this->codename}->checkInstallModule()) {
-                $data = $this->setup($data);
-            }
             $data['header'] = $this->load->controller('common/header');
             $data['column_left'] = $this->load->controller('common/column_left');
             $data['footer'] = $this->load->controller('common/footer');
-            $this->response->setOutput($this->load->view($this->route, $data));
+            $this->response->setOutput($this->load->view($this->route . '_nuxt', $data));
         }
     }
+    public function editor(){
+        $this->session->data['d_visualize_page_admin']='editor';
+        $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
+        $data['app'] = file_get_contents($nuxt_dist . '/index.html');
+        $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
+        $this->response->setOutput($this->load->view($this->route . '_nuxt_editor', $data));
 
+    }
     public function setup($data)
     {
         $data['setup'] = true;
@@ -178,13 +106,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         $data['text_button_setup'] = $this->language->get('button_setup');
         $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setupUrl');
         return $data;
-    }
-
-    public function loadState()
-    {
-        $json = array();
-        $setting = array();
-        $this->response->setOutput(json_encode($json));
     }
 
     public function load_language()
