@@ -86,8 +86,8 @@ div.required .control-label:before {
 .dropdown-menu li > a:hover {
   text-decoration: none;
   color: white;
-  background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
+  background-color: #601dc7;
+  background-image: linear-gradient(to bottom, #5a1bba, #4f18a3);
   background-repeat: repeat-x; }
 /* top */
 #top {
@@ -106,8 +106,8 @@ div.required .control-label:before {
 #top #form-currency .currency-select:hover, #top #form-language .language-select:hover {
   text-shadow: none;
   color: white;
-  background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
+  background-color: #601dc7;
+  background-image: linear-gradient(to bottom, #5a1bba, #4f18a3);
   background-repeat: repeat-x; }
 
 #top .btn-link, #top-links li, #top-links a {
@@ -196,10 +196,10 @@ div.required .control-label:before {
   margin: 20px 0; }
 /* menu */
 #menu {
-  background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
+  background-color: #601dc7;
+  background-image: linear-gradient(to bottom, #5a1bba, #4f18a3);
   background-repeat: repeat-x;
-  border-color: #1c7fa5 #1c7fa5 #186e8f;
+  border-color: #4f18a3 #4f18a3 #44158d;
   min-height: 40px; }
 
 #menu .nav > li > a {
@@ -246,8 +246,8 @@ div.required .control-label:before {
 #menu .see-all:hover, #menu .see-all:focus {
   text-decoration: none;
   color: white;
-  background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
+  background-color: #601dc7;
+  background-image: linear-gradient(to bottom, #5a1bba, #4f18a3);
   background-repeat: repeat-x; }
 
 #menu #category {
@@ -265,14 +265,14 @@ div.required .control-label:before {
   color: white;
   padding: 2px 18px;
   float: right;
-  background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
+  background-color: #601dc7;
+  background-image: linear-gradient(to bottom, #5a1bba, #4f18a3);
   background-repeat: repeat-x;
-  border-color: #1c7fa5 #1c7fa5 #186e8f; }
+  border-color: #4f18a3 #4f18a3 #44158d; }
 
 #menu .btn-navbar:hover, #menu .btn-navbar:focus, #menu .btn-navbar:active, #menu .btn-navbar.disabled, #menu .btn-navbar[disabled] {
   color: white;
-  background-color: #229ac8; }
+  background-color: #601dc7; }
 
 @media (min-width: 768px) {
   #menu .dropdown:hover .dropdown-menu {
@@ -420,13 +420,13 @@ footer h5 {
 .btn-primary {
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #229ac8;
-  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
+  background-color: #601dc7;
+  background-image: linear-gradient(to bottom, #5a1bba, #4f18a3);
   background-repeat: repeat-x;
-  border-color: #1c7fa5 #1c7fa5 #1b789c; }
+  border-color: #4f18a3 #4f18a3 #4b179a; }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:hover:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
-  background-color: #1c7fa5 !important;
+  background-color: #4f18a3 !important;
   background-position: 0 -15px; }
 
 .btn-warning {
@@ -477,7 +477,7 @@ footer h5 {
 .btn-link {
   border-color: rgba(0, 0, 0, 0);
   cursor: pointer;
-  color: #2090bb;
+  color: #5a1bba;
   border-radius: 0; }
 
 .btn-link, .btn-link:active, .btn-link[disabled] {

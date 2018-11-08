@@ -26,6 +26,7 @@
             class="{{ btn_classes }}"
 
             {% if button == 'true' %}
+
             {% else %}
                 onclick="{{ button|raw }}"
             {% endif %}
@@ -37,8 +38,9 @@
             {% if title_button %}
                 title="{{ title_button }}"
             {% endif %}
-
-            data-loading-text="{{ text_loading }}"
+            {% if text_loading %}
+                data-loading-text="{{ text_loading }}"
+            {% endif %}
 
             {{ custom }}
 

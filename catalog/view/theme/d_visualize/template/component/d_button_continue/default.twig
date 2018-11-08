@@ -23,22 +23,30 @@
                 }) %}
             </div>
         {% endif %}
-
-        {% if continue %}
-            {% include component.button.template with component.button|merge({
-                link:continue ,
-                style:'primary',
-                text_button:button_continue,
-            }) %}
-        {% elseif button %}
-            {% include component.button.template with component.button|merge({
-                button:true ,
-                id:id,
-                text_loading:text_loading,
-                style:'primary',
-                text_button:button_continue,
-            }) %}
-        {% elseif button_submit %}
+        {% if constant('VERSION')>'3.0.0.0' %}
+            {% if continue %}
+                {% include component.button.template with component.button|merge({
+                    link:continue ,
+                    style:'primary',
+                    text_button:button_continue,
+                }) %}
+            {% elseif button %}
+                {% include component.button.template with component.button|merge({
+                    button:true ,
+                    id:id,
+                    text_loading:text_loading,
+                    style:'primary',
+                    text_button:button_continue,
+                }) %}
+            {% elseif button_submit %}
+                {% include component.input.template with component.input|merge({
+                    type:'submit',
+                    style:'primary',
+                    value:button_continue,
+                    button:'primary',
+                }) %}
+            {% endif %}
+        {% else %}
             {% include component.input.template with component.input|merge({
                 type:'submit',
                 style:'primary',
@@ -46,6 +54,7 @@
                 button:'primary',
             }) %}
         {% endif %}
+
     </div>
 </div>
 <!-- /> d_button-continue -->

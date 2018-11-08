@@ -63,7 +63,13 @@
                 }) %}
             </fieldset>
             {{ captcha }}
-            {% include component.d_button_continue.template with component.d_button_continue %}
+            {% if constant('VERSION') < '3.0.0.0' %}
+                {% include component.d_button_continue.template with component.d_button_continue|merge({
+                    button_submit:true,
+                }) %}
+            {% else %}
+                {% include component.d_button_continue.template with component.d_button_continue %}
+            {% endif %}
         </form>
 
 

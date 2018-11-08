@@ -58,6 +58,7 @@
       -webkit-flex: 1 0 auto;
           -ms-flex: 1 0 auto;
               flex: 1 0 auto;
+      padding: 0 0.71429rem;
     }
 .vz-product-sort--default .vz-input--select .vz-input__input{
       border: none;
@@ -73,4 +74,4 @@
           -ms-flex: 1 1 100%;
               flex: 1 1 100%;
     }
-/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_sort/default.css.map */
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/201/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_sort/default.css.map */

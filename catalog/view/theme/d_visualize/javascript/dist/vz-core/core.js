@@ -1,195 +1,5 @@
 "use strict";
 
-var d_address_field = {
-  setting: {
-    zone_id: 0,
-    text_none: '',
-    text_select: ''
-  },
-  init: function init(setting) {
-    console.log('start d_address_field');
-    this.setting = $.extend({}, this.setting, setting);
-    this.render();
-  },
-  changeCountry: function changeCountry(country) {
-    var setting = this.setting;
-    $.ajax({
-      url: 'index.php?route=account/account/country&country_id=' + country.value,
-      dataType: 'json',
-      beforeSend: function beforeSend() {
-        $('select[name=\'country_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
-      },
-      complete: function complete() {
-        $('.fa-spin').remove();
-      },
-      success: function success(json) {
-        if (json['postcode_required'] == '1') {
-          $('input[name=\'postcode\']').parent().parent().addClass('required');
-        } else {
-          $('input[name=\'postcode\']').parent().parent().removeClass('required');
-        }
-
-        var html = '<option value="">' + setting.text_select + '</option>';
-
-        if (json['zone'] && json['zone'] != '') {
-          for (var i = 0; i < json['zone'].length; i++) {
-            html += '<option value="' + json['zone'][i]['zone_id'] + '"';
-
-            if (json['zone'][i]['zone_id'] == setting.zone_id) {
-              html += ' selected="selected"';
-            }
-
-            html += '>' + json['zone'][i]['name'] + '</option>';
-          }
-        } else {
-          html += '<option value="0" selected="selected">' + setting.text_none + '</option>';
-        }
-
-        $('select[name=\'zone_id\']').html(html);
-      },
-      error: function error(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
-    });
-  },
-  render: function render() {
-    var that = this;
-    $('select[name=\'country_id\']').on('change', function () {
-      that.changeCountry(this);
-    });
-    $('select[name=\'country_id\']').trigger('change');
-  }
-};
-var d_custom_field = {
-  init: function init() {
-    console.log('start d_custom_field');
-    this.render();
-  },
-  changeCustomerGroup: function changeCustomerGroup(customer_group) {
-    $.ajax({
-      url: 'index.php?route=account/register/customfield&customer_group_id=' + customer_group.value,
-      dataType: 'json',
-      success: function success(json) {
-        $('.custom-field').hide();
-        $('.custom-field').removeClass('required');
-
-        for (i = 0; i < json.length; i++) {
-          custom_field = json[i];
-          $('#custom-field' + custom_field['custom_field_id']).show();
-
-          if (custom_field['required']) {
-            $('#custom-field' + custom_field['custom_field_id']).addClass('required');
-          }
-        }
-      },
-      error: function error(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
-    });
-  },
-  upload: function upload(node) {
-    $('#form-upload').remove();
-    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
-    $('#form-upload input[name=\'file\']').trigger('click');
-
-    if (typeof timer != 'undefined') {
-      clearInterval(timer);
-    }
-
-    timer = setInterval(function () {
-      if ($('#form-upload input[name=\'file\']').val() != '') {
-        clearInterval(timer);
-        $.ajax({
-          url: 'index.php?route=tool/upload',
-          type: 'post',
-          dataType: 'json',
-          data: new FormData($('#form-upload')[0]),
-          cache: false,
-          contentType: false,
-          processData: false,
-          beforeSend: function beforeSend() {
-            $(node).button('loading');
-          },
-          complete: function complete() {
-            $(node).button('reset');
-          },
-          success: function success(json) {
-            $(node).parent().find('.text-danger').remove();
-
-            if (json['error']) {
-              $(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
-            }
-
-            if (json['success']) {
-              alert(json['success']);
-              $(node).parent().find('input').attr('value', json['code']);
-            }
-          },
-          error: function error(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-        });
-      }
-    }, 500);
-  },
-  sort: function sort() {
-    $('fieldset').each(function () {
-      var $this = $(this);
-      console.log('sorting:' + $this.attr('id'));
-      $this.find('.form-group[data-sort]').detach().each(function () {
-        if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length) {
-          $this.find('.form-group').eq($(this).attr('data-sort')).before(this);
-        }
-
-        if ($(this).attr('data-sort') > $('.form-group').length) {
-          $this.find('.form-group:last').after(this);
-        }
-
-        if ($(this).attr('data-sort') < -$('.form-group').length) {
-          $this.find('.form-group:first').before(this);
-        }
-      });
-    });
-  },
-  render: function render() {
-    var that = this;
-    that.sort();
-    $(document).on('change', 'input[name=\'customer_group_id\']', function () {
-      that.changeCustomerGroup(this);
-    });
-    $('input[name=\'customer_group_id\']:checked').trigger('change');
-    $(document).on('click', 'button[id^=\'button-custom-field\']', function () {
-      that.upload(this);
-    });
-    $('.date').datetimepicker({
-      pickTime: false
-    });
-    $('.datetime').datetimepicker({
-      pickDate: true,
-      pickTime: true
-    });
-    $('.time').datetimepicker({
-      pickDate: false
-    });
-  }
-};
-$(document).ready(function () {
-  // Product List
-  console.log('start d_product_sort');
-  $(document).on('click', '#list-view', function () {
-    $(document).trigger('list-view');
-  }); // Product Grid
-
-  $(document).on('click', '#grid-view', function () {
-    $(document).trigger('grid-view');
-  });
-
-  if (localStorage.getItem('display') == 'list') {
-    $('#list-view').trigger('click');
-  } else {
-    $('#grid-view').trigger('click');
-  }
-});
 var Checkout = {
   /**
    * Setting:
@@ -1213,7 +1023,10 @@ $(document).ready(function () {
       container: 'body'
     });
   });
-  $('input[name=\'rating\']').rating();
+
+  if (typeof $.rating == 'function') {
+    $('input[name=\'rating\']').rating();
+  }
 }); // Autocomplete */
 
 (function ($) {
@@ -1688,6 +1501,231 @@ var Search = {
     $('select[name=\'category_id\']').trigger('change');
   }
 };
+var d_address_field = {
+  setting: {
+    zone_id: 0,
+    text_none: '',
+    text_select: ''
+  },
+  init: function init(setting) {
+    console.log('start d_address_field');
+    this.setting = $.extend({}, this.setting, setting);
+    this.render();
+  },
+  changeCountry: function changeCountry(country) {
+    var setting = this.setting;
+    $.ajax({
+      url: 'index.php?route=account/account/country&country_id=' + country.value,
+      dataType: 'json',
+      beforeSend: function beforeSend() {
+        $('select[name=\'country_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+      },
+      complete: function complete() {
+        $('.fa-spin').remove();
+      },
+      success: function success(json) {
+        if (json['postcode_required'] == '1') {
+          $('input[name=\'postcode\']').parent().parent().addClass('required');
+        } else {
+          $('input[name=\'postcode\']').parent().parent().removeClass('required');
+        }
+
+        var html = '<option value="">' + setting.text_select + '</option>';
+
+        if (json['zone'] && json['zone'] != '') {
+          for (var i = 0; i < json['zone'].length; i++) {
+            html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+
+            if (json['zone'][i]['zone_id'] == setting.zone_id) {
+              html += ' selected="selected"';
+            }
+
+            html += '>' + json['zone'][i]['name'] + '</option>';
+          }
+        } else {
+          html += '<option value="0" selected="selected">' + setting.text_none + '</option>';
+        }
+
+        $('select[name=\'zone_id\']').html(html);
+      },
+      error: function error(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+    });
+  },
+  render: function render() {
+    var that = this;
+    $('select[name=\'country_id\']').on('change', function () {
+      that.changeCountry(this);
+    });
+    $('select[name=\'country_id\']').trigger('change');
+  }
+};
+var d_custom_field = {
+  init: function init() {
+    console.log('start d_custom_field');
+    this.render();
+  },
+  changeCustomerGroup: function changeCustomerGroup(customer_group) {
+    $.ajax({
+      url: 'index.php?route=account/register/customfield&customer_group_id=' + customer_group.value,
+      dataType: 'json',
+      success: function success(json) {
+        $('.custom-field').hide();
+        $('.custom-field').removeClass('required');
+
+        for (i = 0; i < json.length; i++) {
+          custom_field = json[i];
+          $('#custom-field' + custom_field['custom_field_id']).show();
+
+          if (custom_field['required']) {
+            $('#custom-field' + custom_field['custom_field_id']).addClass('required');
+          }
+        }
+      },
+      error: function error(xhr, ajaxOptions, thrownError) {
+        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+    });
+  },
+  upload: function upload(node) {
+    $('#form-upload').remove();
+    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+    $('#form-upload input[name=\'file\']').trigger('click');
+
+    if (typeof timer != 'undefined') {
+      clearInterval(timer);
+    }
+
+    timer = setInterval(function () {
+      if ($('#form-upload input[name=\'file\']').val() != '') {
+        clearInterval(timer);
+        $.ajax({
+          url: 'index.php?route=tool/upload',
+          type: 'post',
+          dataType: 'json',
+          data: new FormData($('#form-upload')[0]),
+          cache: false,
+          contentType: false,
+          processData: false,
+          beforeSend: function beforeSend() {
+            $(node).button('loading');
+          },
+          complete: function complete() {
+            $(node).button('reset');
+          },
+          success: function success(json) {
+            $(node).parent().find('.text-danger').remove();
+
+            if (json['error']) {
+              $(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+            }
+
+            if (json['success']) {
+              alert(json['success']);
+              $(node).parent().find('input').attr('value', json['code']);
+            }
+          },
+          error: function error(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+    }, 500);
+  },
+  sort: function sort() {
+    $('fieldset').each(function () {
+      var $this = $(this);
+      console.log('sorting:' + $this.attr('id'));
+      $this.find('.form-group[data-sort]').detach().each(function () {
+        if ($(this).attr('data-sort') >= 0 && $(this).attr('data-sort') <= $('.form-group').length) {
+          $this.find('.form-group').eq($(this).attr('data-sort')).before(this);
+        }
+
+        if ($(this).attr('data-sort') > $('.form-group').length) {
+          $this.find('.form-group:last').after(this);
+        }
+
+        if ($(this).attr('data-sort') < -$('.form-group').length) {
+          $this.find('.form-group:first').before(this);
+        }
+      });
+    });
+  },
+  render: function render() {
+    var that = this;
+    that.sort();
+    $(document).on('change', 'input[name=\'customer_group_id\']', function () {
+      that.changeCustomerGroup(this);
+    });
+    $('input[name=\'customer_group_id\']:checked').trigger('change');
+    $(document).on('click', 'button[id^=\'button-custom-field\']', function () {
+      that.upload(this);
+    });
+    $('.date').datetimepicker({
+      pickTime: false
+    });
+    $('.datetime').datetimepicker({
+      pickDate: true,
+      pickTime: true
+    });
+    $('.time').datetimepicker({
+      pickDate: false
+    });
+  }
+};
+$(document).ready(function () {
+  // Product List
+  console.log('start d_product_sort');
+  $(document).on('click', '#list-view', function () {
+    $(document).trigger('list-view');
+  }); // Product Grid
+
+  $(document).on('click', '#grid-view', function () {
+    $(document).trigger('grid-view');
+  });
+
+  if (localStorage.getItem('display') == 'list') {
+    $('#list-view').trigger('click');
+  } else {
+    $('#grid-view').trigger('click');
+  }
+});
+
+function takeScreenShot(opts, resolution) {
+  if (typeof html2canvas == 'function') {
+    html2canvas(document.body, opts).then(function (canvas) {
+      //debug
+      // $('body').append(canvas)
+      var imgData = canvas.toDataURL('image/png');
+      $.ajax({
+        url: 'index.php?route=extension/d_visualize/event/saveScrenshot',
+        type: 'post',
+        dataType: 'text',
+        data: {
+          base64data: imgData,
+          type: resolution
+        }
+      }).success(function (json) {
+        console.log('success save screnshot at ');
+      }).fail(function () {}).done(function () {});
+    });
+  }
+}
+
+$(document).ready(function () {
+  setTimeout(function () {
+    takeScreenShot({}, 'desktop');
+  }, 100);
+  setTimeout(function () {
+    takeScreenShot({
+      'logging': false,
+      width: 350,
+      windowWidth: 350,
+      windowHeight: 605
+    }, 'mobile');
+  }, 200);
+});
 var Total_coupon = {
   init: function init() {
     console.log('start Total_coupon');

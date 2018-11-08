@@ -73,13 +73,20 @@
         </div>
     </form>
     <div class="vz-checkout-cart__modules">
-        {% if modules %}
-            <h2>{{ text_next }}</h2>
-            <p>{{ text_next_choice }}</p>
-            <div class="panel-group" id="accordion"> {% for module in modules %}
-                    {{ module }}
-                {% endfor %} </div>
-        {% endif %} <br/>
+        <h2>{{ text_next }}</h2>
+        <p>{{ text_next_choice }}</p>
+        <div class="panel-group" id="accordion">
+            {% if constant('VERSION') > '3.0.0.0' %}
+                {% if modules %}
+                    {% for module in modules %}
+                        {{ module }}
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+                {{ coupon }}{{ voucher }}{{ reward }}{{ shipping }}
+            {% endif %}
+        </div>
+        <br/>
     </div>
     <div class="vz-checkout-cart__totals">
         <div class="row justify-content-end">

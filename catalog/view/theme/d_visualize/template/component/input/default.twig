@@ -2,16 +2,16 @@
 {% if classes %}
     {% set input_classes = input_classes ~ ' ' ~ classes %}
 {% endif %}
-{% if type=='button' %}
-    {% set button = true %}
-{% endif %}
-{% if button %}
+{% if type=='button' or type=='submit' and button  %}
     {% set input_classes = classes ~ ' btn vz-button btn-' ~ style %}
 {% endif %}
 {% if not type %}
     {% set type = 'text' %}
 {% endif %}
-<div class="vz-input vz-input--{{ type }} {% if size %} vz-input--{{ size }} {% endif %}">
+{% if input_group %}
+
+{% endif %}
+<div class="vz-input vz-input--{{ type }} {% if size %}vz-input--{{ size }}{% endif %}{% if input_group %} vz-input--group {% endif %}">
 {% if type == 'checkbox' %}
     <label class="vz-input__label">
         <input type="{{ type }}"
@@ -58,6 +58,7 @@
            id="{{ id }}"
            class="{{ input_classes }}"
            value="{{ value }}"
+           {% if atributes %}{{ atributes }}{% endif %}
     />
 {% elseif type=='textarea' %}
     <textarea
@@ -66,9 +67,7 @@
             name="{{ name }}"
             class="vz-input__input {{ input_classes }}"
             {{ custom|raw }}
-    >
-        {{ value }}
-    </textarea>
+    >{{ value }}</textarea>
     {% if text_input %}
         <div class="vz-input__text"></div>
         {{ text_input }}

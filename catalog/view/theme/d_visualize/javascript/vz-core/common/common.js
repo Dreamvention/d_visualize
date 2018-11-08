@@ -50,8 +50,9 @@ $(document).ready(function () {
 		$('[data-toggle=\'tooltip\']').tooltip({container: 'body'});
 	});
 
-
-	$('input[name=\'rating\']').rating();
+	if (typeof $.rating == 'function') {
+		$('input[name=\'rating\']').rating();
+	}
 
 
 });

@@ -46,6 +46,19 @@ $_['d_visualize_template_default_setting'] = array(
                         ),
                         'editable' => false
                     ),
+                    'input_group' => array(
+                        'skin' => 'default',
+                        'template' => 'd_visualize/template/component/input_group/',
+                        'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/input_group/',
+                        'setting' => array(
+                            'form' => array(
+                                'type' => 'select',
+                                'value' => 'inline',
+                                'values' => array('inline', 'block'),
+                            )
+                        ),
+                        'editable' => false
+                    ),
                     'input' => array(
                         'skin' => 'default',
                         'template' => 'd_visualize/template/component/input/',
@@ -268,10 +281,49 @@ $_['d_visualize_template_default_setting'] = array(
                     'checkout_cart' => array(
                         'editable' => true,
                         'template' => 'd_visualize/template/component/checkout_cart/',
-                    )
+                    ),
                 ),
             ),
             'scripts' => array()
+        ),
+        '*/coupon' => array(
+            'layout'  => array(
+                'component' => array(
+                    'form_group' => array(
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'block',
+                            )
+                        )
+                    )
+                ),
+            ),
+        ),
+        '*/voucher' => array(
+            'layout'  => array(
+                'component' => array(
+                    'form_group' => array(
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'block',
+                            )
+                        )
+                    )
+                ),
+            ),
+        ),
+        '*/reward' => array(
+            'layout'  => array(
+                'component' => array(
+                    'form_group' => array(
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'block',
+                            )
+                        )
+                    )
+                ),
+            ),
         ),
 
     ),

@@ -5,6 +5,7 @@
 {% if error_then %}
     {% set error = false %}
 {% endif %}
+
 {% if classes %}
     {% set form_group_input_class = form_group_input_class ~ ' ' ~ classes %}
 {% endif %}
@@ -18,7 +19,6 @@
 {% if setting.form is defined %}
     {% set  form = setting.form.value %}
 {% endif %}
-
 {% if form == 'inline' %}
     {% set form_group_class = form_group_class ~ ' row' %}
     {% set form_group_label_class = form_group_label_class ~ ' col-sm-2' %}
@@ -107,6 +107,20 @@
             {% endif %}
         </div>
     </div>
+{% elseif type=='input_group' %}
+    <div class="{{ form_group_class }} ">
+        <label class="{{ form_group_label_class }} "
+               for="{{ id }}"><span>{{ text_input }}</span></label>
+        <div class="{{ form_group_div_class }}">
+            {% include component.input_group.template with component.input_group|merge({
+                input: input_group.input,
+                button: input_group.button,
+            }) %}
+            {% if error %}
+                <div class="text-danger">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
 {% elseif type=='textarea' %}
     <div class="{{ form_group_class }} ">
         <label class="{{ form_group_label_class }} "
@@ -117,9 +131,10 @@
                     rows="10"
                     placeholder="{{ placeholder }}"
                     id="{{ id }}"
-                    class="{{ form_group_input_class }}">
-                {{ value }}
-            </textarea>
+                    class="{{ form_group_input_class }}">{{ value|raw }}</textarea>
         </div>
+        {% if error %}
+            <div class="text-danger">{{ error }}</div>
+        {% endif %}
     </div>
 {% endif %}

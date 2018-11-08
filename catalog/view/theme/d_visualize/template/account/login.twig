@@ -44,11 +44,16 @@
                         }) %}
 
                         <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
-
-                        {% include component.d_button_continue.template with component.d_button_continue|merge({
-                            button_continue:button_login
-                        }) %}
-
+                        {% if constant('VERSION') < '3.0.0.0' %}
+                            {% include component.d_button_continue.template with component.d_button_continue|merge({
+                                button_submit:true,
+                                button_continue:button_login
+                            }) %}
+                        {% else %}
+                            {% include component.d_button_continue.template with component.d_button_continue|merge({
+                                button_continue:button_login,
+                            }) %}
+                        {% endif %}
 
                         {% if redirect %}
                             <input type="hidden" name="redirect" value="{{ redirect }}"/>

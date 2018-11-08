@@ -1,0 +1,19 @@
+<div class="vz-input-group">
+    {% include component.input.template with component.input|merge({
+        type:'text',
+        id:input.id,
+        name:input.name,
+        value:input.value,
+        placeholder:input.placeholder,
+        input_group:true,
+    }) %}
+    {% include component.input.template with component.input|merge({
+        type:'button',
+        id:button.id,
+        name:button.name,
+        value:button.value,
+        style:button.style,
+        input_group:true,
+        atributes:"data-loading-text="~ text_loading
+    }) %}
+</div>

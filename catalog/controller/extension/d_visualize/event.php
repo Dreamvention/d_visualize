@@ -53,13 +53,18 @@ class ControllerExtensionDVisualizeEvent extends Controller
      */
     public function view_all_before_d_visualize(&$view, &$data)
     {
+        echo "<pre>"; print_r($view);echo "</pre>";
+
         $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
+        echo "<pre>"; print_r($view_route);echo "</pre>";
+
         if (!empty($this->setting_active_template) && $this->status_visualize) {
             //inject dat from setting on the view
             $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'], $data);
             //if some one add to specific page scripts need to add this to header
             foreach (array_keys($this->setting_active_template['page']) as $key) {
                 if (preg_match('/' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($key, '/')) . '/', $view)) {
+
                     if (isset($this->setting_active_template['page'][$key]['layout'])) {
                         //inject data from setting on the view
                         $data = array_replace_recursive($data, $this->setting_active_template['page'][$key]['layout']);
