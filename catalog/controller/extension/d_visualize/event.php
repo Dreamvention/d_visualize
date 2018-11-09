@@ -53,10 +53,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
      */
     public function view_all_before_d_visualize(&$view, &$data)
     {
-        echo "<pre>"; print_r($view);echo "</pre>";
-
         $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
-        echo "<pre>"; print_r($view_route);echo "</pre>";
 
         if (!empty($this->setting_active_template) && $this->status_visualize) {
             //inject dat from setting on the view

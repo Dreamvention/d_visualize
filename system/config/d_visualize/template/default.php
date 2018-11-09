@@ -286,45 +286,45 @@ $_['d_visualize_template_default_setting'] = array(
             ),
             'scripts' => array()
         ),
-        '*/coupon' => array(
-            'layout'  => array(
-                'component' => array(
-                    'form_group' => array(
-                        'setting' => array(
-                            'form' => array(
-                                'value' => 'block',
-                            )
-                        )
-                    )
-                ),
-            ),
-        ),
-        '*/voucher' => array(
-            'layout'  => array(
-                'component' => array(
-                    'form_group' => array(
-                        'setting' => array(
-                            'form' => array(
-                                'value' => 'block',
-                            )
-                        )
-                    )
-                ),
-            ),
-        ),
-        '*/reward' => array(
-            'layout'  => array(
-                'component' => array(
-                    'form_group' => array(
-                        'setting' => array(
-                            'form' => array(
-                                'value' => 'block',
-                            )
-                        )
-                    )
-                ),
-            ),
-        ),
+//        '*/coupon' => array(
+//            'layout'  => array(
+//                'component' => array(
+//                    'form_group' => array(
+//                        'setting' => array(
+//                            'form' => array(
+//                                'value' => 'block',
+//                            )
+//                        )
+//                    )
+//                ),
+//            ),
+//        ),
+//        '*/voucher' => array(
+//            'layout'  => array(
+//                'component' => array(
+//                    'form_group' => array(
+//                        'setting' => array(
+//                            'form' => array(
+//                                'value' => 'block',
+//                            )
+//                        )
+//                    )
+//                ),
+//            ),
+//        ),
+//        '*/reward' => array(
+//            'layout'  => array(
+//                'component' => array(
+//                    'form_group' => array(
+//                        'setting' => array(
+//                            'form' => array(
+//                                'value' => 'block',
+//                            )
+//                        )
+//                    )
+//                ),
+//            ),
+//        ),
 
     ),
     'pre_scripts' => array(
@@ -352,7 +352,7 @@ $_['d_visualize_template_default_setting'] = array(
     ),
 );
 $_['events'] = array(
-    'catalog/view/product/category/before' => 'extension/d_visualize/template/default/default/view_product_category_before',
+//    'catalog/view/product/category/before' => 'extension/d_visualize/template/default/default/view_product_category_before',
 );
 $_['config_theme_default'] = array(
     'size' => array(

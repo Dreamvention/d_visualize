@@ -61,9 +61,6 @@ class ControllerExtensionDVisualizeEditor extends Controller
 //                $autoprefixer = new Autoprefixer(['ff > 2', '> 2%', 'ie 8']);
 //                $compiled_css = $autoprefixer->compile($compiled_css);
             }
-            echo "<pre>";
-            print_r($compiled_css);
-            echo "</pre>";
             @file_put_contents(DIR_CATALOG . 'view/theme/d_visualize/stylesheet/dist/default/opencart_custom.css', $compiled_css);
 
         } else {

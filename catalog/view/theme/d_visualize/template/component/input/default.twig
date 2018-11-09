@@ -1,90 +1,165 @@
-{% set input_classes = 'form-control' %}
-{% if classes %}
-    {% set input_classes = input_classes ~ ' ' ~ classes %}
+{% set input_classes = 'vz-input vz-input--' ~  input.type|default('text') %}
+{% if input.classes %}
+    {% set input_classes = input_classes ~ ' ' ~ input.classes %}
 {% endif %}
-{% if type=='button' or type=='submit' and button  %}
-    {% set input_classes = classes ~ ' btn vz-button btn-' ~ style %}
+{% if input.input_group %}
+    {% set input_classes = input_classes ~ ' vz-input--group' %}
 {% endif %}
-{% if not type %}
-    {% set type = 'text' %}
+{% if input.style %}
+    {% set input_classes = input_classes ~ ' btn-' ~ input.style %}
 {% endif %}
-{% if input_group %}
-
+{% if input.size %}
+    {% set input_classes = input_classes ~ ' vz-input--' ~ input.size %}
 {% endif %}
-<div class="vz-input vz-input--{{ type }} {% if size %}vz-input--{{ size }}{% endif %}{% if input_group %} vz-input--group {% endif %}">
-{% if type == 'checkbox' %}
+{% if input.type !='radio' and  input.type != 'checkbox' %}
+    {% set input_classes = input_classes ~ ' form-control'  %}
+{% endif %}
+{% if input.type=='button' or input.type=='submit' and input.button %}
+    {% set input_classes = input.classes ~ ' btn vz-button btn-' ~ input.style %}
+{% endif %}
+{#<{{ input.tag|default('input') }}#}
+{#{% if input.id %}id="{{ input.id }}"{% endif %} class="{{ input_classes }}" {% if input.atributest %}{{ input.atributest|raw }}{% endif %}>#}
+{#</{{ input.tag|default('input') }}>#}
+{#<{{ input_group.tag|default('div') }} class="vz-input vz-input--{{ type }} {% if size %}vz-input--{{ size }}{% endif %}{% if input_group %} vz-input--group{% endif %}">#}
+{% if input.type == 'checkbox' %}
     <label class="vz-input__label">
-        <input type="{{ type }}"
-               class="vz-input__input {{ classes }} "
-               name="{{ name }}"
-               value="{{ value }}"
-               {% if checked %}checked="checked"{% endif %}
+        <input type="{{ input.type }}"
+               class="vz-input__input {{ input_classes }} "
+               name="{{ input.name }}"
+               value="{{ input.value }}"
+               {% if input.checked %}checked="checked"{% endif %}
         />
-        {% if text_input %}
-        <div class="vz-input__text"></div>
-        {{ text_input }}
+        {% if input.text_input %}
+            <div class="vz-input__text"></div>
+            {{ input.text_input }}
         {% endif %}
     </label>
-{% elseif type=='select' %}
-    <div class="vz-input__input {{ classes }} select-container">
-        <select name="{{ name }}" id="{{ id }}" class="vz-input__input {{ input_classes }} " onchange="{{ on_change }}">
+{% elseif input.type=='select' %}
+    <div class="vz-input-select-wrap">
+        <select name="{{ input.name }}"
+                {% if input.id %}
+                    id="{{ input.id }}"
+                {% endif %}
+                class="vz-input__input {{ input_classes }} "
+                onchange="{{ input.on_change }}">
             {% if placeholder %}
-                <option value="">{{ placeholder }}</option>
+                <option value="">{{ input.placeholder }}</option>
             {% endif %}
-            {% for option in select_values %}
-                <option value="{{ option[select_values_val] }}"
-                        {% if option[select_values_check_val] == select_values_check %} selected="selected" {% endif %}>
-                    {{ option[select_values_name] }}
+            {% for option in input.select_values %}
+                <option value="{{ option[input.select_values_val] }}"
+                        {% if option[input.select_values_check_val] == input.select_values_check %} selected="selected" {% endif %}>
+                    {{ option[input.select_values_name] }}
                 </option>
             {% endfor %}
         </select>
     </div>
-    {% if text_input %}
-        <label class="vz-input__label" for="{{ id }}">{{ text_input }}</label>
+    {% if input.text_input %}
+        <label class="vz-input__label" for="{{ input.id }}">{{ input.text_input }}</label>
     {% endif %}
-{% elseif type=='radio' %}
-    <label class="vz-input__label" >
-        <input type="radio"
-               id="{{ id }}"
-               class="{{ classes }} "
-               name="{{ name }}"
-               value="{{ value }}"
-               {% if checked %}checked="checked"{% endif %}
-        />
-        <div class=vz-input__text><span></span>{{ text_input }}</div>
-    </label>
-{% elseif type=='button' %}
-    <input type="{{ type }}"
-           id="{{ id }}"
-           class="{{ input_classes }}"
-           value="{{ value }}"
-           {% if atributes %}{{ atributes }}{% endif %}
+{% elseif input.type=='radio' %}
+    {% if input.values is iterable %}
+        <div class="vz-input-radio-wrap">
+            {% for input_value in input.values %}
+                <label class='{{ input_classes }}' >
+                    <input type="radio"
+                            {% if input_value.id %}
+                                id="{{ input_value.id }}"
+                            {% endif %}
+                            {% if classes %}
+                                class="{{ input_classes }} "
+                            {% endif %}
+                           name="{{ input.name }}"
+                           value="{{ input_value.value }}"
+                            {% if input.checked == input_value.value %}checked="checked"{% endif %}
+                    />
+                    <div class=vz-input__text><span></span>{{ input_value.text }}</div>
+                </label>
+            {% endfor %}
+        </div>
+    {% else %}
+        <label class="vz-input__label" >
+            <input type="radio"
+                    {% if id %}
+                        id="{{ input.id }}"
+                    {% endif %}
+                    {% if classes %}
+                        class="{{ input_classes }} "
+                    {% endif %}
+                   name="{{ input.name }}"
+                   value="{{ input.value }}"
+                    {% if input.checked %}checked="checked"{% endif %}
+            />
+            <div class=vz-input__text><span></span>{{ input.text_input }}</div>
+        </label>
+    {% endif %}
+
+{% elseif input.type=='button' %}
+    <input type="{{ input.type }}"
+            {% if id %}
+                id="{{ input.id }}"
+            {% endif %}
+           class="{{ input.input_classes }}"
+           value="{{ input.value }}"
+            {% if input.atributes %}{{ input.atributes }}{% endif %}
     />
-{% elseif type=='textarea' %}
+{% elseif input.type=='textarea' %}
     <textarea
-            type="{{ type }}"
-            id="{{ id }}"
-            name="{{ name }}"
-            class="vz-input__input {{ input_classes }}"
-            {{ custom|raw }}
-    >{{ value }}</textarea>
-    {% if text_input %}
+            type="{{ input.type }}"
+            {% if input.id %}
+                id="{{ input.id }}"
+            {% endif %}
+            name="{{ input.name }}"
+            class="{{ input_classes }}"
+            {{ input.attributes|raw }}
+    >{{ input.value }}</textarea>
+    {% if input.text_input %}
         <div class="vz-input__text"></div>
-        {{ text_input }}
+        {{ input.text_input }}
     {% endif %}
-{% elseif type=='submit' %}
-    <input type="{{ type }}"
-           id="{{ id }}"
+{% elseif input.type=='time' %}
+    <input type="text" name="{{ input.name }}"
+            {% if input.id %}
+                id="{{ input.id }}"
+            {% endif %}
+           value="{{ input.value }}"
+           placeholder="{{ input.placeholder }}"
+           data-date-format="HH:mm"
+           class="{{ input_classes }}"/>
+{% elseif input.type=='date' %}
+    <input type="text" name="{{ input.name }}" value="{{ input.value }}"
+            {% if input.id %}
+                id="{{ input.id }}"
+            {% endif %}
+           placeholder="{{ input.placeholder }}"
+           data-date-format="YYYY-MM-DD"
+           class="{{ input_classes }}"/>
+{% elseif input.type=='datetime' %}
+    <input type="text" name="{{ input.name }}" value="{{ input.value }}"
+            {% if input.id %}
+                id="{{ input.id }}"
+            {% endif %}
+           placeholder="{{ input.placeholder }}"
+           data-date-format="YYYY-MM-DD HH:mm"
            class="{{ input_classes }}"
-           value="{{ value }}"
     />
-{% elseif type=='email' or type=='text' or type=='submit' or type=='password' %}
-    <input type="{{ type }}"
-           id="{{ id }}"
-           name="{{ name }}"
-           placeholder="{{ placeholder }}"
+{% elseif input.type=='submit' %}
+    <input type="{{ input.type }}"
+            {% if id %}
+                id="{{ input.id }}"
+            {% endif %}
            class="{{ input_classes }}"
-           value="{{ value }}"
+           value="{{ input.value }}"
+    />
+{% elseif input.type=='email' or input.type=='text' or input.type=='submit' or input.type=='password' %}
+    <input type="{{ input.type }}"
+            {% if id %}
+                id="{{ input.id }}"
+            {% endif %}
+           name="{{ input.name }}"
+           placeholder="{{ input.placeholder }}"
+           class="{{ input_classes }}"
+           value="{{ input.value }}"
+            {% if atributest %}{{ atributest|raw }}{% endif %}
     />
 {% endif %}
-</div>
+{#</{{ input.input_group.tag|default('div') }}>#}

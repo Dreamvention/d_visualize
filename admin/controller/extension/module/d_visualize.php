@@ -12,10 +12,11 @@ class ControllerExtensionModuleDVisualize extends Controller
 
     public function __construct($registry)
     {
+
         parent::__construct($registry);
         $this->load->language($this->route);
         $this->load->model($this->route);
-        $this->load->model('extension/' . $this->codename . '/template');
+        $this->load->model('extension/'.$this->codename.'/template');
         $this->load->model('extension/' . $this->codename . '/extension_helper');
         $this->load->model('extension/d_opencart_patch/url');
         $this->load->model('extension/d_opencart_patch/load');
@@ -35,10 +36,12 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->model = 'model_extension_module_' . $this->codename;
         $this->model_template = 'model_extension_' . $this->codename . '_template';
         $this->model_helper = 'model_extension_' . $this->codename . '_extension_helper';
+
     }
 
     public function index()
     {
+
         $this->load->language($this->route);
         $this->document->setTitle($this->language->get('heading_title_main'));
         if ($this->d_shopunity) {

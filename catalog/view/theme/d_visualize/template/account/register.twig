@@ -7,11 +7,10 @@
             <fieldset id="account">
                 <h3>{{ text_your_details }}</h3>
                 <div class="">
-                    {% include component.d_account_field.template with component.d_account_field|merge({form:''}) %}
+                    {% include component.d_account_field.template %}
                     {% for custom_field in custom_fields %}
-                        {% if custom_field.location == 'account' %}
-                            {% set custom_field = custom_field|merge({form:'inline'}) %}
-                            {% include component.d_custom_field.template with component.d_custom_field|merge(custom_field) %}
+                        {% if custom_field.location =='account'%}
+                            {% include component.d_custom_field.template with custom_field %}
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -19,57 +18,64 @@
             {% if constant('VERSION') < '3.0.0.0' %}
                 <fieldset id="address">
                     <h3>{{ text_your_address }}</h3>
-                    {% include component.d_address_field.template with component.d_address_field|merge({form:'inline'}) %}
+                    {% include component.d_address_field.template %}
                     {% for custom_field in custom_fields %}
-                        {% if custom_field.location == 'address' %}
-                            {% set custom_field = custom_field|merge({form:'inline'}) %}
-                            {% include component.d_custom_field.template with component.d_custom_field|merge(custom_field) %}
+                        {% if custom_field.location =='address'%}
+                            {% include component.d_custom_field.template with custom_field %}
                         {% endif %}
                     {% endfor %}
                 </fieldset>
             {% endif %}
             <fieldset>
                 <h3>{{ text_your_password }}</h3>
-                {% include component.form_group.template with component.form_group|merge({
-                type:'password',
-                id:'input-password',
-                name:'password',
-                value:password,
-                placeholder:entry_password,
-                classes:'',
-                text_input:entry_password,
-                }) %}
-                {% include component.form_group.template with component.form_group|merge({
-                type:'password',
-                id:'input-confirm',
-                name:'confirm',
-                value:password,
-                placeholder:entry_confirm,
-                classes:'',
-                text_input:entry_confirm,
-                }) %}
+                {% include component.form_group.template with{
+                    form_group:{
+                        label_text:entry_password ,
+                        error:error_password,
+                        input:{
+                            type:'password',
+                            id:'input-password',
+                            name:'password',
+                            value:password,
+                            placeholder:entry_password ,
+                        }
+                    }
+                } %}
+                {% include component.form_group.template with{
+                    form_group:{
+                        label_text:entry_confirm ,
+                        error:error_confirm,
+                        input:{
+                            type:'password',
+                            id:'input-confirm',
+                            name:'confirm',
+                            value:confirm,
+                            placeholder:entry_confirm ,
+                        }
+                    }
+                } %}
             </fieldset>
             <fieldset class="newslatter">
                 <h3>{{ text_newsletter }}</h3>
-                {% include component.form_group.template with component.form_group|merge({
-                type:'radio',
-                name:'newsletter',
-                form:'inline',
-                radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
-                radio_values_val:'val',
-                radio_values_check: newsletter,
-                radio_values_name: 'name',
-                text_input:entry_newsletter,
-                }) %}
+                {% include component.form_group.template with{
+                    form_group:{
+                        label_text:entry_newsletter ,
+                        error:error_newsletter,
+                        form:'inline',
+                        type:'radio',
+                        input:{
+                            type:'radio',
+                            name:'newsletter',
+                            value: newsletter,
+                            checked: newsletter,
+                            text_input:entry_newsletter ,
+                            values: [{ 'value':1,'text': text_yes},{'value':0,'text':text_no}],
+                        }
+                    }
+                } %}
             </fieldset>
             {{ captcha }}
-            {% if constant('VERSION') < '3.0.0.0' %}
-                {% include component.d_button_continue.template with component.d_button_continue|merge({
-                    button_submit:true,
-                }) %}
-            {% else %}
-                {% include component.d_button_continue.template with component.d_button_continue %}
-            {% endif %}
+            {% include component.d_button_continue.template  %}
         </form>
 
 

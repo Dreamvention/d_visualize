@@ -1,57 +1,27 @@
 {% set btn_classes = 'btn vz-button' %}
-{% if classes %}
-    {% set btn_classes = btn_classes ~ ' ' ~ classes %}
+{% if button.classes %}
+    {% set btn_classes = btn_classes ~ ' ' ~ button.classes %}
 {% endif %}
-{% if style %}
-    {% set btn_classes = btn_classes ~ ' btn-' ~ style %}
+{% if button.style %}
+    {% set btn_classes = btn_classes ~ ' btn-' ~ button.style %}
 {% endif %}
-{% if size %}
-    {% set btn_classes = btn_classes ~ ' btn-' ~ size %}
+{% if button.size %}
+    {% set btn_classes = btn_classes ~ ' btn-' ~ button.size %}
 {% endif %}
 {% if data_loading %}
-    {% set text_loading = data_loading %}
+    {% set button = button|merge({text_button: data_loading}) %}
 {% endif %}
-{% if not type %}
-    {% set type = 'button' %}
+{% if button.icon %}
+    {% set button = button|merge({text_button:'<i class="' ~ button.icon ~ '"></i>'}) %}
 {% endif %}
-{% if icon %}
-    {% set text_button = '<i class="' ~ icon ~ '"></i>' %}
-{% endif %}
-{% if button %}
-    <button
-            {% if id %}
-                id='{{ id }}'
-            {% endif %}
-
-            class="{{ btn_classes }}"
-
-            {% if button == 'true' %}
-
-            {% else %}
-                onclick="{{ button|raw }}"
-            {% endif %}
-
-            {% if type %}
-                type='{{ type }}'
-            {% endif %}
-
-            {% if title_button %}
-                title="{{ title_button }}"
-            {% endif %}
-            {% if text_loading %}
-                data-loading-text="{{ text_loading }}"
-            {% endif %}
-
-            {{ custom }}
-
-    >{{ text_button|raw }}</button>
-{% elseif link %}
-    <a href="{{ link }}"
-            {% if id %}
-                id='{{ id }}'
-            {% endif %}
-       class="{{ btn_classes }}"
-       data-loading-text="{{ text_loading }}"
-    >{{ text_button|raw }}</a>
-{% endif %}
+<{{ button.tag|default('button') }}
+{% if button.id %}id='{{ button.id }}'{% endif %}
+class="{{ btn_classes }}"
+{% if button.onclick %}onclick="{{ button.onclick|raw }}"{% endif %}
+{% if button.link %}onclick="{{ button.link }}"{% endif %}
+{% if button.type %} type='{{ button.type|default('button') }}'{% endif %}
+{% if button.title_button %}title="{{ button.title_button }}"{% endif %}
+{% if button.text_loading %}data-loading-text="{{ button.text_loading }}"{% endif %}
+{% if button.input_group.atributest %}{{ button.atributest|raw }}{% endif %}>
+{{ button.text_button|raw }}</{{ button.tag|default('button') }}>
 

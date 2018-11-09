@@ -17,6 +17,7 @@
     &:nth-child(2) {
       margin-left: 0px;
     }
+
     transition: border-color .35s;
     &:hover {
       border-color: #337ab7
@@ -25,5 +26,9 @@
   &__item--main {
     margin-left: 0px;
     flex: 1 0 100%;
+    img{
+      margin: auto;
+      display: block;
+    }
   }
 }

@@ -93,11 +93,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         if (isset($component['skin']) && isset($this->components[$key][$component['skin']])) {
             $skin = $component['skin'];
         }
-//        echo '<pre>';
-//        print_r($key);
-//        echo '-';
-//        print_r($skin);
-//        echo '</pre>';
         if (isset($component['template'])) {
             $component['template'] = $component['template'] . $skin . '.twig'; //set default values template
         }

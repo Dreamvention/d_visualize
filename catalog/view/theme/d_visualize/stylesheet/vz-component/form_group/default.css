@@ -3,13 +3,14 @@
     padding-top: 7px;
   }
   &--required{
-    .vz-input__label:before,.vz-control-label:before{
+    >.vz-input__label:before,.vz-control-label:before{
       content: '* ';
       color: #F00;
       font-weight: bold;
     }
   }
   &--radio{
-
+    .vz-input--radio{
+    }
   }
 }

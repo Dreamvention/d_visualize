@@ -1,0 +1,57 @@
+{% set btn_classes = 'btn vz-button' %}
+{% if classes %}
+    {% set btn_classes = btn_classes ~ ' ' ~ classes %}
+{% endif %}
+{% if style %}
+    {% set btn_classes = btn_classes ~ ' btn-' ~ style %}
+{% endif %}
+{% if size %}
+    {% set btn_classes = btn_classes ~ ' btn-' ~ size %}
+{% endif %}
+{% if data_loading %}
+    {% set text_loading = data_loading %}
+{% endif %}
+{% if not type %}
+    {% set type = 'button' %}
+{% endif %}
+{% if icon %}
+    {% set text_button = '<i class="' ~ icon ~ '"></i>' %}
+{% endif %}
+{% if button %}
+    <button
+            {% if id %}
+                id='{{ id }}'
+            {% endif %}
+
+            class="{{ btn_classes }}"
+
+            {% if button == 'true' %}
+
+            {% else %}
+                onclick="{{ button|raw }}"
+            {% endif %}
+
+            {% if type %}
+                type='{{ type }}'
+            {% endif %}
+
+            {% if title_button %}
+                title="{{ title_button }}"
+            {% endif %}
+            {% if text_loading %}
+                data-loading-text="{{ text_loading }}"
+            {% endif %}
+
+            {{ custom }}
+
+    >{{ text_button|raw }}</button>
+{% elseif link %}
+    <a href="{{ link }}"
+            {% if id %}
+                id='{{ id }}'
+            {% endif %}
+       class="{{ btn_classes }}"
+       data-loading-text="{{ text_loading }}"
+    >{{ text_button|raw }}</a>
+{% endif %}
+

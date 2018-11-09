@@ -1,6 +1,4 @@
 module.exports = function (data) {
-	console.log(data.options.skin)
-	console.log(data.options.path_skin)
 	return {
 		syntax:'postcss-scss',
 		plugins: [

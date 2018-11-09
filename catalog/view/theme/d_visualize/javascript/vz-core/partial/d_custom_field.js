@@ -119,18 +119,34 @@ var d_custom_field = {
         $(document).on('click', 'button[id^=\'button-custom-field\']', function() {
             that.upload(this);
         });
+	    var fontawesome_icons = {
+		    time: 'fa fa-clock',
+		    date: 'fa fa-calendar',
+		    up: 'fa fa-chevron-up',
+		    down: 'fa fa-chevron-down',
+		    previous: 'fa fa-chevron-left',
+		    next: 'fa fa-chevron-right',
+		    today: 'fa fa-chevron-down',
+		    clear: 'fa fa-times',
+		    close: 'fa fa-time'
+	    };
 
         $('.date').datetimepicker({
-          pickTime: false
+	        pickTime: false,
+	        icons: fontawesome_icons
         });
 
         $('.datetime').datetimepicker({
           pickDate: true,
-          pickTime: true
+	        pickTime: true,
+	        icons: fontawesome_icons
+
         });
 
         $('.time').datetimepicker({
-          pickDate: false
+	        pickDate: false,
+	        icons: fontawesome_icons
+
         });
     }
 }

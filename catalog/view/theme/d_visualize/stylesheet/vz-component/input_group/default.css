@@ -1,22 +1,19 @@
 .vz-input-group {
   display: flex;
-  .vz-input--group {
-    flex: 1 1 100%;
-    &.vz-input--button {
+  flex: 1 1 100%;
+  .input-group-btn {
       flex: 1 1 auto;
+      width: auto;
       .vz-button {
+        height: 100%;//perfect group
         border-bottom-left-radius: 0;
         border-top-left-radius: 0;
-        max-height: 34px;
-        line-height: 34px;
-        padding: 0 15px;
       }
     }
-    &.vz-input--text {
+  .vz-input--text {
       input {
         border-bottom-right-radius: 0;
         border-top-right-radius: 0;
       }
-    }
   }
 }

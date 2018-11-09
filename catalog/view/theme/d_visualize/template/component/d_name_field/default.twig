@@ -1,23 +1,30 @@
-<!-- > d_name_field_default -->
-
-{% include component.form_group.template with component.form_group|merge({
-type:'text',
-id:'input-firstname',
-name:'firstname',
-required:true,
-value:firstname,
-text_input:entry_firstname ,
-placeholder:entry_firstname ,
-error:error_firstname
-}) %}
-{% include component.form_group.template with component.form_group|merge({
-type:'text',
-id:'input-lastname',
-name:'lastname',
-required:true,
-value:lastname,
-text_input:entry_lastname ,
-placeholder:entry_lastname ,
-error:error_lastname
-}) %}
-<!-- /> d_name_field -->
+<!--  d_name_field_default -->
+{% include component.form_group.template with{
+    form_group:{
+        label_text:entry_firstname ,
+        error:error_firstname,
+        required:true,
+        input:{
+            type:'text',
+            id:'input-firstname',
+            name:'firstname',
+            value:firstname,
+            placeholder:entry_firstname ,
+        }
+    }
+} %}
+{% include component.form_group.template with{
+    form_group:{
+        label_text:entry_lastname ,
+        error:error_lastname,
+        required:true,
+        input:{
+            type:'text',
+            id:'input-lastname',
+            name:'lastname',
+            value:lastname,
+            placeholder:entry_lastname ,
+        }
+    }
+} %}
+<!-- d_name_field /> -->

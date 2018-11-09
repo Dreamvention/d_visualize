@@ -1,7 +1,6 @@
-.vz-input{
-  &--radio,&--checkbox{
-    .vz-input__label{
-      display: inline-flex;
-    }
-  }
+input[type="checkbox"].vz-input--checkbox,input[type="radio"].vz-input--radio{
+    margin-top: 0;
+    width: auto;
+    box-shadow: none;
+    margin-left: 5px !important;
 }

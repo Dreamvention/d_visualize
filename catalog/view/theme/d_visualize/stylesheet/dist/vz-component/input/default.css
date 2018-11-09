@@ -1,7 +1,8 @@
-.vz-input--radio .vz-input__label,.vz-input--checkbox .vz-input__label{
-      display: -webkit-inline-box;
-      display: -webkit-inline-flex;
-      display: -ms-inline-flexbox;
-      display: inline-flex;
-    }
+input[type="checkbox"].vz-input--checkbox,input[type="radio"].vz-input--radio{
+    margin-top: 0;
+    width: auto;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    margin-left: 0.35714rem !important;
+}
 /*# sourceMappingURL=C:/OpenServer/domains/localhost/201/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/input/default.css.map */

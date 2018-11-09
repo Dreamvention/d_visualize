@@ -35,4 +35,8 @@
         -ms-flex: 1 0 100%;
             flex: 1 0 100%;
 }
+.vz-product-product__thumbnails__item--main img{
+      margin: auto;
+      display: block;
+    }
 /*# sourceMappingURL=C:/OpenServer/domains/localhost/201/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/product_thumbnails/default.css.map */

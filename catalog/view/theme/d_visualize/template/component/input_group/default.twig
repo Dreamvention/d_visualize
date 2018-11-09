@@ -1,19 +1,23 @@
-<div class="vz-input-group">
-    {% include component.input.template with component.input|merge({
-        type:'text',
-        id:input.id,
-        name:input.name,
-        value:input.value,
-        placeholder:input.placeholder,
-        input_group:true,
-    }) %}
-    {% include component.input.template with component.input|merge({
-        type:'button',
-        id:button.id,
-        name:button.name,
-        value:button.value,
-        style:button.style,
-        input_group:true,
-        atributes:"data-loading-text="~ text_loading
-    }) %}
+{% set input_group_class = 'input-group vz-input-group' %}
+{% if classes %}
+    {% set input_group_class = input_group_class ~ ' ' ~ input_group.classes %}
+{% endif %}
+<{{ input_group.tag|default('div') }}
+{% if input_group.id %}id="{{ input_group.id }}"{% endif %} class="{{ input_group_class }}" {% if input_group.atributest %}{{ input_group.atributest|raw }}{% endif %}>
+{% include component.input.template with {input:input_group.input} %}
+<div class="input-group-btn">
+    {% include component.button.template with {button:input_group.button} %}
 </div>
+{#{% if button.button=='true' %}#}
+        {#{% include component.button.template with button|merge({#}
+            {#type:'button',#}
+            {#input_group:true,#}
+        {#}) %}#}
+    {#{% else %}#}
+        {#{% include component.input.template with button|merge({#}
+            {#type:'button',#}
+            {#input_group:true,#}
+            {#atributes:"data-loading-text="~ text_loading#}
+        {#}) %}#}
+    {#{% endif %}#}
+</{{ input_group.tag|default('div') }}>

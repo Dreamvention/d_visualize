@@ -2,11 +2,11 @@
 <div class="vz-button-continue vz-button-continue--default">
     {% if back %}
         <div class="vz-button-continue__back">
-            {% include component.button.template with component.button|merge({
+            {% include component.button.template with {button:{
                 link:back ,
                 style:'default',
                 text_button:button_back,
-            }) %}
+            }} %}
         </div>
     {% endif %}
     <div class="vz-button-continue__forward">
@@ -15,44 +15,61 @@
             <span>
               {{ text_agree }}
             </span>
-                {% include component.input.template with component.input|merge({
+                {% include component.input.template with {input:{
                     type:'checkbox',
                     name:'agree',
                     value:'1',
                     checked:agree,
-                }) %}
+                }} %}
             </div>
         {% endif %}
         {% if constant('VERSION')>'3.0.0.0' %}
             {% if continue %}
-                {% include component.button.template with component.button|merge({
+                {% include component.button.template with {button:{
                     link:continue ,
                     style:'primary',
                     text_button:button_continue,
-                }) %}
+                }}
+                %}
             {% elseif button %}
-                {% include component.button.template with component.button|merge({
+                {% include component.button.template with {button:{
                     button:true ,
                     id:id,
                     text_loading:text_loading,
                     style:'primary',
                     text_button:button_continue,
-                }) %}
+                }}
+                %}
             {% elseif button_submit %}
-                {% include component.input.template with component.input|merge({
+                {% include component.input.template with {input:{
                     type:'submit',
                     style:'primary',
                     value:button_continue,
                     button:'primary',
-                }) %}
+                }} %}
             {% endif %}
         {% else %}
-            {% include component.input.template with component.input|merge({
-                type:'submit',
-                style:'primary',
-                value:button_continue,
-                button:'primary',
-            }) %}
+            {% if continue %}
+                {% include component.button.template with {button:{
+                    link:continue ,
+                    style:'primary',
+                    text_button:button_continue,
+                }} %}
+            {% else %}
+
+                {% if button_submit and button_continue is not defined %}
+                    {% set button_continue = button_submit %}
+                {% endif %}
+                {% include component.input.template with {
+                    input:{
+                        type:'submit',
+                        style:'primary',
+                        value:button_continue,
+                        button:'primary',
+                    }
+                } %}
+            {% endif %}
+
         {% endif %}
 
     </div>
