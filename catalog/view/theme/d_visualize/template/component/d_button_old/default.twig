@@ -2,12 +2,12 @@
 <div class="buttons">
  <div class="vis-back">
         {% if button_back %}
-            {% include component.button.template with component.button|merge({
+            {% include component.button.template with {button:{
             link:back ,
             style:'default',
             classes:'btn-lg',
             text_button:button_back,
-            }) %}
+            }} %}
         {% endif %}
     </div>
     <div class="vis-forward">
@@ -25,12 +25,12 @@
             </div>
         {% endif %}
         {% if continue %}
-            {% include component.button.template with component.button|merge({
+            {% include component.button.template with {button:{
             link:continue ,
             style:'primary',
             classes:'btn-lg',
             text_button:button_continue,
-            }) %}
+            }} %}
         {% elseif button_continue %}
             {% include component.input.template with component.input|merge({
             type:'submit',

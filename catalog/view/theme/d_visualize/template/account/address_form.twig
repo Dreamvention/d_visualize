@@ -11,17 +11,21 @@
                     {% include component.d_custom_field.template with  component.d_custom_field %}
                 {% endif %}
             {% endfor %}
-            {% include component.form_group.template with component.form_group|merge({
-            type:'radio',
-            name:'default',
-            form:'inline',
-            radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
-            radio_values_val:'val',
-            radio_values_check: default,
-            radio_values_name: 'name',
-            text_input:entry_default,
-            }) %}
-
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_default,
+                    error:error_default,
+                    type:'radio',
+                    input:{
+                        type:'radio',
+                        name:'default',
+                        value: default,
+                        checked: default,
+                        text_input:entry_default ,
+                        values: [{ 'value':1,'text': text_yes},{'value':0,'text':text_no}],
+                    }
+                }
+            } %}
         </fieldset>
         {% include component.d_button_continue.template with  component.d_button_continue %}
     </form>

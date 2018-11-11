@@ -9,17 +9,17 @@
                     <tr>
                         <td class="text-left">{{ address.address }}</td>
                         <td class="text-right">
-                            {% include component.button.template with component.button|merge({
+                            {% include component.button.template with {button:{
                                 link:address.update,
                                 style:'warning',
                                 text_button:button_edit
-                            }) %}
-                            {% include component.button.template with component.button|merge({
-                                link:address.update,
+                            }} %}
+                            {% include component.button.template with {button:{
+                                link:address.delete,
                                 style:'danger',
                                 text_button:button_delete
-                            }) %}
-                           </td>
+                            }} %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>

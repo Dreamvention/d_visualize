@@ -28,23 +28,23 @@
         <div class="button-group vz-product-thumb__group">
             {% set spec_btn_text= '<i class="fa fa-shopping-cart"></i>'~
                 '<span class="hidden-xs hidden-sm hidden-md">'~ button_cart~'</span>' %}
-            {% include component.button.template with component.button|merge({
-                button:'cart.add('~ product.product_id ~', '~ minimum ~')',
+            {% include component.button.template with {button:{
+                onclick:'cart.add('~ product.product_id ~', '~ minimum ~')',
                 style:'default',
                 classes:'btn-buy vz-product-thumb__button',
                 text_button: spec_btn_text
-            }) %}
-            {% include component.button.template with component.button|merge({
-                button:'wishlist.add('~ product.product_id ~')',
+            }} %}
+            {% include component.button.template with {button:{
+                onclick:'wishlist.add('~ product.product_id ~')',
                 style:'default',
                 classes:'vz-product-thumb__button',
                 icon:'fas fa-heart'
-            }) %}
-            {% include component.button.template with component.button|merge({
-                button:'compare.add('~ product.product_id ~')',
+            }} %}
+            {% include component.button.template with {button:{
+                onclick:'compare.add('~ product.product_id ~')',
                 style:'default',
                 classes:'vz-product-thumb__button',
                 icon:'fas fa-exchange-alt'
-            }) %}
+            }} %}
         </div>
 </div>

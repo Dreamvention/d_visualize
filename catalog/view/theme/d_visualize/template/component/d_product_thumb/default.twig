@@ -29,12 +29,12 @@
                     </div>
                 {% endif %}
             </div>
-            {% include component.button.template with component.button|merge({
-                button:'cart.add('~ product.product_id ~', '~ minimum ~')',
+            {% include component.button.template with {button:{
+                onclick:'cart.add('~ product.product_id ~', '~ minimum ~')',
                 style:'primary',
                 classes:'btn-buy vz-product-thumb__button',
                 text_button:button_cart
-            }) %}
+            }} %}
         </div>
     </div>
 

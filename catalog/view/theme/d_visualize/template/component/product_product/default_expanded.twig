@@ -70,13 +70,13 @@
                     {% include component.product_quantity.template with({product_id:product_id,quantity:minimum,minimum:minimum}) %}
 
                     <div class="d-flex align-items-center ">
-                        {% include component.button.template with component.button|merge({
+                        {% include component.button.template with {button:{
                         button: true,
                         id:'button-cart',
                         style:'secondary',
                         text_button:button_cart,
                         title:button_cart,
-                        }) %}
+                        }} %}
                         {#<button type="button" id="button-cart" data-loading-text="{{ text_loading }}"#}
                         {#class="btn btn-vis btn-secondary">{{ button_cart }}</button>#}
                         <div class="wish" onclick="wishlist.add('{{ product.product_id }}');">

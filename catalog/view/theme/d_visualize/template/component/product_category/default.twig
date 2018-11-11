@@ -6,13 +6,13 @@
             <p>{{ text_empty }}</p>
             <div class="buttons">
                 <div class="pull-right">
-                    {% include component.button.template with component.button|merge({
+                    {% include component.button.template with {button:{
                         button: true,
                         id:'button-cart',
                         style:'secondary',
                         text_button:button_cart,
                         title:button_cart,
-                    }) %}
+                    }}%}
                 </div>
             </div>
         {% endif %}

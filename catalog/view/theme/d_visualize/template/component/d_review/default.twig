@@ -36,13 +36,13 @@
         {{ captcha }}
         <div class="buttons clearfix">
             <div class="pull-right">
-                {% include component.button.template with component.button|merge({
+                {% include component.button.template with {button:{
                     id:'button-review',
                     style:'primary',
                     data_loading:text_loading,
                     button:true,
                     text_button: button_continue
-                }) %}
+                }} %}
 
             </div>
         </div>

@@ -2,12 +2,12 @@
 <div class="vz-button_submit vz-d_button_submit_default">
     <div class="vz-button_submit__back">
         {% if button_back %}
-            {% include component.button.template with component.button|merge({
+            {% include component.button.template with {button:{
             link: back,
             style:'default',
             classes:'btn-shrink btn-block-sm',
             text_button:button_back,
-            }) %}
+            }} %}
         {% endif %}
     </div>
     <div class="vz-button_submit__forward">
@@ -25,12 +25,12 @@
             </div>
         {% endif %}
         {% if continue %}
-            {% include component.button.template with component.button|merge({
+            {% include component.button.template with {button:{
             link: continue,
             style:'default',
             classes:'btn-block-sm',
             text_button:button_continue,
-            }) %}
+            }} %}
         {% elseif button_continue %}
             {% include component.input.template with component.input|merge({
             type:'submit',

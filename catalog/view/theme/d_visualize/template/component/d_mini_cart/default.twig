@@ -30,12 +30,12 @@
                     <td class="text-right">x&nbsp;1</td>
                     <td class="text-right">{{ voucher.amount }}</td>
                     <td class="text-center text-danger">
-                        {% include component.button.template with component.button|merge({
-                            button:'voucher.remove('~ voucher.key ~')',
+                        {% include component.button.template with {button:{
+                            onclick:'voucher.remove('~ voucher.key ~')',
                             icon:'fa fa-times',
                             title:button_remove,
                             style:'danger',
-                        }) %}
+                        }} %}
                     </td>
                 </tr>
             {% endfor %}

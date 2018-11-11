@@ -105,7 +105,7 @@
         {% if option.type == 'file' %}
             <div class="form-group{% if option.required %} required {% endif %}">
                 <label class="control-label">{{ option.name }}</label>
-                {% include component.button.template with component.button|merge({
+                {% include component.button.template with {button:{
                     button: true,
                     id:'button-upload'~ option.product_option_id ,
                     style:'default',
@@ -113,7 +113,7 @@
                     text_button:'<i
                             class="fa fa-upload"></i> '~ button_upload ,
                     title:"",
-                }) %}
+                }} %}
                 {#<button type="button" id="button-upload{{ option.product_option_id }}"#}
                 {#data-loading-text="{{ text_loading }}"#}
                 {#class="btn btn-vis btn-default btn-block"><i#}

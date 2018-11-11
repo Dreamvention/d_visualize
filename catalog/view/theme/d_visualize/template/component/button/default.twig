@@ -14,11 +14,28 @@
 {% if button.icon %}
     {% set button = button|merge({text_button:'<i class="' ~ button.icon ~ '"></i>'}) %}
 {% endif %}
+{% if button.link %}
+    {% set button = button|merge({tag:'a'}) %}
+{% endif %}
+{% if button is not defined %}
+    please make sure you use this component right.
+    use next punctuation
+    {button:{
+        id:'id',
+        style:'primary',
+        link: 'extension/aa',
+        // or if  if just click
+        onclick : 'cart.add(41)'
+    }
+{% endif %}
+
+
+
 <{{ button.tag|default('button') }}
 {% if button.id %}id='{{ button.id }}'{% endif %}
 class="{{ btn_classes }}"
 {% if button.onclick %}onclick="{{ button.onclick|raw }}"{% endif %}
-{% if button.link %}onclick="{{ button.link }}"{% endif %}
+{% if button.link %}href="{{ button.link }}"{% endif %}
 {% if button.type %} type='{{ button.type|default('button') }}'{% endif %}
 {% if button.title_button %}title="{{ button.title_button }}"{% endif %}
 {% if button.text_loading %}data-loading-text="{{ button.text_loading }}"{% endif %}

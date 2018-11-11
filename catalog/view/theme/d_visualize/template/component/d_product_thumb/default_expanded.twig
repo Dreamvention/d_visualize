@@ -42,12 +42,12 @@
             <div class="vz-product-thumb__rating">
                 {% include component.d_rating.template with  component.d_rating|merge({rating:rating,static_rating:true}) %}
             </div>
-            {% include component.button.template with component.button|merge({
-                button:'cart.add('~ product_id ~', '~ minimum ~')',
+            {% include component.button.template with {button:{
+                onclick:'cart.add('~ product_id ~', '~ minimum ~')',
                 style:'secondary',
                 classes:'btn-buy',
                 text_button:button_cart
-            }) %}
+            }} %}
             {#<button type="button" class="btn btn-vis btn-secondary btn-buy" onclick="cart.add('{{ product_id }}', '{{ minimum }}');">{{ button_cart }}</button>#}
         </div>
     </div>
