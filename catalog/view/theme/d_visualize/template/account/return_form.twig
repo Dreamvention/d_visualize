@@ -7,137 +7,165 @@
         <legend>{{ text_order }}</legend>
         <fieldset>
             {% include component.d_name_field.template with  component.d_name_field %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_email ,
+                    error:error_email,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-email',
+                        name:'email',
+                        value:email,
+                        placeholder:entry_email ,
+                    }
+                }
+            } %}
 
-            {% include component.form_group.template with component.form_group|merge({
-            type:'email',
-            id:'input-email',
-            name:'email',
-            required: true,
-            value:email,
-            placeholder:entry_email,
-            classes:'',
-            text_input:entry_email,
-            error:error_email,
-            }) %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_telephone ,
+                    error:error_telephone,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-telephone',
+                        name:'telephone',
+                        value:telephone,
+                        placeholder:entry_telephone ,
+                    }
+                }
+            } %}  
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_order_id ,
+                    error:error_order_id,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-order-id',
+                        name:'order_id',
+                        value:order_id,
+                        placeholder:entry_order_id ,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with {
+                form_group:{
+                    label_text:entry_date_ordered,
+                    input_group:{
+                        classes:'date',
+                        input:{
+                            type:'date',
+                            id:'input-date-ordered',
+                            name:'date_ordered',
+                            value: date_ordered,
+                        },
+                        button:{
+                            style:'primary',
+                            icon:'fa fa-calendar',
+                        }
+                    }
+                }
+            } %}
 
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-telephone',
-            name:'telephone',
-            required: true,
-            value:telephone,
-            placeholder:entry_telephone,
-            classes:'',
-            text_input:entry_telephone,
-            error:error_telephone,
-            }) %}
-
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-order-id',
-            name:'order_id',
-            required: true,
-            value:order_id,
-            placeholder:entry_order_id,
-            classes:'',
-            text_input:entry_order_id,
-            error:error_order_id,
-            }) %}
-
-            {% include component.form_group.template with component.form_group|merge({
-            type:'date',
-            id:'input-date-ordered',
-            name:'date_ordered',
-            value:date_ordered,
-            placeholder:entry_date_ordered,
-            text_input:entry_date_ordered,
-            classes:'',
-            }) %}
         </fieldset>
         <fieldset>
             <legend>{{ text_product }}</legend>
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-product',
-            name:'product',
-            required: true,
-            value:product,
-            placeholder:entry_product,
-            classes:'',
-            text_input:entry_product,
-            error:error_product,
-            }) %}
-             
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-model',
-            name:'model',
-            required: true,
-            value:model,
-            placeholder:entry_model,
-            classes:'',
-            text_input:entry_model,
-            error:error_model,
-            }) %} 
-
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-quantity',
-            name:'quantity',
-            value:quantity,
-            placeholder:entry_quantity,
-            classes:'',
-            text_input:entry_quantity,
-            error:error_quantity,
-            }) %}
-
-            {% include component.form_group.template with component.form_group|merge({
-            type:'radio',
-            id:'input-reason',
-            name:'return_reason_id',
-            required: true,
-            radio_values:return_reasons,
-            radio_values_val:'return_reason_id',
-            radio_values_check: return_reason_id,
-            radio_values_name: 'name',
-            placeholder:entry_reason,
-            classes:'',
-            text_input:entry_reason,
-            error:error_reason,
-            }) %}
-
-
-            {% include component.form_group.template with component.form_group|merge({
-            type:'radio',
-            id:'input-opened',
-            name:'opened',
-            required: true,
-            radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
-            radio_values_val:'val',
-            radio_values_check: opened,
-            radio_values_name: 'name',
-            placeholder:entry_opened,
-            classes:'',
-            text_input:entry_opened,
-            error:error_opened,
-            }) %}
-
-            {% include component.form_group.template with component.form_group|merge({
-            type:'textarea',
-            id:'input-comment',
-            name:'comment',
-            value:comnent,
-            placeholder:entry_fault_detail,
-            classes:'',
-            text_input:entry_fault_detail,
-            }) %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_product ,
+                    error:error_product,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-product',
+                        name:'product',
+                        value:product,
+                        placeholder:entry_product ,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_model ,
+                    error:error_model,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-model',
+                        name:'model',
+                        value:model,
+                        placeholder:entry_model ,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_quantity ,
+                    error:error_quantity,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-quantity',
+                        name:'quantity',
+                        value:quantity,
+                        placeholder:entry_quantity ,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_reason ,
+                    error:error_reason,
+                    type:'radio',
+                    required:true,
+                    input:{
+                        type:'radio',
+                        form:'block',
+                        name:'return_reason_id',
+                        checked: return_reason_id,
+                        value: 'return_reason_id',
+                        text:'name' ,
+                        values: return_reasons,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_opened ,
+                    error:error_opened,
+                    required:true,
+                    type:'radio',
+                    input:{
+                        type:'radio',
+                        name:'opened',
+                        checked: opened,
+                        values: [{ 'value':1,'text': text_yes},{'value':0,'text':text_no}],
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_fault_detail,
+                    required:true,
+                    input:{
+                        type:'textarea',
+                        id:'input-comment',
+                        name:'comment',
+                        value:comment,
+                        placeholder:entry_fault_detail ,
+                    }
+                }
+            } %}
             {{ captcha }}
         </fieldset>
-            {% include component.d_button_continue.template with  component.d_button_continue %}
+        {% include component.d_button_continue.template %}
     </form>
 
     <script type="text/javascript"><!--
 		$('.date').datetimepicker({
+			language: '{{ datepicker }}',
 			pickTime: false
 		});
 		//--></script>

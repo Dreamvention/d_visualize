@@ -4,22 +4,26 @@
     <h1 class="heading-h1">{{ heading_title }}</h1>
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
-            {% include component.form_group.template with component.form_group|merge({
-            type:'radio',
-            id:'input-newsletter',
-            name:'newsletter',
-            required: true,
-            radio_values: [{ 'val':1,'name': text_yes},{'val':0,'name':text_no}],
-            radio_values_val:'val',
-            radio_values_check: newsletter,
-            radio_values_name: 'name',
-            placeholder:entry_newslatter,
-            classes:'',
-            text_input:entry_newsletter,
-            error:error_newslatter,
-            }) %}
+
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_newsletter ,
+                    error:error_newsletter,
+                    form:'inline',
+                    type:'radio',
+                    input:{
+                        type:'radio',
+                        name:'newsletter',
+                        value: newsletter,
+                        checked: newsletter,
+                        text_input:entry_newsletter ,
+                        values: [{ 'value':1,'text': text_yes},{'value':0,'text':text_no}],
+                    }
+                }
+            } %}
+
         </fieldset>
 
-        {% include component.d_button_continue.template with component.d_button_continue %}
+        {% include component.d_button_continue.template %}
     </form>
 {% endblock %}

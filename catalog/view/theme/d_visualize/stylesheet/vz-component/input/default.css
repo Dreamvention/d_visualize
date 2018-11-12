@@ -4,3 +4,8 @@ input[type="checkbox"].vz-input--checkbox,input[type="radio"].vz-input--radio{
     box-shadow: none;
     margin-left: 5px !important;
 }
+.vz-input{
+    &--block{
+        display: flex;
+    }
+}

@@ -1,5 +1,5 @@
 {% set input_group_class = 'input-group vz-input-group' %}
-{% if classes %}
+{% if input_group.classes %}
     {% set input_group_class = input_group_class ~ ' ' ~ input_group.classes %}
 {% endif %}
 <{{ input_group.tag|default('div') }}

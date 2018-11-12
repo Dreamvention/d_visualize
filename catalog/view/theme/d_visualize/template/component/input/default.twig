@@ -5,6 +5,11 @@
 {% if input.input_group %}
     {% set input_classes = input_classes ~ ' vz-input--group' %}
 {% endif %}
+{% if input.form == 'inline' %}
+    {% set input_classes = input_classes ~ ' vz-input--inline' %}
+{% elseif input.form == 'block'%}
+    {% set input_classes = input_classes ~ ' vz-input--block' %}
+{% endif %}
 {% if input.style %}
     {% set input_classes = input_classes ~ ' btn-' ~ input.style %}
 {% endif %}
@@ -58,7 +63,14 @@
     {% endif %}
 {% elseif input.type=='radio' %}
     {% if input.values is iterable %}
-        <div class="vz-input-radio-wrap">
+        {#set default values #}
+        {% if not input.value %}
+            {% set input=input|merge({value:'value'}) %}
+        {% endif %}
+        {% if not input.text %}
+            {% set input=input|merge({text:'text'}) %}
+        {% endif %}
+        <div class="vz-input-radio-wrap ">
             {% for input_value in input.values %}
                 <label class='{{ input_classes }}' >
                     <input type="radio"
@@ -68,11 +80,12 @@
                             {% if classes %}
                                 class="{{ input_classes }} "
                             {% endif %}
-                           name="{{ input.name }}"
-                           value="{{ input_value.value }}"
-                            {% if input.checked == input_value.value %}checked="checked"{% endif %}
+                            name="{{ input.name }}"
+                            {#we use naming of value to get this work #}
+                           value="{{ input_value[input.value] }}"
+                            {% if input.checked == input_value[input.value] %}checked="checked"{% endif %}
                     />
-                    <div class=vz-input__text><span></span>{{ input_value.text }}</div>
+                    <div class=vz-input__text><span></span>{{ input_value[input.text] }}</div>
                 </label>
             {% endfor %}
         </div>

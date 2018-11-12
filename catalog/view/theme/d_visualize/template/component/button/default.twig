@@ -17,6 +17,9 @@
 {% if button.link %}
     {% set button = button|merge({tag:'a'}) %}
 {% endif %}
+{% if not button.type is defined %}
+    {% set button = button|merge({type:'button'}) %}
+{% endif %}
 {% if button is not defined %}
     please make sure you use this component right.
     use next punctuation
@@ -36,7 +39,7 @@
 class="{{ btn_classes }}"
 {% if button.onclick %}onclick="{{ button.onclick|raw }}"{% endif %}
 {% if button.link %}href="{{ button.link }}"{% endif %}
-{% if button.type %} type='{{ button.type|default('button') }}'{% endif %}
+{% if button.type %} type='{{ button.type }}'{% endif %}
 {% if button.title_button %}title="{{ button.title_button }}"{% endif %}
 {% if button.text_loading %}data-loading-text="{{ button.text_loading }}"{% endif %}
 {% if button.input_group.atributest %}{{ button.atributest|raw }}{% endif %}>
