@@ -20,7 +20,7 @@ var componenet_directory = path.join(stylesheetDir, 'vz-component');
 var scriptDir = path.join(themeDir, 'javascript');
 
 if (typeof process.env.HOST === "undefined") {
-	process.env.HOST = 'localhost';
+	process.env.HOST = 'http://localhost/';
 }
 
 function getFolders(dir) {
@@ -70,7 +70,7 @@ gulp.task('postCSS:components', function () {
 			.pipe(require('gulp-autoprefixer')({browsers: ['last 15 versions']}))
 			.pipe(sourcemaps.write(path.join(stylesheetDir, 'dist/vz-component', folder)))
 			.pipe(gulp.dest(path.join(stylesheetDir, 'dist/vz-component', folder)))
-			.pipe(browserSync.stream({match: '**/*.css'}));
+			.pipe(browserSync.reload({stream: true}));
 	});
 	return tasks;
 });
@@ -87,7 +87,7 @@ gulp.task('run:components', ["browser_sync_init"], function () {
 		gulp.watch([
 			baseDir + "/controller/extension/**/**/*.php",
 			baseDir + "/view/template/extension/**/**/*.vue",
-			baseDir + "/view/template/extension/**/**/*.twig"
+			baseDir + "/view/template/**/**/**/*.twig"
 		], browserSync.reload);
 	}
 	gulp.start(["watch:components"]);

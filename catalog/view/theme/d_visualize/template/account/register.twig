@@ -16,6 +16,7 @@
                 </div>
             </fieldset>
             {% if constant('VERSION') < '3.0.0.0' %}
+                {% block address %}
                 <fieldset id="address">
                     <h3>{{ text_your_address }}</h3>
                     {% include component.d_address_field.template %}
@@ -25,8 +26,11 @@
                         {% endif %}
                     {% endfor %}
                 </fieldset>
+                {% endblock %}
             {% endif %}
-            <fieldset>
+            {% block affiliate %}
+            {% endblock %}
+            <fieldset class="password">
                 <h3>{{ text_your_password }}</h3>
                 {% include component.form_group.template with{
                     form_group:{
@@ -55,6 +59,7 @@
                     }
                 } %}
             </fieldset>
+            {% block newslatter %}
             <fieldset class="newslatter">
                 <h3>{{ text_newsletter }}</h3>
                 {% include component.form_group.template with{
@@ -74,11 +79,10 @@
                     }
                 } %}
             </fieldset>
+            {% endblock %}
             {{ captcha }}
             {% include component.d_button_continue.template  %}
         </form>
-
-
         <script type="text/javascript"><!--
 			$(function () {
 				d_address_field.init({

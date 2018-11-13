@@ -70,6 +70,9 @@
         {% if not input.text %}
             {% set input=input|merge({text:'text'}) %}
         {% endif %}
+        {% if not input.image %}
+            {% set input=input|merge({image:'image'}) %}
+        {% endif %}
         <div class="vz-input-radio-wrap ">
             {% for input_value in input.values %}
                 <label class='{{ input_classes }}' >
@@ -82,10 +85,13 @@
                             {% endif %}
                             name="{{ input.name }}"
                             {#we use naming of value to get this work #}
-                           value="{{ input_value[input.value] }}"
+                            value="{{ input_value[input.value] }}"
                             {% if input.checked == input_value[input.value] %}checked="checked"{% endif %}
                     />
                     <div class=vz-input__text><span></span>{{ input_value[input.text] }}</div>
+                    {% if input_value[input.image]%}
+                        <img src="image/{{ input_value[input.image] }}" >
+                    {% endif %}
                 </label>
             {% endfor %}
         </div>
@@ -123,6 +129,12 @@
             {% endif %}
             name="{{ input.name }}"
             class="{{ input_classes }}"
+            {% if input.cols %}
+                cols ="{{ input.cols }}"
+            {% endif %}
+            {% if input.rows %}
+                rows ="{{ input.rows }}"
+            {% endif %}
             {{ input.attributes|raw }}
     >{{ input.value }}</textarea>
     {% if input.text_input %}

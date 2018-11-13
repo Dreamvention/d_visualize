@@ -4,28 +4,42 @@
     <h1 class="heading-h1">{{ heading_title }}</h1>
     <p>{{ text_description }}</p>
     <form class="form-horizontal">
-        {% include component.form_group.template with component.form_group|merge({
-        type:'textarea',
-        id:'input-code',
-        value:code,
-        text_input:entry_code ,
-        placeholder:entry_code ,
-        }) %}
-        {% include component.form_group.template with component.form_group|merge({
-        type:'text',
-        id:'input-generator',
-        name:'product',
-        value:generator,
-        text_input:entry_generator ,
-        placeholder:entry_generator ,
-        }) %}
-        {% include component.form_group.template with component.form_group|merge({
-        type:'textarea',
-        id:'input-link',
-        name:'link',
-        text_input:entry_link ,
-        placeholder:entry_link ,
-        }) %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_code ,
+                input:{
+                    type:'textarea',
+                    id:'input-code',
+                    name:'code',
+                    value:code,
+                    placeholder:entry_code ,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_generator ,
+                input:{
+                    type:'text',
+                    id:'input-generator',
+                    name:'generator',
+                    value:generator,
+                    placeholder:entry_generator ,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_link ,
+                input:{
+                    type:'textarea',
+                    id:'input-link',
+                    name:'link',
+                    value:link,
+                    placeholder:entry_link ,
+                }
+            }
+        } %}
     </form>
 
     {% include component.d_button_continue.template with component.d_button_continue %}

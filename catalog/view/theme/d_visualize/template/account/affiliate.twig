@@ -5,24 +5,31 @@
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
             <legend>{{ text_my_affiliate }}</legend>
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-company',
-            name:'company',
-            required:true,
-            value:company,
-            text_input:entry_company ,
-            placeholder:entry_company ,
-            error:error_company
-            }) %}
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-website',
-            name:'website',
-            value:website,
-            text_input:entry_website ,
-            placeholder:entry_website ,
-            }) %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_company ,
+                    required:true,
+                    error:error_company,
+                    input:{
+                        type:'text',
+                        id:'input-company',
+                        name:'company',
+                        value:company,
+                    }
+                }
+            } %} 
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_website ,
+                    input:{
+                        type:'text',
+                        id:'input-website',
+                        name:'website',
+                        value:website,
+                        placeholder:entry_website ,
+                    }
+                }
+            } %}
         </fieldset>
         <fieldset>
             

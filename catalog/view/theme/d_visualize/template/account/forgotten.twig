@@ -1,23 +1,25 @@
 {#it's mean in layout template#}
 {% extends template %}
-
 {% block content %}
-
       <h1 class="heading-h1">{{heading_title}}</h1>
       <p>{{text_email}}</p>
       <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
           <legend>{{text_your_email}}</legend>
-            {% include component.form_group.template with component.form_group|merge({
-            type:'email',
-            id:'input-email',
-            name:'email',
-            value:email,
-            placeholder:entry_email,
-            classes:'',
-            text_input:entry_email,
-            }) %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_email ,
+                    error:error_email,
+                    input:{
+                        type:'email',
+                        id:'input-email',
+                        name:'email',
+                        value:email,
+                        placeholder:entry_email ,
+                    }
+                }
+            } %}
         </fieldset>
-          {% include component.d_button_continue.template with component.d_button_continue %}
+          {% include component.d_button_continue.template %}
       </form>
 {% endblock %}

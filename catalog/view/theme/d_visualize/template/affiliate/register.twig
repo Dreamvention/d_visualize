@@ -1,135 +1,170 @@
 {#it's mean in layout template#}
-{% extends template %}
-{% block content %}
-      <h1 class="heading-h1">{{heading_title}}</h1>
-      <p>{{text_account_already}}</p>
-      <p>{{text_signup}}</p>
-      <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
-        <fieldset>
-          <legend>{{text_your_details}}</legend>
-          {#{% include parital.d_account_field_affiliate with parital.d_account_field_affiliate %}#}
-        </fieldset>
-        <fieldset>
-          <legend>{{text_your_address}}</legend>
-            {#{% include parital.d_address_field_affiliate with parital.d_address_field_affiliate %}#}
-        </fieldset>
-        <fieldset>
-          <legend>{{text_payment}}</legend>
-            {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-tax',
-            name:'tax',
-            value:tax,
-            text_input:entry_tax,
-            }) %}
-          <div class="form-group">
-            <label class="col-sm-2 field-label label-right-md"><span>{{entry_payment}}</span></label>
-            <div class="col-sm-10">
-              <div class="radio">
-                <label>
-                  <input type="radio" name="payment" value="cheque" {% if payment == 'cheque' %}checked="checked"{% endif %} />
-                  {{text_cheque}}</label>
-              </div>
-              <div class="radio">
-                <label>
-              <input type="radio" name="payment" value="paypal" {% if payment == 'paypal' %}checked="checked"{% endif %} />
-                  {{text_paypal}}</label>
-              </div>
-              <div class="radio">
-                <label>
-                  <input type="radio" name="payment" value="bank" {% if payment == 'bank' %}checked="checked"{% endif %} />
-                  {{text_bank}}</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group payment required" id="payment-cheque">
-            <label class="col-sm-2 field-label label-right-md" for="input-cheque"><span>{{entry_cheque}}</span></label>
-            <div class="col-sm-10">
-              <input type="text" name="cheque" value="{{cheque}}" id="input-cheque" class="form-control" />
-                {% if error_cheque %}
-                  <div class="text-danger">{{error_cheque}}</div>
-                {% endif %}
-            </div>
-          </div>
-          <div class="form-group payment" id="payment-paypal">
-            <label class="col-sm-2 field-label label-right-md" for="input-paypal"><span>{{entry_paypal}}</span></label>
-            <div class="col-sm-10">
-              <input type="text" name="paypal" value="{{paypal}}" id="input-paypal" class="form-control" />
-            </div>
-          </div>
-          <div class="payment" id="payment-bank">
-            <div class="form-group">
-              <label class="col-sm-2 field-label label-right-md" for="input-bank-name"><span>{{entry_bank_name}}</span></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_name" value="{{bank_name}}" id="input-bank-name" class="form-control" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 field-label label-right-md" for="input-bank-branch-number"><span>{{entry_bank_branch_number}}</span></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_branch_number" value="{{bank_branch_number}}" id="input-bank-branch-number" class="form-control" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 field-label label-right-md" for="input-bank-swift-code"><span>{{entry_bank_swift_code}}</span></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_swift_code" value="{{bank_swift_code}}" id="input-bank-swift-code" class="form-control" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 field-label label-right-md" for="input-bank-account-name"><span>{{entry_bank_account_name}}</span></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_account_name" value="{{bank_account_name}}" id="input-bank-account-name" class="form-control" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 field-label label-right-md" for="input-bank-account-number"><span>{{entry_bank_account_number}}</span></label>
-              <div class="col-sm-10">
-                <input type="text" name="bank_account_number" value="{{bank_account_number}}" id="input-bank-account-number" class="form-control" />
-              </div>
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{{text_your_password}}</legend>
-            {% include component.form_group.template with component.form_group|merge({
-            type:'password',
-            id:'input-password',
-            required:true,
-            name:'password',
-            value:password,
-            placeholder:entry_password,
-            classes:'',
-            text_input:entry_password,
-            }) %}
-            {% include component.form_group.template with component.form_group|merge({
-            type:'password',
-            id:'input-confirm',
-            name:'confirm',
-            required:true,
-            value:password,
-            placeholder:entry_confirm,
-            classes:'',
-            text_input:entry_confirm,
-            }) %}
-        </fieldset>
-        {{captcha}}
-          {% include component.d_button_submit.template with component.d_button_submit %}
-      </form>
-<script type="text/javascript"><!--
-$(function(){
-    d_address_field.init({
-        zone_id: '{{zone_id}}',
-        text_none: '{{text_none}}',
-        text_select: '{{text_select}}'
-    });
-})
-$('input[name=\'payment\']').on('change', function() {
-  $('.payment').hide();
+{% extends 'd_visualize/template/account/register.twig' %}
+{% block affiliate %}
+  <fieldset id="affiliate">
+    <legend>{{ text_your_affiliate }}</legend>
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_company ,
+              required:true,
+              error:error_company,
+              input:{
+                  type:'text',
+                  id:'input-company',
+                  name:'company',
+                  value:company,
+                  placeholder:entry_company,
+              }
+          }
+      } %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_website ,
+              input:{
+                  type:'text',
+                  id:'input-website',
+                  name:'website',
+                  value:website,
+                  placeholder:entry_website,
+              }
+          }
+      } %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_tax ,
+              input:{
+                  type:'text',
+                  id:'input-tax',
+                  name:'tax',
+                  value:tax,
+                  placeholder:entry_tax,
+              }
+          }
+      } %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_payment,
+              input:{
+                  type:'radio',
+                  form:'block',
+                  name:'payment',
+                  text: 'name',
+                  checked: payment,
+                  values: [{ 'value':'cheque','name': text_cheque},{'value':'paypal','name':text_paypal},{'value':'bank','name':text_bank}],
+              }
+          }
+      } %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_cheque ,
+              id:'payment-cheque',
+              required:true,
+              classes:'payment',
+              error:error_cheque,
+              input:{
+                  type:'text',
+                  id:'input-cheque',
+                  name:'cheque',
+                  value:cheque,
+                  placeholder:entry_cheque,
+              }
+          }
+      } %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_paypal ,
+              id:'payment-paypal',
+              classes:'payment',
+              required:true,
+              error:error_paypal,
+              input:{
+                  type:'text',
+                  id:'input-paypal',
+                  name:'paypal',
+                  value:paypal,
+                  placeholder:entry_paypal,
+              }
+          }
+      } %}
+    <div class="payment" id="payment-bank">
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_bank_name ,
+                input:{
+                    type:'text',
+                    id:'input-bank-name',
+                    name:'bank_name',
+                    value:bank_name,
+                    placeholder:entry_bank_name,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_branch_name ,
+                input:{
+                    type:'text',
+                    id:'input-branch-name',
+                    name:'branch_name',
+                    value:branch_name,
+                    placeholder:entry_branch_name,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_bank_swift_code ,
+                input:{
+                    type:'text',
+                    id:'input-bank-swift-code',
+                    name:'bank_swift_code',
+                    value:bank_swift_code,
+                    placeholder:entry_bank_swift_code,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_bank_account_name ,
+                required:true,
+                input:{
+                    type:'text',
+                    id:'input-bank-account-name',
+                    name:'bank_account_name',
+                    value:bank_account_name,
+                    placeholder:entry_bank_account_name,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_bank_account_number ,
+                required:true,
+                input:{
+                    type:'text',
+                    id:'input-bank-account-number',
+                    number:'bank_account_number',
+                    value:bank_account_number,
+                    placeholder:entry_bank_account_number,
+                }
+            }
+        } %}
+    </div>
+        {% for custom_field in custom_fields %}
+            {% if custom_field.location == 'affiliate' %}
+                {% include component.custom_field with (custom_field) %}
+            {% endif %}
+        {% endfor %}
+  </fieldset>
+  <script type="text/javascript"><!--
+	  $('input[name=\'payment\']').on('change', function() {
+		  $('.payment').hide();
 
-  $('#payment-' + this.value).show();
-});
+		  $('#payment-' + this.value).show();
+	  });
 
-$('input[name=\'payment\']:checked').trigger('change');
-//--></script>
+	  $('input[name=\'payment\']:checked').trigger('change');
+	  //--></script>
+{% endblock %}
+{% block newslatter %}
 {% endblock %}

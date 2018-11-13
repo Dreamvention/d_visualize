@@ -27,13 +27,13 @@
                             <td class="text-left">{{ order.name }}</td>
                             <td class="text-right">{{ order.total }}</td>
                             <td class="text-right">
-                                {% include component.button.template with component.button|merge({
+                                {% include component.button.template with {button:{
                                     link: order.view,
                                     style:'link',
                                     classes:'like-warning',
                                     text_button:'<i class="fa fa-eye"></i>',
                                     title:button_view,
-                                }) %}
+                                }} %}
 
                             </td>
                         </tr>

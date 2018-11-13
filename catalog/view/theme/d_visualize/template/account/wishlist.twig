@@ -37,18 +37,14 @@
               {% endif %}
             </td>
             <td class="text-right">
-                {% include component.button.template with component.button|merge({
+                {% include component.button.template with {button:{
                 button: 'cart.add('~product.product_id~')',
                 style:'primary',
                 text_button:'<i class="fa fa-shopping-cart"></i>',
-                }) %}
-                {#<button type="button" onclick="cart.add('{{product.product_id}}');" data-toggle="tooltip" title="{{button_cart}}" class="btn btn-primary"></button>#}
-
-                {% include component.product_remove.template with({
+                }} %}
+                {% include component.product_remove.template with ({
                     remove_link:product.remove
                 }) %}
-                {#<button type="button" onclick="cart.add('{{product.product_id}}');" data-toggle="tooltip" title="{{button_cart}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></button>#}
-              {#<a href="{{product.remove}}" data-toggle="tooltip" title="{{button_remove}}" class="btn btn-danger"><i class="fa fa-times"></i></a></td>#}
           </tr>
           {% endfor %}
         </tbody>
@@ -56,5 +52,5 @@
       {% else %}
       <p>{{text_empty}}</p>
       {% endif %}
-    {% include component.d_button_continue.template with  component.d_button_continue %}
+    {% include component.d_button_continue.template %}
 {% endblock %}

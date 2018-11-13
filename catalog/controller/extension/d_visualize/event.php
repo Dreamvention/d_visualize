@@ -60,28 +60,28 @@ class ControllerExtensionDVisualizeEvent extends Controller
             $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'], $data);
             //if some one add to specific page scripts need to add this to header
             foreach (array_keys($this->setting_active_template['page']) as $key) {
-                if (preg_match('/' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($key, '/')) . '/', $view)) {
-
-                    if (isset($this->setting_active_template['page'][$key]['layout'])) {
-                        //inject data from setting on the view
-                        $data = array_replace_recursive($data, $this->setting_active_template['page'][$key]['layout']);
-                        if (isset($this->setting_active_template['page'][$view_route]['scripts'])
-                            && !empty($this->setting_active_template['page'][$view_route]['scripts'])) {
-                            foreach ($this->setting_active_template['page'][$view_route]['scripts'] as $script) {
-                                $this->pageScripts[] = $script;
-                            }
+                $re = '/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($key, '/')) . '/';
+                $str = $view;
+                //can be slow
+                preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
+                if (!empty($matches)) {
+                    $data = array_replace_recursive($data, $this->setting_active_template['page'][$key]['layout']);
+                    if (isset($this->setting_active_template['page'][$view_route]['scripts'])
+                        && !empty($this->setting_active_template['page'][$view_route]['scripts'])) {
+                        foreach ($this->setting_active_template['page'][$view_route]['scripts'] as $script) {
+                            $this->pageScripts[] = $script;
                         }
-                        if (isset($this->setting_active_template['page'][$view_route]['styles'])
-                            && !empty($this->setting_active_template['page'][$view_route]['styles'])) {
-                            foreach ($this->setting_active_template['page'][$view_route]['styles'] as $styles) {
-                                $this->pageStyles[] = $styles;
-                            }
+                    }
+                    if (isset($this->setting_active_template['page'][$view_route]['styles'])
+                        && !empty($this->setting_active_template['page'][$view_route]['styles'])) {
+                        foreach ($this->setting_active_template['page'][$view_route]['styles'] as $styles) {
+                            $this->pageStyles[] = $styles;
                         }
                     }
                 }
             }
-            // if last view is loaded we add scripts and Style from our d_visualize
             if (stristr($view,$view_route)) {
+
                 $data['page_route'] = $view_route;
                 if (isset($data['header'])) {
                     $data['header'] = $this->model_helper->addDocumentPageData(
@@ -108,17 +108,18 @@ class ControllerExtensionDVisualizeEvent extends Controller
     {
         //  pre style for lib like bootstrap etc for overwriting them by modules and theme
         $data['pre_styles'] = $this->setting_active_template['pre_styles'];
+        $post_styles = array();
         foreach ($this->setting_active_template['post_styles'] as $style) {
-            $this->document->addStyle($style);
+            $post_styles[] = $style;
         }
 
         //add core css files for prevent opencart standart styles and whatever
-        $this->document->addStyle('catalog/view/theme/' . $this->codename . '/stylesheet/dist/vz-core/core.css');
+        $post_styles[] = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/vz-core/core.css';
 
         //components stylesheet
         foreach ($this->model_template->getAllUsages($this->setting_active_template['page'], 'stylesheet') as $style) {
             if (file_exists(DIR_APPLICATION . 'view/theme/' . $style)) {
-                $this->document->addStyle('catalog/view/theme/' . $style);
+                $post_styles[] = 'catalog/view/theme/' . $style;
             }
         }
         //add current template stylesheet
@@ -130,7 +131,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             if ($custom) {
                 $template_style = false;
                 if ($custom['css_path']) {
-                    $this->document->addStyle($custom['css_path']);
+                    $post_styles[] = $custom['css_path'];
                 }
                 if ($custom['custom_style']) {
                     $data['custom_styles'][]=$custom['custom_style'];
@@ -139,10 +140,10 @@ class ControllerExtensionDVisualizeEvent extends Controller
         }
         $global_custom_style = $this->model_extension_module_d_visualize->loadCustomStyle();
         if ($global_custom_style){
-            $data['custom_styles'][]=$global_custom_style;
+            $data['custom_styles'][] = $global_custom_style;
         }
         if (file_exists(DIR_APPLICATION . '../' . $template_style)) {
-            $this->document->addStyle($template_style);
+            $post_styles[] = $template_style;
         }
 
         //add core js files for standard page behaviour, like  helpers
@@ -159,7 +160,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             $this->document->addScript('catalog/view/javascript/' . $this->codename . '/lib/html2canvas/html2canvas.js');
             $this->document->addScript('catalog/view/theme/' . $this->codename . '/javascript/vz-core/tools/screnshot.js');
         }
-        $data['post_styles'] = $this->document->getStyles();
+        $data['post_styles'] = $post_styles;
         $data['scripts'] = $this->document->getScripts();
         $data['pre_scripts'] = array();
         foreach ($this->setting_active_template['pre_scripts'] as $script) {

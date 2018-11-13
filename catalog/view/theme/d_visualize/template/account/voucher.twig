@@ -4,98 +4,102 @@
     <h1 class="heading-h1">{{ heading_title }}</h1>
     <p>{{ text_description }}</p>
     <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-
-        {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-to-name',
-            name:'to_name',
-            value:to_name,
-            placeholder:entry_quantity,
-            classes:'',
-            text_input:entry_to_name,
-            error:error_to_name,
-        }) %} 
-        {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-to-email',
-            name:'to_email',
-            value:to_email,
-            placeholder:entry_to_email,
-            text_input:entry_to_email,
-            error:error_to_email,
-        }) %}
-        {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-from-name',
-            name:'from_name',
-            value:from_name,
-            placeholder:entry_from_name,
-            text_input:entry_from_name,
-            error:error_from_name,
-        }) %}
-    {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-from-email',
-            name:'from_email',
-            value:from_email,
-            placeholder:entry_from_email,
-            text_input:entry_from_email,
-            error:error_from_email,
-        }) %}
-
-        <div class="form-group required">
-            <label class="col-sm-2 field-label label-right-md"><span>{{ entry_theme }}</span></label>
-            <div class="col-sm-10">
-                {% for voucher_theme in voucher_themes %}
-                    {% if voucher_theme.voucher_theme_id == voucher_theme_id %}
-                        <label class="field-label radio-label">
-                            <input type="radio" name="voucher_theme_id"
-                                   value="{{ voucher_theme.voucher_theme_id }}"
-                                   checked="checked"/>
-                            {{ voucher_theme.name }}
-                        </label>
-                    {% else %}
-                        <div class="radio">
-                            <label class="field-label radio-label">
-                                <input type="radio" name="voucher_theme_id"
-                                       value="{{ voucher_theme.voucher_theme_id }}"/>
-                                {{ voucher_theme.name }}
-                            </label>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-                {% if error_theme %}
-                    <div class="text-danger">{{ error_theme }}</div>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 field-label label-right-md" for="input-message"><span data-toggle="tooltip"
-                                                                                      title="{{ help_message }}">{{ entry_message }}</span></label>
-            <div class="col-sm-10">
-                <textarea name="message" cols="40" rows="5" id="input-message"
-                          class="field">{{ message }}</textarea>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 field-label label-right-md" for="input-amount"><span data-toggle="tooltip"
-                                                                                     title="{{ help_amount }}">{{ entry_amount }}</span></label>
-            <div class="col-sm-10">
-                <input type="text" name="amount" value="{{ amount }}" id="input-amount" class="field" size="5"/>
-                {% if error_amount %}
-                    <div class="text-danger">{{ error_amount }}</div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="buttons clearfix">
-            <div class="pull-right">
-                <label class="checkbox-label">
-                    {{ text_agree }}
-                    <input type="checkbox" name="agree" value="1" {% if agree %}checked="checked"{% endif %} />                    &nbsp;
-                </label>
-                    <input type="submit" value="{{ button_continue }}" class="btn btn-primary"/>
-            </div>
-        </div>
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_to_name ,
+                required:true,
+                error:error_to_name,
+                input:{
+                    type:'text',
+                    id:'input-to-name',
+                    name:'to_name',
+                    value:to_name,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_from_name ,
+                required:true,
+                error:error_from_name,
+                input:{
+                    type:'text',
+                    id:'input-from-name',
+                    name:'from_name',
+                    value:from_name,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_to_email ,
+                required:true,
+                error:error_to_email,
+                input:{
+                    type:'text',
+                    id:'input-to-email',
+                    name:'to_email',
+                    value:to_email,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_from_email ,
+                required:true,
+                error:error_from_email,
+                input:{
+                    type:'text',
+                    id:'input-from-email',
+                    name:'from_email',
+                    value:from_email,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_theme,
+                required:true,
+                error:error_theme,
+                type:'radio',
+                input:{
+                    type:'radio',
+                    form:'block',
+                    name:'voucher_theme_id',
+                    value: 'voucher_theme_id',
+                    text: 'name',
+                    image: 'none',
+                    checked: voucher_theme_id,
+                    values: voucher_themes,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_message ,
+                hint:help_message,
+                input:{
+                    type:'textarea',
+                    id:'input-message',
+                    name:'message',
+                    value:message,
+                    cols:"40",
+                    rows:"5"
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_amount ,
+                hint:help_amount,
+                input:{
+                    type:'text',
+                    id:'input-amount',
+                    name:'amount',
+                    value:amount,
+                }
+            }
+        } %}
+        {% include component.d_button_continue.template  %}
     </form>
 {% endblock %}

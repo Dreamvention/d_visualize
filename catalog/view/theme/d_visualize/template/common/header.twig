@@ -42,9 +42,8 @@
     {% for style in styles %}
         <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
     {% endfor %}
-
     {% for style in post_styles %}
-        <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+        <link href="{{ style }}" type="text/css" rel="stylesheet" media="screen"/>
     {% endfor %}
 
     {% for custom_style in custom_styles %}

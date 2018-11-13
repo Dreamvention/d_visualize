@@ -1,8 +1,32 @@
-input[type="checkbox"].vz-input--checkbox,input[type="radio"].vz-input--radio{
-    margin-top: 0;
-    width: auto;
-    -webkit-box-shadow: none;
-            box-shadow: none;
-    margin-left: 0.35714rem !important;
-}
+/*fix on bots*/
+    .vz-input input[type="checkbox"], .vz-input input[type="radio"] {
+        width: auto;
+        -webkit-box-shadow: none;
+                box-shadow: none;
+        margin: 0 0.35714rem;
+    }
+    /*radio item*/
+    .vz-input--radio{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    /*radio list */
+    .vz-input-radio-wrap{
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+    }
+    .vz-input-radio-wrap .vz-input--radio.vz-input--block{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1 1 100%;
+                -ms-flex: 1 1 100%;
+                    flex: 1 1 100%;
+        }
+
 /*# sourceMappingURL=C:/OpenServer/domains/localhost/201/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/input/default.css.map */

@@ -233,7 +233,7 @@ $_['d_visualize_template_default_setting'] = array(
 //                )
 //            )
 //        ),
-        'account/*' => array(
+        'account/*'     => array(
             'layout' => array(
                 'component' => array(
                     'form_group' => array(
@@ -247,21 +247,21 @@ $_['d_visualize_template_default_setting'] = array(
                 )
             )
         ),
-        'account/login' => array(
-            'layout' => array(
-                'component' => array(
-                    'form_group' => array(
-                        'setting' => array(
-                            'form' => array(
-                                'value' => 'block',
-                            )
-                        )
-                    )
-                )
-            )
-        ),
+//        '*/login' => array(
+//            'layout' => array(
+//                'component' => array(
+//                    'form_group' => array(
+//                        'setting' => array(
+//                            'form' => array(
+//                                'value' => 'block',
+//                            )
+//                        )
+//                    )
+//                )
+//            )
+//        ),
         //follow priority
-        'checkout/*' => array(
+        'checkout/*'    => array(
             'layout' => array(
                 'component' => array(
                     'form_group' => array(
@@ -281,6 +281,17 @@ $_['d_visualize_template_default_setting'] = array(
                     'checkout_cart' => array(
                         'editable' => true,
                         'template' => 'd_visualize/template/component/checkout_cart/',
+                    ),
+                ),
+            ),
+            'scripts' => array()
+        ),
+        'information/contact' => array(
+            'layout'  => array(
+                'component' => array(
+                    'information_contact' => array(
+                        'editable' => true,
+                        'template' => 'd_visualize/template/component/information_contact/',
                     ),
                 ),
             ),

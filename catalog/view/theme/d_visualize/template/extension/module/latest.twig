@@ -1,8 +1,11 @@
-<div class="h3">{{heading_title}}</div>
-<div class="row">
-    {% for product in products %}
-    <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        {% include 'd_visualize/template/component/product_thumb.twig' with product %}
+<div class="vz-extension-latest">
+    <div class="heading-h2 vz-extension-latest__heading">{{ heading_title }}</div>
+    <div class="row">
+        {% for product in products %}
+            <div class="product-layout col-lg-3 col-md-6 col-xs-12">
+                {% include component.d_product_thumb.template with component.d_product_thumb %}
+            </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
+

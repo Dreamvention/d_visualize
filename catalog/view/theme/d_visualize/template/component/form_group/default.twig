@@ -1,8 +1,8 @@
-{% set form_group_class = 'form-group vz-form-group vz-form-group--' ~  form_group.type %}
+{% set form_group_class = 'form-group vz-form-group vz-form-group--' ~  form_group.type|default('text') %}
 {% set form_group_label_class = 'control-label vz-control-label vz-control-label--' ~  form_group.type %}
 {% set form_group_div_class = 'vz-form-group__inputs' %}
 {% if form_group.error_then %}
-    {#{% set form_group.error = false %}#}
+    {% set form_group = form_group|merge({error:false}) %}
 {% endif %}
 {% if form_group.classes %}
     {% set form_group_class = form_group_class ~ ' ' ~ form_group.classes %}
@@ -13,6 +13,7 @@
 {% if form_group.error %}
     {% set form_group_class = form_group_class ~ ' vz-form-group--has-error has-error' %}
 {% endif %}
+{{ aa }}
 {% if component.form_group.setting.form is defined %}
     {% set form = component.form_group.setting.form.value %}
 {% endif %}
@@ -23,7 +24,9 @@
 {% endif %}
 <div {% if form_group.id %}id="{{ form_group.id }}"{% endif %} class="{{ form_group_class }}" {% if form_group.atributest %}{{ form_group.atributest|raw }}{% endif %}>
         <label class="{{ form_group_label_class }} "
-                {% if form_group.id %} for="{{ input.id }}" {% endif %}><span>{{ form_group.label_text }}</span></label>
+                {% if form_group.id %} for="{{ input.id }}" {% endif %}>
+            <span {% if form_group.hint %} data-toggle="{{ input.hint }}" {% endif %}>
+                {{ form_group.label_text }}</span></label>
         <div class="{{ form_group_div_class }}">
             {% if form_group.input_group is defined %}
                 {% include component.input_group.template with form_group %}
@@ -32,6 +35,7 @@
             {% else %}
                 no input please check!
             {% endif %}
+
             {% if form_group.error %}
                 <div class="text-danger">{{ form_group.error }}</div>
             {% endif %}

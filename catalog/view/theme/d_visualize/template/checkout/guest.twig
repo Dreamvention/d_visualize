@@ -7,7 +7,7 @@
             {% include component.d_account_field.template with component.d_account_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'account' %}
-                    {% include component.d_custom_field.template with component.d_custom_field|merge({custom_field:custom_field}) %}
+                    {% include component.d_custom_field.template with (custom_field) %}
                 {% endif %}
             {% endfor %}
         </fieldset>
@@ -18,7 +18,7 @@
             {% include component.d_address_field.template with component.d_address_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'address' %}
-                    {% include component.d_custom_field.template with component.d_custom_field|merge({custom_field:custom_field}) %}
+                    {% include component.d_custom_field.template with (custom_field) %}
                 {% endif %}
             {% endfor %}
         </fieldset>

@@ -2,52 +2,63 @@
   <div class="col-sm-6">
     <h2>{{text_new_customer}}</h2>
     <p>{{text_checkout}}</p>
-      {% include component.form_group.template with component.form_group|merge({
-      type:'radio',
-      name:'account',
-      radio_values: [{ 'val':'register','name': text_register},{'val':'guest','name':text_guest}],
-      radio_values_val:'val',
-      radio_values_check: account,
-      radio_values_name: 'name',
-      }) %}
+      {% include component.form_group.template with{
+          form_group:{
+              input:{
+                  type:'radio',
+                  name:'account',
+                  text: 'name',
+                  checked: account,
+                  values: [{ 'value':'register','name': text_register},{'value':'guest','name':text_guest}],
+              }
+          }
+      } %}
+
     <p>{{text_register_account}}</p>
-      {% include component.button.template with component.button|merge({
+      {% include component.button.template with {button:{
           button:true,
           id:'button-account',
           text_loading:text_loading,
           style:'primary',
           text_button:button_continue
-      }) %}
+      }} %}
   </div>
   <div class="col-sm-6">
     <h2>{{text_returning_customer}}</h2>
     <p>{{text_i_am_returning_customer}}</p>
-      {% include component.form_group.template with component.form_group|merge({
-      type:'email',
-      id:'input-email',
-      name:'email',
-      value:email,
-      placeholder:entry_email,
-      classes:'',
-      text_input:entry_email,
-      }) %}
-
-      {% include component.form_group.template with component.form_group|merge({
-      type:'password',
-      id:'input-password',
-      name:'password',
-      value:password,
-      placeholder:entry_password,
-      classes:'',
-      text_input:entry_password,
-      }) %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_email ,
+              error:error_email,
+              input:{
+                  type:'email',
+                  id:'input-email',
+                  name:'email',
+                  value:email,
+                  placeholder:entry_email ,
+              }
+          }
+      } %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_password ,
+              error:error_password,
+              input:{
+                  type:'password',
+                  id:'input-password',
+                  name:'password',
+                  value:password,
+                  placeholder:entry_password ,
+              }
+          }
+      } %}
     <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
-      {% include component.button.template with component.button|merge({
+      {% include component.button.template with {button:{
           button:true,
           id:'button-login',
           text_loading:text_loading,
           style:'primary',
           text_button:button_login
-      }) %}
+      }} %}
   </div>
 </div>

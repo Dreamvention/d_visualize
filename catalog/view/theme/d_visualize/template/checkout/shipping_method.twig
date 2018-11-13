@@ -22,13 +22,20 @@
         {% endfor %}
     </div>
 {% endif %}
- {% include component.form_group.template with component.form_group|merge({
-     type:'textarea',
-     name:'comment',
-     value:comment,
-     text_input:text_comments,
-     custom:'rows="8"'
- }) %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_message ,
+                hint:help_message,
+                input:{
+                    type:'textarea',
+                    id:'input-message',
+                    name:'message',
+                    value:message,
+                    cols:"40",
+                    rows:"5"
+                }
+            }
+        } %}
   {% include component.d_button_continue.template with component.d_button_continue|merge({
       button: true,
       id:"button-shipping-method",
