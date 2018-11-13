@@ -33,6 +33,9 @@
                     <available-themes :templates="templates"/>
                 </v-flex>
             </v-layout>
+            <v-divider></v-divider>
+            <v-btn color="primary" nuxt to="marketplace">{{$t('template.explore_more_themes')}}</v-btn>
+
         </div>
         <v-layout loading v-else align-center justify-center row fill-height wrap text-center>
             <Loader :loading="true"></Loader>

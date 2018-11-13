@@ -12,7 +12,7 @@ import _ from 'lodash';
 
 export function getUrlOpencart(url, isDev) {
     if (!isDev) {
-            url = url+ window.location.search;
+        url = url+ window.location.search;
     }
     var parsed_url = new URL(url);
     parsed_url.route = parsed_url.query.replace('?', '').split('&').find(

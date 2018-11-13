@@ -23,7 +23,7 @@ let modules = [
 ];
 let proxy = {
 	'/api/': dev_server + 'index.php',
-	'/shopunity/': 'https://api.shopunity.net/v1/extensions?type=module&tag=d_visualize'
+	'/v1/': process.env.SHOPUNITY_SERVER,
 };
 let public_path = '/_nuxt/';
 let links = [
@@ -87,23 +87,6 @@ module.exports = {
 		'~/assets/style/app.styl',
 		'~/assets/sass/app.scss',
 	],
-	// fontawesome: {
-	// 	imports: [
-	// 		{
-	// 			set: '@fortawesome/pro-regular-svg-icons',
-	// 			icons: [
-	// 				'faSignOut',
-	// 				'faAngleRight',
-	// 				'faAngleDown',
-	// 				'faUsers',
-	// 				'faUser',
-	// 				'faCog',
-	// 				'faProcedures',
-	// 				'faListUl'
-	// 			]
-	// 		}
-	// 	]
-	// },
 	plugins: [
 		'@/plugins/vuetify',
 		'~plugins/axios',
