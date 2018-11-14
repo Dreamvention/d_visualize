@@ -1,3 +1,53 @@
+@mixin prefixes($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -khtml-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content
+  }
+  &:-moz-placeholder {
+    @content
+  }
+  &::-moz-placeholder {
+    @content
+  }
+  &:-ms-input-placeholder {
+    @content
+  }
+}
+
+@mixin flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin inline-flex {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+}
+
+@mixin transition($for: all, $value: .4s, $animate: ease) {
+  @include prefixes("transition", $for $value $animate)
+}
+
+@mixin border-radius($radius: 4px) {
+  @include prefixes("border-radius", $radius)
+}
+
+@mixin box-shadow($value: 0 0 5px #ccc) {
+  @include prefixes("box-shadow", $value)
+}
+
 @mixin clearfix {
   &:before,
   &:after {
@@ -38,6 +88,7 @@
   display: $display;
   position: $pos;
 }
+
 @mixin triangle($color, $direction, $size: 6px, $position: absolute, $round: false) {
   @include pseudo($pos: $position);
   width: 0;

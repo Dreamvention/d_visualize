@@ -14,7 +14,6 @@ body, html {
   line-height: $font-line-height;
   width: 100%;
 }
-
 @mixin text-transformations($variable_list) {
   @if index($variable_list, 'bold') {
     font-weight: bold;
@@ -425,10 +424,10 @@ footer h5 {
   margin: 0;
 }
 /* buttons */
+
 .buttons {
   margin: 1em 0;
 }
-
 .btn {
   padding: 7.5px 12px;
   font-size: $button-font-size;
@@ -811,4 +810,12 @@ h2.price {
 }
 .swiper-button-prev:before {
   content: "\f053";
+}
+/*modification for some components*/
+.vz-button {
+  @include transition();
+  &--ghost {
+    background: transparent !important;
+    color: $color-primary;
+  }
 }

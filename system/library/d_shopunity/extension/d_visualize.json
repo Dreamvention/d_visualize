@@ -40,7 +40,7 @@
     "url": "https://dreamvention.com/support"
   },
   "required": {
-    "d_opencart_patch": ">= 3.0.0",
+    "d_opencart_patch": ">= 1.0.0",
     "d_twig_manager": ">= 1.0.0",
     "d_twig_partial": ">=1.0.0",
     "d_event_manager": ">= 1.0.0",
@@ -58,6 +58,7 @@
     "admin/model/extension/module/d_visualize.php",
     "admin/view/template/extension/module/d_visualize.twig",
     "admin/view/template/extension/module/d_visualize_nuxt.twig",
+    "admin/view/template/extension/module/d_visualize_nuxt_editor.twig",
 
     "catalog/controller/extension/d_visualize/event.php",
     "catalog/controller/extension/d_visualize/mobile.php",

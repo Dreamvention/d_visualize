@@ -12,7 +12,7 @@ body, html {
   line-height: 1.3;
   width: 100%; }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .heading-h1, .heading-h2, .heading-h3, .heading-h4, .heading-h5, .heading-h6 {
   color: #444;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -27,28 +27,28 @@ h1, h2, h3, h4, h5, h6 {
 .fa {
   font-size: 14px; }
 /* Override the bootstrap defaults */
-h1 {
+h1, .heading-h1 {
   font-size: 28px; }
 
-h2 {
+h2, .heading-h2 {
   font-size: 25.2px; }
 
-h3 {
+h3, .heading-h3 {
   font-size: 16.8px; }
 
-h4 {
+h4, .heading-h4 {
   font-size: 16.8px; }
 
-h5 {
+h5, .heading-h5 {
   font-size: 14px; }
 
-h6 {
+h6, .heading-h6 {
   font-size: 11.2px; }
 
-a {
-  color: #23a1d1; }
+a, .link {
+  color: #b380be; }
 
-a:hover {
+a:hover, .link:hover {
   text-decoration: none; }
 
 legend {
@@ -86,8 +86,8 @@ div.required .control-label:before {
 .dropdown-menu li > a:hover {
   text-decoration: none;
   color: white;
-  background-color: #2228c8;
-  background-image: linear-gradient(to bottom, #2025bb, #1c21a5);
+  background-color: #2944e4;
+  background-image: linear-gradient(to bottom, #1c39e1, #1a33cb);
   background-repeat: repeat-x; }
 /* top */
 #top {
@@ -106,8 +106,8 @@ div.required .control-label:before {
 #top #form-currency .currency-select:hover, #top #form-language .language-select:hover {
   text-shadow: none;
   color: white;
-  background-color: #2228c8;
-  background-image: linear-gradient(to bottom, #2025bb, #1c21a5);
+  background-color: #2944e4;
+  background-image: linear-gradient(to bottom, #1c39e1, #1a33cb);
   background-repeat: repeat-x; }
 
 #top .btn-link, #top-links li, #top-links a {
@@ -196,10 +196,10 @@ div.required .control-label:before {
   margin: 20px 0; }
 /* menu */
 #menu {
-  background-color: #2228c8;
-  background-image: linear-gradient(to bottom, #2025bb, #1c21a5);
+  background-color: #2944e4;
+  background-image: linear-gradient(to bottom, #1c39e1, #1a33cb);
   background-repeat: repeat-x;
-  border-color: #1c21a5 #1c21a5 #181d8f;
+  border-color: #1a33cb #1a33cb #172db4;
   min-height: 40px; }
 
 #menu .nav > li > a {
@@ -246,8 +246,8 @@ div.required .control-label:before {
 #menu .see-all:hover, #menu .see-all:focus {
   text-decoration: none;
   color: white;
-  background-color: #2228c8;
-  background-image: linear-gradient(to bottom, #2025bb, #1c21a5);
+  background-color: #2944e4;
+  background-image: linear-gradient(to bottom, #1c39e1, #1a33cb);
   background-repeat: repeat-x; }
 
 #menu #category {
@@ -265,14 +265,14 @@ div.required .control-label:before {
   color: white;
   padding: 2px 18px;
   float: right;
-  background-color: #2228c8;
-  background-image: linear-gradient(to bottom, #2025bb, #1c21a5);
+  background-color: #2944e4;
+  background-image: linear-gradient(to bottom, #1c39e1, #1a33cb);
   background-repeat: repeat-x;
-  border-color: #1c21a5 #1c21a5 #181d8f; }
+  border-color: #1a33cb #1a33cb #172db4; }
 
 #menu .btn-navbar:hover, #menu .btn-navbar:focus, #menu .btn-navbar:active, #menu .btn-navbar.disabled, #menu .btn-navbar[disabled] {
   color: white;
-  background-color: #2228c8; }
+  background-color: #2944e4; }
 
 @media (min-width: 768px) {
   #menu .dropdown:hover .dropdown-menu {
@@ -420,13 +420,13 @@ footer h5 {
 .btn-primary {
   color: white;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  background-color: #2228c8;
-  background-image: linear-gradient(to bottom, #2025bb, #1c21a5);
+  background-color: #2944e4;
+  background-image: linear-gradient(to bottom, #1c39e1, #1a33cb);
   background-repeat: repeat-x;
-  border-color: #1c21a5 #1c21a5 #1b1f9c; }
+  border-color: #1a33cb #1a33cb #1831c2; }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:hover:focus, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
-  background-color: #1c21a5 !important;
+  background-color: #1a33cb !important;
   background-position: 0 -15px; }
 
 .btn-warning {
@@ -477,7 +477,7 @@ footer h5 {
 .btn-link {
   border-color: rgba(0, 0, 0, 0);
   cursor: pointer;
-  color: #2025bb;
+  color: #1c39e1;
   border-radius: 0; }
 
 .btn-link, .btn-link:active, .btn-link[disabled] {
@@ -712,3 +712,15 @@ h2.price {
 
 .swiper-button-prev:before {
   content: "\f053"; }
+/*modification for some components*/
+.vz-button {
+  -webkit-transition: all 0.4s ease;
+  -khtml-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease; }
+
+.vz-button--ghost {
+  background: transparent !important;
+  color: #2944e4; }

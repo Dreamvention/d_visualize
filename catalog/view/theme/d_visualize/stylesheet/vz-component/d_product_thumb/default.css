@@ -4,25 +4,22 @@
     img{
       margin: auto;
     }
-
   }
   &__caption {
     padding: 30px 34px;
   }
-  &__group {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
   &__description{
     min-height: 54px;
   }
+  &__buttons{
+    display: flex;
+    justify-content: space-between;
+  }
   &__price{
-    font-size: 20px;
-    min-height: 80px;
+    font-size: 15px;
     .price-tax {
       display: block;
-      font-size: 15px;
+      font-size: 12px;
     }
     p {
       margin-bottom: 0;

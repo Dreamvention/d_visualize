@@ -6,13 +6,9 @@
     <div class="vz-product-thumb__caption">
         <h3 class="heading-h3"><a href="{{ product.href }}">{{ product.name }}</a></h3>
         <p class="vz-product-thumb__description">{{ product.description }}</p>
-        <div class="vz-product-thumb__group">
-            <div class="block-left">
                 {% if product.price %}
                     <p class="vz-product-thumb__price">
-                        {% if not product.special %}
-                            {{ product.price }}
-                        {% else %}
+                        {% if not product.special %}{{ product.price }}{% else %}
                             <span class="price-new">{{ product.special }}</span> <span
                                 class="price-old">{{ product.price }}</span>
                         {% endif %}
@@ -23,19 +19,32 @@
                 {% endif %}
                 {% if product.rating %}
                     <div class="vz-product-thumb__rating">
-                        {% include component.rating.template with rating.button|merge({
+                        {% include component.rating.template with component.rating|merge({
                             rating:product.rating
                         }) %}
                     </div>
                 {% endif %}
+            <div class="vz-product-thumb__buttons">
+                {% include component.button.template with {button:{
+                    onclick:'cart.add('~ product.product_id ~', '~ minimum ~')',
+                    style:'primary',
+                    classes:'btn-buy vz-product-thumb__button',
+                    text_button:button_cart
+                }} %}
+                {% include component.button.template with {button:{
+                    onclick:'wishlist.add('~ product.product_id ~')',
+                    style:'primary',
+                    ghost:true,
+                    classes:'vz-product-thumb__button',
+                    icon:'fas fa-heart'
+                }} %}
+                {% include component.button.template with {button:{
+                    onclick:'compare.add('~ product.product_id ~')',
+                    style:'primary',
+                    ghost:true,
+                    classes:'vz-product-thumb__button',
+                    icon:'fas fa-exchange-alt'
+                }} %}
             </div>
-            {% include component.button.template with {button:{
-                onclick:'cart.add('~ product.product_id ~', '~ minimum ~')',
-                style:'primary',
-                classes:'btn-buy vz-product-thumb__button',
-                text_button:button_cart
-            }} %}
-        </div>
     </div>
-
 </div>

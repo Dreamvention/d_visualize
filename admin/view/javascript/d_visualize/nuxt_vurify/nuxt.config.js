@@ -15,10 +15,8 @@ const polyfills = [
 let dev_server = process.env.DEV_SERVER
 let isDev = process.env.DEV === 'true';
 let modules = [
-	// Doc: https://github.com/nuxt-community/axios-module#usage
 	'@nuxtjs/axios',
-	'@nuxtjs/proxy', // OFF on dev
-	// 'nuxt-fontawesome',
+	'@nuxtjs/proxy',
 
 ];
 let proxy = {

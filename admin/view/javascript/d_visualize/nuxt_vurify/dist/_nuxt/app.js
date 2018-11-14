@@ -6632,7 +6632,7 @@ function _setContext() {
                 env: {
                   "appUrl": "/302/d_visualize/admin/index.php?",
                   "appLocale": "en",
-                  "user_token": "b6VYjPJ4cBKdS8WP5IiUCHV6cG9H4hTr",
+                  "user_token": "RO7sZregg31qQBRhWUZ71gwH2x9V2Dod",
                   "isDev": false,
                   "DevServer": "http://localhost/302/d_visualize/admin/",
                   "githubAuth": false

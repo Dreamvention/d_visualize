@@ -12,7 +12,7 @@
             <v-layout column fill-height>
                 <div class="editor-menu__wrap">
                     <div class="editor-menu__header">
-                        <a v-if="!isDev" :href="opData.action.home_page">
+                        <a class="editor-menu__header__link" v-if="!isDev" :href="opData.action.home_page">
                             <v-btn flat icon color="accent">
                                 <v-icon small>fas fa-times</v-icon>
                             </v-btn>
@@ -260,6 +260,9 @@
             }
             .theme--light.v-text-field--solo .v-input__slot {
                 background-color: transparent;
+            }
+            &__link{
+                text-decoration: none;
             }
         }
         &__toggle {

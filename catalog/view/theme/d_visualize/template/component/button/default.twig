@@ -5,6 +5,9 @@
 {% if button.style %}
     {% set btn_classes = btn_classes ~ ' btn-' ~ button.style %}
 {% endif %}
+{% if button.ghost %}
+    {% set btn_classes = btn_classes ~ ' vz-button--ghost' %}
+{% endif %}
 {% if button.size %}
     {% set btn_classes = btn_classes ~ ' btn-' ~ button.size %}
 {% endif %}

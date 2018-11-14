@@ -1,5 +1,18 @@
-{{ header }}{{ column_left }}
+{{ header }}
+    {{ column_left }}
 <div id="content">
     {{ app|raw }}
 </div>
+<style>
+    .v-menu__content {
+        margin-left: -235px;
+        margin-top: -60px;
+    }
+    @media screen and (max-width: 768px) {
+        .v-menu__content {
+            margin-left: 0;
+            margin-top: 0;
+        }
+    }
+</style>
 {{ footer }}
