@@ -1,4 +1,4 @@
-import {getUrlOpencart, getDataOpencart} from '~/utils';
+import {getDataOpencart, getUrlOpencart} from '~/utils';
 
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -38,7 +38,7 @@ export default ({$axios, store}) => {
         return Promise.reject(error);
     });
     $axios.interceptors.response.use(response => {
-        // store.commit('load/LOADING_END');
+        store.dispatch('error/LOAD_RESPONSE',response);
         return response;
     }, (err) => {
         console.log(err);

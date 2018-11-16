@@ -4,17 +4,16 @@ export const state = ()=>({
 });
 
 export const getters = {
-	getMessage: state=>state.message
+	message: state=>state.message
 }
 export const mutations = {
 	SET_ERROR_MESSAGE(state, payload) {
 		state.status = true;
-		state.message = payload.message;
+		state.message = payload;
 	}
 };
 export const actions = {
-	ERROR_LANG({commit}, payload) {
-		payload.message=payload.message+'- error lang'
+	LOAD_RESPONSE({commit}, payload) {
 		commit('SET_ERROR_MESSAGE', payload);
 	}
 };

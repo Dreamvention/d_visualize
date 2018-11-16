@@ -11,9 +11,7 @@
                            text-center>
                     <v-flex xs12>
                         <img :src="'nodata.png'|image" alt="nodata">
-                    </v-flex>
-                    <v-flex xs12>
-                        <div>{{error}}</div>
+                        <div v-html="error.data"></div>
                     </v-flex>
                 </v-layout>
                 <v-layout v-else align-center justify-center row fill-height wrap text-center>
@@ -36,7 +34,7 @@
 			...mapGetters({
 				opData: 'opencart/opData',
 				loading: 'load/loading',
-				error: 'error/getMessage',
+				error: 'error/message',
 			})
 		},
 		head() {

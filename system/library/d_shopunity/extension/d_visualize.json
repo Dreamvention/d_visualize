@@ -47,8 +47,6 @@
     "d_visual_designer": ">=3.0.0",
     "d_visual_designer_header": ">=1.0.0",
     "d_visual_designer_footer": ">=1.0.0",
-    "d_alertify": ">=1.0.0",
-    "d_underscore": ">=1.0.0",
     "d_blog_module": ">=1.0.0"
   },
   "files": [
@@ -242,7 +240,6 @@
   "dirs": [
     "admin/controller/extension/d_visualize",
     "admin/model/extension/d_visualize",
-    "admin/view/javascript/d_visualize/nuxt_vurify/dist",
     "admin/view/javascript/d_visualize/dist",
     "admin/view/stylesheet/d_visualize",
     "admin/view/image/d_visualize",
