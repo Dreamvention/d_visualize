@@ -2,9 +2,9 @@
     <v-card class="theme-preview">
         <v-layout>
             <v-flex>
-                <h4 class="display-1">
+                <div class="display-1">
                     {{template.title ? template.title:template.setting.title}}
-                </h4>
+                </div>
                 <p class="body-2" v-if="template.db_saved">
                     {{$t('template.last_saved_on')}} {{template.date_modified |formatDate}}
                 </p>

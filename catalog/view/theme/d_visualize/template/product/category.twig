@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block after_content %}
-
-    {% if component.product_category.description_after %}
-        {% include component.product_category.description.template %}
+    {% if component.product_category.description_after_content =='true' %}
+        {% include component.product_category_description.template %}
     {% endif %}
 {% endblock %}

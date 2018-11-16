@@ -26,7 +26,7 @@
                     more-themes-holder
                     wrap>
                 <v-flex xs12 md3>
-                    <h3 class="display-2">{{$t('template.available_templates')}}</h3>
+                    <div class="display-2">{{$t('template.available_templates')}}</div>
                     <p> {{$t('template.available_templates_description')}}</p>
                 </v-flex>
                 <v-flex xs9>

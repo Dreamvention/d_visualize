@@ -210,9 +210,11 @@ $_['d_visualize_template_default_setting'] = array(
                         'skin' => 'opencart',
                         'template' => 'd_visualize/template/component/product_category/',
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_category/',
-                        'description_after' => false,
-                        'description' => array(
-                            'template' => 'd_visualize/template/component/product/category_description/')
+                        'description_after_content' => true,
+                    ),
+                    'product_category_description' => array(
+                        'editable'=>false,
+                        'template' => 'd_visualize/template/component/product/category_description/',
                     ),
                     'd_product_sort' => array(
                         'editable' => true

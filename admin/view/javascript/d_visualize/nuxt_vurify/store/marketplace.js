@@ -1,14 +1,31 @@
 import Vue from 'vue';
 
 export const state = () => ({
-    templates: null,
+    shopunity_templates: null,
 });
 export const getters = {
-    templates: state=>state.templates,
+    templates: (state)=>{
+	    let templates = _.reduce(state.shopunity_templates,(mem,t)=>{
+	        let tem = _.extend({},t);
+		    tem.db_saved = false;
+		    tem.source = 'shopunity';
+		    tem.setting = {}
+		    tem.setting.title=t.name;
+		    tem.setting.codename=t.codename;
+		    tem.setting.description=t.description;
+		    tem.preview = {};
+		    tem.preview.processed_images = _.map(t.processed_images,t=>t.url);
+		    tem.preview.desktop = t.image;
+		    tem.preview.mobile = t.image;
+            mem[t.codename] = tem;
+            return mem
+        },{})
+        return templates;
+    }
 }
 export const mutations = {
     SET_SHOPUNITY_THEMES(state,payload){
-        Vue.set(state,'templates',payload)
+        Vue.set(state,'shopunity_templates',payload)
     }
 }
 export const actions = {

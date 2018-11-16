@@ -1,0 +1,58 @@
+@import "../../../../vz-helpers/base/import";
+@import "config";
+@include google-font {
+  @include google-font($font-family);
+  @include google-font($font-headings-family);
+}
+
+/**/
+body, html {
+  font-family: '' + $font-family+ '', sans-serif;
+  font-weight: 400;
+  color: $color-text-body;
+  font-size: $font-size-base;
+  line-height: $font-line-height;
+  width: 100%;
+}
+h1, h2, h3, h4, h5, h6,.heading-h1,.heading-h2,.heading-h3,.heading-h4,.heading-h5,.heading-h6 {
+  color: $color-heading;
+  font-family: '' + $font-headings-family+ '', sans-serif;
+  font-size: $font-headings-size-base;
+  line-height: $font-headings-line-height;
+  letter-spacing: $font-headings-letter-spacing;
+  @if variable-exists(font-headings-text-transform){
+    @include text-transformations($font-headings-text-transform);
+  }
+}
+/* default font size */
+.fa {
+  font-size: $font-size-base;
+}
+/* Override the bootstrap defaults */
+h1 ,.heading-h1{
+  font-size: $font-headings-size-base*2;
+}
+h2 ,.heading-h2{
+  font-size: $font-headings-size-base*1.8;
+}
+h3 ,.heading-h3{
+  font-size: $font-headings-size-base*1.2;
+}
+h4 ,.heading-h4{
+  font-size: $font-headings-size-base*1.2;
+}
+h5 ,.heading-h5{
+  font-size: $font-headings-size-base*1;
+}
+h6 ,.heading-h6{
+  font-size: $font-headings-size-base*.8;
+}
+
+a ,.link {
+  color: $color-link;
+}
+
+body{
+  background-color: #fce4ff;
+}
+

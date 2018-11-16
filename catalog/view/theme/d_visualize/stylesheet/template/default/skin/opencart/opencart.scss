@@ -1,4 +1,4 @@
-@import "base/import";
+@import "../../../../vz-helpers/base/import";
 @import "config";
 @include google-font {
   @include google-font($font-family);
@@ -13,33 +13,6 @@ body, html {
   font-size: $font-size-base;
   line-height: $font-line-height;
   width: 100%;
-}
-@mixin text-transformations($variable_list) {
-  @if index($variable_list, 'bold') {
-    font-weight: bold;
-  } @else {
-    font-weight: normal;
-  }
-  @if index($variable_list, 'italic') {
-    font-style: italic;
-  } @else {
-    font-style: normal;
-  }
-  @if index($variable_list, 'underline') {
-    text-decoration: underline;
-  } @else {
-    text-decoration: none;
-  }
-  @if index($variable_list, 'capitalize') {
-    text-transform: capitalize;
-  } @else {
-    text-transform: none;
-  }
-  @if index($variable_list, 'uppercase') {
-    text-transform: uppercase;
-  } @else {
-    text-transform: none;
-  }
 }
 h1, h2, h3, h4, h5, h6,.heading-h1,.heading-h2,.heading-h3,.heading-h4,.heading-h5,.heading-h6 {
   color: $color-heading;

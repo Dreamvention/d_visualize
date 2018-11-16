@@ -11,23 +11,22 @@
                         xs12>
                     <v-card class="available-themes__item">
                         <v-img class="available-themes__item__img"
-                               :src='template.img_desktop'
+                               :src='template.preview.desktop'
                                max-height="150">
                         </v-img>
                         <v-card-title primary-title>
-                            <div>
-                                <h3 class="headline mb-0">
+                            <div class="description-wrap">
+                                <div class="headline mb-0">
                                     {{template.db_saved?template.title:template.setting.title}}
-                                </h3>
-                                <div>
-                                    {{template.db_saved?template.description:template.setting.description|truncate(100)}}
+                                </div>
+                                <div class="description">
+                                    {{template.description_short?template.description_short:template.db_saved?template.description:template.setting.description|truncate(50)}}
                                 </div>
                             </div>
                         </v-card-title>
                         <v-card-actions class="available-themes__btns">
-                            <ThemePopUp :codename="template.setting.codename" @changeTheme="changeTheme">
+                            <ThemePopUp :template="template" @changeTheme="changeTheme">
                             </ThemePopUp>
-
                         </v-card-actions>
                     </v-card>
                 </v-flex>
@@ -50,7 +49,7 @@
         methods:{
 	        changeTheme(value){
 	        	this.$store.dispatch('setting/CHANGE_ACTIVE_TEMPLATE',value)
-            }
+            },
         }
 	};
 </script>
