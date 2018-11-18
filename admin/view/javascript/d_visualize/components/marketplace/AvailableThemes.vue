@@ -21,7 +21,7 @@
                                     :aspect-ratio="16/9"
                                     :src="template.image"
                             >
-                                <v-expand-transition>
+                                <v-expand-transition >
                                     <div
                                             v-if="hover"
                                             class="d-flex transition-slow-in-fast-out darken-2 v-card--reveal display-3 white--text"
@@ -53,10 +53,9 @@
                                 >
                                     <v-icon>far fa-eye</v-icon>
                                 </v-btn>
-                                {{template_status(template.tester_status_id)}}
                                 <div class="display-2 font-weight-light primary--text mb-2">{{template.name}}</div>
                                 <div class="font-weight-light title mb-2"> {{template.description_short}}</div>
-                                <v-chip color="info">
+                                <v-chip color="info" >
                                     {{template.version}}
                                 </v-chip>
                                 <v-chip :color="template_status(template.tester_status_id).color" text-color="white">
@@ -97,10 +96,10 @@
         methods: {
             changeTheme(value) {
                 this.$store.dispatch('setting/CHANGE_ACTIVE_TEMPLATE', value)
-                this.dialog = false
+                this.dialog=false
             },
             template_status(tester_status_id) {
-                switch (tester_status_id) {
+                switch (+tester_status_id) {
                     case 0:
                         return {
                             color: 'red',
