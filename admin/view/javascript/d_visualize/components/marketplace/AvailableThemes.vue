@@ -28,8 +28,8 @@
                                             :class="template_status(template.tester_status_id).color"
                                             style="height: 100%;"
                                     >
-                                        <div class="text-center" v-if="template.commercial && template.purchasable">
-                                            {{template.prices[0]['recurring_price_format']}}
+                                        <div class="text-center" v-if="template.commercial ">
+                                            {{template.price['recurring_price_format']}}
                                         </div>
                                         <div v-else class="text-center">
                                             {{$t('marketplace.free')}}
@@ -53,6 +53,7 @@
                                 >
                                     <v-icon>far fa-eye</v-icon>
                                 </v-btn>
+                                {{template.tester_status_id}}
                                 <div class="display-2 font-weight-light primary--text mb-2">{{template.name}}</div>
                                 <div class="font-weight-light title mb-2"> {{template.description_short}}</div>
                                 <v-chip color="info" >
