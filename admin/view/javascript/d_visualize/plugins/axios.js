@@ -39,7 +39,7 @@ export default ({$axios, store,redirect}) => {
     });
     $axios.interceptors.response.use(response => {
         if (response.data.redirect){
-            redirect(response.data.redirect)
+            // redirect(response.data.redirect)
         }
         store.dispatch('error/LOAD_RESPONSE',response);
         return response;
