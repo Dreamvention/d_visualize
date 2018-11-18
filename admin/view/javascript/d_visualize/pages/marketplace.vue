@@ -3,9 +3,9 @@
         <v-container fluid>
             <!--<div class="display-2">Local</div>-->
             <!--<available-themes :templates="local_templates"/>-->
-            <div class="display-3">mar</div>
+            <div class="display-3">Marketplace</div>
             <div v-if="marketplace_templates">
-                <available-themes :templates="marketplace_templates"/>
+                <available-themes :templates="marketplace_templates" :local_templates="local_templates" :active="active_template_codename"/>
             </div>
             <div v-else>
                 can't load any from shopunity
@@ -15,13 +15,14 @@
 </template>
 <script>
 	import {mapGetters} from 'vuex';
-	import AvailableThemes from '~/components/home/AvailableThemes.vue';
+	import AvailableThemes from '~/components/marketplace/AvailableThemes.vue';
 
 	export default {
 		layout: 'opencart',
 		computed: mapGetters({
 			local_templates: 'template/templates',
 			marketplace_templates: 'marketplace/templates',
+            active_template_codename: 'setting/active_template_codename',
 		}),
 		async fetch({store}){
 			store.commit('load/LOADING_START');

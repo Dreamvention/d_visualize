@@ -30,7 +30,8 @@ export const mutations = {
 }
 export const actions = {
     async GET_SHOPUNITY_THEMES({commit, dispatch, getters}, payload) {
-        let {data} = await this.$axios.get('shopunity', {data: {type: 'theme', tag: 'd_visualize'}})
-        commit('SET_SHOPUNITY_THEMES',data)
+        let {data} = await this.$axios.get('extension/d_visualize/market', {data: {type: 'theme', tag: 'd_visualize'}})
+        console.log(data)
+        commit('SET_SHOPUNITY_THEMES',data.extensions)
     }
 }

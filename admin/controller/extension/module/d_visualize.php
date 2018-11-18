@@ -22,12 +22,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->load->model('extension/d_opencart_patch/load');
         $this->load->model('extension/d_opencart_patch/user');
         $this->load->model('tool/image');
-        $this->d_shopunity = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_shopunity.json'));
-        $this->d_admin_style = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_admin_style.json'));
-        $this->d_opencart_patch = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_opencart_patch.json'));
-        $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
-        $this->d_twig_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_twig_manager.json'));
-        $this->d_event_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_event_manager.json'));
 
         $this->store_id = (isset($this->request->post['store_id'])) ? $this->request->post['store_id'] : 0;
         $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
@@ -136,6 +130,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['common']['change'] = 'Change';
         $local['common']['load_more'] = 'Show more';
         $local['common']['search'] = 'Search';
+        $local['home']['download'] = 'Download';
+        $local['home']['download_shopunity'] = 'Please download our module shopunity to get latest themes';
         $local['editor']['header'] = 'Header';
         $local['editor']['footer'] = 'Footer';
         $local['editor']['custom'] = 'Custom section';
@@ -246,6 +242,11 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['button']['font_size'] = 'Button font-size';
         $local['button']['border_width'] = 'Button border-width';
         $local['button']['transform'] = 'Button text transformations';
+
+
+        $local['marketplace']['free'] = 'Free';
+        $local['marketplace']['testing'] = 'Testing';
+        $local['marketplace']['free'] = 'Free';
 
         $local['error']['load_content'] = $this->language->get('error_load_content');
         $local['error']['save_content'] = $this->language->get('error_save_content');

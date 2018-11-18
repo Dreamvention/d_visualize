@@ -7,6 +7,7 @@ class ControllerExtensionDVisualizeOpencart extends Controller
     public function __construct($registry)
     {
         parent::__construct($registry);
+
     }
 
     public function index()
@@ -35,7 +36,7 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         );
 
         // Variable
-        $data['d_shopunity'] = $this->d_shopunity;
+        $data['shopunity'] = $this->d_shopunity;
         $data['entry_get_update'] = sprintf($this->language->get('entry_get_update'), $this->extension['version']);
 
         // Multistore
@@ -60,10 +61,18 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $data['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_header&id=0');
         $data['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_footer&id=0');
         $data['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
+        $data['action']['download_shopunity'] = 'https://shopunity.net/';
         $data['img']['no_image'] = $this->model_tool_image->resize("no_image.png", 300, 400);
         $data['img']['no_data_img'] = 'view/image/' . $this->codename . '/nodata.png';
         $data['img']['desktop_frame'] = 'view/image/' . $this->codename . '/desktop_frame.png';
         $data['img']['mobile_frame'] = 'view/image/' . $this->codename . '/mobile_frame.png';
+        $data['d_shopunity'] = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_shopunity.json'));
+        $data['d_admin_style'] = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_admin_style.json'));
+        $data['d_opencart_patch'] = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_opencart_patch.json'));
+        $data['extension'] = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
+        $data['d_twig_manager'] = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_twig_manager.json'));
+        $data['d_event_manager'] = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_event_manager.json'));
+
         $this->response->setOutput(json_encode($data));
     }
 

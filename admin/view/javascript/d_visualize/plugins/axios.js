@@ -2,7 +2,7 @@ import {getDataOpencart, getUrlOpencart} from '~/utils';
 
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-export default ({$axios, store}) => {
+export default ({$axios, store,redirect}) => {
 
     if (process.server) {
         return;
@@ -12,7 +12,7 @@ export default ({$axios, store}) => {
         // store.commit('load/LOADING_START');
         if (request.url === 'shopunity') {
             var parsed_url = new URL(request.baseURL);
-            let url  =`${parsed_url.origin}${parsed_url.pathname}v1/extensions?type=theme&tag=d_visualize`;
+                let url  =`${parsed_url.origin}${parsed_url.pathname}v1/extensions?type=theme&tag=d_visualize`;
             request.url = '';
             request.baseURL = url
         } else {
@@ -38,10 +38,13 @@ export default ({$axios, store}) => {
         return Promise.reject(error);
     });
     $axios.interceptors.response.use(response => {
+        if (response.data.redirect){
+            redirect(response.data.redirect)
+        }
         store.dispatch('error/LOAD_RESPONSE',response);
         return response;
     }, (err) => {
-        console.log(err);
-        return Promise.reject(error);
+        store.dispatch('error/LOAD_RESPONSE',response);
+        return Promise.reject(err);
     });
 }

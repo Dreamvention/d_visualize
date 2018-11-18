@@ -12,6 +12,7 @@ export const getters = {
 	status: state=>state.status,
 	page: state=>state.page,
 	custom_style: state=>state.custom_style,
+    active_template_codename: state=>state.all_setting.active_template,
 };
 // mutations
 export const mutations = {
