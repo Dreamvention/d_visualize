@@ -53,7 +53,7 @@
                                 >
                                     <v-icon>far fa-eye</v-icon>
                                 </v-btn>
-                                {{template.tester_status_id}}
+                                {{template_status(template.tester_status_id)}}
                                 <div class="display-2 font-weight-light primary--text mb-2">{{template.name}}</div>
                                 <div class="font-weight-light title mb-2"> {{template.description_short}}</div>
                                 <v-chip color="info">
