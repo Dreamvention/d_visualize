@@ -59,7 +59,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->session->data['d_visualize_page_admin']='home';
 //        $this->model_extension_module_d_visualize->inc($this->visualize_version,intval(implode('', explode('.', $this->extension['version']))));
         if ($this->setting_visualize['engine'] == 'nuxt') {
-            $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
+            $nuxt_dist = 'view/javascript/d_visualize/dist';
             $data['app'] = file_get_contents($nuxt_dist . '/index.html');
             $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
             $data['header'] = $this->load->controller('common/header');
@@ -70,7 +70,7 @@ class ControllerExtensionModuleDVisualize extends Controller
     }
     public function editor(){
         $this->session->data['d_visualize_page_admin']='editor';
-        $nuxt_dist = 'view/javascript/d_visualize/nuxt_vurify/dist';
+        $nuxt_dist = 'view/javascript/d_visualize/dist';
         $data['app'] = file_get_contents($nuxt_dist . '/index.html');
         $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
         $this->response->setOutput($this->load->view($this->route . '_nuxt_editor', $data));
