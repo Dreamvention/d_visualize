@@ -16,7 +16,6 @@ export default async ({app, store, $axios})=>{
 		app.i18n = i18n;
 	} catch (e) {
 		store.dispatch('load/LOADING_FAIL',e);
-		store.dispatch('error/ERROR_LANG',e);
 	}
 
 }

@@ -8,7 +8,10 @@
                         lg4
                         md6
                         sm6
-                        xs12>
+                        xs12
+                        @click="dialog_template=template;dialog=true"
+                        class="theme-preview"
+                >
                     <v-hover>
                         <v-card
                                 slot-scope="{ hover }"
@@ -20,6 +23,7 @@
                             <v-img
                                     :aspect-ratio="16/9"
                                     :src="template.image"
+
                             >
                                 <v-expand-transition >
                                     <div
@@ -40,18 +44,19 @@
                             <v-card-text
                                     class="pt-4"
                                     style="position: relative;"
+
                             >
                                 <v-btn
                                         absolute
-                                        :color="template_status(template.tester_status_id).color"
                                         fab
-                                        large
-                                        right
+                                        left
                                         top
-                                        @click="dialog_template=template;dialog=true"
-
                                 >
-                                    <v-icon>far fa-eye</v-icon>
+                                    <v-avatar
+                                            color="grey lighten-4"
+                                    >
+                                        <v-img :src="template.developer.image"></v-img>
+                                    </v-avatar>
                                 </v-btn>
                                 <div class="display-2 font-weight-light primary--text mb-2">{{template.name}}</div>
                                 <div class="font-weight-light title mb-2"> {{template.description_short}}</div>
@@ -78,9 +83,9 @@
     </div>
 </template>
 <script>
-    import ThemePopUp from '~/components/marketplace/ThemePopUp';
+	import ThemePopUp from '~/components/marketplace/ThemePopUp';
 
-    export default {
+	export default {
         name: "available-themes",
         props: ['templates', 'local_templates', 'active'],
         data() {
@@ -156,6 +161,12 @@
         width: 100%;
     }
 
+    .theme-preview {
+        cursor: pointer;
+        .v-card{
+            min-height: 400px;
+        }
+    }
     .available-themes__item {
         overflow: hidden;
         &__img:hover {

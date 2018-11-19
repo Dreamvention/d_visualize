@@ -67,7 +67,9 @@ export const actions = {
 			custom_style: getters.custom_style
 		});
 	},
-	CHANGE_ACTIVE_TEMPLATE({commit}, payload) {
+	CHANGE_ACTIVE_TEMPLATE({commit, rootGetters}, payload) {
+
+    	//if we have this template offer to update it.
 		commit('CHANGE_ACTIVE_TEMPLATE', payload);
 	}
 

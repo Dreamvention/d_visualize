@@ -17,18 +17,22 @@
                         <v-flex md5>
 
                             <ThemePreviewImage :template="template"></ThemePreviewImage>
-                            <v-btn value="left" color="light-blue" dark d-none>
-                            {{$t('template.live_demo')}}
+                            <v-btn value="left" color="light-blue" dark d-none v-if="template.live_demo">
+                                {{$t('template.live_demo')}}
                             </v-btn>
-                            <v-btn value="center" color="teal accent-3" dark @click="changeTheme">
+                            <v-btn value="center" color="teal accent-3" dark @click="changeTheme" v-if="active==template.setting.active">
+                                {{$t('template.use_this')}}
+                            </v-btn>
+
+                            <v-btn disabled color="secondary" v-else>
                                 {{$t('template.use_this')}}
                             </v-btn>
                             <v-checkbox
-                                    style="display: block"
                                     v-model="replace_content"
                                     :label="$t('template.replace_content')"
                                     color="primary"
                                     hide-details
+                                    v-if="template.content_available"
                             ></v-checkbox>
                         </v-flex>
                         <v-flex md7 pl-5>
@@ -74,63 +78,8 @@
                         </v-flex>
                     </v-layout>
                 </v-container>
-
-                <!--<v-list three-line subheader>-->
-                <!--<v-subheader>User Controls</v-subheader>-->
-                <!--<v-list-tile avatar>-->
-                <!--<v-list-tile-content>-->
-                <!--<v-list-tile-title>Content filtering</v-list-tile-title>-->
-                <!--<v-list-tile-sub-title>Set the content filtering level to restrict apps that can be-->
-                <!--downloaded-->
-                <!--</v-list-tile-sub-title>-->
-                <!--</v-list-tile-content>-->
-                <!--</v-list-tile>-->
-                <!--<v-list-tile avatar>-->
-                <!--<v-list-tile-content>-->
-                <!--<v-list-tile-title>Password</v-list-tile-title>-->
-                <!--<v-list-tile-sub-title>Require password for purchase or use password to restrict purchase-->
-                <!--</v-list-tile-sub-title>-->
-                <!--</v-list-tile-content>-->
-                <!--</v-list-tile>-->
-                <!--</v-list>-->
-                <!--<v-divider></v-divider>-->
-                <!--<v-list three-line subheader>-->
-                <!--<v-subheader>{{codename}}</v-subheader>-->
-                <!--<v-list-tile avatar>-->
-                <!--<v-list-tile-action>-->
-                <!--<v-checkbox v-model="notifications"></v-checkbox>-->
-                <!--</v-list-tile-action>-->
-                <!--<v-list-tile-content>-->
-                <!--<v-list-tile-title>Notifications</v-list-tile-title>-->
-                <!--<v-list-tile-sub-title>Notify me about updates to apps or games that I downloaded-->
-                <!--</v-list-tile-sub-title>-->
-                <!--</v-list-tile-content>-->
-                <!--</v-list-tile>-->
-                <!--<v-list-tile avatar>-->
-                <!--<v-list-tile-action>-->
-                <!--<v-checkbox v-model="sound"></v-checkbox>-->
-                <!--</v-list-tile-action>-->
-                <!--<v-list-tile-content>-->
-                <!--<v-list-tile-title>Sound</v-list-tile-title>-->
-                <!--<v-list-tile-sub-title>Auto-update apps at any time. Data charges may apply-->
-                <!--</v-list-tile-sub-title>-->
-                <!--</v-list-tile-content>-->
-                <!--</v-list-tile>-->
-                <!--<v-list-tile avatar>-->
-                <!--<v-list-tile-action>-->
-                <!--<v-checkbox v-model="widgets"></v-checkbox>-->
-                <!--</v-list-tile-action>-->
-                <!--<v-list-tile-content>-->
-                <!--<v-list-tile-title>Auto-add widgets</v-list-tile-title>-->
-                <!--<v-list-tile-sub-title>Automatically add home screen widgets</v-list-tile-sub-title>-->
-                <!--</v-list-tile-content>-->
-                <!--</v-list-tile>-->
-                <!--</v-list>-->
-
             </v-card>
-
         </v-dialog>
-        <!--<template slot="activator"></template>-->
     </div>
 </template>
 
@@ -140,7 +89,7 @@
 
 	export default {
 		name: "ThemePopUp",
-		props: ['template'],
+		props: ['template','active'],
 		data() {
 			return {
 				dialog: false,
@@ -150,20 +99,12 @@
 				replace_content: false
 			};
 		},
-		computed: {
-			// template() {
-			// 	return this.templates[this.codename];
-			// },
-			// ...mapGetters({
-			// 	'templates': 'template/templates'
-			// })
-		},
 		components: {
 			ThemePreviewImage
 		},
         methods:{
 	        changeTheme(){
-	        	this.$emit('changeTheme',this.codename);
+	        	this.$emit('changeTheme',this.template.setting.codename);
 		        this.dialog = false
             },
 	        decoder (html) {

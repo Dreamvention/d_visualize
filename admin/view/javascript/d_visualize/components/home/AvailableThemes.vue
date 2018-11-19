@@ -25,7 +25,7 @@
                             </div>
                         </v-card-title>
                         <v-card-actions class="available-themes__btns">
-                            <ThemePopUp :template="template" @changeTheme="changeTheme">
+                            <ThemePopUp :active="active" :template="template" @changeTheme="changeTheme">
                             </ThemePopUp>
                         </v-card-actions>
                     </v-card>
@@ -39,7 +39,7 @@
 
 	export default {
 		name: "available-themes",
-		props: ['templates'],
+		props: ['templates','active'],
 		data() {
 			return {};
 		},

@@ -8904,7 +8904,6 @@ var i18n = new vue_i18n_esm["a" /* default */]({
               app.i18n = i18n;
             } catch (e) {
               store.dispatch('load/LOADING_FAIL', e);
-              store.dispatch('error/ERROR_LANG', e);
             }
 
           case 6:
