@@ -45,6 +45,6 @@ class="{{ btn_classes }}"
 {% if button.type %} type='{{ button.type }}'{% endif %}
 {% if button.title_button %}title="{{ button.title_button }}"{% endif %}
 {% if button.text_loading %}data-loading-text="{{ button.text_loading }}"{% endif %}
-{% if button.input_group.atributest %}{{ button.atributest|raw }}{% endif %}>
+{% if button.atributest %}{{ button.atributest|raw }}{% endif %}>
 {{ button.text_button|raw }}</{{ button.tag|default('button') }}>
 
