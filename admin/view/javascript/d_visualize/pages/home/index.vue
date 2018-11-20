@@ -38,7 +38,6 @@
                 <v-btn color="primary" nuxt to="marketplace">{{$t('template.explore_more_themes')}}</v-btn>
             </div>
             <div v-else>
-                {{opencart.action}}
                 <div class="subheading">{{$t('home.download_shopunity')}}</div>
                 <a :href="opencart.action.download_shopunity">
                     <v-btn color="primary" >{{$t('home.download')}}</v-btn>
