@@ -355,4 +355,32 @@ $google-font-subsets: (
     $__gf__combine: false !global;
   }
 }
+@mixin text-transformations($variable_list) {
+  @if index($variable_list, 'bold') {
+    font-weight: bold;
+  } @else {
+    font-weight: normal;
+  }
+  @if index($variable_list, 'italic') {
+    font-style: italic;
+  } @else {
+    font-style: normal;
+  }
+  @if index($variable_list, 'underline') {
+    text-decoration: underline;
+  } @else {
+    text-decoration: none;
+  }
+  @if index($variable_list, 'capitalize') {
+    text-transform: capitalize;
+  } @else {
+    text-transform: none;
+  }
+  @if index($variable_list, 'uppercase') {
+    text-transform: uppercase;
+  } @else {
+    text-transform: none;
+  }
+}
+
 // todo sprite

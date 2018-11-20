@@ -31,3 +31,8 @@ Vue.filter('formatDate', function (value) {
 		return moment(String(value)).format('MMMM Do, h:mm:ss a');
 	}
 });
+Vue.filter('decode', function (html) {
+	let decoder = document.createElement('div')
+	decoder.innerHTML = html;
+	return decoder.textContent
+});

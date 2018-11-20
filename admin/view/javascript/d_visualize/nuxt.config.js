@@ -12,7 +12,7 @@ const polyfills = [
 	'String.prototype.startsWith',
 	'String.prototype.endsWith'
 ];
-let dev_server = process.env.DEV_SERVER
+let dev_server = process.env.DEV_SERVER;
 let isDev = process.env.DEV === 'true';
 let modules = [
 	'@nuxtjs/axios',

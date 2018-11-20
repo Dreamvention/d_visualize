@@ -95,10 +95,9 @@ class ModelExtensionDVisualizeTemplate extends Model
             $response['setting'] = $setting;
             foreach ($this->getAvailableSkines($setting['codename']) as $skin) {
                 $response['skines'][$skin] = $this->getSCSSVariables( $setting['codename'], $skin);
-                $response['preview']['processed_images'][] = $this->imageResize('catalog/' . $this->codename . '/template/' . $codename . '/preview/skin/' .$skin .'.png');
             }
-            $response['preview']['desktop'] = $this->imageResize('catalog/' . $this->codename . '/template/' . $codename . '/preview/desktop.png');
-            $response['preview']['mobile'] = $this->imageResize('catalog/' . $this->codename . '/template/' . $codename . '/preview/mobile.png');
+            $response['img_desktop'] = $this->imageResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_desktop.png' : "no_image.png"), 600, 300);
+            $response['img_mobile'] = $this->imageResize((is_file(DIR_IMAGE . 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png') ? 'catalog/' . $this->codename . '/template/' . $codename . '_mobile.png' : "no_image.png"), 600, 300);
 
             $result[$codename] = $response;
         }
@@ -258,7 +257,6 @@ class ModelExtensionDVisualizeTemplate extends Model
     }
     public function installTheme($active_template)
     {
-
         $this->load->model('extension/d_opencart_patch/setting');
         if (VERSION < '2.2.0.0') {
             $setting = $this->model_extension_d_opencart_patch_setting->getSetting('config');
@@ -267,7 +265,10 @@ class ModelExtensionDVisualizeTemplate extends Model
         } else {
             $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
             $setting['theme_default_directory'] = $this->codename; // 302 work
+            $setting['theme_default_status'] = true; // fix issue 
             $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
+            $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
+            
         }
         $this->load->model('extension/module/d_visualize');
         $this->load->model('extension/d_visualize/extension_helper');
@@ -294,21 +295,12 @@ class ModelExtensionDVisualizeTemplate extends Model
 
         $this->model_extension_module_d_visualize->uninstallEvents();
     }
-
-    public function imageResize($filename, $width = 300, $height = 300, $original_size = true)
+    public function imageResize($filename, $width, $height, $original_size = false)
     {
-        if ($original_size) {
-            $filename = is_file(DIR_IMAGE . $filename) ? $filename : "no_image.png";
-            if ($this->request->server['HTTPS']) {
-                return HTTPS_CATALOG . 'image/' . $filename;
-            } else {
-                return HTTP_CATALOG . 'image/' . $filename;
-            }
+        if ($this->request->server['HTTPS']) {
+            return HTTPS_CATALOG . 'image/' . $filename;
         } else {
-            echo "<pre>";
-            print_r('sorrhy not implemented');
-            echo "</pre>";
+            return HTTP_CATALOG . 'image/' . $filename;
         }
-
     }
 }
