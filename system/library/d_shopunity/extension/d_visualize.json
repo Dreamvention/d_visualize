@@ -246,6 +246,7 @@
     "admin/view/template/extension/d_visualize",
 
     "catalog/view/theme/d_visualize/stylesheet/dist/vz-core",
+    "catalog/view/theme/d_visualize/stylesheet/dist/vz-helpers",
     "catalog/view/theme/d_visualize/stylesheet/dist/library",
     "catalog/view/theme/d_visualize/stylesheet/dist/default",
     "catalog/view/theme/d_visualize/stylesheet/dist/vz-component",
