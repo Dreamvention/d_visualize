@@ -1,6 +1,6 @@
 {% if not remove_link %}
     {% include component.button.template with {button:{
-        button: 'cart.remove('~ product_id~');',
+        onclick: 'cart.remove('~ product_id~');',
         style:'danger',
         text_button:'<i class="fas fa-times"></i>',
         title:button_remove ,
