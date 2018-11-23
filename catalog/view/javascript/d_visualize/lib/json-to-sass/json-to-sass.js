@@ -1,4 +1,4 @@
-var _ = require('lodash');
+var _ = require('../../gulp/node_modules/lodash');
 
 module.exports = function (data) {
 	var scss = '';
@@ -8,7 +8,6 @@ module.exports = function (data) {
 	}
 
 	data = JSON.parse(data);
-
 	function parseData(data, scss, parent_key) {
 		_.mapKeys(data, function (value, key) {
 			if (key === 'settings') {

@@ -1,13 +1,12 @@
 'use strict';
-var gutil = require('gulp-util');
-var through = require('through2');
+var gutil = require('../../gulp/node_modules/gulp-util');
+var through = require('../../gulp/node_modules/through2');
 var fileStream = require('fs');
 var jsonToSass = require('./json-to-sass');
-var _ = require('lodash');
+var _ = require('../../gulp/node_modules/lodash');
 
 module.exports = function (options) {
 	return through.obj(function (file, enc, cb) {
-
 		if (file.isNull()) {
 			cb(null, file);
 			return;
