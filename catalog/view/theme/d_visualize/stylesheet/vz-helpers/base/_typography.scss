@@ -1,2 +1,51 @@
-  /*Typographic*/
-/*End Typographic*/
+h1, h2, h3, h4, h5, h6, .heading-h1, .heading-h2, .heading-h3, .heading-h4, .heading-h5, .heading-h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+
+}
+
+.fa {
+}
+
+.h1, h1, .heading-h1 {
+  //font-size: $font-headings-size-base*2;
+}
+
+.h2, h2, .heading-h2 {
+  //font-size: $font-headings-size-base*1.8;
+}
+
+.h3, h3, .heading-h3 {
+  //font-size: $font-headings-size-base*1.2;
+}
+
+.h4, h4, .heading-h4 {
+  //font-size: $font-headings-size-base*1.2;
+}
+
+.h5, h5, .heading-h5 {
+  //font-size: $font-headings-size-base*1;
+}
+
+.h6, h6, .heading-h6 {
+  //font-size: $font-headings-size-base*.8;
+}
+
+pre {
+  background: none;
+  border: none;
+  line-height: 1.3em;
+  font-size: 1em;
+}
+
+hr {
+  border: none;
+  margin: 1rem 0px 2rem;
+}
+
+a {
+  text-decoration: none;
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
+}

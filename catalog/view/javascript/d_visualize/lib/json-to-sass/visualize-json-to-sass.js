@@ -2,7 +2,7 @@
 var gutil = require('gulp-util');
 var through = require('through2');
 var fileStream = require('fs');
-var jsonToSass = require('json-to-sass');
+var jsonToSass = require('./json-to-sass');
 var _ = require('lodash');
 
 module.exports = function (options) {

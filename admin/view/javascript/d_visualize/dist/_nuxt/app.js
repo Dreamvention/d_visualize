@@ -2991,7 +2991,10 @@ var getters = {
     return getters.templates[rootState.setting.all_setting.active_template];
   },
   active_template_skin: function active_template_skin(state, getters) {
-    return getters.active_template.skines[getters.active_template.setting.active_skin];
+    if (getters.active_template.skines[getters.active_template.setting.active_skin]) {
+      //todo may cause errors when active skin is not exists.
+      return getters.active_template.skines[getters.active_template.setting.active_skin];
+    }
   },
   active_skin_holder: function active_skin_holder(state, getters) {
     return function (holder_key) {
@@ -7270,7 +7273,7 @@ function _setContext() {
                 env: {
                   "appUrl": "/302/d_visualize/admin/index.php?",
                   "appLocale": "en",
-                  "user_token": "30v1az9B7aRjzsMiLr8CLccPgcQEf37C",
+                  "user_token": "FSvmckkgEPtUCBj1qihkhiqX4LWxCcNG",
                   "isDev": false,
                   "DevServer": "http://localhost/302/d_visualize/admin/",
                   "githubAuth": false

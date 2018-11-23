@@ -11,7 +11,7 @@ var postcss = require('gulp-postcss');
 var pump = require('pump');
 var rename = require("gulp-rename");
 //modified
-var jsonToSass = require('gulp-json-to-sass');
+var jsonToSass = require('../lib/json-to-sass/visualize-json-to-sass');
 var baseDir = path.resolve(__dirname, "../../../../");
 var themeDir = path.join(baseDir, 'view/theme/d_visualize');
 var stylesheetDir = path.join(themeDir, 'stylesheet');

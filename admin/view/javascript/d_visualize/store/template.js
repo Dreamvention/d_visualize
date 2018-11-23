@@ -11,7 +11,10 @@ export const getters = {
 		return (getters.templates[rootState.setting.all_setting.active_template]);
 	},
 	active_template_skin: (state, getters)=>{
-		return getters.active_template.skines[getters.active_template.setting.active_skin];
+		if (getters.active_template.skines[getters.active_template.setting.active_skin]){
+			//todo may cause errors when active skin is not exists.
+			return getters.active_template.skines[getters.active_template.setting.active_skin];
+		}
 	},
 	active_skin_holder: (state, getters)=>(holder_key)=>{
 		return getters.active_template_skin[holder_key];
