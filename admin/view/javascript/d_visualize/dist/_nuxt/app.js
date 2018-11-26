@@ -4119,7 +4119,7 @@ var constants = __webpack_require__(11);
   })),
   data: function data() {
     return {
-      isDev: true,
+      isDev: false,
       load: constants["a" /* LOAD */],
       respons: constants["b" /* RESPONSIVE */],
       drawer: null
@@ -5589,7 +5589,7 @@ ThemePreviewImage_component.options.__file = "ThemePreviewImage.vue"
       rename_dialog: false,
       rename_input: '',
       editor_page: this.$store.getters['opencart/opData'].action.editor_page,
-      isDev: true
+      isDev: false
     };
   },
   methods: {
@@ -6649,10 +6649,7 @@ var lib_vue_loader_options_pagesvue_type_template_id_12be4bba_scoped_true_static
               return store.dispatch('setting/GET_SETTING');
 
             case 3:
-              if (true) {
-                _context.next = 6;
-                break;
-              }
+              if (false) {}
 
               if (!(store.getters['setting/page'] && store.getters['setting/page'] === 'editor')) {
                 _context.next = 6;
@@ -7287,7 +7284,7 @@ function _setContext() {
                   "appUrl": "/302/d_visualize/admin/index.php?",
                   "appLocale": "en",
                   "user_token": "AlQFgezY9MKhNShNoKZgTlLw7u4eYiu6",
-                  "isDev": true,
+                  "isDev": false,
                   "DevServer": "http://localhost/302/d_visualize/admin/",
                   "githubAuth": false
                 } // Only set once
@@ -8181,12 +8178,6 @@ var layouts = {
     }, {
       "rel": "stylesheet",
       "href": "https://use.fontawesome.com/releases/v5.5.0/css/v4-shims.css"
-    }, {
-      "rel": "stylesheet",
-      "href": "http://localhost/302/d_visualize/admin/view/javascript/bootstrap/css/bootstrap.css"
-    }, {
-      "rel": "stylesheet",
-      "href": "http://localhost/302/d_visualize/admin/view/stylesheet/stylesheet.css"
     }],
     "script": [{
       "src": "https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise,Object.assign,Object.values,Array.from,Array.prototype.find,Array.prototype.findIndex,Array.prototype.includes,String.prototype.includes,String.prototype.startsWith,String.prototype.endsWith"
@@ -8802,15 +8793,15 @@ function utils_scrollBehavior(to, from, savedPosition) {
       request.url = '';
       request.baseURL = url;
     } else {
-      if (false) {}
+      if (true) {
+        request.baseURL = window.location.origin + window.location.pathname;
+      }
 
-      var _url = getUrlOpencart(request.baseURL, true);
+      var _url = getUrlOpencart(request.baseURL, false);
 
       _url.route = request.url;
 
-      if (true) {
-        _url.user_token = 'user_token=' + "AlQFgezY9MKhNShNoKZgTlLw7u4eYiu6" + '&token=' + "AlQFgezY9MKhNShNoKZgTlLw7u4eYiu6";
-      }
+      if (false) {}
 
       request.baseURL = _url.makeUrl();
       request.url = '';
@@ -8918,9 +8909,9 @@ vue_runtime_esm["default"].filter('image', function (value) {
   if (!value) return '';
   value = value.toString();
 
-  if (true) {
-    return "http://localhost/302/d_visualize/admin/" + 'view/image/d_visualize/' + value;
-  } else {}
+  if (false) {} else {
+    return 'view/image/d_visualize/' + value;
+  }
 });
 vue_runtime_esm["default"].filter('formatDate', function (value) {
   if (value) {
