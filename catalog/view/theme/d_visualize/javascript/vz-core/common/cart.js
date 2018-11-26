@@ -121,7 +121,6 @@ cart.add = function (product_id, quantity) {
 			quantity: typeof(quantity) != 'undefined' ? quantity : 1,
 		},
 		callback: function (json) {
-			console.log(json)
 			d_notification.dispatch('product/cart/add',json)
 			if (json['error']) {
 				console.log(json['error'])
