@@ -34,6 +34,7 @@
 </style>
 <script>
 	import {mapGetters} from 'vuex';
+
 	export default {
 		name: "EditorIframe",
 		props: ['iframe','loading','width'],
@@ -46,16 +47,7 @@
 			})
 		},
 		mounted() {
-			window.addEventListener('message', (event)=>{
-				if (event.data.vz_ifame_data) {
-					this.$store.commit('editor/CHANGE_IFRAME_PAGE', event.data.vz_ifame_data.route);
-					this.$store.dispatch('editor/SAVE_IFRAME_HISTORY', event.data.vz_ifame_data.location);
-					this.$store.dispatch('editor/CHANGE_NAVIGATION_CONTEXT');
-				}
-				if (event.data.vz_ifame_loading) {
-					this.$store.commit('load/LOADING_START');
-				}
-			});
+			this.$store.commit('load/LOADING_START');
 		},
 		methods: {
 			iframeLoad(e) {

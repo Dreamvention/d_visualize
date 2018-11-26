@@ -96,7 +96,7 @@
                                     :key="1">
                                 <div class="sections__theme">
                                     <div class="sections__list">
-                                        <v-btn class="sections__list-item" block nuxt exact to="editor/skin">
+                                        <v-btn class="sections__list-item" block nuxt exact to="/editor/skin">
                                             <v-icon>fas fa-paint-brush</v-icon>
                                             {{$t('editor.entry_skin')}}
                                             <v-icon>fas fa-chevron-right</v-icon>
@@ -170,7 +170,7 @@
 	            return _.reduce(this.$store.getters['template/active_template_skin'].settings,(memory,element,key)=>{
                     if (element.navigation){
 	                    let link = _.extend({},element.navigation);
-	                    link.href=`editor/${key}`;
+	                    link.href=`/editor/${key}`;
 	                    memory[key] = link;
                     }
 	            	return memory;
@@ -208,7 +208,6 @@
 			await store.dispatch('template/GET_TEMPLATES');
 			await store.dispatch('template/GET_COMPONENTS');
 			await store.dispatch('editor/GET_EDITOR_IFRAME');
-			console.log('loaded');
 			store.commit('load/LOADING_END');
 		},
 		components: {

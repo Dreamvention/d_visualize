@@ -79,6 +79,19 @@ export const actions = {
     HIDE_MENU({commit}, payload) {
         commit('HIDE_MENU', payload)
     },
+	IFRAME_INIT({commit, dispatch}, payload) {
+		var listener = (event)=>{
+			if (event.data.vz_ifame_data) {
+				commit('CHANGE_IFRAME_PAGE', event.data.vz_ifame_data.route);
+				dispatch('SAVE_IFRAME_HISTORY', event.data.vz_ifame_data.location);
+				dispatch('CHANGE_NAVIGATION_CONTEXT');
+			}
+			if (event.data.vz_ifame_loading) {
+				commit('setting/GET_SETTING', {}, {root: true});
+			}
+		};
+		window.addEventListener('message', listener);
+	},
 
 };
 
