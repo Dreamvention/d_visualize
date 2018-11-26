@@ -81,7 +81,6 @@ class ControllerExtensionDVisualizeEvent extends Controller
                 }
             }
             if (stristr($view,$view_route)) {
-
                 $data['page_route'] = $view_route;
                 if (isset($data['header'])) {
                     $data['header'] = $this->model_helper->addDocumentPageData(
@@ -124,6 +123,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
         }
         //add current template stylesheet
         $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_visualize['active_template'] . '.css';
+
         if (isset($this->setting_active_template['active_skin'])) {
             $template_style = 'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $this->setting_visualize['active_template'] . '/' . $this->setting_active_template['active_skin'] . '.css';
             //skin custom section
@@ -142,10 +142,10 @@ class ControllerExtensionDVisualizeEvent extends Controller
         if ($global_custom_style){
             $data['custom_styles'][] = $global_custom_style;
         }
+
         if (file_exists(DIR_APPLICATION . '../' . $template_style)) {
             $post_styles[] = $template_style;
         }
-
         //add core js files for standard page behaviour, like  helpers
         $this->document->addScript('catalog/view/theme/' . $this->codename . '/javascript/dist/vz-core/core.js');
 

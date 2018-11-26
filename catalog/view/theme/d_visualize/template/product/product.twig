@@ -1,5 +1,9 @@
 {% extends template %}
 {% block content %}
-{% include component.product_product.template %}
+    {% include component.product_product.template %}
 {% endblock %}
-
+{% block after_content %}
+    {% if component.product_product.related_after_content =='true' %}
+        {% include component.product_product_related.template %}
+    {% endif %}
+{% endblock %}

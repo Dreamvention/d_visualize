@@ -47,7 +47,7 @@ class ModelExtensionDVisualizeTemplate extends Model
     {
         $this->components = $this->getAvailableComponents();
         $db_saved_template_setting = $this->getTemplateByCodename($active_template_codename);
-        if ($db_saved_template_setting){
+        if (!empty($db_saved_template_setting)){
             $active_template = (array)json_decode($db_saved_template_setting['setting'], true);
         }else{
             $active_template = $this->getAvailableTemplates()[$active_template_codename]['setting'];

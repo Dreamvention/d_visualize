@@ -1,5 +1,5 @@
 <div class="vz-product-product vz-product-product--default">
-    <div class="row">
+    <div class="row vz-product-product--row">
         {% if column_left or column_right %}
             {% set class = 'col-sm-6' %}
         {% else %}
@@ -145,8 +145,8 @@
             {% endif %} </div>
     </div>
     {% if products %}
-        <h3>{{ text_related }}</h3>
-        <div class="row"> {% set i = 0 %}
+        <div class="h3">{{ text_related }}</div>
+        <div class="row vz-product-product--default"> {% set i = 0 %}
             {% for product in products %}
                 {% if column_left and column_right %}
                     {% set class = 'col-xs-8 col-sm-6' %}
