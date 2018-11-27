@@ -72,12 +72,20 @@ $_['d_visualize_template_default_setting'] = array(
                     ),
                     'd_product_list' => array(
                         'template' => 'd_visualize/template/component/d_product_list/',
+                        'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/d_product_list/',
                         'editable' => false // on other page will be true
                     ),
                     'd_rating' => array(
                         'template' => 'd_visualize/template/component/d_rating/',
                         'editable' => false
-
+                    ),
+                    'd_review' => array(
+                        'template' => 'd_visualize/template/component/d_review/',
+                        'editable' => false
+                    ),
+                    'product_review' => array(
+                        'template' => 'd_visualize/template/component/product_review/',
+                        'editable' => false
                     ),
                     'd_layout_open' => array(
                         'template' => 'd_visualize/template/component/d_layout_open/',
@@ -187,10 +195,6 @@ $_['d_visualize_template_default_setting'] = array(
                         'skin' => 'default',
                         'template' => 'd_visualize/template/component/product/tabs/',
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_tabs/',
-                    ),
-                    'product_review' => array(
-                        // move to product/product
-                        'template' => 'd_visualize/template/component/product/review/',
                     ),
                     'product_remove' => array(
                         'template' => 'd_visualize/template/component/product/remove/',

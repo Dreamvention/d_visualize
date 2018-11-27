@@ -24,15 +24,12 @@
 {% endif %}
         {% include component.form_group.template with{
             form_group:{
-                label_text:entry_message ,
-                hint:help_message,
+                label_text:text_comments ,
                 input:{
                     type:'textarea',
-                    id:'input-message',
-                    name:'message',
-                    value:message,
-                    cols:"40",
-                    rows:"5"
+                    name:'comment',
+                    value:comment,
+                    rows:"8"
                 }
             }
         } %}

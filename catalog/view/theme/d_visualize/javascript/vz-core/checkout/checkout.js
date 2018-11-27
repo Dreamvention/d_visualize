@@ -565,7 +565,7 @@ var Checkout = {
 						$('#collapse-payment-address .panel-body').prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 					}
 
-					for (i in json['error']) {
+					for (var i in json['error']) {
 						var element = that.setting.$payment_address.find('#input-' + i.replace('_', '-'));
 
 						if ($(element).parent().hasClass('input-group')) {
@@ -612,7 +612,7 @@ var Checkout = {
 						that.setting.$shipping_address_body.prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 					}
 
-					for (i in json['error']) {
+					for (var i in json['error']) {
 						var element = that.setting.$shipping_address.find('#input-' + i.replace('_', '-'));
 
 						if ($(element).parent().hasClass('input-group')) {
@@ -659,7 +659,7 @@ var Checkout = {
 						that.setting.$shipping_address_body.prepend('<div class="alert alert-warning">' + json['error']['warning'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 					}
 
-					for (i in json['error']) {
+					for (var i in json['error']) {
 						var element = that.setting.$shipping_address.find('#input-' + i.replace('_', '-'));
 
 						if ($(element).parent().hasClass('input-group')) {

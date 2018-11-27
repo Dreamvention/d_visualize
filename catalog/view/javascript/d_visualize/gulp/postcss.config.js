@@ -2,16 +2,13 @@ module.exports = function (data) {
 	return {
 		syntax:'postcss-scss',
 		plugins: [
-			require('precss')({
-				variables: {
-					'site-width': '960px'
-				}
+			require('postcss-custom-media')({
+				importFrom: './export-media.json',
 			}),
-
+			require('precss')({}),
 			require('postcss-import')({
 				plugins: ['precss']
 			}),
-			require('precss')({}),
 			// require('autoprefixer')({ browsers : ['last 15 versions'] }),
 			require('postcss-pxtorem')({
 				rootValue: 14,
@@ -26,7 +23,6 @@ module.exports = function (data) {
 				protocol: 'https:',
 				foundries: 'bootstrap google'
 			}),
-			// require('lost')({}),
 		],
 		options: {
 		}

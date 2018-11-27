@@ -89,6 +89,10 @@ class ControllerExtensionDVisualizeEvent extends Controller
                         $data['header']);
                 }
             }
+            //todo add support to 2.x
+            if ($this->customer->isLogged()) {
+                $data['customer'] = true;
+            }
             if ($this->user->isLogged()) {
                 $data['admin'] = true;
                 $data['site_url'] = HTTPS_SERVER;
@@ -105,6 +109,8 @@ class ControllerExtensionDVisualizeEvent extends Controller
      */
     public function header_view_before_d_visualize(&$view, &$data)
     {
+        $view_route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
+        $data['class'] = str_replace('/','-',$view_route);
         //  pre style for lib like bootstrap etc for overwriting them by modules and theme
         $data['pre_styles'] = $this->setting_active_template['pre_styles'];
         $post_styles = array();

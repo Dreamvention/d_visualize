@@ -1,0 +1,19 @@
+{% if reviews %}
+    {% for review in reviews %}
+        <div class="table table-striped table-bordered">
+            <div class="vz-product-review__row--author">
+                <div class="vz-product-review__author">{{ review.author }}</div>
+                <div class="vz-product-review__date_added">{{ review.date_added }}</div>
+            </div>
+            <div>
+                <div class="vz-product-review__date-added">
+                    <p>{{ review.text }}</p>
+                    {% include component.d_rating.template with {rating: review.rating,static_rating:true}%}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="vz-product-review__pagination">{{ pagination }}</div>
+{% else %}
+    <p>{{ text_no_reviews }}</p>
+{% endif %}

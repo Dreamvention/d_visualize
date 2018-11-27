@@ -124,6 +124,7 @@
     "catalog/view/theme/d_visualize/template/component/button/default.twig",
     "catalog/view/theme/d_visualize/template/component/form_group/default.twig",
     "catalog/view/theme/d_visualize/template/component/input/default.twig",
+    "catalog/view/theme/d_visualize/template/component/input_group/default.twig",
     "catalog/view/theme/d_visualize/template/component/breadcrumb/default.twig",
     "catalog/view/theme/d_visualize/template/component/breadcrumb/empty.twig",
     "catalog/view/theme/d_visualize/template/component/d_button_continue/default.twig",
@@ -152,6 +153,7 @@
     "catalog/view/theme/d_visualize/template/component/product/thumbnails/default.twig",
     "catalog/view/theme/d_visualize/template/component/product_category/default.twig",
     "catalog/view/theme/d_visualize/template/component/product_product/default.twig",
+    "catalog/view/theme/d_visualize/template/component/product_review/default.twig",
 
     "catalog/view/theme/d_visualize/template/error/not_found.twig",
 

@@ -1,25 +1,6 @@
-@custom-media --tablet (580px <= width < 984px);
-
-@custom-media --mobile (300px <= width < 579px);
-
-
-
 .vz-product-sort--default {
   margin-bottom: 20px;
-  .vz-product-sort__view-type {
-    @media (--tablet) {
-      margin-bottom: 20px;
-    } @media (--mobile) {
-    display: none;
-  }
-  }
-  .vz-product_sort__compare {
-    @media (--mobile) {
-      margin-bottom: 20px;
-    }
-  }
 }
-
 .vz-product-sort--default .vz-button {
   padding: 0;
 }
@@ -30,7 +11,6 @@
     background: var(--color-primary);
   }
 }
-
 .vz-product-sort--default {
   .vz-input--select {
     padding-bottom: 1px;
@@ -54,5 +34,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+}
+.vz-product-sort__col{
+  &-limits,&-sorts{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    label{
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
   }
 }

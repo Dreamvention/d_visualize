@@ -6,19 +6,19 @@
                 {% include component.breadcrumb.template with component.breadcrumb %}
                 {% include component.d_notification.template with component.d_notification %}
             {% endblock %}
-            {% block container_classes %}
-            <div class="container">
-                <div class="row">{{ column_left }}
-                    {% if column_left and column_right %}
-                        {% set class = columns.main.three_col %}
-                    {% elseif column_left or column_right %}
-                        {% set class = columns.main.two_col %}
-                    {% else %}
-                        {% set class = columns.main.one_col %}
-                    {% endif %}
-                    <main id="content" class="{{ class }}" data-route="{{ page_route }}">
+                {% block container_classes %}
+                <div class="container">
+                    <div class="row">{{ column_left }}
+                        {% if column_left and column_right %}
+                            {% set class = columns.main.three_col %}
+                        {% elseif column_left or column_right %}
+                            {% set class = columns.main.two_col %}
+                        {% else %}
+                            {% set class = columns.main.one_col %}
+                        {% endif %}
+                        <main id="content" class="{{ class }}" data-route="{{ page_route }}">
                         {{ content_top }}
-            {% endblock %}
+                {% endblock %}
                         {% block content %}{% endblock %}
                         {{ content_bottom }}
                     </main>

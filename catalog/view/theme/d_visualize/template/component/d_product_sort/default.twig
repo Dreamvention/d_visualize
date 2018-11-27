@@ -1,24 +1,21 @@
 <!-- > product-sort -->
 <div class="vz-product-sort vz-product-sort--default">
     <div class="row align-items-start justify-content-between">
-        <div class="col-lg-2 col-md-6">
-            <div class="vz-product-sort__view-type">
-                <div class="vz-button-group btn-group vz-button-view">
+        <div class="vz-product-sort__col-buttons hidden-xs col-auto">
+                <div class="btn-group vz-button-view">
                     <button type="button" id="list-view" class="btn vz-button" data-toggle="tooltip"
                             title="{{ button_list }}"><i
                                 class="fas fa-th-list "></i></button>
                     <button type="button" id="grid-view" class="btn vz-button active" data-toggle="tooltip"
                             title="{{ button_grid }}"><i
                                 class="fas fa-th"></i></button>
-
                 </div>
-            </div>
         </div>
-        <div class="col-lg-3 col-md-6 col-12">
+        <div class="vz-product-sort__col-totals col-lg-3 col-md-6 col-12">
             <a href="{{ compare }}" id="compare-total" class="btn vz-button btn-link vz-product-sort__compare">{{ text_compare }}</a>
         </div>
-        <div class="col-lg-4 col-md-6 col-6 text-right">
-            {% include component.input.template with component.input|merge({
+        <div class="vz-product-sort__col-sorts col-lg-4 col-md-6 col-6">
+            {% include component.input.template  with {input:{
                 type:'select',
                 id:'input-sort',
                 select_values:sorts,
@@ -30,10 +27,10 @@
                 text_input: text_sort,
                 classes: 'd-inline-block',
                 size: 'sm',
-            }) %}
+            }} %}
         </div>
-        <div class="col-lg-3 col-md-6 col-6 text-right">
-            {% include component.input.template with component.input|merge({
+        <div class="vz-product-sort__col-limits col-lg-3 col-md-6 col-6 text-right">
+            {% include component.input.template  with {input:{
                 type:'select',
                 id:'input-limit',
                 select_values:limits,
@@ -45,7 +42,7 @@
                 text_input: text_limit,
                 classes: 'd-inline-block',
                 size: 'sm',
-            }) %}
+            }} %}
         </div>
     </div>
 </div>

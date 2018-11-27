@@ -1,7 +1,7 @@
 {% set form_group_class = 'form-group vz-form-group vz-form-group--' ~  form_group.type|default('text') %}
 {% set form_group_label_class = 'control-label vz-control-label vz-control-label--' ~  form_group.type %}
 {% set form_group_div_class = 'vz-form-group__inputs' %}
-{% if form_group.error_then %}
+{% if component.form_group.setting.js_error is defined %}
     {% set form_group = form_group|merge({error:false}) %}
 {% endif %}
 {% if form_group.classes %}
@@ -13,10 +13,10 @@
 {% if form_group.error %}
     {% set form_group_class = form_group_class ~ ' vz-form-group--has-error has-error' %}
 {% endif %}
-{{ aa }}
 {% if component.form_group.setting.form is defined %}
     {% set form = component.form_group.setting.form.value %}
 {% endif %}
+
 {% if form == 'inline' %}
     {% set form_group_class = form_group_class ~ ' row' %}
     {% set form_group_label_class = form_group_label_class ~ ' col-sm-2' %}

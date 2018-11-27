@@ -4,32 +4,34 @@
         <h1 class="heading-h1">{{ heading_title }}</h1>
         <p>{{ text_account_already }}</p>
         <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-            <fieldset id="account">
-                <h3>{{ text_your_details }}</h3>
-                <div class="">
-                    {% include component.d_account_field.template %}
-                    {% for custom_field in custom_fields %}
-                        {% if custom_field.location =='account'%}
-                            {% include component.d_custom_field.template with custom_field %}
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            </fieldset>
-            {% if constant('VERSION') < '3.0.0.0' %}
-                {% block address %}
-                <fieldset id="address">
-                    <h3>{{ text_your_address }}</h3>
-                    {% include component.d_address_field.template %}
-                    {% for custom_field in custom_fields %}
-                        {% if custom_field.location =='address'%}
-                            {% include component.d_custom_field.template with custom_field %}
-                        {% endif %}
-                    {% endfor %}
+            {% if not customer_logged %}
+                <fieldset id="account">
+                    <h3>{{ text_your_details }}</h3>
+                    <div class="">
+                        {% include component.d_account_field.template %}
+                        {% for custom_field in custom_fields %}
+                            {% if custom_field.location =='account'%}
+                                {% include component.d_custom_field.template with custom_field %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </fieldset>
-                {% endblock %}
+                {% if constant('VERSION') < '3.0.0.0' %}
+                    <fieldset id="address">
+                        <h3>{{ text_your_address }}</h3>
+                        {% include component.d_address_field.template %}
+                        {% for custom_field in custom_fields %}
+                            {% if custom_field.location =='address'%}
+                                        {% include component.d_custom_field.template with custom_field %}
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                {% endif %}
             {% endif %}
+             
             {% block affiliate %}
             {% endblock %}
+            {% block password %}
             <fieldset class="password">
                 <h3>{{ text_your_password }}</h3>
                 {% include component.form_group.template with{
@@ -59,6 +61,8 @@
                     }
                 } %}
             </fieldset>
+            {% endblock %}
+            
             {% block newslatter %}
             <fieldset class="newslatter">
                 <h3>{{ text_newsletter }}</h3>
