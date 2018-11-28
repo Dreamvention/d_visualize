@@ -14,7 +14,7 @@ var d_custom_field = {
                 $('.custom-field').hide();
                 $('.custom-field').removeClass('required');
 
-                for (i = 0; i < json.length; i++) {
+                for (var i = 0; i < json.length; i++) {
                     custom_field = json[i];
 
                     $('#custom-field' + custom_field['custom_field_id']).show();

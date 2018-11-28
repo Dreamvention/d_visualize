@@ -1,5 +1,5 @@
 <div class="vz-product-product vz-product-product--default">
-    <div class="row vz-product-product--row">
+    <div class="row">
         {% if column_left or column_right %}
             {% set class = 'col-sm-6' %}
         {% else %}
@@ -80,36 +80,30 @@
                 {% if recurrings %}
                     <div class="vz-product_product__recurring">
                         <hr>
-                        <h3>{{ text_payment_recurring }}</h3>
-                        {% include component.form_group.template with component.form_group|merge({
+                        <div class="h3">{{ text_payment_recurring }}</div>
+
+                        {% include component.form_group.template with {form_group:{
                             type:'select',
                             name:'recurring_id',
                             required: true,
-                            select_values:recurrings,
+                            values:recurrings,
                             select_values_val:'recurring_id',
                             select_values_check: '',
                             select_values_name: 'name',
-                        }) %}
+                        }} %}
                         <div class="help-block" id="recurring-description"></div>
-                        {#maybe bug with this block#}
-                        {#<div class="form-group required">#}
-                        {#<select name="recurring_id" class="form-control">#}
-                        {#<option value="">{{ text_select }}</option>#}
-                        {#{% for recurring in recurrings %}#}
-                        {#<option value="{{ recurring.recurring_id }}">{{ recurring.name }}</option>#}
-                        {#{% endfor %}#}
-                        {#</select>#}
-                        {#<div class="help-block" id="recurring-description"></div>#}
-                        {#</div>#}
                     </div>
                 {% endif %}
-                {% include component.form_group.template with component.form_group|merge({
-                    type:'text',
-                    id:'input-quantity',
-                    name:'quantity',
-                    value:minimum,
-                    text_input:entry_qty
-                }) %}
+                {% include component.form_group.template with {
+                    form_group:{
+                        label_text:entry_qty,
+                        input:{
+                            type:'text',
+                            id:'input-quantity',
+                            name:'quantity',
+                            value: minimum,
+                        }}
+                } %}
                 <input type="hidden" name="product_id" value="{{ product_id }}"/>
 
                 {% include component.button.template with {button:{
@@ -118,7 +112,7 @@
                     text_loading:text_loading,
                     style:'primary',
                     size:'lg',
-                    classes:'btn-block',
+                    classes:'btn-block vz-button--cart',
                     text_button:button_cart
                 }} %}
 
@@ -145,8 +139,8 @@
             {% endif %} </div>
     </div>
     {% if products %}
-        <div class="h3">{{ text_related }}</div>
-        <div class="row vz-product-product--default"> {% set i = 0 %}
+        <h3>{{ text_related }}</h3>
+        <div class="row"> {% set i = 0 %}
             {% for product in products %}
                 {% if column_left and column_right %}
                     {% set class = 'col-xs-8 col-sm-6' %}

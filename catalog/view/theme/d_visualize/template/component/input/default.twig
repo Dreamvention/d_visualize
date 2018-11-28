@@ -27,35 +27,87 @@
 {#</{{ input.tag|default('input') }}>#}
 {#<{{ input_group.tag|default('div') }} class="vz-input vz-input--{{ type }} {% if size %}vz-input--{{ size }}{% endif %}{% if input_group %} vz-input--group{% endif %}">#}
 {% if input.type == 'checkbox' %}
-    <label class="vz-input__label">
-        <input type="{{ input.type }}"
-               class="vz-input__input {{ input_classes }} "
-               name="{{ input.name }}"
-               value="{{ input.value }}"
-               {% if input.checked %}checked="checked"{% endif %}
-        />
-        {% if input.text_input %}
-            <div class="vz-input__text"></div>
-            {{ input.text_input }}
-        {% endif %}
-    </label>
+{% if input.values is iterable %}
+{#set default values #}
+{% if not input.value %}
+    {% set input=input|merge({value:'value'}) %}
+{% endif %}
+{% if not input.text %}
+    {% set input=input|merge({text:'text'}) %}
+{% endif %}
+{% if not input.image %}
+    {% set input=input|merge({image:'image'}) %}
+{% endif %}
+<div class="vz-input-checkbox-wrap"
+        {% if input.id %}
+             id="{{ input.id }}"
+        {% endif %}>
+    {% for option in input.values %}
+        <label class='{{ input_classes }}'>
+                {% block checkbox_option %}
+                    <input type="checkbox"
+                    {% if option.id %}
+                        id="{{ option.id }}"
+                    {% endif %}
+                    {% if input.name %}
+                        name="{{ input.name }}"
+                    {% endif %}
+                    {% if classes %}
+                        class="{{ input_classes }} "
+                    {% endif %}
+                    value="{{ option[input.value] }}"
+                    {% if input.checked == option[input.value] %}checked="checked"{% endif %}
+                    />
+                    <div class=vz-input__text>{{ option[input.text] }}</div>
+                    {% if option[input.image]%}
+                        <img src="image/{{ option[input.image] }}" >
+                    {% endif %}
+                {% endblock %}
+            <span class="vz-input--checkbox-checkmark"></span>
+        </label>
+    {% endfor %}
+</div>
+{% else %}
+<label class="{{ input_classes }}" >
+    <input type="checkbox"
+            {% if id %}
+                id="{{ input.id }}"
+            {% endif %}
+            {% if classes %}
+                class="{{ input_classes }} "
+            {% endif %}
+           name="{{ input.name }}"
+           value="{{ input.value }}"
+            {% if input.checked %}checked="checked"{% endif %}
+    />
+    <span class="vz-input--checkbox-checkmark"></span>
+    <div class=vz-input__text>{{ input.text_input }}</div>
+</label>
+{% endif %}
 {% elseif input.type=='select' %}
     <div class="vz-input-select-wrap">
-        <select name="{{ input.name }}"
+        <select 
+            class="vz-input__input {{ input_classes }}"
                 {% if input.id %}
                     id="{{ input.id }}"
                 {% endif %}
-                class="vz-input__input {{ input_classes }} "
-                onchange="{{ input.on_change }}">
-            {% if placeholder %}
-                <option value="">{{ input.placeholder }}</option>
-            {% endif %}
-            {% for option in input.select_values %}
-                <option value="{{ option[input.select_values_val] }}"
+                {% if input.name %}
+                    name="{{ input.name }}"
+                {% endif %}
+                {% if input.id %}
+                    onchange="{{ input.on_change }}">
+                {% endif %}
+                {% if input.placeholder %}
+                    <option value="">{{ input.placeholder }}</option>
+                {% endif %}
+                {% for option in input.values %}
+                    {% block select_option %}
+                        <option value="{{ option[input.select_values_val] }}"
                         {% if option[input.select_values_check_val] == input.select_values_check %} selected="selected" {% endif %}>
-                    {{ option[input.select_values_name] }}
-                </option>
-            {% endfor %}
+                            {{ option[input.select_values_name] }}
+                        </option>
+                    {% endblock %}
+                {% endfor %}
         </select>
     </div>
     {% if input.text_input %}
@@ -73,30 +125,38 @@
         {% if not input.image %}
             {% set input=input|merge({image:'image'}) %}
         {% endif %}
-        <div class="vz-input-radio-wrap ">
-            {% for input_value in input.values %}
-                <label class='{{ input_classes }}' >
-                    <input type="radio"
-                            {% if input_value.id %}
-                                id="{{ input_value.id }}"
+        
+        <div class="vz-input-radio-wrap"
+                {% if input.id %}
+                    id="{{ input.id }}"
+                {% endif %}>
+            {% for option in input.values %}
+                <label class='{{ input_classes }}'>
+                        {% block radio_option %}
+                            <input type="radio"
+                            {% if option.id %}
+                                id="{{ option.id }}"
+                            {% endif %}
+                            {% if input.name %}
+                                name="{{ input.name }}"
                             {% endif %}
                             {% if classes %}
                                 class="{{ input_classes }} "
                             {% endif %}
-                            name="{{ input.name }}"
-                            {#we use naming of value to get this work #}
-                            value="{{ input_value[input.value] }}"
-                            {% if input.checked == input_value[input.value] %}checked="checked"{% endif %}
-                    />
-                    <div class=vz-input__text><span></span>{{ input_value[input.text] }}</div>
-                    {% if input_value[input.image]%}
-                        <img src="image/{{ input_value[input.image] }}" >
-                    {% endif %}
+                            value="{{ option[input.value] }}"
+                            {% if input.checked == option[input.value] %}checked="checked"{% endif %}
+                            />
+                            <div class=vz-input__text>{{ option[input.text] }}</div>
+                            {% if option[input.image]%}
+                                <img src="image/{{ option[input.image] }}" >
+                            {% endif %}
+                        {% endblock %}
+                            <span class="vz-input--radio-checkmark"></span>
                 </label>
             {% endfor %}
         </div>
     {% else %}
-        <label class="vz-input__label" >
+        <label class="{{ input_classes }}" >
             <input type="radio"
                     {% if id %}
                         id="{{ input.id }}"
@@ -108,7 +168,8 @@
                    value="{{ input.value }}"
                     {% if input.checked %}checked="checked"{% endif %}
             />
-            <div class=vz-input__text><span></span>{{ input.text_input }}</div>
+            <span class="vz-input--radio-checkmark"></span>
+            <div class=vz-input__text>{{ input.text_input }}</div>
         </label>
     {% endif %}
 
@@ -167,23 +228,19 @@
            data-date-format="YYYY-MM-DD HH:mm"
            class="{{ input_classes }}"
     />
-{% elseif input.type=='submit' %}
+{% elseif input.type=='email' or input.type=='text' or input.type=='submit' or input.type=='password' or input.type=='hidden'%}
     <input type="{{ input.type }}"
-            {% if id %}
+            {% if input.id %}
                 id="{{ input.id }}"
             {% endif %}
-           class="{{ input_classes }}"
-           value="{{ input.value }}"
-    />
-{% elseif input.type=='email' or input.type=='text' or input.type=='submit' or input.type=='password' %}
-    <input type="{{ input.type }}"
-            {% if id %}
-                id="{{ input.id }}"
+            {% if input.name %}
+                name="{{ input.name }}"
             {% endif %}
-           name="{{ input.name }}"
+            {% if input.value %}
+                value="{{ input.value }}"
+            {% endif %}
            placeholder="{{ input.placeholder }}"
            class="{{ input_classes }}"
-           value="{{ input.value }}"
             {% if atributest %}{{ atributest|raw }}{% endif %}
     />
 {% endif %}

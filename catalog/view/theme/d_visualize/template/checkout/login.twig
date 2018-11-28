@@ -1,9 +1,10 @@
 <div class="row">
   <div class="col-sm-6">
-    <h2>{{text_new_customer}}</h2>
-    <p>{{text_checkout}}</p>
+    <div class="h2">{{text_new_customer}}</div>
+
       {% include component.form_group.template with{
           form_group:{
+              label_text:text_checkout,
               input:{
                   type:'radio',
                   name:'account',
@@ -13,6 +14,7 @@
               }
           }
       } %}
+
 
     <p>{{text_register_account}}</p>
       {% include component.button.template with {button:{
@@ -52,7 +54,9 @@
               }
           }
       } %}
-    <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
+
+    <a href="{{ forgotten }}" class="password-forgot  d-block" style="margin-bottom: 20px">{{ text_forgotten }}</a>
+
       {% include component.button.template with {button:{
           button:true,
           id:'button-login',

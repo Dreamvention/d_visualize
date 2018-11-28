@@ -28,13 +28,13 @@
 <div class="row">
     <div class="col-12">
         {% if shipping_required %}
-            {% include component.input.template with component.input|merge({
+            {% include component.input.template with {input:{
             type:'checkbox',
             name:'shipping_address',
             value:1 ,
             checked: shipping_address,
             text_input: entry_shipping,
-            }) %}
+            }} %}
         {% endif %}
         {% include component.d_button_continue.template with component.d_button_continue|merge({
             button: true,

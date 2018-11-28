@@ -60,11 +60,11 @@ var Total_shipping = {
 					html += '      </div>';
 					html += '      <div class="modal-body">';
 
-					for (i in json['shipping_method']) {
+					for (var i in json['shipping_method']) {
 						html += '<p><strong>' + json['shipping_method'][i]['title'] + '</strong></p>';
 
 						if (!json['shipping_method'][i]['error']) {
-							for (j in json['shipping_method'][i]['quote']) {
+							for (var j in json['shipping_method'][i]['quote']) {
 								html += '<div class="radio">';
 								html += '  <label>';
 

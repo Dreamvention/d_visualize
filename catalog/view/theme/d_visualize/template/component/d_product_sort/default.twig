@@ -18,7 +18,7 @@
             {% include component.input.template  with {input:{
                 type:'select',
                 id:'input-sort',
-                select_values:sorts,
+                values:sorts,
                 select_values_val:'href',
                 select_values_check_val: 'value',
                 select_values_check: '%s-%s'|format(sort, order),
@@ -33,7 +33,7 @@
             {% include component.input.template  with {input:{
                 type:'select',
                 id:'input-limit',
-                select_values:limits,
+                values:limits,
                 select_values_val:'href',
                 select_values_check_val: 'value',
                 select_values_check: limit,

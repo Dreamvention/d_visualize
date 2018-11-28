@@ -1,8 +1,8 @@
-.vz-product_product {
-  &__images {
-   }
+.vz-product-product {
   &__images_additionals {
     display: flex;
   }
-
+   .vz-button--cart {
+        margin-bottom: 20px;
+   }
 }

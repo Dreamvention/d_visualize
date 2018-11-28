@@ -91,7 +91,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
             }
             //todo add support to 2.x
             if ($this->customer->isLogged()) {
-                $data['customer'] = true;
+                $data['customer_logged'] = true;
             }
             if ($this->user->isLogged()) {
                 $data['admin'] = true;

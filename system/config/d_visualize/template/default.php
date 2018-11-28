@@ -178,6 +178,14 @@ $_['d_visualize_template_default_setting'] = array(
         'product/product' => array(
             'layout' => array(
                 'component' => array(
+                    'form_group' => array(
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'block',
+                            )
+                        )
+                    )
+                ,
                     'product_product' => array(
                         'editable'=>true,
                         'template' => 'd_visualize/template/component/product_product/',

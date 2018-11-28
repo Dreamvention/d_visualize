@@ -4,6 +4,24 @@
     <div class="col-sm-6">
         <fieldset id="account">
             <legend>{{ text_your_details }}</legend>
+            <div class="form-group" style="display: {% if customer_groups|length > 1 %} block {% else %} none {% endif %};">
+                <label class="control-label">{{ entry_customer_group }}</label>
+                {% for customer_group in customer_groups %}
+                    {% if customer_group.customer_group_id == customer_group_id %}
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="customer_group_id" value="{{ customer_group.customer_group_id }}" checked="checked" />
+                                {{ customer_group.name }}</label>
+                        </div>
+                    {% else %}
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="customer_group_id" value="{{ customer_group.customer_group_id }}" />
+                                {{ customer_group.name }}</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}</div>
+
             {% include component.d_account_field.template with component.d_account_field %}
             {% for custom_field in custom_fields %}
                 {% if custom_field.location == 'account' %}
@@ -57,25 +75,26 @@
 </div>
 <div class="row">
     <div class="col-12">
-        {% include component.input.template with component.input|merge({
+        {% include component.input.template with {input:{
             type:'checkbox',
             id:'newsletter',
             name:'newsletter',
             value:1 ,
             checked: newsletter,
             text_input: entry_newsletter,
-        }) %}
+        }} %}
     </div>
     <div class="col-12">
         {% if shipping_required %}
-            {% include component.input.template with component.input|merge({
+            {% include component.input.template with {input:{
                 type:'checkbox',
                 name:'shipping_address',
                 value:1 ,
                 checked: true,
                 text_input: entry_shipping,
-            }) %}
+            }} %}
         {% endif %}
+
         {% include component.d_button_continue.template with component.d_button_continue|merge({
             button: true,
             id:"button-register",

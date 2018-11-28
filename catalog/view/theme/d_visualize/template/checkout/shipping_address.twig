@@ -1,12 +1,12 @@
 <form class="form-horizontal">
     {% if addresses %}
-        {% include component.input.template with component.input|merge({
+        {% include component.input.template with {input:{
             type:'radio',
             name:'shipping_address',
             value:'existing',
             checked:true,
             text_input:text_address_existing,
-        }) %}
+        }} %}
         <div id="shipping-existing">
             <select name="address_id" class="form-control">
                 {% for address in addresses %}
@@ -17,13 +17,12 @@
                 {% endfor %}
             </select>
         </div>
-        {% include component.input.template with component.input|merge({
+        {% include component.input.template with {input:{
             type:'radio',
             name:'shipping_address',
             value:'new',
             text_input:text_address_new,
-        }) %}
-
+        }} %}
     {% endif %}
     <br/>
     {#this var need to prevent error displaying before render#}
@@ -41,12 +40,11 @@
     </div>
     {% set error_then = false %}
     {% set form = '' %}
-
     {% include component.d_button_continue.template with component.d_button_continue|merge({
         button: true,
         id:"button-shipping-address",
         button_continue: button_continue,
-        text_agree:false
+        text_agree: false
     }) %}
 </form>
 
