@@ -1,7 +1,7 @@
 {#it's mean in layout template#}
 {% extends template %}
 {% block content %}
-      <h1 class="heading-h2">{{heading_title}}</h1>
+      <h1 class="heading-h1">{{heading_title}}</h1>
       {% if products %}
       <table class="table vis-table table-bordered table-hover">
         <thead>
@@ -38,13 +38,19 @@
             </td>
             <td class="text-right">
                 {% include component.button.template with {button:{
-                button: 'cart.add('~product.product_id~')',
+                onclick: 'cart.add('~product.product_id~')',
                 style:'primary',
-                text_button:'<i class="fa fa-shopping-cart"></i>',
+                icon:'fa fa-shopping-cart',
                 }} %}
-                {% include component.product_remove.template with ({
-                    remove_link:product.remove
-                }) %}
+                {% include component.button.template with {button:{
+                link: product.remove,
+                style:'danger',
+                classes: 'ghost',
+                icon:'fa fa-times',
+                }} %}
+                {#{% include component.product_remove.template with ({#}
+                    {#remove_link:#}
+                {#}) %}#}
           </tr>
           {% endfor %}
         </tbody>
