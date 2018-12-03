@@ -55,7 +55,7 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $this->load->model('tool/image');
         //todo check all who need this actions
         //it's links on other pages like cancel etc
-        $data['action']['editor_page'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visualize/editor','',true);
+        $data['action']['editor_page'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visualize/editor','#/editor',true);
         $data['action']['home_page'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visualize', '', true);
         $data['action']['cancel'] = $this->model_extension_d_opencart_patch_url->getExtensionAjax('module');
         $data['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_header&id=0');

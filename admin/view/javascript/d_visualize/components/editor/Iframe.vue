@@ -4,7 +4,11 @@
             Click to post message
         </v-btn >
         <Loader :loading="loading"></Loader>
-        <iframe id="iframe" :src="iframe.src" @load="iframeLoad" frameborder="0" borderwidth="0"
+        <iframe id="iframe"
+                :src="iframe.src"
+                @load="iframeLoad"
+                frameborder="0"
+                borderwidth="0"
                 :style="`width:${width}`">
             <p>Your browser does not support iframes.</p>
         </iframe>
@@ -47,6 +51,7 @@
 			})
 		},
 		mounted() {
+			console.log('mounted')
 			this.$store.commit('load/LOADING_START');
 		},
 		methods: {
@@ -61,7 +66,8 @@
 						variables: this.template.skines[this.template.setting.active_skin]
 					}
 				}, '*')
-				this.$store.commit('load/LOADING_END');
+				this.$store.commit('load/LOADING_END', {}, {root: true});
+
 			}
 		}
 

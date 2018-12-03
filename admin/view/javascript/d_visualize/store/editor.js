@@ -82,12 +82,15 @@ export const actions = {
 	IFRAME_INIT({commit, dispatch}, payload) {
 		var listener = (event)=>{
 			if (event.data.vz_ifame_data) {
+				//take from Ifame date about page where it placed
+				console.log(event.data.vz_ifame_data)
 				commit('CHANGE_IFRAME_PAGE', event.data.vz_ifame_data.route);
 				dispatch('SAVE_IFRAME_HISTORY', event.data.vz_ifame_data.location);
 				dispatch('CHANGE_NAVIGATION_CONTEXT');
 			}
 			if (event.data.vz_ifame_loading) {
-				commit('setting/GET_SETTING', {}, {root: true});
+				console.log('start')
+				commit('load/LOADING_START', {}, {root: true});
 			}
 		};
 		window.addEventListener('message', listener);

@@ -18,7 +18,6 @@ export const getters = {
 // mutations
 export const mutations = {
 	LOADING_START(state, payload) {
-		console.log('start')
 		//if there is no error
 		if (state.loading.status !== LOAD.FAIL) {
 			Vue.set(state, 'loading', _.extend({}, state.loading, {
@@ -30,8 +29,6 @@ export const mutations = {
 
 	},
 	LOADING_END(state, payload) {
-		console.log('end')
-
 		if (state.loading.loader_stack > 0) { // set only when some one set start stack
 			if (state.loading.status !== LOAD.FAIL) {
 				let loading = _.extend({}, state.loading, {
@@ -49,7 +46,6 @@ export const mutations = {
 		}
 	},
 	LOADING_SUCCESS(state, payload) {
-
 		Vue.set(state, 'loading', _.extend({}, state.loading, {
 			status: LOAD.SUCCESS,
 			on_progress: false,
@@ -57,7 +53,6 @@ export const mutations = {
 		}));
 	},
 	LOADING_FAIL(state, payload) {
-		console.log('fail');
 		Vue.set(state, 'loading', _.extend({}, state.loading, {
 			status: LOAD.FAIL,
 			on_progress: false,

@@ -135,8 +135,10 @@
         </v-navigation-drawer>
         <v-content fluid
                    app>
-            <Iframe :iframe="iframe" :loading="loading.status===load.LOADING" :width="toggle"
-                    v-if="loading.content_loaded"></Iframe>
+            <Iframe :iframe="iframe"
+                    :loading="loading.status===load.LOADING"
+                    :width="toggle"
+                    ></Iframe>
         </v-content>
     </v-app>
     <div v-else>
