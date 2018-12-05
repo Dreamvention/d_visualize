@@ -114,66 +114,9 @@ var cart = {
 		});
 	}
 };
-cart.add = function (product_id, quantity) {
-	d_visual_designer.dispatch('product/cart/add', {
-		product_data: {
-			product_id: product_id,
-			quantity: typeof(quantity) != 'undefined' ? quantity : 1,
-		},
-		callback: function (json) {
-			d_notification.dispatch('product/cart/add',json)
-			if (json['error']) {
-				console.log(json['error'])
-				if (json['redirect']) {
-					setTimeout(function () {
-						location = json['redirect'];
-					}, 200);
-				}
-			}
-			// $('.vd-cart-btn').parent().addClass('open');
-			$('html, body').animate({scrollTop: 0}, 'slow');
+d_visual_designer.subscribe('product/cart/success',function(json){
 
-		},
-		beforeSend: function () {
-			$('#cart .dropdown-menu').addClass('backdrop');
-		},
-		complete: function () {
-			$('#cart .dropdown-menu').removeClass('backdrop');
-
-		}
-	});
-};
-cart.remove = function (key) {
-	d_visual_designer.dispatch('product/cart/remove', {
-		product_data: {
-			key: key,
-		},
-		beforeSend: function () {
-			$('#cart .dropdown-menu').addClass('backdrop');
-		},
-		callback: function () {
-			$('#cart .dropdown-menu').removeClass('backdrop');
-			$(document).trigger('cart/remove', {
-				product_id: key,
-			});
-		}
-	});
-};
-cart.update = function (key, quantity) {
-	d_visual_designer.dispatch('product/cart/update', {
-		product_data: {
-			key: key,
-			quantity: quantity!='undefined'?quantity:1,
-        },
-		beforeSend: function () {
-			$('#cart .dropdown-menu').addClass('backdrop');
-		},
-		complete: function () {
-			$('#cart .dropdown-menu').removeClass('backdrop');
-		}
-
-	});
-};
+})
 $(document).on('cart/increaseQuantity', function (action, data) {
 	cart.update(data.product_id, data.quantity);
 });

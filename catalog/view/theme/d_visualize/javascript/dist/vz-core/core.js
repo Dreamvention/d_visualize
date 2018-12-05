@@ -887,6 +887,270 @@ var Checkout = {
     });
   }
 };
+var Product = {
+  setting: {
+    product_id: '',
+    $quantity: '',
+    minimum: ''
+  },
+  init: function init(setting) {
+    console.log('start Product');
+    this.setting = $.extend({}, this.setting, setting);
+    this.render();
+  },
+  increaseQuantity: function increaseQuantity() {
+    this.setting.$quantity.val(parseInt(this.setting.$quantity.val()) + 1);
+  },
+  decreaseQuantity: function decreaseQuantity() {
+    if (this.setting.$quantity.val() <= this.setting.minimum) {
+      this.setting.$quantity.val(this.setting.minimum);
+    } else {
+      this.setting.$quantity.val(parseInt(this.setting.$quantity.val()) - 1);
+    }
+  },
+  updateRecurringDescription: function updateRecurringDescription() {
+    $.ajax({
+      url: 'index.php?route=product/product/getRecurringDescription',
+      type: 'post',
+      data: $('input[name=\'product_id\'], input[name=\'quantity\'], select[name=\'recurring_id\']'),
+      dataType: 'json',
+      beforeSend: function beforeSend() {
+        $('#recurring-description').html('');
+      },
+      success: function success(json) {
+        $('.alert, .text-danger').remove();
+
+        if (json['success']) {
+          $('#recurring-description').html(json['success']);
+        }
+      }
+    });
+  },
+  addCart: function addCart() {
+    d_visual_designer.dispatch('product/cart/add', {
+      product_data: $('#product input[type=\'number\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+      callback: function callback(json) {
+        d_notification.dispatch('product/cart/add', json);
+        $('.alert, .text-danger').remove();
+        $('.form-group').removeClass('has-error');
+
+        if (json['error']) {
+          if (json['error']['option']) {
+            for (var i in json['error']['option']) {
+              var element = $('#input-option' + i.replace('_', '-'));
+
+              if (element.parent().hasClass('input-group')) {
+                element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+              } else {
+                element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
+              }
+            }
+          }
+
+          if (json['error']['recurring']) {
+            $('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
+          } // Highlight any found errors
+
+
+          $('.text-danger').parent().addClass('has-error');
+        }
+
+        $('html, body').animate({
+          scrollTop: 0
+        }, 'slow');
+      }
+    });
+    ;
+  },
+  uploadFile: function uploadFile(node) {
+    $('#form-upload').remove();
+    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+    $('#form-upload input[name=\'file\']').trigger('click');
+
+    if (typeof timer != 'undefined') {
+      clearInterval(timer);
+    }
+
+    var timer = setInterval(function () {
+      if ($('#form-upload input[name=\'file\']').val() != '') {
+        clearInterval(timer);
+        $.ajax({
+          url: 'index.php?route=tool/upload',
+          type: 'post',
+          dataType: 'json',
+          data: new FormData($('#form-upload')[0]),
+          cache: false,
+          contentType: false,
+          processData: false,
+          beforeSend: function beforeSend() {
+            $(node).button('loading');
+          },
+          complete: function complete() {
+            $(node).button('reset');
+          },
+          success: function success(json) {
+            $('.text-danger').remove();
+
+            if (json['error']) {
+              $(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+            }
+
+            if (json['success']) {
+              alert(json['success']);
+              $(node).parent().find('input').attr('value', json['code']);
+            }
+          },
+          error: function error(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+          }
+        });
+      }
+    }, 500);
+  },
+  loadReviewPage: function loadReviewPage(node, e) {
+    e.preventDefault();
+    $('#review').fadeOut('slow');
+    $('#review').load(node.href);
+    $('#review').fadeIn('slow');
+  },
+  sendReview: function sendReview() {
+    var that = this;
+    $.ajax({
+      url: 'index.php?route=product/product/write&product_id=' + that.setting.product_id,
+      type: 'post',
+      dataType: 'json',
+      data: $("#form-review").serialize(),
+      beforeSend: function beforeSend() {
+        $('#button-review').button('loading');
+      },
+      complete: function complete() {
+        $('#button-review').button('reset');
+      },
+      success: function success(json) {
+        $('.alert-success, .alert-danger').remove();
+
+        if (json['error']) {
+          $('#review').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+        }
+
+        if (json['success']) {
+          $('#review').after('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+          $('input[name=\'name\']').val('');
+          $('textarea[name=\'text\']').val('');
+          $('input[name=\'rating\']:checked').prop('checked', false);
+        }
+      }
+    });
+  },
+  render: function render() {
+    var that = this;
+    $(document).on('change', 'select[name=\'recurring_id\'], input[name="quantity"]', function () {
+      that.updateRecurringDescription();
+    });
+    $(document).on('click', '#button-cart', function () {
+      that.addCart();
+    });
+    $(document).on('click', 'button[id^=\'button-upload\']', function () {
+      that.uploadFile(this);
+    });
+    $(document).on('click', '#review .pagination a', function (e) {
+      that.loadReviewPage(this, e);
+    });
+    $(document).on('click', '#button-review', function () {
+      that.sendReview();
+    });
+    $(document).on('click', '#quantity_control .decrease', function () {
+      that.decreaseQuanityt();
+    });
+    $(document).on('click', '#quantity_control .increase', function () {
+      that.increaseQuantity();
+    });
+    $('#review').load('index.php?route=product/product/review&product_id=' + that.setting.product_id);
+    $('input[name=\'rating\']').rating();
+    $('.date').datetimepicker({
+      pickTime: false
+    });
+    $('.datetime').datetimepicker({
+      pickDate: true,
+      pickTime: true
+    });
+    var fontawesome_icons = {
+      time: 'fa fa-clock',
+      date: 'fa fa-calendar',
+      up: 'fa fa-chevron-up',
+      down: 'fa fa-chevron-down',
+      previous: 'fa fa-chevron-left',
+      next: 'fa fa-chevron-right',
+      today: 'fa fa-chevron-down',
+      clear: 'fa fa-times',
+      close: 'fa fa-time'
+    };
+    $('.time').datetimepicker({
+      pickDate: false,
+      icons: fontawesome_icons
+    });
+    $('.vz-product-product__thumbnails__item').magnificPopup({
+      type: 'image',
+      delegate: 'a',
+      gallery: {
+        enabled: true
+      }
+    });
+  }
+};
+var Search = {
+  init: function init() {
+    console.log('start Search');
+    this.render();
+  },
+  clickSearch: function clickSearch() {
+    url = 'index.php?route=product/search';
+    var search = $('#content input[name=\'search\']').prop('value');
+
+    if (search) {
+      url += '&search=' + encodeURIComponent(search);
+    }
+
+    var category_id = $('#content select[name=\'category_id\']').prop('value');
+
+    if (category_id > 0) {
+      url += '&category_id=' + encodeURIComponent(category_id);
+    }
+
+    var sub_category = $('#content input[name=\'sub_category\']:checked').prop('value');
+
+    if (sub_category) {
+      url += '&sub_category=true';
+    }
+
+    var filter_description = $('#content input[name=\'description\']:checked').prop('value');
+
+    if (filter_description) {
+      url += '&description=true';
+    }
+
+    location = url;
+  },
+  render: function render() {
+    var that = this;
+    $(document).on('click', '#button-search', function () {
+      that.clickSearch();
+    });
+    $(document).on('keydown', '#content input[name=\'search\']', function (e) {
+      if (e.keyCode == 13) {
+        $('#button-search').trigger('click');
+      }
+    });
+    $(document).on('change', 'select[name=\'category_id\']', function () {
+      if (this.value == '0') {
+        $('input[name=\'sub_category\']').prop('disabled', true);
+      } else {
+        $('input[name=\'sub_category\']').prop('disabled', false);
+      }
+    });
+    $('select[name=\'category_id\']').trigger('change');
+  }
+};
 var d_address_field = {
   setting: {
     zone_id: 0,
@@ -1207,7 +1471,7 @@ var cart = {
       quantity: +$('.input-quantity-' + product_id).val()
     });
   }
-};
+}; //visual designer header;
 
 cart.add = function (product_id, quantity) {
   d_visual_designer.dispatch('product/cart/add', {
@@ -1488,6 +1752,13 @@ var d_notification = new component();
       $('#content').parent().before('<div class="alert alert-success alert-dismissible"><i class="fas fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert" style="right: 0;">&times;</button></div>');
     }
   }.bind(this));
+  this.subscribe('product/wishlist/add', function (e, json) {
+    $('.alert-dismissible, .text-danger').remove();
+
+    if (json['success']) {
+      $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+    }
+  }.bind(this));
 }).bind(d_notification)();
 var voucher = {
   'add': function add() {},
@@ -1522,335 +1793,65 @@ var voucher = {
   }
 };
 var wishlist = {
-  'add': function add(product_id) {
-    $.ajax({
-      url: 'index.php?route=account/wishlist/add',
-      type: 'post',
-      data: 'product_id=' + product_id,
-      dataType: 'json',
-      success: function success(json) {
-        $('.alert').remove();
-
-        if (json['redirect']) {
-          location = json['redirect'];
-        }
-
-        if (json['success']) {
-          $('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-        }
-
-        $('#wishlist-total span').html(json['total']);
-        $('#wishlist-total').attr('title', json['total']);
-        $('html, body').animate({
-          scrollTop: 0
-        }, 'slow');
-      },
-      error: function error(xhr, ajaxOptions, thrownError) {
-        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-      }
-    });
+  'add': function add(product_id) {// $.ajax({
+    // 	url: 'index.php?route=account/wishlist/add',
+    // 	type: 'post',
+    // 	data: 'product_id=' + product_id,
+    // 	dataType: 'json',
+    // 	success: function(json) {
+    // 		$('.alert').remove();
+    //
+    // 		if (json['redirect']) {
+    // 			location = json['redirect'];
+    // 		}
+    //
+    // 		if (json['success']) {
+    // 			$('#content').parent().before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+    // 		}
+    //
+    // 		$('#wishlist-total span').html(json['total']);
+    // 		$('#wishlist-total').attr('title', json['total']);
+    //
+    // 		$('html, body').animate({ scrollTop: 0 }, 'slow');
+    // 	},
+    //     error: function(xhr, ajaxOptions, thrownError) {
+    //         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    //     }
+    // });
   },
-  'remove': function remove() {}
-};
-var Product = {
-  setting: {
-    product_id: '',
-    $quantity: '',
-    minimum: ''
-  },
-  init: function init(setting) {
-    console.log('start Product');
-    this.setting = $.extend({}, this.setting, setting);
-    this.render();
-  },
-  increaseQuantity: function increaseQuantity() {
-    this.setting.$quantity.val(parseInt(this.setting.$quantity.val()) + 1);
-  },
-  decreaseQuantity: function decreaseQuantity() {
-    if (this.setting.$quantity.val() <= this.setting.minimum) {
-      this.setting.$quantity.val(this.setting.minimum);
-    } else {
-      this.setting.$quantity.val(parseInt(this.setting.$quantity.val()) - 1);
-    }
-  },
-  updateRecurringDescription: function updateRecurringDescription() {
-    $.ajax({
-      url: 'index.php?route=product/product/getRecurringDescription',
-      type: 'post',
-      data: $('input[name=\'product_id\'], input[name=\'quantity\'], select[name=\'recurring_id\']'),
-      dataType: 'json',
-      beforeSend: function beforeSend() {
-        $('#recurring-description').html('');
-      },
-      success: function success(json) {
-        $('.alert, .text-danger').remove();
+  'remove': function remove() {} //visual designer header;
 
-        if (json['success']) {
-          $('#recurring-description').html(json['success']);
-        }
-      }
-    });
-  },
-  addCart: function addCart() {
-    d_visual_designer.dispatch('product/cart/add', {
-      product_data: $('#product input[type=\'number\'], #product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
-      callback: function callback(json) {
-        d_notification.dispatch('product/cart/add', json);
-        $('.alert, .text-danger').remove();
-        $('.form-group').removeClass('has-error');
-
-        if (json['error']) {
-          if (json['error']['option']) {
-            for (var i in json['error']['option']) {
-              var element = $('#input-option' + i.replace('_', '-'));
-
-              if (element.parent().hasClass('input-group')) {
-                element.parent().after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
-              } else {
-                element.after('<div class="text-danger">' + json['error']['option'][i] + '</div>');
-              }
-            }
-          }
-
-          if (json['error']['recurring']) {
-            $('select[name=\'recurring_id\']').after('<div class="text-danger">' + json['error']['recurring'] + '</div>');
-          } // Highlight any found errors
-
-
-          $('.text-danger').parent().addClass('has-error');
-        }
-
-        $('html, body').animate({
-          scrollTop: 0
-        }, 'slow');
-      }
-    });
-    ;
-  },
-  uploadFile: function uploadFile(node) {
-    $('#form-upload').remove();
-    $('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
-    $('#form-upload input[name=\'file\']').trigger('click');
-
-    if (typeof timer != 'undefined') {
-      clearInterval(timer);
-    }
-
-    var timer = setInterval(function () {
-      if ($('#form-upload input[name=\'file\']').val() != '') {
-        clearInterval(timer);
-        $.ajax({
-          url: 'index.php?route=tool/upload',
-          type: 'post',
-          dataType: 'json',
-          data: new FormData($('#form-upload')[0]),
-          cache: false,
-          contentType: false,
-          processData: false,
-          beforeSend: function beforeSend() {
-            $(node).button('loading');
-          },
-          complete: function complete() {
-            $(node).button('reset');
-          },
-          success: function success(json) {
-            $('.text-danger').remove();
-
-            if (json['error']) {
-              $(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
-            }
-
-            if (json['success']) {
-              alert(json['success']);
-              $(node).parent().find('input').attr('value', json['code']);
-            }
-          },
-          error: function error(xhr, ajaxOptions, thrownError) {
-            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-          }
-        });
-      }
-    }, 500);
-  },
-  loadReviewPage: function loadReviewPage(node, e) {
-    e.preventDefault();
-    $('#review').fadeOut('slow');
-    $('#review').load(node.href);
-    $('#review').fadeIn('slow');
-  },
-  sendReview: function sendReview() {
-    var that = this;
-    $.ajax({
-      url: 'index.php?route=product/product/write&product_id=' + that.setting.product_id,
-      type: 'post',
-      dataType: 'json',
-      data: $("#form-review").serialize(),
-      beforeSend: function beforeSend() {
-        $('#button-review').button('loading');
-      },
-      complete: function complete() {
-        $('#button-review').button('reset');
-      },
-      success: function success(json) {
-        $('.alert-success, .alert-danger').remove();
-
-        if (json['error']) {
-          $('#review').after('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
-        }
-
-        if (json['success']) {
-          $('#review').after('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
-          $('input[name=\'name\']').val('');
-          $('textarea[name=\'text\']').val('');
-          $('input[name=\'rating\']:checked').prop('checked', false);
-        }
-      }
-    });
-  },
-  render: function render() {
-    var that = this;
-    $(document).on('change', 'select[name=\'recurring_id\'], input[name="quantity"]', function () {
-      that.updateRecurringDescription();
-    });
-    $(document).on('click', '#button-cart', function () {
-      that.addCart();
-    });
-    $(document).on('click', 'button[id^=\'button-upload\']', function () {
-      that.uploadFile(this);
-    });
-    $(document).on('click', '#review .pagination a', function (e) {
-      that.loadReviewPage(this, e);
-    });
-    $(document).on('click', '#button-review', function () {
-      that.sendReview();
-    });
-    $(document).on('click', '#quantity_control .decrease', function () {
-      that.decreaseQuanityt();
-    });
-    $(document).on('click', '#quantity_control .increase', function () {
-      that.increaseQuantity();
-    });
-    $('#review').load('index.php?route=product/product/review&product_id=' + that.setting.product_id);
-    $('input[name=\'rating\']').rating();
-    $('.date').datetimepicker({
-      pickTime: false
-    });
-    $('.datetime').datetimepicker({
-      pickDate: true,
-      pickTime: true
-    });
-    var fontawesome_icons = {
-      time: 'fa fa-clock',
-      date: 'fa fa-calendar',
-      up: 'fa fa-chevron-up',
-      down: 'fa fa-chevron-down',
-      previous: 'fa fa-chevron-left',
-      next: 'fa fa-chevron-right',
-      today: 'fa fa-chevron-down',
-      clear: 'fa fa-times',
-      close: 'fa fa-time'
-    };
-    $('.time').datetimepicker({
-      pickDate: false,
-      icons: fontawesome_icons
-    });
-    $('.vz-product-product__thumbnails__item').magnificPopup({
-      type: 'image',
-      delegate: 'a',
-      gallery: {
-        enabled: true
-      }
-    });
-  }
-};
-var Search = {
-  init: function init() {
-    console.log('start Search');
-    this.render();
-  },
-  clickSearch: function clickSearch() {
-    url = 'index.php?route=product/search';
-    var search = $('#content input[name=\'search\']').prop('value');
-
-    if (search) {
-      url += '&search=' + encodeURIComponent(search);
-    }
-
-    var category_id = $('#content select[name=\'category_id\']').prop('value');
-
-    if (category_id > 0) {
-      url += '&category_id=' + encodeURIComponent(category_id);
-    }
-
-    var sub_category = $('#content input[name=\'sub_category\']:checked').prop('value');
-
-    if (sub_category) {
-      url += '&sub_category=true';
-    }
-
-    var filter_description = $('#content input[name=\'description\']:checked').prop('value');
-
-    if (filter_description) {
-      url += '&description=true';
-    }
-
-    location = url;
-  },
-  render: function render() {
-    var that = this;
-    $(document).on('click', '#button-search', function () {
-      that.clickSearch();
-    });
-    $(document).on('keydown', '#content input[name=\'search\']', function (e) {
-      if (e.keyCode == 13) {
-        $('#button-search').trigger('click');
-      }
-    });
-    $(document).on('change', 'select[name=\'category_id\']', function () {
-      if (this.value == '0') {
-        $('input[name=\'sub_category\']').prop('disabled', true);
-      } else {
-        $('input[name=\'sub_category\']').prop('disabled', false);
-      }
-    });
-    $('select[name=\'category_id\']').trigger('change');
-  }
 };
 
-function takeScreenShot(opts, resolution) {
-  if (typeof html2canvas == 'function') {
-    html2canvas(document.body, opts).then(function (canvas) {
-      //debug
-      // $('body').append(canvas)
-      var imgData = canvas.toDataURL('image/png');
-      $.ajax({
-        url: 'index.php?route=extension/d_visualize/event/saveScrenshot',
-        type: 'post',
-        dataType: 'text',
-        data: {
-          base64data: imgData,
-          type: resolution
-        }
-      }).success(function (json) {
-        console.log('success save screnshot at ');
-      }).fail(function () {}).done(function () {});
-    });
-  }
-}
+wishlist.add = function (product_id) {
+  d_visual_designer.dispatch('product/wishlist/add', {
+    product_data: {
+      product_id: product_id
+    },
+    callback: function callback(json) {
+      if (json['redirect']) {
+        location = json['redirect'];
+      }
 
-$(document).ready(function () {
-  setTimeout(function () {
-    takeScreenShot({}, 'desktop');
-  }, 100);
-  setTimeout(function () {
-    takeScreenShot({
-      'logging': false,
-      width: 350,
-      windowWidth: 350,
-      windowHeight: 605
-    }, 'mobile');
-  }, 200);
-});
+      if (json['success']) {
+        d_notification.dispatch('product/wishlist/add', json);
+      }
+
+      $('#wishlist-total span').html(json['total']);
+      $('#wishlist-total').attr('title', json['total']);
+      $('html, body').animate({
+        scrollTop: 0
+      }, 'slow');
+    },
+    beforeSend: function beforeSend() {
+      $('#wishlist .dropdown-menu').addClass('backdrop');
+    },
+    complete: function complete() {
+      $('#wishlist .dropdown-menu').removeClass('backdrop');
+    }
+  });
+};
+
 var Total_coupon = {
   init: function init() {
     console.log('start Total_coupon');
@@ -2113,6 +2114,41 @@ var Total_voucher = {
     });
   }
 };
+
+function takeScreenShot(opts, resolution) {
+  if (typeof html2canvas == 'function') {
+    html2canvas(document.body, opts).then(function (canvas) {
+      //debug
+      // $('body').append(canvas)
+      var imgData = canvas.toDataURL('image/png');
+      $.ajax({
+        url: 'index.php?route=extension/d_visualize/event/saveScrenshot',
+        type: 'post',
+        dataType: 'text',
+        data: {
+          base64data: imgData,
+          type: resolution
+        }
+      }).success(function (json) {
+        console.log('success save screnshot at ');
+      }).fail(function () {}).done(function () {});
+    });
+  }
+}
+
+$(document).ready(function () {
+  setTimeout(function () {
+    takeScreenShot({}, 'desktop');
+  }, 100);
+  setTimeout(function () {
+    takeScreenShot({
+      'logging': false,
+      width: 350,
+      windowWidth: 350,
+      windowHeight: 605
+    }, 'mobile');
+  }, 200);
+});
 
 function component() {
   this.dispatch = function (action, state) {
