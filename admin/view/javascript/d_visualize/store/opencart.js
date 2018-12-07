@@ -41,10 +41,14 @@ export const actions = {
 	async RECREATE_AM({commit}) {
         const {data} = await this.$axios.get('extension/d_visualize/opencart/refresh_menu')
     },
+	async REINSTALL_THEME() {
+        const {data} = await this.$axios.get('extension/d_visualize/opencart/reinstall_current_theme')
+    },
 	async SETUP({dispatch}){
-		await dispatch('setting/GET_SETTING',{},{root:true})
-		await dispatch('setting/TOGGLE_STATUS',{},{root:true})
-		await dispatch('setting/CHANGE_ACTIVE_TEMPLATE','default',{root:true})
-		await dispatch('setting/SAVE',{},{root:true})
+		await dispatch('setting/GET_SETTING',{},{root:true});
+		await dispatch('setting/TOGGLE_STATUS',{},{root:true});
+		await dispatch('RECREATE_AM');
+		await dispatch('setting/CHANGE_ACTIVE_TEMPLATE','default',{root:true});
+		await dispatch('setting/SAVE',{},{root:true});
 	}
 };

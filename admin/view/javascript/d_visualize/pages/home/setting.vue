@@ -23,6 +23,7 @@
             <v-btn color="error" dark @click="recreateDB_dialog=true">Refresh DB</v-btn>
             <v-btn color="warning" @click="tranceDB" :loading="loading_warning"> Trance Tables</v-btn>
             <v-btn color="warning" @click="recreateAM" >Recreate Admin Menu</v-btn>
+            <v-btn color="warning" @click="reinstallTheme" >REINSTALL THEME</v-btn>
             <v-flex>
                 <v-tooltip bottom>
                     <v-btn slot="activator" color="info" @click="toggleMenu" icon flat :loading="loading_warning">
@@ -63,6 +64,9 @@
 			},
             async recreateAM() {
 				await this.$store.dispatch('opencart/RECREATE_AM');
+			},
+            async reinstallTheme() {
+				await this.$store.dispatch('opencart/REINSTALL_THEME');
 			},
 			...mapMutations({
 				toggleMenu: 'opencart/TOGGLE_MENU'

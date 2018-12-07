@@ -351,7 +351,6 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/'.$this->codename.'/editor');
         $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/'.$this->codename.'/market');
         $this->model_extension_module_d_visualize->installDataBase();
-        $this->model_extension_d_visualize_extension_helper->addLinksToMenu();
 
     }
 

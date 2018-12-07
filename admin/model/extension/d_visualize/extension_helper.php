@@ -19,28 +19,21 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
 
     }
 
+    /*
+     * just set up vd config of vdh and vdf to be on in VD
+     * then setup vdh and vdf
+    */
     public function installVD($active_template)
     {
         if ($this->d_visual_designer) {
-            $this->load->model('extension/d_visual_designer/designer');
             $this->load->model('extension/module/d_visual_designer_header');
+            if (!$this->model_extension_module_d_visual_designer_header->checkConfig()){
+                $this->model_extension_module_d_visual_designer_header->installConfig('header1','default');
+            }
             $this->load->model('extension/module/d_visual_designer_footer');
-            $this->load->model('extension/d_opencart_patch/extension');
-            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_header')) {
-                $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_header');
-            };
-            if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')) {
-                $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
-            };
-            if (!$this->model_extension_d_opencart_patch_extension->isInstalled('d_visual_designer_header')) {
-                $this->model_extension_d_opencart_patch_extension->install('module', 'd_visual_designer_header');
-                $this->model_extension_module_d_visual_designer_header->setup();
+            if (!$this->model_extension_module_d_visual_designer_footer->checkConfig()){
+                $this->model_extension_module_d_visual_designer_footer->installConfig('footer1','default');
             }
-            if (!$this->model_extension_d_opencart_patch_extension->isInstalled('d_visual_designer_footer')) {
-                $this->model_extension_d_opencart_patch_extension->install('module', 'd_visual_designer_footer');
-                $this->model_extension_module_d_visual_designer_footer->setup();
-            }
-            //todo disable bootsrap
 
         }
     }

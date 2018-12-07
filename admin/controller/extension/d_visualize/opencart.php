@@ -102,6 +102,14 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $this->load->model('extension/d_visualize/extension_helper');
         $this->model_extension_d_visualize_extension_helper->addLinksToMenu();
         $this->response->setOutput(json_encode(array('sussess' => true)));
-
+    }
+    public function reinstall_current_theme()
+    {
+        $this->load->model('extension/d_visualize/template');
+        $this->load->model('extension/module/d_visualize');
+        $current_setting = $this->model_extension_module_d_visualize->loadSetting();
+        $this->model_extension_d_visualize_template->uninstallTheme();
+        $this->model_extension_d_visualize_template->installTheme($current_setting['module_d_visualize_setting']['active_template']);
+        $this->response->setOutput(json_encode(array('sussess' => true)));
     }
 }

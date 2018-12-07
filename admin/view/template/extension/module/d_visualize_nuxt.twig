@@ -3,16 +3,19 @@
 <div id="content">
     {{ app|raw }}
 </div>
-<style>
-    .v-menu__content {
-        margin-left: -235px;
-        margin-top: -60px;
-    }
-    @media screen and (max-width: 768px) {
+{% if constant('VERSION')>'3.0.0.0' %}
+    <style>
         .v-menu__content {
-            margin-left: 0;
-            margin-top: 0;
+            margin-left: -235px;
+            margin-top: -60px;
         }
-    }
-</style>
+        @media screen and (max-width: 768px) {
+            .v-menu__content {
+                margin-left: 0;
+                margin-top: 0;
+            }
+        }
+    </style>
+{% endif %}
+
 {{ footer }}

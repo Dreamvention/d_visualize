@@ -49,8 +49,8 @@
     "d_visual_designer_footer": ">=1.0.0",
     "d_blog_module": ">=1.0.0",
     "d_visual_designer_extra": ">=1.0.0",
-    "d_ajax_search": ">=1.0.0",
-    "d_admin_menu": ">=1.0.0"
+    "d_ajax_search": ">=6.1.7",
+    "d_admin_menu": ">=1.0.9"
   },
   "files": [
     "admin/controller/extension/module/d_visualize.php",
