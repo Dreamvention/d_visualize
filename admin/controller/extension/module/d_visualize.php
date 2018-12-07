@@ -77,11 +77,15 @@ class ControllerExtensionModuleDVisualize extends Controller
     public function editor(){
         $this->session->data['d_visualize_page_admin']='editor';
         $nuxt_dist = 'view/javascript/d_visualize/dist';
-        $data['app'] = file_get_contents($nuxt_dist . '/index.html');
-        $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $data['app']);
+        $nuxt_index = file_get_contents($nuxt_dist . '/index.html');
+        //rewrite all links to base opencart url
+        $data['app'] = str_replace('/_nuxt', HTTPS_SERVER . $nuxt_dist . '/_nuxt', $nuxt_index);
         $this->response->setOutput($this->load->view($this->route . '_nuxt_editor', $data));
 
     }
+    /*
+     * Deprecated was for twig engine
+     * */
     public function setup($data)
     {
         $data['setup'] = true;
@@ -110,12 +114,16 @@ class ControllerExtensionModuleDVisualize extends Controller
         $data['button_setup'] = $this->model_extension_d_opencart_patch_url->ajax($this->route . '/setupUrl');
         return $data;
     }
-
+    /*
+     * response for loading languages async via call from nuxt store
+     * */
     public function load_language()
     {
         $this->response->setOutput(json_encode(array('locale' => $this->config->get('config_language_id'), 'messages' => $this->prepareLocal())));
     }
-
+    /*
+     * load languages locals for i18n
+     * */
     public function prepareLocal()
     {
         $local = array();
@@ -261,6 +269,9 @@ class ControllerExtensionModuleDVisualize extends Controller
         return array($this->config->get('config_language_id') => $local);
     }
 
+    /*
+     * Deprecated was for twig engine
+     * */
     public function prepareOptions()
     {
         $option = array();
@@ -314,6 +325,15 @@ class ControllerExtensionModuleDVisualize extends Controller
         return $option;
     }
 
+    /*
+     * Opencart green button install,
+     * also called from shopunity module after
+     * module downloading
+     *
+     * Add permissions for access and modify;
+     * install database tables;
+     * visualize no need evens they are need when theme is on.
+     * */
     public function install()
     {
         $this->load->model('user/user_group');
@@ -330,12 +350,9 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/'.$this->codename.'/template');
         $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/'.$this->codename.'/editor');
         $this->model_user_user_group->addPermission($this->model_extension_d_opencart_patch_user->getGroupId(), 'modify', 'extension/'.$this->codename.'/market');
-        //todo when vdh vdf will comes submited
-        //        if ($this->d_shopunity) {
-//            $this->load->model('extension/d_shopunity/mbooth');
-//            $this->model_extension_d_shopunity_mbooth->installDependencies($this->codename);
-//        }
         $this->model_extension_module_d_visualize->installDataBase();
+        $this->model_extension_d_visualize_extension_helper->addLinksToMenu();
+
     }
 
     public function uninstall()

@@ -38,6 +38,9 @@ export const actions = {
     async TRANCE_DB({commit}) {
         const {data} = await this.$axios.get('extension/d_visualize/opencart/trunce_db')
     },
+	async RECREATE_AM({commit}) {
+        const {data} = await this.$axios.get('extension/d_visualize/opencart/refresh_menu')
+    },
 	async SETUP({dispatch}){
 		await dispatch('setting/GET_SETTING',{},{root:true})
 		await dispatch('setting/TOGGLE_STATUS',{},{root:true})

@@ -97,4 +97,11 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $this->response->setOutput(json_encode(array('sussess' => true)));
 
     }
+    public function refresh_menu()
+    {
+        $this->load->model('extension/d_visualize/extension_helper');
+        $this->model_extension_d_visualize_extension_helper->addLinksToMenu();
+        $this->response->setOutput(json_encode(array('sussess' => true)));
+
+    }
 }

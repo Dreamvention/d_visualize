@@ -256,6 +256,13 @@ class ModelExtensionDVisualizeTemplate extends Model
         $sql = 'SELECT * from ' . DB_PREFIX . "vz_templates where codename='" . $template_codename . "'";
         return $this->db->query($sql)->row;
     }
+    /*
+     * Calls every time when user enable module
+     * by default install default theme and set default skin
+     * enable theme setting
+     * switch theme_directory to the d_visualize
+     * install events for active theme
+     * */
     public function installTheme($active_template)
     {
         $this->load->model('extension/d_opencart_patch/setting');
@@ -266,10 +273,8 @@ class ModelExtensionDVisualizeTemplate extends Model
         } else {
             $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
             $setting['theme_default_directory'] = $this->codename; // 302 work
-            $setting['theme_default_status'] = true; // fix issue
+            $setting['theme_default_status'] = true; // fix issue for some reasons this config set to false
             $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
-            $setting = $this->model_extension_d_opencart_patch_setting->getSetting('theme_default');
-
         }
         $this->load->model('extension/module/d_visualize');
         $this->load->model('extension/d_visualize/extension_helper');

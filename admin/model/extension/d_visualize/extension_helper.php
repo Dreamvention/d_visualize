@@ -3,6 +3,7 @@
 class ModelExtensionDVisualizeExtensionHelper extends Model
 {
     private $codename = 'd_visualize';
+    private $route = 'extension/module/d_visualize';
 
     public function __construct($registry)
     {
@@ -14,6 +15,7 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
         $this->d_visual_designer = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer.json'));
         $this->d_visual_designer_header = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer_header.json'));
         $this->d_visual_designer_footer = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_visual_designer_footer.json'));
+        $this->d_admin_menu = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_admin_menu.json'));
 
     }
 
@@ -30,7 +32,6 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             if (!$this->model_extension_d_visual_designer_designer->checkConfig('d_visual_designer_footer')) {
                 $this->model_extension_d_visual_designer_designer->installConfig('d_visual_designer_footer');
             };
-
             if (!$this->model_extension_d_opencart_patch_extension->isInstalled('d_visual_designer_header')) {
                 $this->model_extension_d_opencart_patch_extension->install('module', 'd_visual_designer_header');
                 $this->model_extension_module_d_visual_designer_header->setup();
@@ -77,5 +78,49 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
     public function installTemplateThemeDefaults()
     {
 //        $this->installConfigThemeDefaults('config_active_template_theme');
+    }
+
+    public function addLinksToMenu()
+    {
+        if ($this->d_admin_menu) {
+            $this->load->model('extension/d_opencart_patch/url');
+            $this->load->model('extension/module/d_admin_menu');
+            $this->model_extension_module_d_admin_menu->installCompatibility();
+            $this->load->language($this->route);
+            $sub_items=array();
+            $sub_items [] = array(
+                "name"         => $this->language->get('entry_setting'),
+                "custom_route" => false ,
+                'icon'     => 'fa-paint-brush',
+                "href"         => 'index.php?route=extension/module/d_visualize&',
+                "href_type"=> 'route',
+                "children"     => array(),
+                "sort_order"   => 1
+            );
+            $sub_items [] = array(
+                "name"         => $this->language->get('entry_visual_header'),
+                "custom_route" => false,
+                'icon'     => 'fa-paint-brush',
+                "href"         => 'index.php?route=extension/module/d_visual_designer_header&',
+                "children"     => array(),
+                "sort_order"   => 2
+            );
+            $sub_items [] = array(
+                "name"         => $this->language->get('entry_visual_footer'),
+                "custom_route" => false,
+                'icon'     => 'fa-paint-brush',
+                "href"         => 'index.php?route=extension/module/d_visual_designer_footer&',
+                "children"     => array(),
+                "sort_order"   => 3
+            );
+            $admin_menu_item = array(
+//                'icon'=>'fa-magic',
+                'icon'     => 'fa-paint-brush',
+                'name'     => $this->language->get('heading_title_main_menu'),
+                'link'     => 'index.php?route=extension/module/d_visualize&',
+                'children' => $sub_items,
+            );
+            $this->model_extension_module_d_admin_menu->addMenuItem($this->codename, $admin_menu_item);
+        }
     }
 }

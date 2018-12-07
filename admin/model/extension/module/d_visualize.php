@@ -217,10 +217,10 @@ class ModelExtensionModuleDVisualize extends Model
                 }
             }
             $route_info_active_template = $this->{'model_extension_'
-            . $this->codename . '_template'}->getRoute('template/' . $active_skin);
+            . $this->codename . '_template'}->getRoute('template/' . $route_info['module_' . $this->codename . '_setting']['active_template']);
             if (!empty($route_info_active_template['events'])) {
                 foreach ($route_info_active_template['events'] as $trigger => $action) {
-                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $active_skin, $trigger, $action, 1, 1);
+                    $this->model_extension_module_d_event_manager->addEvent($this->codename . '_template_' . $route_info['module_' . $this->codename . '_setting']['active_template'], $trigger, $action, 1, 1);
                 }
             }
 
