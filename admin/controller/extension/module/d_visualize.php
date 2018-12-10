@@ -231,6 +231,13 @@ class ControllerExtensionModuleDVisualize extends Controller
 
         $local['color']['text_primary'] = 'Primary-text color';
         $local['color']['primary'] = 'Primary color';
+        $local['color']['text_secondary'] = 'Secondary-text color';
+        $local['color']['secondary'] = 'Secondary color';
+        $local['color']['text_default'] = 'Default-text color';
+        $local['color']['default'] = 'Default color';
+        $local['color']['text_menu'] = 'Menu-text color';
+        $local['color']['menu'] = 'Menu';
+
         $local['color']['text_body'] = 'Text color';
         $local['color']['heading'] = 'Headings color';
         $local['color']['link'] = 'Link color';

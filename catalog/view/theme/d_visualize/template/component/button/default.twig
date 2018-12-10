@@ -1,4 +1,5 @@
 {% set btn_classes = 'btn vz-button' %}
+
 {% if button.classes %}
     {% set btn_classes = btn_classes ~ ' ' ~ button.classes %}
 {% endif %}
@@ -34,12 +35,9 @@
         onclick : 'cart.add(41)'
     }
 {% endif %}
-
-
-
 <{{ button.tag|default('button') }}
-{% if button.id %}id='{{ button.id }}'{% endif %}
 class="{{ btn_classes }}"
+{% if button.id %}id='{{ button.id }}'{% endif %}
 {% if button.onclick %}onclick="{{ button.onclick|raw }}"{% endif %}
 {% if button.link %}href="{{ button.link }}"{% endif %}
 {% if button.type %} type='{{ button.type }}'{% endif %}

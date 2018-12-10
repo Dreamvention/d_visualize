@@ -53,15 +53,6 @@
     "d_admin_menu": ">=1.0.9"
   },
   "files": [
-    "admin/controller/extension/module/d_visualize.php",
-    "admin/language/en-gb/extension/module/d_visualize.php",
-    "admin/language/english/extension/module/d_visualize.php",
-    "admin/model/extension/module/d_visualize.php",
-    "admin/view/template/extension/module/d_visualize.twig",
-    "admin/view/template/extension/module/d_visualize_nuxt.twig",
-    "admin/view/template/extension/module/d_visualize_nuxt_editor.twig",
-
-    "catalog/controller/extension/d_visualize/event.php",
     "catalog/controller/extension/d_visualize/mobile.php",
     "catalog/model/extension/module/d_visualize.php",
 

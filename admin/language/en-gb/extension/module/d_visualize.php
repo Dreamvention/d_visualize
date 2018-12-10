@@ -20,7 +20,6 @@ $_['entry_available_templates'] = 'Available themes';
 $_['entry_publish'] = 'Save';
 $_['entry_current_template'] = 'You are customizing';
 $_['entry_active_template'] = 'Active theme';
-$_['entry_active_template'] = 'Active theme';
 $_['entry_change'] = 'Change';
 $_['entry_visual_header'] = 'Header';
 $_['entry_visual_footer'] = 'Footer';
