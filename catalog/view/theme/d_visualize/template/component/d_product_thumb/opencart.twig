@@ -7,9 +7,8 @@
             <p class="heading-h4"><a href="{{ product.href }}">{{ product.name }}</a></p>
             <p>{{ product.description }}</p>
             {% if product.rating %}
-                {% include component.rating.template with rating.button|merge({
-                    rating:product.rating
-                }) %}
+                {% include component.d_rating.template with  component.d_rating|merge({rating:rating,static_rating:true}) %}
+
             {% endif %}
             {% if product.price %}
                 <p class="vz-product-thumb__price">
