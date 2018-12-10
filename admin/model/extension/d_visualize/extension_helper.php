@@ -30,10 +30,11 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             if (!$this->model_extension_module_d_visual_designer_header->checkConfig()){
                 $this->model_extension_module_d_visual_designer_header->installConfig('header1','default');
             }
-            $this->load->model('extension/module/d_visual_designer_footer');
-            if (!$this->model_extension_module_d_visual_designer_footer->checkConfig()){
-                $this->model_extension_module_d_visual_designer_footer->installConfig('footer1','default');
-            }
+            //todo make this functions for footer
+//            $this->load->model('extension/module/d_visual_designer_footer');
+//            if (!$this->model_extension_module_d_visual_designer_footer->checkConfig()){
+//                $this->model_extension_module_d_visual_designer_footer->installConfig('footer1','default');
+//            }
 
         }
     }

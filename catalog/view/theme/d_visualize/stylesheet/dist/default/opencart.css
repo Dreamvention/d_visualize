@@ -206,7 +206,7 @@ div.required .control-label:before {
     min-width: 100%; } }
 
 #cart .dropdown-menu li p {
-  margin: 20px 0; }
+  margin: 20px 20px; }
 
 /* menu */
 #menu {
