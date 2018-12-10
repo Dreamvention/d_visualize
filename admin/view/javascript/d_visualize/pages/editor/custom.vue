@@ -17,18 +17,26 @@
             <v-tab-item
                     key="global"
             >
-                <codemirror v-model="global_code"
-                            :options="cmOption"
-                >
-                </codemirror>
+                <v-textarea
+                        v-model="global_code"
+                        auto-grow
+                        flat
+                ></v-textarea>
+                <!--<codemirror v-model="global_code"-->
+                            <!--:options="cmOption"-->
+                <!--&gt;-->
+                <!--</codemirror>-->
             </v-tab-item>
             <v-tab-item
                     key="skin"
             >
-                <codemirror v-model="skin_code"
-                            :options="cmOption"
-                >
-                </codemirror>
+                <v-textarea
+                        v-model="skin_code"
+                ></v-textarea>
+                <!--<codemirror v-model="skin_code"-->
+                            <!--:options="cmOption"-->
+                <!--&gt;-->
+                <!--</codemirror>-->
 
             </v-tab-item>
         </v-tabs>
@@ -38,16 +46,16 @@
 </template>
 
 <script>
-	import {codemirror} from 'vue-codemirror';
+	// import {codemirror} from 'vue-codemirror';
 	// require styles
-	import 'codemirror/lib/codemirror.css';
+	// import 'codemirror/lib/codemirror.css';
 	// language
-	import 'codemirror/mode/css/css.js';
+	// import 'codemirror/mode/css/css.js';
 	// theme css
-	import 'codemirror/theme/material.css';
-	import 'codemirror/addon/selection/active-line.js';
-	import 'codemirror/addon/hint/show-hint.js';
-	import 'codemirror/addon/hint/css-hint.js';
+	// import 'codemirror/theme/material.css';
+	// import 'codemirror/addon/selection/active-line.js';
+	// import 'codemirror/addon/hint/show-hint.js';
+	// import 'codemirror/addon/hint/css-hint.js';
 
 	import {mapGetters} from 'vuex';
 
@@ -95,9 +103,9 @@
 				}
 			};
 		},
-		components: {
-			codemirror
-		}
+		// components: {
+		// 	codemirror
+		// }
 	};
 </script>
 
