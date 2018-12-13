@@ -186,8 +186,6 @@
     "catalog/view/theme/d_visualize/template/partial/d_custom_field.twig",
     "catalog/view/theme/d_visualize/template/partial/d_mini_cart.twig",
     "catalog/view/theme/d_visualize/template/partial/d_empty.twig",
-    "catalog/view/theme/d_visualize/template/partial/d_layout_close.twig",
-    "catalog/view/theme/d_visualize/template/partial/d_layout_open.twig",
     "catalog/view/theme/d_visualize/template/partial/d_name_field.twig",
     "catalog/view/theme/d_visualize/template/partial/d_notification.twig",
     "catalog/view/theme/d_visualize/template/partial/d_product_list.twig",
@@ -241,8 +239,7 @@
 
     "image/catalog/d_visualize/template",
 
-    "system/library/d_visualize",
-    "system/config/d_visualize/default"
+    "system/library/d_visualize"
   ],
   "changelog": [
 
