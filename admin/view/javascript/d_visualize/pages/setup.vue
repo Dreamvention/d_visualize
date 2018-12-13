@@ -14,48 +14,77 @@
                            min-width="150"
                     >
                     </v-img>
-                    <div class="display-4 mb-3">
+                    <div class="display-4 mb-3 font-weight-bold">
                         Visualize
                     </div>
-                    <div class="subheading">Your header is the first thing people see. Now you can design your own
+                    <div class="subheading text-center">
+                        Your header is the first thing people see. Now you can design your own
                         header or use a ready made template to edit it to your needs. No coding is required. With Visual
                         Designer it has never been easier to create your unique header and edit every single option. Say
                         goodbye to developers. Hello Visual Designer Header
                     </div>
                 </v-layout>
             </v-card>
-            <v-layout align-center justify-center row mb-5>
-                <v-flex mr-4 xs2>
+            <v-layout align-center justify-space-around  row mb-5>
+                <v-flex xs1>
                     <v-img :src='"setup/icons/icon1.svg"|image'
-                           class="available-themes__item__img"
-                           max-width="100"
+                           class="mb-2"
                     >
                     </v-img>
-                    Visual Editor
+                    <div class="text-center">
+                        Visual Editor
+                    </div>
                 </v-flex>
-                <v-flex mr-4 xs2>
+                <v-flex xs1>
                     <v-img :src='"setup/icons/icon2.svg"|image'
-                           max-width="100"
-
+                           class="mb-2"
                     >
                     </v-img>
-                    Ready to use templates
+                    <div class="text-center">
+                        Ready to use templates
+                    </div>
                 </v-flex>
-                <v-flex mr-4 xs2>
+                <v-flex xs1>
                     <v-img :src='"setup/icons/icon3.svg"|image'
-                           max-width="100"
-
+                           class="mb-2"
                     >
                     </v-img>
-                    Unlimited layout options
+                    <div class="text-center">
+                        Unlimited layout options
+                    </div>
                 </v-flex>
-                <v-flex xs2>
+                <v-flex xs1>
                     <v-img :src='"setup/icons/icon4.svg"|image'
-                           max-width="100"
+                           class="mb-2"
                     >
                     </v-img>
-                    Works with any theme
+                    <div class="text-center">
+                        Works with any theme
+                    </div>
                 </v-flex>
+                <!--<v-flex xs2>-->
+                    <!--<v-img :src='"setup/icons/icon2.svg"|image'-->
+                           <!--max-width="100"-->
+
+                    <!--&gt;-->
+                    <!--</v-img>-->
+                    <!--Ready to use templates-->
+                <!--</v-flex>-->
+                <!--<v-flex xs2>-->
+                    <!--<v-img :src='"setup/icons/icon3.svg"|image'-->
+                           <!--max-width="100"-->
+
+                    <!--&gt;-->
+                    <!--</v-img>-->
+                    <!---->
+                <!--</v-flex>-->
+                <!--<v-flex xs2>-->
+                    <!--<v-img :src='"setup/icons/icon4.svg"|image'-->
+                           <!--max-width="100"-->
+                    <!--&gt;-->
+                    <!--</v-img>-->
+                    <!---->
+                <!--</v-flex>-->
             </v-layout>
 
             <v-img :src='"setup/bg.svg"|image'

@@ -109,7 +109,7 @@ class ModelExtensionModuleDVisualize extends Model
         //inherit users data
         $setting = array();
         $setting = array_replace_recursive(array('module_' . $this->codename . '_setting' => $this->config_visualize), $dbSetting);
-
+        $setting['module_' . $this->codename . '_setting']['is_installed'] =$this->checkInstallModule();
         return $setting;
     }
     public function loadCustomStyle()

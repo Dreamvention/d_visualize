@@ -61,6 +61,7 @@ class ControllerExtensionDVisualizeOpencart extends Controller
         $data['action']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_header&id=0');
         $data['action']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_visual_designer/designer/frontend', 'config=d_visual_designer_footer&id=0');
         $data['action']['action'] = $this->model_extension_d_opencart_patch_url->ajax($this->route, $url);
+        $data['action']['shopunity_module'] = $this->model_extension_d_opencart_patch_url->ajax('extension/d_shopunity/market','category_id=2&');
         $data['action']['download_shopunity'] = 'https://shopunity.net/';
         $data['img']['no_image'] = $this->model_tool_image->resize("no_image.png", 300, 400);
         $data['img']['no_data_img'] = 'view/image/' . $this->codename . '/nodata.png';

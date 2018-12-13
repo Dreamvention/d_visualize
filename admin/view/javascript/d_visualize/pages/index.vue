@@ -15,7 +15,7 @@
 					return redirect('/editor');
 				}
 			}
-			return store.getters['setting/status']?redirect('/home'):redirect('/setup');
+			return store.getters['setting/all_setting']['is_installed']?redirect('/home'):redirect('/setup');
 		}
 	};
 </script>

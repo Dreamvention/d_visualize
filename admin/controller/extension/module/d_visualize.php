@@ -171,6 +171,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['template']['available_templates_description'] = 'Manage your store\'s themes. Add and publish themes to change your online store\'s appearance.';
         $local['template']['explore'] = 'Explore';
         $local['template']['addition_images'] = 'Addition images';
+        $local['template']['explore_more_themes'] = 'Explore more our themes';
 
         //common
         $local['editor']['current_template'] = $this->language->get('entry_current_template');

@@ -11,7 +11,7 @@ class ControllerExtensionDVisualizeSetting extends Controller
         parent::__construct($registry);
         $this->load->model($this->route);
         $this->store_id = (isset($this->request->post['store_id'])) ? $this->request->post['store_id'] : 0;
-        $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
+        $setting_visualize = $this->model_extension_module_d_visualize->loadSetting();
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
         $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
         $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;

@@ -3,6 +3,12 @@
 <div id="content">
     {{ app|raw }}
 </div>
+<style>
+    #__nuxt .row{
+        margin-left: 0;
+        margin-right: 0;
+    }
+</style>
 {% if constant('VERSION')>'3.0.0.0' %}
     <style>
         .v-menu__content {

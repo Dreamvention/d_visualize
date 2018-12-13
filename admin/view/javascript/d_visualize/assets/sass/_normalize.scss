@@ -4,6 +4,9 @@
     display: flex;
   }
 }
+.flex-column{
+  flex-direction: column;
+}
 body {
   &::-webkit-scrollbar, ::-webkit-scrollbar {
     -webkit-appearance: none;
