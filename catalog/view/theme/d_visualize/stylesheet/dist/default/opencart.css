@@ -208,6 +208,9 @@ div.required .control-label:before {
 #cart .dropdown-menu li p {
   margin: 20px 20px; }
 
+#button-cart {
+  margin-bottom: 20px; }
+
 /* menu */
 #menu {
   background-color: #229ac8;
@@ -270,7 +273,7 @@ div.required .control-label:before {
   font-size: 16px;
   font-weight: 700;
   line-height: 40px;
-  color: #229ac8;
+  color: white;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2); }
 
 #menu .btn-navbar {
@@ -605,21 +608,21 @@ footer h5 {
   .product-grid .product-thumb .caption {
     min-height: 0; } }
 
-.product-thumb .rating {
+.product-thumb .vz-rating {
   padding-bottom: 10px; }
 
-.rating .fa-stack {
+.vz-rating .fa-stack {
   font-size: 8px; }
 
-.rating .fa-star-o {
+.vz-rating .fa-star-o {
   color: #999;
   font-size: 15px; }
 
-.rating .fa-star {
+.vz-rating .fa-star {
   color: #FC0;
   font-size: 15px; }
 
-.rating .fa-star + .fa-star-o {
+.vz-rating .fa-star + .fa-star-o {
   color: #E69500; }
 
 h2.price {

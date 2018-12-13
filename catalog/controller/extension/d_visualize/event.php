@@ -96,8 +96,15 @@ class ControllerExtensionDVisualizeEvent extends Controller
             if ($this->user->isLogged()) {
                 $data['admin'] = true;
                 $data['site_url'] = HTTPS_SERVER;
-                if (!empty($this->setting_active_template['debug']) && $this->setting_active_template['debug']) {
+            }
+            if ( !$this->setting_active_template['debug']) {
 
+                foreach ($data['component'] as $component){
+                    if (empty($component['template'])){
+                        $component['template']='d_visualize/template/component/breadcrumb/empty.twig';
+                        echo "<pre>"; print_r($component);echo "</pre>";
+                        echo "<pre>"; print_r('can not find component');echo "</pre>";
+                    }
                 }
             }
         }

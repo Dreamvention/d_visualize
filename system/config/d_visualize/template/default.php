@@ -87,14 +87,7 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/component/product_review/',
                         'editable' => false
                     ),
-                    'd_layout_open' => array(
-                        'template' => 'd_visualize/template/component/d_layout_open/',
-                        'deprecated' => true,
-                    ),
-                    'd_layout_close' => array(
-                        'template' => 'd_visualize/template/component/d_layout_close/',
-                        'deprecated' => true,
-                    ),
+
                     'd_account_field' => array(
                         'template' => 'd_visualize/template/component/d_account_field/',
                         'editable' => false
@@ -130,26 +123,20 @@ $_['d_visualize_template_default_setting'] = array(
                         'template' => 'd_visualize/template/component/d_mini_cart/',
                         'editable' => true,
                     ),
-                    'd_loader' => array(
+                    'd_loader'               => array(
                         'template' => 'd_visualize/template/component/product/remove/',
                         'editable' => false,
                     ),
                     'default_quantity_items' => array(
                         'template' => 'd_visualize/template/component/default/quantity_items/',
                     ),
-                    'default_remove_btn' => array(
+                    'default_remove_btn'     => array(
                         'template' => 'd_visualize/template/component/default/remove_btn/',
                     ),
+                    'd_post_thumb'           => array(
+                        'template' => 'd_visualize/template/component/d_post_thumb/'
+                    )
                 ),
-//                'extension' => array(
-//                    'd_blog_module' => array(
-//                        'component' => array(
-//                            'd_post_thumb' => array(
-//                                'template' => 'd_visualize/template/component/d_post_thumb/'
-//                            )
-//                        ),
-//                    )
-//                ),
                 'columns' => array(
                     'left' => 'col-12 col-md-3 d-sm-block d-none',
                     'main' => array(

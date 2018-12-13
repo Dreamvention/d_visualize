@@ -3699,16 +3699,78 @@ var vue_meta_default = /*#__PURE__*/__webpack_require__.n(vue_meta);
 // EXTERNAL MODULE: ./node_modules/vue-router/dist/vue-router.esm.js
 var vue_router_esm = __webpack_require__(97);
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/setup.vue?vue&type=template&id=b02d6c5a&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"setup"},[_c('v-container',{attrs:{"fluid":""}},[_c('v-btn',{attrs:{"color":"primary"},on:{"click":_vm.setup}},[_vm._v("\n            setup\n        ")])],1)],1)}
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./pages/setup.vue?vue&type=template&id=6a395526&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"setup"},[_c('v-container',{attrs:{"fluid":""}},[_c('v-card',{staticClass:"mx-auto mb-5",attrs:{"color":"transparent","flat":"","justify-center":"","max-width":"520"}},[_c('v-img',{staticClass:"mx-auto mb-3",attrs:{"src":_vm._f("image")("setup/logo.svg"),"max-width":"150"}}),_vm._v(" "),_c('v-layout',{attrs:{"align-center":"","column":"","justify-center":"","mb-5":""}},[_c('v-img',{attrs:{"src":_vm._f("image")("setup/logo.svg"),"max-width":"150","min-width":"150"}}),_vm._v(" "),_c('div',{staticClass:"display-4 mb-3"},[_vm._v("\n                    Visualize\n                ")]),_vm._v(" "),_c('div',{staticClass:"subheading"},[_vm._v("Your header is the first thing people see. Now you can design your own\n                    header or use a ready made template to edit it to your needs. No coding is required. With Visual\n                    Designer it has never been easier to create your unique header and edit every single option. Say\n                    goodbye to developers. Hello Visual Designer Header\n                ")])],1)],1),_vm._v(" "),_c('v-layout',{attrs:{"align-center":"","justify-center":"","row":"","mb-5":""}},[_c('v-flex',{attrs:{"mr-4":"","xs2":""}},[_c('v-img',{staticClass:"available-themes__item__img",attrs:{"src":_vm._f("image")("setup/icons/icon1.svg"),"max-width":"100"}}),_vm._v("\n                Visual Editor\n            ")],1),_vm._v(" "),_c('v-flex',{attrs:{"mr-4":"","xs2":""}},[_c('v-img',{attrs:{"src":_vm._f("image")("setup/icons/icon2.svg"),"max-width":"100"}}),_vm._v("\n                Ready to use templates\n            ")],1),_vm._v(" "),_c('v-flex',{attrs:{"mr-4":"","xs2":""}},[_c('v-img',{attrs:{"src":_vm._f("image")("setup/icons/icon3.svg"),"max-width":"100"}}),_vm._v("\n                Unlimited layout options\n            ")],1),_vm._v(" "),_c('v-flex',{attrs:{"xs2":""}},[_c('v-img',{attrs:{"src":_vm._f("image")("setup/icons/icon4.svg"),"max-width":"100"}}),_vm._v("\n                Works with any theme\n            ")],1)],1),_vm._v(" "),_c('v-img',{attrs:{"src":_vm._f("image")("setup/bg.svg")}},[_c('v-layout',{attrs:{"align-center":"","justify-center":"","row":""}},[_c('v-btn',{attrs:{"color":"primary"},on:{"click":_vm.setup}},[_vm._v("\n                    setup\n                ")])],1)],1)],1)],1)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./pages/setup.vue?vue&type=template&id=b02d6c5a&
+// CONCATENATED MODULE: ./pages/setup.vue?vue&type=template&id=6a395526&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/setup.vue?vue&type=script&lang=js&
 
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -7373,7 +7435,7 @@ function _setContext() {
                 env: {
                   "appUrl": "/302/d_visualize/admin/index.php?",
                   "appLocale": "en",
-                  "user_token": "5kN0eceS7qV5HL0M7jhPcOkIlG65FtmY",
+                  "user_token": "PDzGuuzQ097cWkBh3QBApqyTRqibtNRn",
                   "isDev": false,
                   "DevServer": "http://localhost/302/d_visualize/admin/",
                   "githubAuth": false

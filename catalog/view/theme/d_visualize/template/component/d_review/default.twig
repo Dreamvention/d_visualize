@@ -1,39 +1,46 @@
 <form class="vz-review vz-review--default form-horizontal" id="form-review">
     <div id="review"></div>
-    <h2>{{ text_write }}</h2>
+    <div class="h2">{{ text_write }}</div>
     {% if review_guest %}
-        {% include component.form_group.template with component.form_group|merge({
-            type:'text',
-            id:'input-name',
-            name:'name',
+        {% include component.form_group.template with {form_group:{
             required:true,
-            value:customer_name,
-            text_input:entry_name ,
-            placeholder:'' ,
-        }) %}
-        {% include component.form_group.template with component.form_group|merge({
-            type:'textarea',
+            label_text:entry_name ,
+            input:{
+                type:'text',
+                id:'input-name',
+                name:'name',
+                value:customer_name,
+                placeholder:'' ,
+            },
+        }} %}
+        {% include component.form_group.template with {form_group:{
             required:true,
-            id:'input-review',
-            name:'text',
-            value:'',
-            classes:'',
-            text_input:entry_review,
-        }) %}
+            label_text:entry_review ,
+            input:{
+                type:'textarea',
+                id:'input-review',
+                name:'text',
+                value:'',
+                placeholder:entry_review ,
+            },
+        }} %}
         <div class="help-block">{{ text_note }}</div>
-
-        <div class="form-group required">
-            <div class="col-sm-12">
-                <label class="control-label">{{ entry_rating }}</label>
-                <div class="vz-review__rating">
-                    {{ entry_bad }}&nbsp;
-                    {% include component.d_rating.template with component.d_rating %}
-                    &nbsp;{{ entry_good }}
+        {% embed component.form_group.template with {form_group:{
+            required:true,
+            label_text:entry_rating ,
+            input:true,
+        }} %}
+            {% block input %}
+                <div class="d-flex align-items-center">
+                {{ entry_bad }}&nbsp;
+                        {% include component.d_rating.template with component.d_rating %}
+                &nbsp;{{ entry_good }}
                 </div>
-                &nbsp;&nbsp;&nbsp;
-            </div>
+            {% endblock %}
+        {% endembed %}
+        <div class="vz-captcha">
+            {{ captcha }}
         </div>
-        {{ captcha }}
         <div class="buttons clearfix">
             <div class="pull-right">
                 {% include component.button.template with {button:{
