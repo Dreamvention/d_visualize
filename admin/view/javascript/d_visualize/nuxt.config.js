@@ -100,12 +100,12 @@ module.exports = {
 	},
 	proxy: proxy,
 	build: {
-		plugins: [ new VuetifyLoaderPlugin()],
+		// plugins: [ new VuetifyLoaderPlugin()],
 		publicPath: public_path,
-		optimization:{
-			minimize: true,
-		},
-		analyze: isDev,
+		// optimization:{
+		// 	minimize: true,
+		// },
+		// analyze: false,
 		splitChunks: {
 			layouts: false,
 			pages: false,

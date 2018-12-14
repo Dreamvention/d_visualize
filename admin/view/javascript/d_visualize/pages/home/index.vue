@@ -35,7 +35,7 @@
             </v-layout>
             <v-divider></v-divider>
             <div v-if="opencart.d_shopunity">
-                <v-btn color="primary" nuxt to="marketplace">{{$t('template.explore_more_themes')}}</v-btn>
+                <v-btn color="primary" nuxt @click="to('marketplace')">{{$t('template.explore_more_themes')}}</v-btn>
             </div>
             <div v-else>
                 <div class="subheading">{{$t('home.download_shopunity')}}</div>
@@ -94,6 +94,9 @@
             },
             change_status(value) {
                 this.$store.dispatch('setting/TOGGLE_STATUS');
+            },
+            to(path){
+            	this.$router.replace(path)
             }
         }
     };

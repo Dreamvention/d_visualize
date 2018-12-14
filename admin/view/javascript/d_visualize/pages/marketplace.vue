@@ -14,9 +14,9 @@
     </div>
 </template>
 <script>
+
 	import {mapGetters} from 'vuex';
 	import AvailableThemes from '~/components/marketplace/AvailableThemes.vue';
-
 	export default {
 		layout: 'opencart',
 		computed: mapGetters({
