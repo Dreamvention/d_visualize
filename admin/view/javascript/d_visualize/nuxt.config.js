@@ -99,9 +99,10 @@ module.exports = {
 	},
 	proxy: proxy,
 	build: {
+		plugins: [new require('vuetify-loader/lib/plugin')()],
 		publicPath: public_path,
 		optimization:{
-			minimize: false,
+			minimize: true,
 		},
 		splitChunks: {
 			layouts: false,

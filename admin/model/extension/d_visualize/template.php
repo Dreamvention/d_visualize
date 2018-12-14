@@ -226,7 +226,7 @@ class ModelExtensionDVisualizeTemplate extends Model
                 codename = '" . $this->db->escape($data['template_codename']) . "',
                 source = '" . $this->db->escape($data['template']['source']) . "',
                 description = '" . $this->db->escape($data['template']['setting']['description']) . "',
-                title = '" . $this->db->escape($data['template']['title'] ? $data['template']['title'] : $data['template']['setting']['title']) . "',
+                title = '" . $this->db->escape(isset($data['template']['title']) ? $data['template']['title'] : $data['template']['setting']['title']) . "',
                 setting = '" . $this->db->escape(json_encode($data['template']['setting'], true)) . "',
                 history_id = '" . 0 . "',
                 date_created = '" . 'NOW()' . "',
@@ -238,7 +238,7 @@ class ModelExtensionDVisualizeTemplate extends Model
             store_id = '" . $data['store_id'] . "',
             source = '" . $this->db->escape($data['template']['source']) . "',
             description ='" . $this->db->escape($data['template']['setting']['description']) . "',
-            title ='" . $this->db->escape($data['template']['title'] ? $data['template']['title'] : $data['template']['setting']['title']) . "',
+            title ='" . $this->db->escape(isset($data['template']['title']) ? $data['template']['title'] : $data['template']['setting']['title']) . "',
             setting ='" . $this->db->escape(json_encode($data['template']['setting'], true)) . "', 
             date_modified = NOW() WHERE codename = '" . $template['codename'] . "'";
             $this->db->query($sql);
