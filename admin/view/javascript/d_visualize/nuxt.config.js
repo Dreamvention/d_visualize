@@ -17,7 +17,7 @@ let isDev = process.env.DEV === 'true';
 let modules = [
 	'@nuxtjs/axios',
 	'@nuxtjs/proxy',
-
+	'@nuxtjs/moment',
 ];
 let proxy = {
 	'/api/': dev_server + 'index.php',
@@ -52,6 +52,7 @@ if (isDev) {
 		},
 	);
 }
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 module.exports = {
 	mode: 'spa',
 	srcDir: __dirname,
@@ -99,11 +100,12 @@ module.exports = {
 	},
 	proxy: proxy,
 	build: {
-		plugins: [new require('vuetify-loader/lib/plugin')()],
+		plugins: [ new VuetifyLoaderPlugin()],
 		publicPath: public_path,
 		optimization:{
 			minimize: true,
 		},
+		analyze: isDev,
 		splitChunks: {
 			layouts: false,
 			pages: false,

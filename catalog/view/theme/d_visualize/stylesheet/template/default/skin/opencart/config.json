@@ -2,6 +2,8 @@
   "color": {
     "text-primary": "white",
     "primary": "#229ac8",
+    "header-top-text": "#888",
+    "header-top": "#eeeeee",
     "text-body": "#666",
     "heading": "#444",
     "link": "#23a1d1"

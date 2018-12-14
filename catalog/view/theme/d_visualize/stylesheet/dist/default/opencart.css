@@ -99,7 +99,20 @@ div.required .control-label:before {
   font-weight: bold; }
 
 /* Gradent to all drop down menus */
-.dropdown-menu li > a:hover {
+.dropdown-menu li a:hover, .dropdown-menu li button:hover {
+  text-decoration: none;
+  color: white;
+  background-color: #229ac8;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#2090bb), to(#1c7fa5));
+  background-image: linear-gradient(to bottom, #2090bb, #1c7fa5);
+  background-repeat: repeat-x; }
+
+.dropdown-menu li button {
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 25px; }
+
+.vd-menu--style-v2 .vd-navigation__nav__item__inner:hover {
   text-decoration: none;
   color: white;
   background-color: #229ac8;
@@ -137,7 +150,7 @@ div.required .control-label:before {
   text-decoration: none; }
 
 #top .btn-link:hover, #top-links a:hover {
-  color: #444; }
+  color: #555555; }
 
 #top-links .dropdown-menu a {
   text-shadow: none; }
@@ -151,6 +164,15 @@ div.required .control-label:before {
 
 #top-links a + a {
   margin-left: 15px; }
+
+/* vdh */
+.vd-header-top, .vd-header-bottom {
+  background-color: #eeeeee; }
+  .vd-header-top a, .vd-header-top .btn-link, .vd-header-bottom a, .vd-header-bottom .btn-link {
+    color: #888; }
+
+.vd-currency .dropdown-menu {
+  margin-top: -10px; }
 
 /* logo */
 /* search */
@@ -274,7 +296,11 @@ div.required .control-label:before {
   font-weight: 700;
   line-height: 40px;
   color: white;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2); }
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  padding-left: 10px; }
+
+.vd-menu--style-v2 #menu #category {
+  color: #888; }
 
 #menu .btn-navbar {
   font-size: 15px;
@@ -292,11 +318,11 @@ div.required .control-label:before {
   color: white;
   background-color: #229ac8; }
 
-@media (min-width: 768px) {
+@media (min-width: 758px) {
   #menu .dropdown:hover .dropdown-menu {
     display: block; } }
 
-@media (max-width: 767px) {
+@media (max-width: 758px) {
   #menu {
     -webkit-border-radius: 4px;
             border-radius: 4px; }
@@ -775,5 +801,8 @@ h2.price {
 
 .vz-header {
   margin-bottom: 20px; }
+
+.owl-carousel.owl-theme .owl-controls {
+  display: none; }
 
 /*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/default/opencart.css.map */

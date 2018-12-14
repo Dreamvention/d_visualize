@@ -25,7 +25,7 @@ h1, h2, h3, h4, h5, h6,.heading-h1,.heading-h2,.heading-h3,.heading-h4,.heading-
     @include text-transformations($font-headings-text-transform);
   }
 }
-    /* default font size */
+/* default font size */
 .fa {
   font-size: $font-size-base;
 }
@@ -92,19 +92,36 @@ div.required .control-label:before {
   color: #F00;
   font-weight: bold;
 }
+
 /* Gradent to all drop down menus */
-.dropdown-menu li > a:hover {
+.dropdown-menu li, {
+  a:hover, button:hover {
+    text-decoration: none;
+    color: $color-text-primary;
+    background-color: $color-primary;
+    background-image: linear-gradient(to bottom, darken($color-primary, 3%), darken($color-primary, 8%));
+    background-repeat: repeat-x;
+  }
+
+  button {
+    padding-top: 0;
+    padding-bottom: 0;
+    line-height: 25px;
+  }
+}
+
+.vd-menu--style-v2 .vd-navigation__nav__item__inner:hover {
   text-decoration: none;
   color: $color-text-primary;
   background-color: $color-primary;
-  background-image: linear-gradient(to bottom, darken($color-primary,3%), darken($color-primary,8%));
+  background-image: linear-gradient(to bottom, darken($color-primary, 3%), darken($color-primary, 8%));
   background-repeat: repeat-x;
 }
 /* top */
 
 #top {
-  background-color:#eeeeee;
-  border-bottom: 1px solid darken(#eeeeee,2%);
+  background-color: $color-header-top;
+  border-bottom: 1px solid darken($color-header-top, 2%);
   padding: 4px 0px 3px 0;
   margin: 0 0 20px 0;
   min-height: 40px;
@@ -125,12 +142,12 @@ div.required .control-label:before {
   background-repeat: repeat-x;
 }
 #top .btn-link, #top-links li, #top-links a {
-  color: #888;
+  color: $color-header-top-text;
   text-shadow: 0 1px 0 #FFF;
   text-decoration: none;
 }
 #top .btn-link:hover, #top-links a:hover {
-  color: #444;
+  color: darken($color-header-top-text, 20%);
 }
 #top-links .dropdown-menu a {
   text-shadow: none;
@@ -145,6 +162,22 @@ div.required .control-label:before {
 #top-links a + a {
   margin-left: 15px;
 }
+
+/* vdh */
+.vd-header-top, .vd-header-bottom {
+  background-color: $color-header-top;
+
+  a, .btn-link {
+    color: $color-header-top-text;
+  }
+}
+
+.vd-currency {
+  .dropdown-menu {
+    margin-top: -10px;
+  }
+}
+
 /* logo */
 /* search */
 #search .input-lg {
@@ -268,6 +301,13 @@ div.required .control-label:before {
   line-height: 40px;
   color: $color-text-primary;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  padding-left: 10px;
+}
+
+.vd-menu--style-v2 {
+  #menu #category {
+    color: $color-header-top-text;
+  }
 }
 
 #menu .btn-navbar {
@@ -285,12 +325,14 @@ div.required .control-label:before {
   color: $color-text-primary;
   background-color: $color-primary;
 }
-@media (min-width: 768px) {
+
+@media (min-width: 758px) {
   #menu .dropdown:hover .dropdown-menu {
     display: block;
   }
 }
-@media (max-width: 767px) {
+
+@media (max-width: 758px) {
   #menu {
     border-radius: 4px;
   }
@@ -320,6 +362,7 @@ div.required .control-label:before {
     color: $color-text-primary;
   }
 }
+
 /* content */
 #content {
   min-height: 600px;
@@ -792,4 +835,8 @@ h2.price {
 .vz-header{
   margin-bottom: 20px;
 }
-.common-home{}
+.owl-carousel.owl-theme{
+  .owl-controls{
+    display: none;
+  }
+}
