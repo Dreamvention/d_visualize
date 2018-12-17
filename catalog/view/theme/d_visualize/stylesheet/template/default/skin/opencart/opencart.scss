@@ -367,29 +367,41 @@ div.required .control-label:before {
 #content {
   min-height: 600px;
 }
+
 /* footer */
+.vd-footer-fill{
+  background-color:$color-footer;
+  color: $color-footer-text;
+}
+.vd-footer-fill-x2{
+  background-color:darken($color-footer,2%);
+  color: $color-footer-text;
+}
 footer {
-  margin-top: 30px;
-  padding-top: 30px;
-  background-color: #303030;
+  background-color:$color-footer;
   border-top: 1px solid #ddd;
-  color: #e2e2e2;
+  color: $color-footer-text
 }
 footer hr {
   border-top: none;
   border-bottom: 1px solid #666;
 }
 footer a {
-  color: #ccc;
+  color: $color-footer-text
 }
 footer a:hover {
-  color: #fff;
+  color: darken($color-footer-text,1%);
+}
+footer h1{
+  color: $color-footer-text
+}
+footer p {
+  margin-bottom: 0;
 }
 footer h5 {
-  font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   font-weight: bold;
-  color: #fff;
+  color: darken($color-footer-text,1%);
 }
 /* alert */
 .alert {

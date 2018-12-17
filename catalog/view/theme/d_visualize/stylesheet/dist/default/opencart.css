@@ -352,9 +352,15 @@ div.required .control-label:before {
   min-height: 600px; }
 
 /* footer */
+.vd-footer-fill {
+  background-color: #303030;
+  color: #e2e2e2; }
+
+.vd-footer-fill-x2 {
+  background-color: #2b2b2b;
+  color: #e2e2e2; }
+
 footer {
-  margin-top: 30px;
-  padding-top: 30px;
   background-color: #303030;
   border-top: 1px solid #ddd;
   color: #e2e2e2; }
@@ -364,16 +370,21 @@ footer hr {
   border-bottom: 1px solid #666; }
 
 footer a {
-  color: #ccc; }
+  color: #e2e2e2; }
 
 footer a:hover {
-  color: #fff; }
+  color: #dfdfdf; }
+
+footer h1 {
+  color: #e2e2e2; }
+
+footer p {
+  margin-bottom: 0; }
 
 footer h5 {
-  font-family: 'Open Sans', sans-serif;
   font-size: 13px;
   font-weight: bold;
-  color: #fff; }
+  color: #dfdfdf; }
 
 /* alert */
 .alert {

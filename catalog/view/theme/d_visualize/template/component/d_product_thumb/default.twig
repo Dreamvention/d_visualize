@@ -19,7 +19,7 @@
                 {% endif %}
                 {% if product.rating %}
                     <div class="vz-product-thumb__rating">
-                        {% include component.rating.template with component.rating|merge({
+                        {% include component.d_rating.template with component.d_rating|merge({
                             rating:product.rating
                         }) %}
                     </div>
