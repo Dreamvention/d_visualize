@@ -8,9 +8,9 @@
                     <div class="opencart__panel panel">
                         <div class="panel__heading">
                             <v-container fluid>
-                                <div class="display-1">
+                                <div class="headline">
                                     <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    Edit Visualize settings
+                                    {{$t('common.edit_panel')}}
                                 </div>
                             </v-container>
                         </div>

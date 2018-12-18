@@ -148,6 +148,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['home']['download_shopunity'] = 'Please download our module shopunity to get latest themes';
         $local['common']['vdh'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_header');
         $local['common']['vdf'] = $this->model_extension_d_opencart_patch_url->ajax('extension/module/d_visual_designer_footer');
+        $local['common']['edit_panel'] = 'Edit Visualize settings';
 
         $local['setting']['entry_auto_save_help'] = $this->language->get('entry_auto_save_help');
 

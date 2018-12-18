@@ -7,6 +7,7 @@ class ControllerExtensionDVisualizeOpencart extends Controller
     public function __construct($registry)
     {
         parent::__construct($registry);
+        $this->extension = json_decode(file_get_contents(DIR_SYSTEM . 'library/d_shopunity/extension/' . $this->codename . '.json'), true);
 
     }
 
@@ -17,7 +18,7 @@ class ControllerExtensionDVisualizeOpencart extends Controller
 
         //font-awesome
 
-        $data['title'] = $this->language->get('heading_title_main');
+        $data['title'] = $this->language->get('heading_title_main').' '.$this->extension['version'];
         $data['base_url'] = HTTPS_CATALOG;
 
         // Breadcrumbs

@@ -81,11 +81,6 @@
                                         {{$t('editor.vdf')}}
                                         <v-icon>fas fa-chevron-right</v-icon>
                                     </v-btn>
-                                    <v-btn class="sections__list-item sections__list-item--custom" block nuxt exact
-                                           to="editor/custom">
-                                        {{$t('editor.custom')}}
-                                        <v-icon>fas fa-chevron-right</v-icon>
-                                    </v-btn>
                                 </div>
                             </v-tab-item>
                             <v-tab
@@ -109,7 +104,14 @@
                                                     <v-icon>fas fa-chevron-right</v-icon>
                                                 </v-btn>
                                             </template>
+
                                         </v-list>
+                                        <v-btn class="sections__list-item sections__list-item--custom" block nuxt exact
+                                               to="editor/custom">
+                                            <v-icon>fas fa-pencil-ruler</v-icon>
+                                            {{$t('editor.custom')}}
+                                            <v-icon>fas fa-chevron-right</v-icon>
+                                        </v-btn>
                                     </div>
                                 </div>
                             </v-tab-item>

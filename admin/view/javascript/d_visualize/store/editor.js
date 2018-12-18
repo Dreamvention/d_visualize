@@ -8,7 +8,7 @@ export const state = () => ({
 	    	common:[],
 		    current_page:[]
 	    },
-	    active_tab:1
+	    active_tab: 0
     },
 	mobile_toggle: RESPONSIVE.FULL,
     iframe: null
@@ -22,11 +22,14 @@ export const getters = {
 	current_page: (state, getters, rootState, rootGetters)=>{
 		let current_page = getters.iframe.page;
 		_.map(rootGetters['template/available_pages'], (page)=>{
-			var matches = getters.iframe.page.match(page.value.replace('/', '\/'));
+			var matches = current_page.match(page.value.replace('/', '\/'));
 			if (matches) {
 				current_page = page.value;
 			}
 		});
+		if (!rootGetters['template/available_pages'].find((i)=>i.value===current_page)){
+			return 'common/home';
+		}
 		return current_page;
 	},
 };
@@ -84,6 +87,7 @@ export const actions = {
 			if (event.data.vz_ifame_data) {
 				//take from Ifame date about page where it placed
 				console.log(event.data.vz_ifame_data)
+				if (!event.data.vz_ifame_data.route) return;
 				commit('CHANGE_IFRAME_PAGE', event.data.vz_ifame_data.route);
 				dispatch('SAVE_IFRAME_HISTORY', event.data.vz_ifame_data.location);
 				dispatch('CHANGE_NAVIGATION_CONTEXT');

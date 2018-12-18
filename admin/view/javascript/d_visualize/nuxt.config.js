@@ -32,7 +32,7 @@ let links = [
 	},
 	{
 		rel: 'stylesheet',
-		href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css'
+		href: 'https://use.fontawesome.com/releases/v5.2.0/css/all.css'
 	},
 	{
 		rel: 'stylesheet',

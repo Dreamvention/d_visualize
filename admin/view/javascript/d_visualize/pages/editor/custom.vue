@@ -32,6 +32,8 @@
             >
                 <v-textarea
                         v-model="skin_code"
+                        auto-grow
+                        flat
                 ></v-textarea>
                 <!--<codemirror v-model="skin_code"-->
                             <!--:options="cmOption"-->
