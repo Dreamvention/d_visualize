@@ -1,10 +1,10 @@
-@import "../../../../vz-helpers/base/import";
 @import "config";
+@import "../../../../vz-helpers/base/import";
+
 @include google-font {
   @include google-font($font-family);
   @include google-font($font-headings-family);
 }
-
 /**/
 body, html {
   font-family: '' + $font-family+ '', sans-serif;

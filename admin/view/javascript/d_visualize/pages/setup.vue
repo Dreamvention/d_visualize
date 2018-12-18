@@ -1,7 +1,6 @@
 <template>
     <div class="setup">
-        <v-container fluid>
-            <v-card class='mx-auto mb-5' color="transparent" flat justify-center max-width="520" >
+        <v-card class='mx-auto mb-5' color="transparent" flat justify-center max-width="520" >
                 <v-img :src='"setup/logo.svg"|image'
                        max-width="150"
                       class="mx-auto mb-3"
@@ -25,77 +24,77 @@
                     </div>
                 </v-layout>
             </v-card>
-            <v-layout align-center justify-space-around  row mb-5>
-                <v-flex xs1>
-                    <v-img :src='"setup/icons/icon1.svg"|image'
-                           class="mb-2"
-                    >
-                    </v-img>
-                    <div class="text-center">
-                        Visual Editor
-                    </div>
-                </v-flex>
-                <v-flex xs1>
-                    <v-img :src='"setup/icons/icon2.svg"|image'
-                           class="mb-2"
-                    >
-                    </v-img>
-                    <div class="text-center">
-                        Ready to use templates
-                    </div>
-                </v-flex>
-                <v-flex xs1>
-                    <v-img :src='"setup/icons/icon3.svg"|image'
-                           class="mb-2"
-                    >
-                    </v-img>
-                    <div class="text-center">
-                        Unlimited layout options
-                    </div>
-                </v-flex>
-                <v-flex xs1>
-                    <v-img :src='"setup/icons/icon4.svg"|image'
-                           class="mb-2"
-                    >
-                    </v-img>
-                    <div class="text-center">
-                        Works with any theme
-                    </div>
-                </v-flex>
-                <!--<v-flex xs2>-->
+        <v-layout align-center justify-center row>
+            <v-btn @click="setup" color="primary">
+                setup
+            </v-btn>
+            </v-layout>
+        <v-img :src='"setup/bg.svg"|image'
+                   height="700px"
+            >
+
+                <v-layout align-center justify-space-around row>
+                    <v-flex xs1>
+                        <v-img :src='"setup/icons/icon1.svg"|image'
+                               class="mb-2"
+                        >
+                        </v-img>
+                        <div class="text-center">
+                            Visual Editor
+                        </div>
+                    </v-flex>
+                    <v-flex xs1>
+                        <v-img :src='"setup/icons/icon2.svg"|image'
+                               class="mb-2"
+                        >
+                        </v-img>
+                        <div class="text-center">
+                            Ready to use templates
+                        </div>
+                    </v-flex>
+                    <v-flex xs1>
+                        <v-img :src='"setup/icons/icon3.svg"|image'
+                               class="mb-2"
+                        >
+                        </v-img>
+                        <div class="text-center">
+                            Unlimited layout options
+                        </div>
+                    </v-flex>
+                    <v-flex xs1>
+                        <v-img :src='"setup/icons/icon4.svg"|image'
+                               class="mb-2"
+                        >
+                        </v-img>
+                        <div class="text-center">
+                            Works with any theme
+                        </div>
+                    </v-flex>
+                    <!--<v-flex xs2>-->
                     <!--<v-img :src='"setup/icons/icon2.svg"|image'-->
-                           <!--max-width="100"-->
+                    <!--max-width="100"-->
 
                     <!--&gt;-->
                     <!--</v-img>-->
                     <!--Ready to use templates-->
-                <!--</v-flex>-->
-                <!--<v-flex xs2>-->
+                    <!--</v-flex>-->
+                    <!--<v-flex xs2>-->
                     <!--<v-img :src='"setup/icons/icon3.svg"|image'-->
-                           <!--max-width="100"-->
+                    <!--max-width="100"-->
 
                     <!--&gt;-->
                     <!--</v-img>-->
                     <!---->
-                <!--</v-flex>-->
-                <!--<v-flex xs2>-->
+                    <!--</v-flex>-->
+                    <!--<v-flex xs2>-->
                     <!--<v-img :src='"setup/icons/icon4.svg"|image'-->
-                           <!--max-width="100"-->
+                    <!--max-width="100"-->
                     <!--&gt;-->
                     <!--</v-img>-->
                     <!---->
-                <!--</v-flex>-->
-            </v-layout>
-
-            <v-img :src='"setup/bg.svg"|image'
-            >
-                <v-layout align-center justify-center row>
-                    <v-btn @click="setup" color="primary">
-                        setup
-                    </v-btn>
+                    <!--</v-flex>-->
                 </v-layout>
             </v-img>
-        </v-container>
     </div>
 </template>
 <script>
@@ -107,9 +106,9 @@
 			store.commit('load/LOADING_END');
 		},
 		methods: {
-			async setup({redirect}) {
+			async setup(contexe) {
 				await this.$store.dispatch('opencart/SETUP');
-				this.$router.push('home')
+				this.$router.push('/')
 			}
 		}
 	};

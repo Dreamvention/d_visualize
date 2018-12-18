@@ -38,6 +38,11 @@ export const actions = {
     async TRANCE_DB({commit}) {
         const {data} = await this.$axios.get('extension/d_visualize/opencart/trunce_db')
     },
+	async TRANCE_ACTIVE_STYLES({commit,rootGetters}) {
+    	let active_template = rootGetters['template/active_template'];
+        const {data} = await this.$axios.post('extension/d_visualize/opencart/trunce_active_styles',
+	        {template:active_template.setting.codename, skin:active_template.setting.active_skin})
+    },
 	async RECREATE_AM({commit}) {
         const {data} = await this.$axios.get('extension/d_visualize/opencart/refresh_menu')
     },
@@ -50,5 +55,6 @@ export const actions = {
 		await dispatch('RECREATE_AM');
 		await dispatch('setting/CHANGE_ACTIVE_TEMPLATE','default',{root:true});
 		await dispatch('setting/SAVE',{},{root:true});
+
 	}
 };

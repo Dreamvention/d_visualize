@@ -24,22 +24,14 @@
             <v-btn color="warning" @click="tranceDB" :loading="loading_warning"> Trance Tables</v-btn>
             <v-btn color="warning" @click="recreateAM" >Recreate Admin Menu</v-btn>
             <v-btn color="warning" @click="reinstallTheme" >REINSTALL THEME</v-btn>
-            <v-flex>
-                <v-tooltip bottom>
-                    <v-btn slot="activator" color="info" @click="toggleMenu" icon flat :loading="loading_warning">
-                        <v-icon v-if="menu">fas fa-caret-left</v-icon>
-                        <v-icon v-else>fas fa-caret-right</v-icon>
-                    </v-btn>
-                    <span><span v-if="menu">Hide</span><span v-else>Show</span> opencart navigation bar</span>
-                </v-tooltip>
+            <v-btn color="warning" @click="truncStyles" >EMPTY STYLES FOR CURRENT SKIN</v-btn>
 
-            </v-flex>
         </v-layout>
     </div>
 </template>
 
 <script>
-	import {mapGetters, mapMutations} from 'vuex';
+	import { mapMutations ,mapActions } from 'vuex';
 
 	export default {
 		name: "setting",
@@ -50,7 +42,6 @@
 				loading_warning: false
 			};
 		},
-		computed: mapGetters({menu: 'opencart/menu'}),
 		methods: {
 			async recreateDB({dispatch}) {
 				await this.$store.dispatch('opencart/REFRESH_DB');
@@ -62,15 +53,14 @@
 				await this.$store.dispatch('opencart/TRANCE_DB');
 				this.loading_warning = false;
 			},
-            async recreateAM() {
-				await this.$store.dispatch('opencart/RECREATE_AM');
-			},
-            async reinstallTheme() {
-				await this.$store.dispatch('opencart/REINSTALL_THEME');
-			},
 			...mapMutations({
 				toggleMenu: 'opencart/TOGGLE_MENU'
-			})
+			}),
+            ...mapActions({
+	            reinstallTheme:"opencart/REINSTALL_THEME",
+	            recreateAM:"opencart/RECREATE_AM",
+	            truncStyles:"opencart/TRANCE_ACTIVE_STYLES",
+            })
 		}
 	};
 </script>

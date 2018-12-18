@@ -5,7 +5,21 @@
                 <div class="content" v-if="loading.content_loaded">
                     <top-line :breadcrumbs="opData.breadcrumbs" :title="opData.title"
                               :opAction="opData.action"></top-line>
-                    <nuxt/>
+                    <div class="opencart__panel panel">
+                        <div class="panel__heading">
+                            <v-container fluid>
+                                <div class="display-1">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    Edit Visualize settings
+                                </div>
+                            </v-container>
+                        </div>
+                        <div class="panel__content">
+                            <v-container fluid>
+                                <nuxt/>
+                            </v-container>
+                        </div>
+                    </div>
                 </div>
                 <v-layout  v-else-if="loading.status===load.FAIL" align-center justify-center row fill-height wrap
                            text-center>

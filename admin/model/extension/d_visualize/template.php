@@ -1,4 +1,5 @@
 <?php
+use Leafo\ScssPhp\Compiler;
 
 class ModelExtensionDVisualizeTemplate extends Model
 {
@@ -104,7 +105,6 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         return $result;
     }
-
     public function updateStyleCSSPath($data){
         $sql = "UPDATE " . DB_PREFIX . "vz_style
             SET
@@ -137,7 +137,12 @@ class ModelExtensionDVisualizeTemplate extends Model
     }
     public function getCustomStyles($template_id, $skin)
     {
-        $sql = 'SELECT * from ' . DB_PREFIX . "vz_style where template_codename='" . $template_id . "' AND skin='" . $skin . "'";
+        $sql = 'SELECT * from ' . DB_PREFIX . "vz_style where template_codename='" . $this->db->escape($template_id) . "' AND skin='" . $this->db->escape($skin) . "'";
+        return $this->db->query($sql)->row;
+    }
+    public function deleteCustomStyles($template_id, $skin)
+    {
+        $sql = 'DELETE from ' . DB_PREFIX . "vz_style where template_codename='" . $this->db->escape($template_id) . "' AND skin='" . $this->db->escape($skin) . "'";
         return $this->db->query($sql)->row;
     }
     private function getSCSSVariables($template_id, $skin)
@@ -301,7 +306,48 @@ class ModelExtensionDVisualizeTemplate extends Model
 
         $this->model_extension_module_d_visualize->uninstallEvents();
     }
-
+    public function compileStaticCSS($template_id, $skin_id, $cssConfig)
+    {
+        $static_css_path='';
+        $skin_path = DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/template/' . $template_id . '/skin/' . $skin_id . '/';
+        if (@is_file($skin_path . $skin_id . '.scss')) {
+            include_once(DIR_SYSTEM . 'library/' . $this->codename . '/scssphp/scss.inc.php');
+            $scss = new Compiler();
+            $scss->setImportPaths($skin_path);
+            $variables = array();
+            foreach ($cssConfig as $holder => $holder_vars) {
+                if (strripos($holder, 'settings') === 0) {
+                    continue;
+                }
+                if (is_array($holder_vars)) {
+                    //not so much var so don't worry it's fast
+                    foreach ($holder_vars as $var => $value) {
+                        if (is_array($value)) {
+                            $value = '("' . implode($value, '","') . '")';
+                        }
+                        $variables[$holder . '-' . $var] = $value;
+                    }
+                } else {
+                    $variables[$holder] = $holder_vars;
+                }
+            }
+            $scss->setVariables($variables);
+            $compiled_css = $scss->compile(str_replace('@import "config";', '', @file_get_contents($skin_path . $skin_id . '.scss')));
+            @file_put_contents(DIR_CATALOG . 'view/theme/' . $this->codename . '/stylesheet/dist/' . $template_id . '/' . $skin_id . '_custom.css', $compiled_css);
+            $static_css_path =  'catalog/view/theme/' . $this->codename . '/stylesheet/dist/' . $template_id . '/' . $skin_id . '_custom.css';
+        } else {
+            throw new Exception('Can not find scss for compilation');
+        }
+        return $static_css_path;
+    }
+    public function truncStaticCSS($template_id,$skin_id)
+    {
+        $cutoms_style = $this->getCustomStyles($template_id,$skin_id);
+        if (@is_file(DIR_CATALOG. '../' .$cutoms_style['css_path'])) {
+            unlink(DIR_CATALOG. '../' .$cutoms_style['css_path']) ;
+        }
+        $this->deleteCustomStyles($template_id,$skin_id);
+    }
     public function imageResize($filename, $width = 300, $height = 300, $original_size = true)
     {
         if ($original_size) {

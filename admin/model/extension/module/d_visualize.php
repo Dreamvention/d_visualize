@@ -28,7 +28,7 @@ class ModelExtensionModuleDVisualize extends Model
         }
         $this->load->model('setting/setting');
         $setting_module = $this->model_setting_setting->getSetting($this->codename);
-        if (!$setting_module) {
+        if (empty($setting_module)) {
             return false;
         }
         return true;
