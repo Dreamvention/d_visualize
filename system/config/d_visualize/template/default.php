@@ -23,19 +23,19 @@ $_['d_visualize_template_default_setting'] = array(
                 )
             )
         ),
-        '*/coupon|voucher|account/login' => array(
-            'layout'  => array(
-                'component' => array(
-                    'form_group' => array(
-                        'setting' => array(
-                            'form' => array(
-                                'value' => 'block',
-                            )
-                        )
-                    )
-                ),
-            ),
-        ),
+//        '*/coupon|voucher|account/login' => array(
+//            'layout'  => array(
+//                'component' => array(
+//                    'form_group' => array(
+//                        'setting' => array(
+//                            'form' => array(
+//                                'value' => 'block',
+//                            )
+//                        )
+//                    )
+//                ),
+//            ),
+//        ),
         //all pages in account
         'checkout/*'    => array(
             'layout' => array(
