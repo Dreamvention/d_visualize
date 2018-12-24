@@ -30,7 +30,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->d_event_manager = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_event_manager.json'));
 
         $this->store_id = (isset($this->request->post['store_id'])) ? $this->request->post['store_id'] : 0;
-        $setting_visualize = $this->{'model_extension_module_' . $this->codename}->loadSetting();
+        $setting_visualize = $this->model_extension_module_d_visualize->loadSetting();
         $this->setting_visualize = $setting_visualize['module_' . $this->codename . '_setting'];
         $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
         $this->model = 'model_extension_module_' . $this->codename;

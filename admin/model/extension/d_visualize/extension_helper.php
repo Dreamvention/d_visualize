@@ -28,11 +28,11 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
         if ($this->d_visual_designer) {
             $this->load->model('extension/module/d_visual_designer_header');
             if (!$this->model_extension_module_d_visual_designer_header->checkConfig()){
-                $this->model_extension_module_d_visual_designer_header->installConfig('header4','default');
+                $this->model_extension_module_d_visual_designer_header->installConfig('header_default_visualize','default');
             }
             $this->load->model('extension/module/d_visual_designer_footer');
             if (!$this->model_extension_module_d_visual_designer_footer->checkConfig()){
-                $this->model_extension_module_d_visual_designer_footer->installConfig('footer1','default');
+                $this->model_extension_module_d_visual_designer_footer->installConfig('footer_default_visualize','default');
             }
 
         }
