@@ -141,7 +141,7 @@
                                 name="{{ input.name }}"
                             {% endif %}
                             {% if classes %}
-                                class="{{ input_classes }} "
+                                {#class="{{ input_classes }} "#}
                             {% endif %}
                             value="{{ option[input.value] }}"
                             {% if input.checked == option[input.value] %}checked="checked"{% endif %}
@@ -162,7 +162,7 @@
                         id="{{ input.id }}"
                     {% endif %}
                     {% if classes %}
-                        class="{{ input_classes }} "
+                        {#class="{{ input_classes }} "#}
                     {% endif %}
                    name="{{ input.name }}"
                    value="{{ input.value }}"

@@ -6,7 +6,7 @@ var Total_voucher = {
 
 	clickVoucher: function(){
 		$.ajax({
-		    url: 'index.php?route=total/voucher/voucher',
+			url: OPENCART_VERISON>'3.0.0.0'?'index.php?route=extension/total/voucher/voucher':'index.php?route=total/voucher/voucher',
 		    type: 'post',
 		    data: 'voucher=' + encodeURIComponent($('input[name=\'voucher\']').val()),
 		    dataType: 'json',

@@ -1,0 +1,91 @@
+<div class="panel panel-default  vz-total vz-total--coupon">
+  <div class="panel-heading">
+    <div class="panel-title h4"><a href="#collapse-shipping" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{ heading_title }} <i class="fa fa-caret-down"></i></a></div>
+  </div>
+  <div id="collapse-shipping" class="panel-collapse collapse">
+    <div class="panel-body">
+      <p>{{ text_shipping }}</p>
+      <div class="form-horizontal">
+        {% set prev_form = form %}
+        {% set form = 'block' %}
+        {% include component.form_group.template with{
+          form:'block',
+          form_group:{
+            label_text:entry_country ,
+            error:error_confirm,
+            required: true,
+            input:{
+              type:'select',
+              id:'input-country',
+              name:'country_id',
+              value:country,
+              values:countries,
+              select_values_val:'country_id',
+              select_values_check: country_id,
+              select_values_name: 'name',
+              placeholder: text_select ,
+            }
+          }
+        } %}
+
+        {% include component.form_group.template with{
+          form_group:{
+            label_text:entry_zone ,
+            error:error_confirm,
+            required: true,
+            input:{
+              type:'select',
+              id:'input-zone',
+              name:'zone_id',
+              value:zone,
+              values:null,
+              select_values_val:'zone_id',
+              select_values_check: zone_id,
+              select_values_name: 'name',
+              placeholder:entry_zone ,
+            }
+          }
+        } %}
+        {% include component.form_group.template with{
+          form_group:{
+            label_text:entry_postcode ,
+            error:error_confirm,
+            input:{
+              type:'text',
+              id:'input-postcode',
+              name:'postcode',
+              value:postcode,
+              placeholder:entry_postcode ,
+            }
+          }
+        } %}
+        {% include component.button.template with{
+          button:{
+            type:'button',
+            id:'button-quote',
+            style:'primary',
+            text_button:button_quote,
+          }
+        }%}
+        {% set form = prev_form %}
+
+      </div>
+      <script type="text/javascript"><!--
+        $(document).ready(function() {
+          Total_shipping.init({
+            shipping_method: '{{shipping_method}}',
+            text_shipping_method: '{{text_shipping_method}}',
+            text_loading: '{{text_loading}}',
+            button_cancel: '{{button_cancel}}',
+            button_shipping: '{{button_shipping}}'
+          });
+          d_address_field.init({
+            zone_id: '{{zone_id}}',
+            text_none: '{{text_none}}',
+            text_select: '{{text_select}}'
+          });
+        });
+        //--></script>
+    </div>
+  </div>
+</div>

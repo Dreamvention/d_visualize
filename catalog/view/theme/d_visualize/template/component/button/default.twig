@@ -1,5 +1,4 @@
 {% set btn_classes = 'btn vz-button' %}
-
 {% if button.classes %}
     {% set btn_classes = btn_classes ~ ' ' ~ button.classes %}
 {% endif %}
@@ -41,8 +40,9 @@ class="{{ btn_classes }}"
 {% if button.onclick %}onclick="{{ button.onclick|raw }}"{% endif %}
 {% if button.link %}href="{{ button.link }}"{% endif %}
 {% if button.type %} type='{{ button.type }}'{% endif %}
+{% if button.value %} value='{{ button.value }}'{% endif %}
 {% if button.title_button %}title="{{ button.title_button }}"{% endif %}
-{% if button.text_loading %}data-loading-text="{{ button.text_loading }}"{% endif %}
+{% if button.text_loading %} data-loading-text="{{ button.text_loading }}"{% endif %}
 {% if button.atributest %}{{ button.atributest|raw }}{% endif %}>
 {{ button.text_button|raw }}</{{ button.tag|default('button') }}>
 

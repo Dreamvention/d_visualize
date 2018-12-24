@@ -150,6 +150,7 @@
     "catalog/view/theme/d_visualize/template/component/d_rating/default.twig",
     "catalog/view/theme/d_visualize/template/component/d_review/default.twig",
     "catalog/view/theme/d_visualize/template/component/d_search/default.twig",
+    "catalog/view/theme/d_visualize/template/component/information_contact/default.twig",
     "catalog/view/theme/d_visualize/template/component/product/category_description/default.twig",
     "catalog/view/theme/d_visualize/template/component/product/options/default.twig",
     "catalog/view/theme/d_visualize/template/component/product/review/default.twig",

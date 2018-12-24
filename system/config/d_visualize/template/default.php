@@ -6,6 +6,75 @@ $_['d_visualize_template_default_setting'] = array(
     'description' => 'This default template pack with some pre defined style. This include some skin like opencart hydrys. It\'s contain some variants of components on your commmon pages like product, categories, account. Fell free to expirement with changing default settings to get best expirience from our theme module.',
     'debug' => 0,
     'page' => array(
+        //todo maybe bugs on admin check match
+        // it have lowwer rule
+        // follow priority
+        'account/*'     => array(
+            'layout' => array(
+                'component' => array(
+                    'form_group' => array(
+                        'editable'=>true,
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'inline',
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        '*/coupon|voucher|account/login' => array(
+            'layout'  => array(
+                'component' => array(
+                    'form_group' => array(
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'block',
+                            )
+                        )
+                    )
+                ),
+            ),
+        ),
+        //all pages in account
+        'checkout/*'    => array(
+            'layout' => array(
+                'component' => array(
+                    'form_group' => array(
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'inline',
+                            ),
+                            'js_error'=> true
+
+                        )
+                    )
+                )
+            )
+
+        ),
+        'checkout/cart' => array(
+            'layout'  => array(
+                'component' => array(
+                    'checkout_cart' => array(
+                        'editable' => true,
+                        'template' => 'd_visualize/template/component/checkout_cart/',
+                    ),
+                ),
+            ),
+            'scripts' => array()
+        ),
+        'information/contact' => array(
+            'layout'  => array(
+                'component' => array(
+                    'information_contact' => array(
+                        'editable' => true,
+                        'template' => 'd_visualize/template/component/information_contact/',
+                    ),
+                ),
+            ),
+            'scripts' => array()
+        ),
         'default' => array(
             'layout' => array(
                 'template' => 'd_visualize/template/layout/default.twig', // here can be custom settings for this template
@@ -171,8 +240,7 @@ $_['d_visualize_template_default_setting'] = array(
                                 'value' => 'block',
                             )
                         )
-                    )
-                ,
+                    ),
                     'product_product' => array(
                         'editable'=>true,
                         'template' => 'd_visualize/template/component/product_product/',
@@ -206,7 +274,6 @@ $_['d_visualize_template_default_setting'] = array(
                 'component' => array(
                     'product_category' => array(
                         'editable'=>true,
-                        'skin' => 'opencart',
                         'template' => 'd_visualize/template/component/product_category/',
                         'stylesheet' => 'd_visualize/stylesheet/dist/vz-component/product_category/',
                         'description_after_content' => true,
@@ -223,120 +290,7 @@ $_['d_visualize_template_default_setting'] = array(
             'scripts' => array(),
             'styles' => array()
         ),
-//        'extension/d_blog_module/*' => array(
-//            'layout' => array(
-//                'columns' => array(
-//                    'left' => 'col-12 col-sm-4',
-//                    'main' => array(
-//                        'two_col' => 'col-12 col-sm-8',
-//                    ),
-//                    'right' => 'col-12 col-sm-4'
-//                )
-//            )
-//        ),
-        'account/*'     => array(
-            'layout' => array(
-                'component' => array(
-                    'form_group' => array(
-                        'editable'=>true,
-                        'setting' => array(
-                            'form' => array(
-                                'value' => 'inline',
-                            )
-                        )
-                    )
-                )
-            )
-        ),
-//        '*/login' => array(
-//            'layout' => array(
-//                'component' => array(
-//                    'form_group' => array(
-//                        'setting' => array(
-//                            'form' => array(
-//                                'value' => 'block',
-//                            )
-//                        )
-//                    )
-//                )
-//            )
-//        ),
-        //follow priority
-        'checkout/*'    => array(
-            'layout' => array(
-                'component' => array(
-                    'form_group' => array(
-                        'setting' => array(
-                            'form' => array(
-                                'value' => 'inline',
-                            )
-                        )
-                    )
-                )
-            )
 
-        ),
-        'checkout/cart' => array(
-            'layout'  => array(
-                'component' => array(
-                    'checkout_cart' => array(
-                        'editable' => true,
-                        'template' => 'd_visualize/template/component/checkout_cart/',
-                    ),
-                ),
-            ),
-            'scripts' => array()
-        ),
-        'information/contact' => array(
-            'layout'  => array(
-                'component' => array(
-                    'information_contact' => array(
-                        'editable' => true,
-                        'template' => 'd_visualize/template/component/information_contact/',
-                    ),
-                ),
-            ),
-            'scripts' => array()
-        ),
-//        '*/coupon' => array(
-//            'layout'  => array(
-//                'component' => array(
-//                    'form_group' => array(
-//                        'setting' => array(
-//                            'form' => array(
-//                                'value' => 'block',
-//                            )
-//                        )
-//                    )
-//                ),
-//            ),
-//        ),
-//        '*/voucher' => array(
-//            'layout'  => array(
-//                'component' => array(
-//                    'form_group' => array(
-//                        'setting' => array(
-//                            'form' => array(
-//                                'value' => 'block',
-//                            )
-//                        )
-//                    )
-//                ),
-//            ),
-//        ),
-//        '*/reward' => array(
-//            'layout'  => array(
-//                'component' => array(
-//                    'form_group' => array(
-//                        'setting' => array(
-//                            'form' => array(
-//                                'value' => 'block',
-//                            )
-//                        )
-//                    )
-//                ),
-//            ),
-//        ),
 
     ),
     'pre_scripts' => array(
@@ -371,3 +325,15 @@ $_['config_theme_default'] = array(
         'product_thumb' => array('width' => '330', 'height' => '330'),
     )
 );
+//todo add support modules overloading components and layout
+//        'extension/d_blog_module/*' => array(
+//            'layout' => array(
+//                'columns' => array(
+//                    'left' => 'col-12 col-sm-4',
+//                    'main' => array(
+//                        'two_col' => 'col-12 col-sm-8',
+//                    ),
+//                    'right' => 'col-12 col-sm-4'
+//                )
+//            )
+//        ),

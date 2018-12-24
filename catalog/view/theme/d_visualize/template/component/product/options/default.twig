@@ -45,14 +45,15 @@
                             type:'radio',
                             id:'input-option'~option.product_option_id,
                             name:'option[' ~ option.product_option_id ~ ']',
-                            values:option.product_option_value
+                            values:option.product_option_value,
+                            form:'block'
                         },
                         } %}
                             {% block radio_option %}
                                 <input type="radio" 
                                 name="{{input.name}}"
                                 value="{{option.product_option_value_id}}"
-                                class="{{input_classes}}"/>
+                                />
                                 {% if option.image %}
                                  <img src="{{ option.image }}"
                                         alt="{{ option.name }} {% if option.price %} {{ option.price_prefix }} {{ option.price }} {% endif %}" class="vz-input__option-image"/> {% endif %}

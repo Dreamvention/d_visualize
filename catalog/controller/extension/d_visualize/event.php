@@ -60,11 +60,18 @@ class ControllerExtensionDVisualizeEvent extends Controller
             $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'], $data);
             //if some one add to specific page scripts need to add this to header
             foreach (array_keys($this->setting_active_template['page']) as $key) {
-                $re = '/^' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($key, '/')) . '/';
+                $re = '/^' . str_replace(array('\*', '\?','\|'), array('.*', '.','|'), preg_quote($key, '/')) . '/';
                 $str = $view;
+
                 //can be slow
                 preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
+//                echo "<pre>"; print_r($re);echo "</pre>";
+//                echo "<pre>"; print_r($str);echo "</pre>";
+//                echo "<pre>"; print_r($matches);echo "</pre>";
                 if (!empty($matches)) {
+//                    echo "<pre>"; print_r($re);echo "</pre>";
+//                    echo "<pre>"; print_r($str);echo "</pre>";
+//                    echo "<pre>"; print_r($this->setting_active_template['page'][$key]['layout']);echo "</pre>";
                     $data = array_replace_recursive($data, $this->setting_active_template['page'][$key]['layout']);
                     if (isset($this->setting_active_template['page'][$view_route]['scripts'])
                         && !empty($this->setting_active_template['page'][$view_route]['scripts'])) {
@@ -80,6 +87,7 @@ class ControllerExtensionDVisualizeEvent extends Controller
                     }
                 }
             }
+            //pass route to page and scripts and styles - should be called only once
             if (stristr($view,$view_route)) {
                 $data['page_route'] = $view_route;
                 if (isset($data['header'])) {

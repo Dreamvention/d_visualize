@@ -2,6 +2,10 @@
     <script src="{{ script }}" type="text/javascript"></script>
 {% endfor %}
 	{#<script src="catalog/view/javascript/d_visualize/lib/cq-prolyfill.js" async></script>#}
+{#pass opencart version to scripts#}
+<script>
+	window.OPENCART_VERISON = '{{ constant('VERSION')}}';
+</script>
 {# only for devs #}
 {% if admin %}
 	<script>

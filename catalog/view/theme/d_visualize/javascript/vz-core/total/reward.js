@@ -6,7 +6,7 @@ var Total_reward = {
 
 	clickReward: function(){
 		$.ajax({
-			url: 'index.php?route=total/reward/reward',
+			url: OPENCART_VERISON>'3.0.0.0'?'index.php?route=extension/total/reward/reward':'index.php?route=total/reward/reward',
 			type: 'post',
 			data: 'reward=' + encodeURIComponent($('input[name=\'reward\']').val()),
 			dataType: 'json',
