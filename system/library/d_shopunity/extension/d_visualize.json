@@ -215,6 +215,10 @@
     "catalog/view/theme/d_visualize/template/product/search.twig",
     "catalog/view/theme/d_visualize/template/product/special.twig",
 
+    "catalog/view/theme/d_visualize/template/extension/total/coupon.twig",
+    "catalog/view/theme/d_visualize/template/extension/total/reward.twig",
+    "catalog/view/theme/d_visualize/template/extension/total/shipping.twig",
+    "catalog/view/theme/d_visualize/template/extension/total/voucher.twig",
     "catalog/view/theme/d_visualize/template/total/coupon.twig",
     "catalog/view/theme/d_visualize/template/total/reward.twig",
     "catalog/view/theme/d_visualize/template/total/shipping.twig",
