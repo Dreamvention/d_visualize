@@ -35,7 +35,7 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                 $this->model_extension_module_d_visual_designer_footer->installConfig('footer_default_visualize','default');
             }
             $this->load->model('extension/d_visual_designer/designer');
-            $this->model_extension_module_d_visual_designer->disableBootstrap();
+            $this->model_extension_d_visual_designer_designer->disableBootstrap();
         }
     }
 
