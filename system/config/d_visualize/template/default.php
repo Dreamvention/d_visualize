@@ -9,7 +9,7 @@ $_['d_visualize_template_default_setting'] = array(
         //todo maybe bugs on admin check match
         // it have lowwer rule
         // follow priority
-        'account/*'     => array(
+        'account\/.*'     => array(
             'layout' => array(
                 'component' => array(
                     'form_group' => array(
@@ -23,27 +23,14 @@ $_['d_visualize_template_default_setting'] = array(
                 )
             )
         ),
-//        '*/coupon|voucher|account/login' => array(
-//            'layout'  => array(
-//                'component' => array(
-//                    'form_group' => array(
-//                        'setting' => array(
-//                            'form' => array(
-//                                'value' => 'block',
-//                            )
-//                        )
-//                    )
-//                ),
-//            ),
-//        ),
         //all pages in account
-        'checkout/*'    => array(
+        'checkout\/.*'    => array(
             'layout' => array(
                 'component' => array(
                     'form_group' => array(
                         'setting' => array(
                             'form' => array(
-                                'value' => 'inline',
+                                'value' => 'block',
                             ),
                             'js_error'=> true
 
@@ -53,7 +40,21 @@ $_['d_visualize_template_default_setting'] = array(
             )
 
         ),
-        'checkout/cart' => array(
+        '.*\/coupon|voucher|account\/login' => array(
+            'layout'  => array(
+                'component' => array(
+                    'form_group' => array(
+                        'setting' => array(
+                            'form' => array(
+                                'value' => 'block',
+                            )
+                        )
+                    )
+                ),
+            ),
+        ),
+
+        'checkout\/cart' => array(
             'layout'  => array(
                 'component' => array(
                     'checkout_cart' => array(
@@ -64,7 +65,7 @@ $_['d_visualize_template_default_setting'] = array(
             ),
             'scripts' => array()
         ),
-        'information/contact' => array(
+        'information\/contact' => array(
             'layout'  => array(
                 'component' => array(
                     'information_contact' => array(
@@ -218,7 +219,7 @@ $_['d_visualize_template_default_setting'] = array(
             ),
             'block' => array('main_wrapper', 'before_content', 'content', 'after_content')
         ),
-        'common/home' => array(
+        'common\/home' => array(
             'layout' => array(
                 'component' => array(
                     'breadcrumb' => array(
@@ -231,7 +232,7 @@ $_['d_visualize_template_default_setting'] = array(
                 ),
             ),
         ),
-        'product/product' => array(
+        'product\/product' => array(
             'layout' => array(
                 'component' => array(
                     'form_group' => array(
@@ -269,7 +270,7 @@ $_['d_visualize_template_default_setting'] = array(
             ),
             'styles' => array()
         ),
-        'product/category' => array(
+        'product\/category' => array(
             'layout' => array(
                 'component' => array(
                     'product_category' => array(

@@ -34,7 +34,8 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             if (!$this->model_extension_module_d_visual_designer_footer->checkConfig()){
                 $this->model_extension_module_d_visual_designer_footer->installConfig('footer_default_visualize','default');
             }
-
+            $this->load->model('extension/d_visual_designer/designer');
+            $this->model_extension_module_d_visual_designer->disableBootstrap();
         }
     }
 
@@ -114,6 +115,13 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                 'children' => $sub_items,
             );
             $this->model_extension_module_d_admin_menu->addMenuItem($this->codename, $admin_menu_item);
+        }
+    }
+    public function removeLinksFromMenu()
+    {
+        if ($this->d_admin_menu) {
+            $this->load->model('extension/module/d_admin_menu');
+            $this->model_extension_module_d_admin_menu->deleteMenuItem($this->codename);
         }
     }
 }

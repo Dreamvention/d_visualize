@@ -51,23 +51,12 @@
 			})
 		},
 		mounted() {
-			console.log('mounted')
 			this.$store.commit('load/LOADING_START');
 		},
 		methods: {
 			iframeLoad(e) {
-				document.getElementById('iframe').contentWindow.postMessage({vz_token: true,vz_get_iframe_info:true}, '*');
-				// save current state customizing after refresh
-				document.getElementById('iframe').contentWindow.postMessage({
-					vz_token: true,
-					vz_change_css: {
-						template_id: this.template.setting.codename,
-						skin: this.template.setting.active_skin,
-						variables: this.template.skines[this.template.setting.active_skin]
-					}
-				}, '*')
-				this.$store.commit('load/LOADING_END', {}, {root: true});
-
+				this.$store.dispatch('editor/IFRAME_RELOAD', e);
+				this.$store.commit('load/LOADING_END');
 			}
 		}
 

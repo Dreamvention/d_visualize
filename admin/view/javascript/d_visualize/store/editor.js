@@ -22,7 +22,7 @@ export const getters = {
 	current_page: (state, getters, rootState, rootGetters)=>{
 		let current_page = getters.iframe.page;
 		_.map(rootGetters['template/available_pages'], (page)=>{
-			var matches = current_page.match(page.value.replace('/', '\/'));
+			var matches = current_page.match(page.value);
 			if (matches) {
 				current_page = page.value;
 			}
@@ -99,41 +99,28 @@ export const actions = {
 		};
 		window.addEventListener('message', listener);
 	},
+	IFRAME_RELOAD({commit, dispatch, rootGetters}, payload) {
+		document.getElementById('iframe').contentWindow.postMessage({vz_token: true, vz_get_iframe_info: true}, '*');
+		// save current state customizing after refresh
+		document.getElementById('iframe').contentWindow.postMessage({
+			vz_token: true,
+			vz_change_css: {
+				template_id: rootGetters['template/active_template'].setting.codename,
+				skin: rootGetters['template/active_template'].setting.active_skin,
+				variables: rootGetters['template/active_template'].skines[rootGetters['template/active_template'].setting.active_skin]
+			}
+		}, '*');
+		//save custom section after refresh
+		dispatch('setting/SET_GLOBAL_CUSTOM_STYLE', rootGetters['setting/custom_style'], {root: true});
+		//save skin section after refresh
+		dispatch('template/SET_SKIN_CUSTOM_STYLE',
+			{
+				template_id: rootGetters['template/active_template'].setting.codename,
+				skin: rootGetters['template/active_template'].setting.active_skin,
+				custom_style: rootGetters['template/active_template_skin'].custom_style
+			},  {root: true});
+
+	},
 
 };
 
-/*
-};
-d_visualize.actions['PUSH_NAVIGATION_HISTORY'] = function (context, payload) {
-    context.commit('PUSH_NAVIGATION_HISTORY', payload);
-}
-d_visualize.actions['SHOW_MENU'] = function (context, payload) {
-    context.commit('SHOW_MENU', payload);
-};
-d_visualize.getters.iframe_history = function (state) {
-    return state.iframe_history;
-};
-d_visualize.getters.menu = function (state) {
-    return state.menu;
-};
-d_visualize.getters.route = function (state) {
-    return state.route;
-};
-d_visualize.getters.edit_history = function (state) {
-    return state.edit_history;
-};
-d_visualize.getters.current_page = function (state, getters) {
-    let current_page = state.current_page;
-    _.map(getters.available_page, (page) => {
-        page = page.replace('/', '\/');
-        var matches = state.current_page.match(page);
-        if (matches) {
-            current_page = page;
-        }
-    });
-    return current_page;
-};
-d_visualize.getters.available_page = function (state, getters) {
-    return _.keys(getters.active_template.setting.page);
-};
-*/

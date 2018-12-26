@@ -78,11 +78,11 @@
 				},
 				set(value) {
 					this.$store.dispatch('template/SET_SKIN_CUSTOM_STYLE',
-                        {
-	                        template_id:this.template.setting.codename,
-                            skin:this.template.setting.active_skin,
-	                        custom_style: value
-                        })
+						{
+							template_id: this.template.setting.codename,
+							skin: this.template.setting.active_skin,
+							custom_style: value
+						});
 				}
 			},
 			...mapGetters({

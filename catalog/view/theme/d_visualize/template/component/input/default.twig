@@ -85,26 +85,28 @@
 </label>
 {% endif %}
 {% elseif input.type=='select' %}
+    {#set default values #}
+    {% if not input.value %}
+        {% set input=input|merge({value:'value'}) %}
+    {% endif %}
+    {% if not input.text %}
+        {% set input=input|merge({text:'text'}) %}
+    {% endif %}
+    {% if not input.image %}
+        {% set input=input|merge({image:'image'}) %}
+    {% endif %}
     <div class="vz-input-select-wrap">
-        <select 
+        <select
             class="vz-input__input {{ input_classes }}"
-                {% if input.id %}
-                    id="{{ input.id }}"
-                {% endif %}
-                {% if input.name %}
-                    name="{{ input.name }}"
-                {% endif %}
-                {% if input.id %}
-                    onchange="{{ input.on_change }}">
-                {% endif %}
-                {% if input.placeholder %}
-                    <option value="">{{ input.placeholder }}</option>
-                {% endif %}
+                {% if input.id %}id="{{ input.id }}"{% endif %}
+                {% if input.name %}name="{{ input.name }}"{% endif %}
+                {% if input.on_change %}onchange="{{ input.on_change }}">{% endif %}
+                {% if input.placeholder %}<option value="">{{ input.placeholder }}</option>{% endif %}
                 {% for option in input.values %}
                     {% block select_option %}
-                        <option value="{{ option[input.select_values_val] }}"
-                        {% if option[input.select_values_check_val] == input.select_values_check %} selected="selected" {% endif %}>
-                            {{ option[input.select_values_name] }}
+                        <option value="{{ option[input.value]}}"
+                                {% if input.checked == option[input.value] %}selected="selected"{% endif %}>
+                            {{ option[input.text] }}
                         </option>
                     {% endblock %}
                 {% endfor %}

@@ -60,9 +60,8 @@ class ControllerExtensionDVisualizeEvent extends Controller
             $data = array_merge_recursive($this->setting_active_template['page']['default']['layout'], $data);
             //if some one add to specific page scripts need to add this to header
             foreach (array_keys($this->setting_active_template['page']) as $key) {
-                $re = '/^' . str_replace(array('\*', '\?','\|'), array('.*', '.','|'), preg_quote($key, '/')) . '/';
+                $re = '/' . $key . '/';
                 $str = $view;
-
                 //can be slow
                 preg_match_all($re, $str, $matches, PREG_SET_ORDER, 0);
 //                echo "<pre>"; print_r($re);echo "</pre>";

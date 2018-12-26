@@ -90,11 +90,10 @@
             type:'select',
             id:'input-country',
             name:'country_id',
-            value:country,
+            value:'country_id',
+            text:'name',
             values:countries,
-            select_values_val:'country_id',
-            select_values_check: country_id,
-            select_values_name: 'name',
+            checked: country_id,
             placeholder:text_select ,
         }
     }
@@ -109,12 +108,10 @@
             type:'select',
             id:'input-zone',
             name:'zone_id',
-            value:zone,
             values:null,
-            select_values_val:'zone_id',
-            select_values_check: zone_id,
-            select_values_name: 'name',
-            placeholder:entry_zone ,
+            value:'zone_id',
+            text:'name',
+            placeholder:text_select ,
         }
     }
 } %}

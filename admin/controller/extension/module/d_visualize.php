@@ -122,6 +122,7 @@ class ControllerExtensionModuleDVisualize extends Controller
         $this->response->setOutput(json_encode(array('locale' => $this->config->get('config_language_id'), 'messages' => $this->prepareLocal())));
     }
     /*
+     * todo push it onto sub modules and give translations
      * load languages locals for i18n
      * */
     public function prepareLocal()

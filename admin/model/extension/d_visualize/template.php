@@ -289,6 +289,8 @@ class ModelExtensionDVisualizeTemplate extends Model
         $this->model_extension_d_visualize_extension_helper->installDependencyModules($active_template);
         $this->model_extension_d_visualize_extension_helper->installConfigThemeDefaults();
         $this->model_extension_d_visualize_extension_helper->installTemplateThemeDefaults($active_template);
+        //danger zone
+        $this->model_extension_d_visualize_extension_helper->addLinksToMenu();
     }
     public function uninstallTheme()
     {
@@ -303,8 +305,11 @@ class ModelExtensionDVisualizeTemplate extends Model
             $this->model_extension_d_opencart_patch_setting->editSetting('theme_default', $setting);
         }
         $this->load->model('extension/module/d_visualize');
+        $this->load->model('extension/d_visualize/extension_helper');
+        $this->model_extension_d_visualize_extension_helper->removeLinksFromMenu();
 
         $this->model_extension_module_d_visualize->uninstallEvents();
+
     }
     public function compileStaticCSS($template_id, $skin_id, $cssConfig)
     {
