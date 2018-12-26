@@ -121,6 +121,7 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
     {
         if ($this->d_admin_menu) {
             $this->load->model('extension/module/d_admin_menu');
+            $this->model_extension_module_d_admin_menu->installCompatibility();
             $this->model_extension_module_d_admin_menu->deleteMenuItem($this->codename);
         }
     }
