@@ -66,10 +66,6 @@
     "catalog/controller/extension/d_visualize/mobile.php",
     "catalog/model/extension/module/d_visualize.php",
 
-    "catalog/view/theme/d_visualize/stylesheet/d_ajax_filter/d_ajax_filter.css",
-    "catalog/view/theme/d_visualize/stylesheet/d_ajax_filter/la-ball-scale-ripple-multiple.css",
-    "catalog/view/theme/d_visualize/stylesheet/d_blog_module/bootstrap.css",
-
     "catalog/view/theme/d_visualize/template/account/account.twig",
     "catalog/view/theme/d_visualize/template/account/address_form.twig",
     "catalog/view/theme/d_visualize/template/account/address_list.twig",
