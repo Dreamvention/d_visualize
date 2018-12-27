@@ -27,7 +27,6 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
     {
         if ($this->d_visual_designer) {
             $this->load->model('extension/module/d_visual_designer_header');
-
             if (!$this->model_extension_module_d_visual_designer_header->checkConfig()){
                 $this->model_extension_module_d_visual_designer_header->installConfig('header_default_visualize','default');
             }
@@ -37,6 +36,9 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             }
             $this->load->model('extension/d_visual_designer/designer');
             $this->model_extension_d_visual_designer_designer->disableBootstrap();
+            $this->load->model('extension/module/d_visual_designer');
+            $this->model_extension_module_d_visual_designer->compressRiotTag();
+
         }
     }
 
