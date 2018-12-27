@@ -20,15 +20,16 @@ export const getters = {
     iframe: state => state.iframe,
 	mobile_toggle: state => state.mobile_toggle,
 	current_page: (state, getters, rootState, rootGetters)=>{
-		let current_page = getters.iframe.page;
+		let current_page = '';
 		_.map(rootGetters['template/available_pages'], (page)=>{
-			var matches = current_page.match(page.value);
+			var matches = getters.iframe.page.match(page.value);
 			if (matches) {
 				current_page = page.value;
 			}
 		});
 		if (!rootGetters['template/available_pages'].find((i)=>i.value===current_page)){
-			return 'common/home';
+			let template_page = rootGetters['template/active_template'].setting.page;
+			return Object.keys(template_page)[0];
 		}
 		return current_page;
 	},

@@ -6,21 +6,21 @@
                                           class="img-responsive"/></a>
         <div class="vz-product-thumb__buttons btn-group">
             {% include component.button.template with {button:{
-                button:'cart.add('~ product.product_id ~', '~ minimum ~')',
+                onclick:'cart.add('~ product.product_id ~', '~ minimum ~')',
                 style:'primary',
                 classes:'btn-buy vz-product-thumb__button',
                 text_button:button_cart
             }} %}
             <div class="divider"></div>
             {% include component.button.template with {button:{
-                button:'wishlist.add('~ product.product_id ~')',
+                onclick:'wishlist.add('~ product.product_id ~')',
                 style:'primary',
                 classes:'vz-product-thumb__button',
                 icon:'fas fa-heart'
             }} %}
             <div class="divider"></div>
             {% include component.button.template with {button:{
-                button:'compare.add('~ product.product_id ~')',
+                onclick:'compare.add('~ product.product_id ~')',
                 style:'primary',
                 classes:'vz-product-thumb__button',
                 icon:'fas fa-exchange-alt'

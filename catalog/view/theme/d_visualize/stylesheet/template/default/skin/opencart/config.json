@@ -12,17 +12,17 @@
   },
   "button": {
     "radius": "5px",
-    "font-size": "14px",
+    "font-size": "12px",
     "border-width": "1px",
     "text-transform": [],
     "box-shadow": true
   },
   "font":{
-    "size-base": "14px",
+    "size-base": "12px",
     "family": "Open Sans",
-    "line-height": "1.3",
+    "line-height": "1.6",
     "headings-family": "Open Sans",
-    "headings-size-base": "14px",
+    "headings-size-base": "12px",
     "headings-line-height": "1.1",
     "headings-letter-spacing": "1px",
     "headings-text-transform": []
@@ -42,8 +42,8 @@
         "size-base": {
           "text": "font.size_base",
           "type": "slider",
-          "min": "12",
-          "max": "18",
+          "min": "8",
+          "max": "16",
           "step": "1",
           "suffix": "px"
 

@@ -141,6 +141,7 @@
     "catalog/view/theme/d_visualize/template/component/d_product_thumb/default.twig",
     "catalog/view/theme/d_visualize/template/component/d_product_thumb/default_expanded.twig",
     "catalog/view/theme/d_visualize/template/component/d_product_thumb/opencart.twig",
+    "catalog/view/theme/d_visualize/template/component/d_product_thumb/hydrus.twig",
     "catalog/view/theme/d_visualize/template/component/d_product_list/default.twig",
     "catalog/view/theme/d_visualize/template/component/d_product_sort/default.twig",
     "catalog/view/theme/d_visualize/template/component/d_rating/default.twig",

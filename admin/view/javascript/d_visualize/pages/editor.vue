@@ -318,7 +318,7 @@
                     background-color: #fff;
                     opacity: 1;
                 }
-                &--active, &:hover {
+                &--active, &:hover, &:focus {
                     color: var(--primary);
                     &:before {
                         background-color: #fff;

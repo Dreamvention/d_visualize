@@ -188,8 +188,8 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['editor']['custom_help'] = 'Here you can edit your custom styles for current template skin';
 
         //header
-        $local['editor']['section'] = 'Section';
-        $local['editor']['theme_set'] = 'Theme set';
+        $local['editor']['section'] = 'Elements';
+        $local['editor']['theme_set'] = 'Design';
         $local['editor']['common_components'] = 'Common';
         $local['editor']['current_page_components'] = 'Current page';
 
@@ -208,14 +208,16 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['editor']['entry_change_skin'] = 'You can change whole skin for your theme.';
 
         //can't use '/'
-        $local['page']['common_home'] = 'Home Page';
-        $local['page']['product_product'] = 'Product Page';
-        $local['page']['product_category'] = 'Category Page';
-        $local['page']['checkout_cart'] = 'Cart Page';
-        $local['page']['checkout_checkout'] = 'Checkout Page';
+        $local['page']['common_home'] = 'Home page';
+        $local['page']['product_product'] = 'Product page';
+        $local['page']['product_category'] = 'Category page';
+        $local['page']['checkout_cart'] = 'Cart page';
+        $local['page']['checkout_checkout'] = 'Checkout page';
         $local['page']['account_all'] = 'Account/*';
-        $local['page']['account_login'] = 'Login Page';
+        $local['page']['account_login'] = 'Login page';
         $local['page']['checkout_all'] = 'Checkout/*';
+        $local['page']['all'] = 'Default page';
+        $local['page']['information_contact'] = 'Contact/*';
 
         //component
         $local['component']['entry_d_product_thumb'] = $this->language->get('entry_d_product_thumb');
@@ -224,12 +226,12 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['component']['entry_breadcrumb'] = $this->language->get('entry_breadcrumb');
         $local['component']['entry_form_group'] = 'Form group';
         $local['component']['entry_d_notification'] = 'Notification';
-        $local['component']['entry_d_mini_cart'] = 'Mini Cart';
+        $local['component']['entry_d_mini_cart'] = 'Mini cart';
         $local['component']['entry_product_product'] = $local['page']['product_product'];
         $local['component']['entry_product_category'] = $local['page']['product_category'];
         $local['component']['entry_checkout_cart'] = $local['page']['checkout_cart'];
         $local['component']['entry_checkout_checkout'] = $local['page']['checkout_checkout'];
-
+        $local['component']['entry_information_contact'] = 'Contact us page';
         $local['component']['entry_common_components'] = $this->language->get('entry_common_components');
 
         $local['color']['text_primary'] = 'Primary-text color';

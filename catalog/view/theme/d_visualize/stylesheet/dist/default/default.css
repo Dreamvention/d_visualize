@@ -1,19 +1,4 @@
 @import url("//fonts.googleapis.com/css?family=Open+Sans");
-pre {
-  background: none;
-  border: none;
-  line-height: 1.3em;
-  font-size: 1em; }
-
-hr {
-  border: none;
-  margin: 1rem 0px 2rem; }
-
-a {
-  text-decoration: none; }
-  a:hover, a:active {
-    text-decoration: none; }
-
 body, html {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
@@ -59,8 +44,5 @@ h6, .heading-h6 {
 
 a, .link {
   color: #23a1d1; }
-
-body {
-  background-color: #fce4ff; }
 
 /*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/default/default.css.map */

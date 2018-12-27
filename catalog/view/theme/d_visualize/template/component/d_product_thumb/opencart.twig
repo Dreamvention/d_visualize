@@ -25,8 +25,8 @@
             {% endif %}
         </div>
         <div class="button-group vz-product-thumb__group">
-            {% set spec_btn_text= '<i class="fa fa-shopping-cart"></i>'~
-                '<span class="hidden-xs hidden-sm hidden-md">'~ button_cart~'</span>' %}
+            {% set spec_btn_text= '<span class="hidden-xs hidden-sm hidden-md">'~ button_cart~'</span>' ~
+                '<i class="fa fa-shopping-cart"></i>'%}
             {% include component.button.template with {button:{
                 onclick:'cart.add('~ product.product_id ~', '~ minimum ~')',
                 style:'default',

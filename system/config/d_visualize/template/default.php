@@ -5,10 +5,15 @@ $_['d_visualize_template_default_setting'] = array(
     'active_skin' => 'opencart',
     'description' => 'This default template pack with some pre defined style. This include some skin like opencart hydrys. It\'s contain some variants of components on your commmon pages like product, categories, account. Fell free to expirement with changing default settings to get best expirience from our theme module.',
     'debug' => 0,
-    'page' => array(
+    'page'          => array(
         //todo maybe bugs on admin check match
         // it have lowwer rule
-        // follow priority
+        // follow priority hider have lower rule
+        '.*'                => array(
+            'layout' => array(
+                'component' => array()
+            )
+        ),
         'account\/.*'     => array(
             'layout' => array(
                 'component' => array(
@@ -185,7 +190,6 @@ $_['d_visualize_template_default_setting'] = array(
                         'editable' => false
                     ),
                     'd_notification' => array(
-                        'skin' => 'opencart',
                         'template' => 'd_visualize/template/component/d_notification/',
                         'editable' => true,
                     ),
@@ -292,19 +296,18 @@ $_['d_visualize_template_default_setting'] = array(
             'styles' => array()
         ),
 
-
     ),
-    'pre_scripts' => array(
+    'pre_scripts'   => array(
         'catalog/view/javascript/bootstrap/js/bootstrap.min.js',
         'catalog/view/javascript/jquery/jquery-2.1.1.min.js',
     ),
-    'post_scripts' => array(
+    'post_scripts'  => array(
         'catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.min.js',
     ),
-    'post_styles' => array(
+    'post_styles'   => array(
         'catalog/view/javascript/d_bootstrap_rating/bootstrap-rating.css',
     ),
-    'pre_styles' => array(
+    'pre_styles'    => array(
 //        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css',
         'https://use.fontawesome.com/releases/v5.5.0/css/all.css',
         'https://use.fontawesome.com/releases/v5.5.0/css/v4-shims.css',

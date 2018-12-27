@@ -46,9 +46,10 @@ export const getters = {
 
 	},
 	available_pages: (state, getters)=>{
+
 		return _.map(_.keys(getters.active_template.setting.page), (n)=>{
 			return {value: n, text: `page.${n.replace('\\/', '_').replace('.*', 'all')}`};
-		}).splice(1);
+		});
 	},
 };
 // mutations

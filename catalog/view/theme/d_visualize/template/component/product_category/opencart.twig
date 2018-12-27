@@ -6,10 +6,7 @@
                 {% if thumb %}
                     <div class="col-sm-2"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail" /></div>
                 {% endif %}
-                {{ description_after_content }}
-                {% if description and not component.product_category.description_after_content =='true' %}
                     <div class="col-sm-10">{{ description }}</div>
-                {% endif %}</div>
             <hr>
         {% endif %}
         {% if categories %}

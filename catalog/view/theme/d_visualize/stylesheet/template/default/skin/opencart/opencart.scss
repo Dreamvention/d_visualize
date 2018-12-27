@@ -95,15 +95,14 @@ div.required .control-label:before {
 
 /* Gradent to all drop down menus */
 .dropdown-menu {
-  li {
-    a:not(.vd-mini-cart.dropdown-menu li a):hover, button:not(.vd-mini-cart.dropdown-menu li button):hover {
+  >li{
+    >a:hover, button:hover {
       text-decoration: none;
       color: $color-text-primary;
       background-color: $color-primary;
       background-image: linear-gradient(to bottom, darken($color-primary, 3%), darken($color-primary, 8%));
       background-repeat: repeat-x;
     }
-
     button {
       padding-top: 0;
       padding-bottom: 0;
@@ -111,13 +110,7 @@ div.required .control-label:before {
     }
   }
 }
-.dropdown-menu li a:hover{
-  text-decoration: none;
-  color: $color-text-primary;
-  background-color: $color-primary;
-  background-image: linear-gradient(to bottom, darken($color-primary, 3%), darken($color-primary, 8%));
-  background-repeat: repeat-x;
-}
+
 
 
 .vd-menu--style-v2 .vd-navigation__nav__item__inner:hover {
@@ -188,7 +181,6 @@ div.required .control-label:before {
   }
 }
 
-/* logo */
 /* search */
 #search .input-lg {
   height: 40px;
