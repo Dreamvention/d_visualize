@@ -4,7 +4,6 @@
 {% if component.form_group.setting.js_error %}
     {% set form_group = form_group|merge({error:false}) %}
 {% endif %}
-
 {% if form_group.classes %}
     {% set form_group_class = form_group_class ~ ' ' ~ form_group.classes %}
 {% endif %}
