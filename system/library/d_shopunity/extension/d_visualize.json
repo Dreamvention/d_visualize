@@ -161,14 +161,7 @@
 
     "catalog/view/theme/d_visualize/template/extension/d_visual_designer/elements/vd-product.tag",
 
-    "catalog/view/theme/d_visualize/template/extension/module/bestseller.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/d_visual_designer_header.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/d_visual_designer_footer.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/ebay_listing.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/featured.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/html.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/latest.twig",
-    "catalog/view/theme/d_visualize/template/extension/module/special.twig",
+
     "catalog/view/theme/d_visualize/template/information/contact.twig",
     "catalog/view/theme/d_visualize/template/information/information.twig",
     "catalog/view/theme/d_visualize/template/information/sitemap.twig",
@@ -212,15 +205,6 @@
     "catalog/view/theme/d_visualize/template/product/search.twig",
     "catalog/view/theme/d_visualize/template/product/special.twig",
 
-    "catalog/view/theme/d_visualize/template/extension/total/coupon.twig",
-    "catalog/view/theme/d_visualize/template/extension/total/reward.twig",
-    "catalog/view/theme/d_visualize/template/extension/total/shipping.twig",
-    "catalog/view/theme/d_visualize/template/extension/total/voucher.twig",
-    "catalog/view/theme/d_visualize/template/total/coupon.twig",
-    "catalog/view/theme/d_visualize/template/total/reward.twig",
-    "catalog/view/theme/d_visualize/template/total/shipping.twig",
-    "catalog/view/theme/d_visualize/template/total/voucher.twig",
-
     "system/config/d_visualize.php",
     "system/config/d_visual_designer_template/default.php",
     "system/config/d_visualize/template/default.php",
@@ -245,8 +229,13 @@
     "catalog/view/theme/d_visualize/javascript/dist/vz-core",
     "catalog/view/theme/d_visualize/javascript/template/default",
     "catalog/view/theme/d_visualize/javascript/dist/default",
-    "catalog/view/javascript/d_visualize/lib",
+    "catalog/view/javascript/d_visualize/lib"
+  ,
     "catalog/view/theme/d_visualize/template/component/default",
+    "catalog/view/theme/d_visualize/template/extension/module",
+    "catalog/view/theme/d_visualize/template/module",
+    "catalog/view/theme/d_visualize/template/extension/total",
+    "catalog/view/theme/d_visualize/template/total",
     "catalog/model/extension/d_visualize",
 
     "image/catalog/d_visualize/template",
