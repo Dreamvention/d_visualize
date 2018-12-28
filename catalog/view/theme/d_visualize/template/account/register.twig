@@ -1,13 +1,13 @@
 {% extends template %}
 {% block content %}
     <div class="register-page">
-        <h1 class="heading-h1">{{ heading_title }}</h1>
+        <div class="h1">{{ heading_title }}</div>
         <p>{{ text_account_already }}</p>
         <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
             {% if not customer_logged %}
                 <fieldset id="account">
-                    <h3>{{ text_your_details }}</h3>
-                    <div class="">
+                    <div class="h3">{{ text_your_details }}</div>
+                    <div >
                         {% include component.d_account_field.template %}
                         {% for custom_field in custom_fields %}
                             {% if custom_field.location =='account'%}
@@ -66,7 +66,7 @@
             {% endif %}
             {% block newslatter %}
             <fieldset class="newslatter">
-                <h3>{{ text_newsletter }}</h3>
+                <div class="h3">{{ text_newsletter }}</div>
                 {% include component.form_group.template with{
                     form_group:{
                         label_text:entry_newsletter ,

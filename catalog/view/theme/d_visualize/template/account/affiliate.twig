@@ -1,1 +1,169 @@
-{% extends 'd_visualize/template/affiliate/register.twig' %}
+{#it's mean in layout template#}
+{% extends 'd_visualize/template/account/register.twig' %}
+{% block affiliate %}
+    <fieldset id="affiliate">
+        <legend>{{ text_your_affiliate }}</legend>
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_company ,
+                required:true,
+                error:error_company,
+                input:{
+                    type:'text',
+                    id:'input-company',
+                    name:'company',
+                    value:company,
+                    placeholder:entry_company,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_website ,
+                input:{
+                    type:'text',
+                    id:'input-website',
+                    name:'website',
+                    value:website,
+                    placeholder:entry_website,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_tax ,
+                input:{
+                    type:'text',
+                    id:'input-tax',
+                    name:'tax',
+                    value:tax,
+                    placeholder:entry_tax,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_payment,
+                input:{
+                    type:'radio',
+                    form:'block',
+                    name:'payment',
+                    text: 'name',
+                    checked: payment,
+                    values: [{ 'value':'cheque','name': text_cheque},{'value':'paypal','name':text_paypal},{'value':'bank','name':text_bank}],
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_cheque ,
+                id:'payment-cheque',
+                required:true,
+                classes:'payment',
+                error:error_cheque,
+                input:{
+                    type:'text',
+                    id:'input-cheque',
+                    name:'cheque',
+                    value:cheque,
+                    placeholder:entry_cheque,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_paypal ,
+                id:'payment-paypal',
+                classes:'payment',
+                required:true,
+                error:error_paypal,
+                input:{
+                    type:'text',
+                    id:'input-paypal',
+                    name:'paypal',
+                    value:paypal,
+                    placeholder:entry_paypal,
+                }
+            }
+        } %}
+        <div class="payment" id="payment-bank">
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_bank_name ,
+                    input:{
+                        type:'text',
+                        id:'input-bank-name',
+                        name:'bank_name',
+                        value:bank_name,
+                        placeholder:entry_bank_name,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_bank_branch_number ,
+                    input:{
+                        type:'text',
+                        id:'input-bank-branch-number',
+                        name:'bank_branch_number',
+                        value:bank_branch_number,
+                        placeholder:entry_bank_branch_number,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_bank_swift_code ,
+                    input:{
+                        type:'text',
+                        id:'input-bank-swift-code',
+                        name:'bank_swift_code',
+                        value:bank_swift_code,
+                        placeholder:entry_bank_swift_code,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_bank_account_name ,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-bank-account-name',
+                        name:'bank_account_name',
+                        value:bank_account_name,
+                        placeholder:entry_bank_account_name,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_bank_account_number,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-bank-account-number',
+                        name:'bank_account_number',
+                        value:bank_account_number,
+                        placeholder:entry_bank_account_number,
+                    }
+                }
+            } %}
+        </div>
+        {% for custom_field in custom_fields %}
+            {% if custom_field.location == 'affiliate' %}
+                {% include component.custom_field with (custom_field) %}
+            {% endif %}
+        {% endfor %}
+    </fieldset>
+    <script type="text/javascript">
+		$('input[name=\'payment\']').on('change', function() {
+			$('.payment').hide();
+
+			$('#payment-' + this.value).show();
+		});
+		$('input[name=\'payment\']:checked').trigger('change');
+    </script>
+{% endblock %}
+{% block newslatter %}
+{% endblock %}

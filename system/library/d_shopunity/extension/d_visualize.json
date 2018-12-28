@@ -44,14 +44,14 @@
     "d_twig_manager": ">= 1.0.0",
     "d_twig_partial": ">=1.0.0",
     "d_event_manager": ">= 1.0.0",
-    "d_visual_designer": ">=3.0.0",
-    "d_visual_designer_header": ">=1.0.0",
-    "d_visual_designer_footer": ">=1.0.0",
-    "d_blog_module": ">=1.0.0",
+    "d_visual_designer": ">=3.0.2",
+    "d_visual_designer_header": ">=1.0.1",
+    "d_visual_designer_footer": ">=1.0.1",
+    "d_blog_module": ">=3.1.3",
     "d_visual_designer_extra": ">=1.0.0",
-    "d_ajax_search": ">=6.1.7",
+    "d_ajax_search": ">=6.1.8",
     "d_admin_menu": ">=1.0.9",
-      "d_quickcheckout": ">=7.0.1"
+    "d_quickcheckout": ">=7.0.1"
   },
   "files": [
     "admin/controller/extension/module/d_visualize.php",

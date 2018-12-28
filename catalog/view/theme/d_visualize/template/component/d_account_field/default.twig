@@ -1,21 +1,24 @@
 <!-- > d_account_field_default -->
 <div class="vz-account-filed">
-    {% if customer_groups|length > 1 %}
+    <div style="display: {% if customer_groups|length > 1 %} block {% else %} none {% endif %};">
         {% include component.form_group.template with{
             form_group:{
                 label_text:entry_customer_group,
+                required:true,
                 error:error_customer_group,
                 input:{
                     type:'radio',
                     id:'input-customer_group',
-                    name:'newsletter',
-                    value: customer_group,
-                    checked: customer_group,
-                    values: [{ 'value':1,'text': text_yes},{'value':0,'text':text_no}],
+                    name:'customer_group_id',
+                    text:'name',
+                    value: 'customer_group_id',
+                    values: customer_groups,
+                    checked: customer_group_id,
                 }
             }
         } %}
-    {% endif %}
+    </div>
+
     {% include component.d_name_field.template %}
     {% include component.form_group.template with{
         form_group:{
