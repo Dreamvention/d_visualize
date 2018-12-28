@@ -86,6 +86,8 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             if (!$this->model_extension_module_d_admin_menu->checkMenuItem($this->codename)){
                 $this->load->language($this->route);
                 $sub_items=array();
+                $setting_before = $this->model_extension_module_d_admin_menu->getSetting();
+                $last_custom_item_id = $setting_before['custom_menu'][count($setting_before['custom_menu'])]['id'];
                 $sub_items [] = array(
                     "name"         => $this->language->get('entry_setting'),
                     "custom_route" => false ,
@@ -93,7 +95,7 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                     "href"         => 'index.php?route=extension/module/d_visualize&',
                     "href_type"=> 'route',
                     "children"     => array(),
-                    "id"   => 2,
+                    "id"   => ++$last_custom_item_id,
                     "sort_order"   => 1
                 );
                 $sub_items [] = array(
@@ -103,7 +105,7 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                     "href"         => 'index.php?route=extension/module/d_visual_designer_header&',
                     "children"     => array(),
                     "sort_order"   => 2,
-                    "id"   => 3,
+                    "id"   => ++$last_custom_item_id,
 
                 );
                 $sub_items [] = array(
@@ -113,14 +115,15 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                     "href"         => 'index.php?route=extension/module/d_visual_designer_footer&',
                     "children"     => array(),
                     "sort_order"   => 3,
-                    "id"   => 4,
+                    "id"   => ++$last_custom_item_id,
 
                 );
                 $admin_menu_item = array(
 //                'icon'=>'fa-magic',
                     'icon'     => 'fa-paint-brush',
+                    "custom_route" => true,
                     'name'     => $this->language->get('heading_title_main_menu'),
-                    'link'     => 'index.php?route=extension/module/d_visualize&',
+                    'link'     => '',
                     'children' => $sub_items,
                     "id"   => $this->codename,
 
