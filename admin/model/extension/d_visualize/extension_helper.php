@@ -83,41 +83,50 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
             $this->load->model('extension/d_opencart_patch/url');
             $this->load->model('extension/module/d_admin_menu');
             $this->model_extension_module_d_admin_menu->installCompatibility();
-            $this->load->language($this->route);
-            $sub_items=array();
-            $sub_items [] = array(
-                "name"         => $this->language->get('entry_setting'),
-                "custom_route" => false ,
-                'icon'     => 'fa-paint-brush',
-                "href"         => 'index.php?route=extension/module/d_visualize&',
-                "href_type"=> 'route',
-                "children"     => array(),
-                "sort_order"   => 1
-            );
-            $sub_items [] = array(
-                "name"         => $this->language->get('entry_visual_header'),
-                "custom_route" => false,
-                'icon'     => 'fa-paint-brush',
-                "href"         => 'index.php?route=extension/module/d_visual_designer_header&',
-                "children"     => array(),
-                "sort_order"   => 2
-            );
-            $sub_items [] = array(
-                "name"         => $this->language->get('entry_visual_footer'),
-                "custom_route" => false,
-                'icon'     => 'fa-paint-brush',
-                "href"         => 'index.php?route=extension/module/d_visual_designer_footer&',
-                "children"     => array(),
-                "sort_order"   => 3
-            );
-            $admin_menu_item = array(
+            if (!$this->model_extension_module_d_admin_menu->checkMenuItem($this->codename)){
+                $this->load->language($this->route);
+                $sub_items=array();
+                $sub_items [] = array(
+                    "name"         => $this->language->get('entry_setting'),
+                    "custom_route" => false ,
+                    'icon'     => '',
+                    "href"         => 'index.php?route=extension/module/d_visualize&',
+                    "href_type"=> 'route',
+                    "children"     => array(),
+                    "id"   => 2,
+                    "sort_order"   => 1
+                );
+                $sub_items [] = array(
+                    "name"         => $this->language->get('entry_visual_header'),
+                    "custom_route" => false,
+                    'icon'     => '',
+                    "href"         => 'index.php?route=extension/module/d_visual_designer_header&',
+                    "children"     => array(),
+                    "sort_order"   => 2,
+                    "id"   => 3,
+
+                );
+                $sub_items [] = array(
+                    "name"         => $this->language->get('entry_visual_footer'),
+                    "custom_route" => false,
+                    'icon'         => '',
+                    "href"         => 'index.php?route=extension/module/d_visual_designer_footer&',
+                    "children"     => array(),
+                    "sort_order"   => 3,
+                    "id"   => 4,
+
+                );
+                $admin_menu_item = array(
 //                'icon'=>'fa-magic',
-                'icon'     => 'fa-paint-brush',
-                'name'     => $this->language->get('heading_title_main_menu'),
-                'link'     => 'index.php?route=extension/module/d_visualize&',
-                'children' => $sub_items,
-            );
-            $this->model_extension_module_d_admin_menu->addMenuItem($this->codename, $admin_menu_item);
+                    'icon'     => 'fa-paint-brush',
+                    'name'     => $this->language->get('heading_title_main_menu'),
+                    'link'     => 'index.php?route=extension/module/d_visualize&',
+                    'children' => $sub_items,
+                    "id"   => $this->codename,
+
+                );
+                $this->model_extension_module_d_admin_menu->addMenuItem($this->codename, $admin_menu_item);
+            }
         }
     }
     public function removeLinksFromMenu()

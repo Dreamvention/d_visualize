@@ -58,10 +58,10 @@ class ControllerExtensionModuleDVisualize extends Controller
             $this->load->model('extension/module/d_twig_manager');
             $this->model_extension_module_d_twig_manager->installCompatibility();
         }
-        $this->model_extension_d_visualize_template->uninstallTheme();
-        if ($this->status_visualize) {
-            $this->model_extension_d_visualize_template->installTheme($this->setting_visualize['active_template']);
-        }
+//        $this->model_extension_d_visualize_template->uninstallTheme();
+//        if ($this->status_visualize) {
+//            $this->model_extension_d_visualize_template->installTheme($this->setting_visualize['active_template']);
+//        }
         $this->session->data['d_visualize_page_admin']='home';
 //        $this->model_extension_module_d_visualize->inc($this->visualize_version,intval(implode('', explode('.', $this->extension['version']))));
         if ($this->setting_visualize['engine'] == 'nuxt') {

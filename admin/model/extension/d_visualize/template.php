@@ -306,6 +306,7 @@ class ModelExtensionDVisualizeTemplate extends Model
         }
         $this->load->model('extension/module/d_visualize');
         $this->load->model('extension/d_visualize/extension_helper');
+
         $this->model_extension_d_visualize_extension_helper->removeLinksFromMenu();
 
         $this->model_extension_module_d_visualize->uninstallEvents();
