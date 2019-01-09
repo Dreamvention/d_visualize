@@ -66,6 +66,7 @@ class ModelExtensionModuleDVisualize extends Model
         }
     }
 
+    /*deprecated not used anymore */
     public function getVueTemplates()
     {
 
@@ -88,6 +89,7 @@ class ModelExtensionModuleDVisualize extends Model
         }
         return $result;
     }
+    /*deprecated not used anymore */
 
     public function getVueScripts()
     {

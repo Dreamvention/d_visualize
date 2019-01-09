@@ -95,8 +95,8 @@ div.required .control-label:before {
 
 /* Gradent to all drop down menus */
 .dropdown-menu {
-  li{
-    >a:hover, >button:hover {
+  >li{
+    >a:hover, button:hover {
       text-decoration: none;
       color: $color-text-primary;
       background-color: $color-primary;
@@ -587,19 +587,6 @@ footer h5 {
   background: #eeeeee;
   border: 1px solid #DDDDDD;
   text-shadow: 0 1px 0 #FFF;
-}
-/* carousel */
-.carousel-caption {
-  color: #FFFFFF;
-  text-shadow: 0 1px 0 #000000;
-}
-.carousel-control .icon-prev:before {
-  content: '\f053';
-  font-family: "Font Awesome\ 5 Free";
-}
-.carousel-control .icon-next:before {
-  content: '\f054';
-  font-family: "Font Awesome\ 5 Free";
 }
 /* product list */
 .product-thumb {

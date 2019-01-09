@@ -1,0 +1,10 @@
+/*global fix for all themes carousel who use fa 5*/
+/* carousel */
+.carousel-caption {
+  color: #FFFFFF;
+  text-shadow: 0 1px 0 #000000;
+}
+
+.carousel-control .icon-prev:before ,.swiper-button-prev:before,.carousel-control .icon-next:before ,.swiper-button-next:before{
+  font-family: 'Font Awesome 5 Pro','Font Awesome\ 5 Free','Font Awesome';
+}

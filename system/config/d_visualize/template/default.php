@@ -58,7 +58,6 @@ $_['d_visualize_template_default_setting'] = array(
                 ),
             ),
         ),
-
         'checkout\/cart' => array(
             'layout'  => array(
                 'component' => array(
@@ -81,6 +80,7 @@ $_['d_visualize_template_default_setting'] = array(
             ),
             'scripts' => array()
         ),
+        /**/
         'default' => array(
             'layout' => array(
                 'template' => 'd_visualize/template/layout/default.twig', // here can be custom settings for this template

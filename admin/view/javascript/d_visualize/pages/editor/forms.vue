@@ -1,32 +1,33 @@
 <template>
     <ComponentContainer :container_width="'120px'">
         <template slot="header">
-            <h2 class="editor-component__heading display-3"> {{$t('editor.entry_button')}}</h2>
+            <h2 class="editor-component__heading display-3"> {{$t('editor.entry_forms')}}</h2>
         </template>
-            <div v-for="(setting,button_key) in settings"
-             :key="button_key"
-             class="button-var">
-            <span class="subheading">{{$t(setting.text)}}</span>
+        <div v-for="(setting,forms_key) in settings"
+             :key="forms_key"
+             class="forms-var">
+
+                <span class="subheading">{{$t(setting.text)}}</span>
             <template v-if="setting.type === 'slider'">
                 <v-slider
-                        :label="values[button_key]"
+                        :label="values[forms_key]"
                         inverse-label
                         :min="setting.min"
                         :max="setting.max"
                         :step="setting.step"
-                        :value="parseFloat(values[button_key])"
-                        @change="changeVariable(button_key,$event)"
+                        :value="parseFloat(values[forms_key])"
+                        @change="changeVariable(forms_key,$event)"
                 ></v-slider>
             </template>
-            <template v-else-if="setting.type ==='button-family'">
-                <div class="button-box">
-                    <div class="button-box__family" :style='`button-family:${values[button_key]}, sans ,sans-serif;`'>
-                        {{values[button_key]}}
+            <template v-else-if="setting.type ==='forms-family'">
+                <div class="forms-box">
+                    <div class="forms-box__family" :style='`forms-family:${values[forms_key]}, sans ,sans-serif;`'>
+                        {{values[forms_key]}}
                     </div>
                     <v-btn block
                            color="info"
-                           class="my-0 button-box__change"
-                           @click="showPicker(button_key,values[button_key],setting,$event)">
+                           class="my-0 forms-box__change"
+                           @click="showPicker(forms_key,values[forms_key],setting,$event)">
                         {{$t('common.change')}}
                     </v-btn>
                 </div>
@@ -35,10 +36,10 @@
             <div v-else-if="setting.type === 'toggle'">
                 <div class="toggler">
                     <v-btn-toggle
-                            :value="values[button_key]"
-                            @change="changeVariable(button_key,$event)"
+                            :value="values[forms_key]"
+                            @change="changeVariable(forms_key,$event)"
                             class="transparent"
-                            multiple>
+                    >
                         <template v-for="toggle in setting.values">
                             <v-tooltip right>
                                 <v-btn slot="activator" :value="toggle.value" color="primary">
@@ -52,8 +53,8 @@
             </div>
             <div v-else-if="setting.type === 'checkbox'">
                 <v-switch
-                        :input-value="values[button_key]"
-                        @change="changeVariable(button_key,$event)"
+                        :input-value="values[forms_key]"
+                        @change="changeVariable(forms_key,$event)"
                 ></v-switch>
             </div>
             <div v-else>
@@ -77,7 +78,7 @@
                     <v-btn block color="primary">{{$t('common.load_more')}}</v-btn>
                 </template>
                 <template slot="not_found">
-                    {{$t('button.not_found')}}
+                    {{$t('forms.not_found')}}
                 </template>
             </FontPicker>
         </v-menu>
@@ -114,10 +115,10 @@
         },
 		computed: {
 			values() {
-				return this.$store.getters['template/active_skin_holder']('button');
+				return this.$store.getters['template/active_skin_holder']('forms');
 			},
 			settings() {
-				return this.$store.getters['template/active_skin_holder_variables']('button');
+				return this.$store.getters['template/active_skin_holder_variables']('forms');
 			},
 			...mapGetters({
 				template: 'template/active_template',
@@ -129,24 +130,24 @@
 			}
 		},
         methods:{
-	        changeToggle(button_key, $event) {
+	        changeToggle(forms_key, $event) {
 		        console.log($event);
 	        },
-	        changeVariable(button_key, $event) {
-		        let key = button_key;
+	        changeVariable(forms_key, $event) {
+		        let key = forms_key;
 		        let value = $event;
-		        if (this.settings[button_key] && this.settings[button_key].suffix) {
-			        value += this.settings[button_key].suffix;
+		        if (this.settings[forms_key] && this.settings[forms_key].suffix) {
+			        value += this.settings[forms_key].suffix;
 		        }
-		        if (!this.settings[button_key]) {
+		        if (!this.settings[forms_key]) {
 			        key = this.picker.key;
-			        this.picker.value = button_key;
-			        value = button_key;
+			        this.picker.value = forms_key;
+			        value = forms_key;
 		        }
 		        this.$store.dispatch('template/SET_SKIN_VARIABLE', {
 			        template_id: this.template.setting.codename,
 			        skin: this.template.setting.active_skin,
-			        holder: 'button',
+			        holder: 'forms',
 			        key: key,
 			        value: value,
 		        });
@@ -164,7 +165,7 @@
 </script>
 
 <style lang="scss">
-    .button-var {
+    .forms-var {
         margin-bottom: 10px;
         .subheading {
             display: inline-block;
@@ -212,11 +213,11 @@
         }
     }
 
-    .button-box {
+    .forms-box {
         border: 1px solid var(--secondary);
         &__family {
             text-align: center;
-            button-size: 16px;
+            font-size: 16px;
             border-bottom: 1px solid var(--secondary);
             padding-top: 20px;
             padding-bottom: 20px;

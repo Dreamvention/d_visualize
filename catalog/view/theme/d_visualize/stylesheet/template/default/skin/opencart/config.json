@@ -27,6 +27,7 @@
     "headings-letter-spacing": "1px",
     "headings-text-transform": []
   },
+  "forms": {"font-size": "12px","radius": "0px","color": "primary" },
   "breakpoints": "('phone': 320px,'phone-wide': 480px,'phablet': 560px,'tablet-small': 640px,'tablet': 769px,'tablet-wide': 991px,'laptop': 1199px,'desktop': 1248px,'desktop-wide': 1440px)",
   "layout": {
     "container-width": "980"
@@ -211,6 +212,73 @@
               "value": "uppercase"
             }
           ]
+        }
+      }
+    },
+    "forms": {
+      "navigation": {
+        "text": "editor.entry_forms",
+        "icon": "fab fa-wpforms"
+      },
+      "variables": {
+        "radius": {
+          "text": "button.radius",
+          "type": "slider",
+          "min": "0",
+          "max": "50",
+          "step": "1",
+          "suffix": "px"
+        },
+        "font-size": {
+          "text": "button.font_size",
+          "type": "slider",
+          "min": "12",
+          "max": "23",
+          "step": "1",
+          "suffix": "px"
+        },
+        "border-width": {
+          "text": "button.border_width",
+          "type": "slider",
+          "min": "0",
+          "max": "5",
+          "step": ".1",
+          "suffix": "px"
+        },
+        "text-transform": {
+          "text": "button.transform",
+          "type": "toggle",
+          "values": [
+            {
+              "icon": "format_bold",
+              "text": "font.bold",
+              "value": "bold"
+            },
+            {
+              "icon": "format_italic",
+              "text": "font.italic",
+              "value": "italic"
+            },
+            {
+              "icon": "format_underlined",
+              "text": "font.underline",
+              "value": "underline"
+            },
+            {
+              "icon": "text_fields",
+              "text": "font.capitalize",
+              "value": "capitalize"
+            },
+            {
+              "icon": "title",
+              "text": "font.uppercase",
+              "value": "uppercase"
+            }
+          ]
+        },
+        "box-shadow": {
+          "text": "button.shadow",
+          "type": "checkbox"
         }
       }
     }

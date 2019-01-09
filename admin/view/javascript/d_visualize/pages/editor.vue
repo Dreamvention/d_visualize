@@ -331,7 +331,7 @@
             }
             .v-btn__content {
                 justify-content: flex-start;
-                .fas{
+                i{
                     margin-right: 20px;
                 }
                 .fa-chevron-right{

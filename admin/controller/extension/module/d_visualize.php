@@ -217,7 +217,9 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['page']['account_login'] = 'Login page';
         $local['page']['checkout_all'] = 'Checkout/*';
         $local['page']['all'] = 'Default page';
+        $local['page']['default'] = 'Common page';
         $local['page']['information_contact'] = 'Contact/*';
+        $local['page']['multiple'] = 'Multiple page will be applied';
 
         //component
         $local['component']['entry_d_product_thumb'] = $this->language->get('entry_d_product_thumb');
@@ -268,11 +270,13 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['button']['font_size'] = 'Button font-size';
         $local['button']['border_width'] = 'Button border-width';
         $local['button']['transform'] = 'Button text transformations';
+        $local['button']['not_found'] = 'Not found property';
+        $local['button']['shadow'] = 'Button shadow';
         $local['marketplace']['explore_all_themes'] = 'Explore all themes';
 
 
         $local['marketplace']['free'] = 'Free';
-        $local['marketplace']['testing'] = 'Testing';
+        $local['marketplace']['testing'] = 'eTesting';
         $local['marketplace']['passed'] = 'Passed';
         $local['marketplace']['free'] = 'Free';
 
