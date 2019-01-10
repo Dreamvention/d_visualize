@@ -52,3 +52,7 @@
   }
 }
 
+#__nuxt{
+  position: relative;
+  z-index: 1000;// add some magic numbers for opencart
+}

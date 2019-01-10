@@ -20,8 +20,8 @@
                         {{$t('template.customize')}}
                     </v-btn>
                 </div>
-                <v-btn v-else disabled nuxt color="primary">
-                    {{$t('template.customize')}}
+                <v-btn v-else nuxt color="success" @click="change_status">
+                    {{$t('template.entry_activate')}}
                 </v-btn>
                 <v-menu transition="slide-y-transition"
                         offset-y
@@ -29,7 +29,6 @@
                     <v-btn slot="activator">
                         {{$t('template.actions')}}
                         <v-icon>{{ true ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-
                     </v-btn>
                     <v-list class="theme-action-menu-list">
                         <v-list-tile
@@ -39,8 +38,7 @@
                                 dense>
                             <v-list-tile-content>
                                 <v-list-tile-title>
-                                    {{status?
-                                    $t('template.entry_deactivate'):$t('template.entry_activate')}}
+                                    {{status?$t('template.entry_deactivate'):$t('template.entry_activate')}}
                                 </v-list-tile-title>
                             </v-list-tile-content>
                         </v-list-tile>
