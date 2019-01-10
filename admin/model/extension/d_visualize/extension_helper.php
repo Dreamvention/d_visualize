@@ -101,10 +101,8 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
                 $admin_menu_item = array(
 //                'icon'=>'fa-magic',
                     'icon'     => 'fa-paint-brush',
-                    "custom_route" => true,
                     'name'     => $this->language->get('heading_title_main_menu'),
                     'children' => $sub_items,
-                    "id"   => $this->codename,
                 );
                 $this->model_extension_module_d_admin_menu->addMenuItem($this->codename, $admin_menu_item);
             }
