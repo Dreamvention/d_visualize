@@ -51,7 +51,7 @@
     "d_visual_designer_extra": ">= 1.0.0",
     "d_ajax_search": ">= 1.0.0",
     "d_admin_menu": ">= 1.0.0",
-      "d_quickcheckout": ">= 1.0.0"
+    "d_quickcheckout": ">= 1.0.0"
   },
   "files": [
     "admin/controller/extension/module/d_visualize.php",
@@ -208,7 +208,12 @@
     "system/config/d_visualize.php",
     "system/config/d_visual_designer_template/default.php",
     "system/config/d_visualize/template/default.php",
-    "system/library/d_shopunity/extension/d_visualize.json"
+    "system/library/d_shopunity/extension/d_visualize.json",
+
+    "catalog/view/javascript/d_visualize/gulp/gulpfile.js",
+    "catalog/view/javascript/d_visualize/gulp/export-media.json",
+    "catalog/view/javascript/d_visualize/gulp/package.json",
+    "catalog/view/javascript/d_visualize/gulp/postcss.config.js"
 
   ],
   "dirs": [
