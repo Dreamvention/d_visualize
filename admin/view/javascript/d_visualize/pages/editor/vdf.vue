@@ -5,7 +5,9 @@
                 <h2 class="editor-component__heading display-3"> {{$t('editor.footer')}}</h2>
             </template>
             <div class="d-flex align-items-center">
-                <v-btn nuxt color="primary" @click="to">Go to Footer</v-btn>
+                <a :href="$t('common.vdf')">
+                    <v-btn color="primary" >Go to Footer</v-btn>
+                </a>
             </div>
         </ComponentContainer>
 
