@@ -209,7 +209,6 @@
     "system/config/d_visualize.php",
     "system/config/d_visual_designer_template/default.php",
     "system/config/d_visualize/template/default.php",
-    "system/config/d_visualize/template/default.sql",
     "system/library/d_shopunity/extension/d_visualize.json",
 
     "catalog/view/javascript/d_visualize/gulp/gulpfile.js",
