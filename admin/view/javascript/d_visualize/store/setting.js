@@ -71,6 +71,22 @@ export const actions = {
     	//if we have this template offer to update it.
 		commit('CHANGE_ACTIVE_TEMPLATE', payload);
 		dispatch('SAVE');
-	}
+	},
+	async CHANGE_HEADER({commit, rootGetters, dispatch}, payload) {
+		await this.$axios.post('extension/d_visualize/setting/change_header', {
+			active_template: payload.active_skin
+		})
+	},
+	async CHANGE_FOOTER({commit, rootGetters, dispatch}, payload) {
+		await this.$axios.post('extension/d_visualize/setting/change_footer', {
+			active_template: payload.active_skin
+		})
+	},
+	async CHANGE_CONTENT({commit, rootGetters, dispatch}, payload) {
+		await this.$axios.post('extension/d_visualize/setting/change_content', {
+			active_template: payload.active_skin
+		})
+	},
+
 
 };

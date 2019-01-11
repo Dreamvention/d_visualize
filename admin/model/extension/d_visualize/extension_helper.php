@@ -18,7 +18,17 @@ class ModelExtensionDVisualizeExtensionHelper extends Model
         $this->d_admin_menu = (file_exists(DIR_SYSTEM . 'library/d_shopunity/extension/d_admin_menu.json'));
 
     }
-
+    /*
+     * change vdh it mean that all settings are ok and vdh is ready to use
+    */
+    public function changeVDH($active_template='default'){
+        $this->load->model('extension/module/d_visual_designer_header');
+        $this->model_extension_module_d_visual_designer_header->installConfig('header_'.$active_template.'_visualize',$active_template);
+    }
+    public function changeVDF($active_template='default'){
+        $this->load->model('extension/module/d_visual_designer_footer');
+        $this->model_extension_module_d_visual_designer_footer->installConfig('footer_'.$active_template.'_visualize',$active_template);
+    }
     /*
      * just set up vd config of vdh and vdf to be on in VD
      * then setup vdh and vdf

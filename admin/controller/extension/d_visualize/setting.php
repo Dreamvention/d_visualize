@@ -17,7 +17,6 @@ class ControllerExtensionDVisualizeSetting extends Controller
         $this->status_visualize = isset($setting_visualize['module_' . $this->codename . '_status']) ? $setting_visualize['module_' . $this->codename . '_status'] : false;
         $this->custom_style = $this->model_extension_module_d_visualize->loadCustomStyle();
     }
-
     public function index()
     {
         $data = array(
@@ -50,6 +49,7 @@ class ControllerExtensionDVisualizeSetting extends Controller
             if ($setting_visualize['module_' . $this->codename . '_status']) {
                 $this->model_extension_d_visualize_template->installTheme($this->setting_visualize['active_template']);
             }
+            $this->session->data['success']='You saved module settings';
             $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
         } catch (Exception $e) {
             $this->session->data['error'] = $e;
@@ -62,7 +62,33 @@ class ControllerExtensionDVisualizeSetting extends Controller
         $post = array('custom_style_' . $this->codename => $this->request->post['custom_style']);
         $this->model_extension_d_opencart_patch_setting->editSetting('custom_style_' . $this->codename,array('custom_style_' . $this->codename => json_decode(html_entity_decode($this->request->post['custom_style'], ENT_QUOTES, 'UTF-8'), true)) , $this->store_id);
         $this->model_extension_d_opencart_patch_setting->editSetting('module_custom_style_' . $this->codename, array('module_custom_style_' . $this->codename => json_decode(html_entity_decode($this->request->post['custom_style'], ENT_QUOTES, 'UTF-8'), true)), $this->store_id);
+        $this->session->data['success']='You saved custom style';
         $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
 
+    }
+
+    public function change_header()
+    {
+        $active_template = json_decode(html_entity_decode($this->request->post['active_template'], ENT_QUOTES, 'UTF-8'));
+        $this->load->model('extension/d_visualize/extension_helper');
+        $this->model_extension_d_visualize_extension_helper->changeVDH($active_template);
+        $this->session->data['success']='You changed header';
+        $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
+
+    }
+    public function change_footer()
+    {
+        $active_template = json_decode(html_entity_decode($this->request->post['active_template'], ENT_QUOTES, 'UTF-8'));
+        $this->load->model('extension/d_visualize/extension_helper');
+        $this->model_extension_d_visualize_extension_helper->changeVDF($active_template);
+        $this->session->data['success']='You changed footer';
+        $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
+    }
+
+    public function change_content()
+    {
+        $active_template = json_decode(html_entity_decode($this->request->post['active_template'], ENT_QUOTES, 'UTF-8'));
+        $this->session->data['success']='You changed content';
+        $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
     }
 }

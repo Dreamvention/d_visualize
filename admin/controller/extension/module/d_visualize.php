@@ -174,6 +174,15 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['template']['explore'] = 'Explore';
         $local['template']['addition_images'] = 'Addition images';
         $local['template']['explore_more_themes'] = 'Explore more our themes';
+        $local['template']['instalation_heading'] = 'Installation information';
+        $local['template']['instalation_haeder'] = 'Replace current Visual Disgner Header';
+        $local['template']['instalation_footer'] = 'Replace current Visual Disgner Footer';
+        $local['template']['instalation_replace_catalog'] = 'Demo data for products and categories.';
+        $local['template']['instalation_replace_extensions'] = 'Demo data for modules and extensions.';
+        $local['template']['instalation_warn'] = 'Please be sure before you replace some content it can remove data you stored before.';
+        $local['template']['instalation_hint'] = 'Leave this checkbox alone if you have stored data';
+        $local['template']['instalation_cancel'] = 'Cancel';
+        $local['template']['instalation_aprove'] = 'Approve';
 
         //common
         $local['editor']['current_template'] = $this->language->get('entry_current_template');

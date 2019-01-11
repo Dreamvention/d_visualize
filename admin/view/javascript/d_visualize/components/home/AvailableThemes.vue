@@ -9,7 +9,7 @@
                         md6
                         sm6
                         xs12>
-                    <v-card class="available-themes__item">
+                    <v-card class="available-themes__item" :class="active===template.setting.codename?'available-themes__item--active':''">
                         <v-img class="available-themes__item__img"
                                :src='template.preview.desktop'
                                max-height="150">
@@ -47,8 +47,17 @@
 			ThemePopUp
 		},
         methods:{
-	        changeTheme(value){
-	        	this.$store.dispatch('setting/CHANGE_ACTIVE_TEMPLATE',value)
+	        changeTheme(payload){
+		        this.$store.dispatch('setting/CHANGE_ACTIVE_TEMPLATE',payload.codename)
+		        if (payload.header){
+			        this.$store.dispatch('setting/CHANGE_HEADER',{active_skin:payload.codename})
+                }
+	        	if (payload.footer){
+			        this.$store.dispatch('setting/CHANGE_FOOTER',{active_skin:payload.codename})
+                }
+	        	if (payload.content){
+			        this.$store.dispatch('setting/CHANGE_CONTENT',{active_skin:payload.codename})
+                }
             },
         }
 	};
@@ -59,6 +68,9 @@
         &__img:hover {
             transition: all .4s ease-in-out;
             transform: scale(1.2);
+        }
+        &--active{
+            outline: 2px solid var(--primary);
         }
     }
 

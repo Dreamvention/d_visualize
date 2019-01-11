@@ -30,7 +30,7 @@
                     <p> {{$t('template.available_templates_description')}}</p>
                 </v-flex>
                 <v-flex xs9>
-                    <available-themes :templates="templates"/>
+                    <available-themes :templates="templates" :active="template.setting.codename"/>
                 </v-flex>
             </v-layout>
             <v-divider></v-divider>

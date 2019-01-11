@@ -15,15 +15,15 @@
                 <v-container>
                     <v-layout row wrap mb-3>
                         <v-flex md5>
-
                             <ThemePreviewImage :template="template"></ThemePreviewImage>
-                            <v-btn value="left" color="light-blue" dark d-none v-if="template.live_demo">
+                            <v-btn color="light-blue" dark v-if="template.live_demo" value="left">
                                 {{$t('template.live_demo')}}
                             </v-btn>
-                            <v-btn value="center" color="teal accent-3" dark @click="changeTheme" v-if="active==template.setting.active">
+                            <v-btn @click="dialog_use_this = true" color="teal accent-3" dark
+                                   v-if="active!=template.setting.codename"
+                                   value="center">
                                 {{$t('template.use_this')}}
                             </v-btn>
-
                             <v-btn disabled color="secondary" v-else>
                                 {{$t('template.use_this')}}
                             </v-btn>
@@ -80,11 +80,63 @@
                 </v-container>
             </v-card>
         </v-dialog>
+        <v-dialog max-width="600px" persistent v-model="dialog_use_this">
+            <v-card>
+                <v-card-title>
+                    <div class="display-2 ">{{$t('template.instalation_heading')}}</div>
+                </v-card-title>
+                <v-card-text>
+                    <div class="heading ">{{$t('template.instalation_hint')}}</div>
+                    <v-layout wrap>
+                        <v-flex xs12>
+                            <v-checkbox
+                                    :label="$t('template.instalation_haeder')"
+                                    color="primary"
+                                    hide-details
+                                    v-if="template.vdh"
+                                    v-model="replace_header"
+                            ></v-checkbox>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-checkbox
+                                    :label="$t('template.instalation_footer')"
+                                    color="primary"
+                                    hide-details
+                                    v-if="template.vdf"
+                                    v-model="replace_footer"
+                            ></v-checkbox>
+                        </v-flex>
+                        <v-flex xs12>
+                            <v-checkbox
+                                    :label="$t('template.instalation_replace_catalog')"
+                                    color="primary"
+                                    hide-details
+                                    v-model="replace_content"
+                            ></v-checkbox>
+                        </v-flex>
+                    </v-layout>
+                    <v-chip
+                            color="red"
+                            text-color="white"
+                    >{{$t('template.instalation_warn')}}
+                    </v-chip>
+
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn @click="dialog_use_this = false; dialog= false" color="blue darken-1" flat>
+                        {{$t('template.instalation_cancel')}}
+                    </v-btn>
+                    <v-btn @click='changeTheme' color="blue darken-1" flat>
+                        {{$t('template.instalation_aprove')}}
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
 <script>
-	import {mapGetters} from 'vuex';
 	import ThemePreviewImage from '~/components/home/ThemePreviewImage';
 
 	export default {
@@ -96,7 +148,10 @@
 				notifications: false,
 				sound: false,
 				widgets: false,
-				replace_content: false
+				replace_header: false,
+				replace_footer: false,
+				replace_content: false,
+				dialog_use_this: false
 			};
 		},
 		components: {
@@ -104,8 +159,16 @@
 		},
         methods:{
 	        changeTheme(){
-	        	this.$emit('changeTheme',this.template.setting.codename);
+		        console.log('change')
+
+		        this.$emit('changeTheme', {
+			        codename: this.template.setting.codename,
+                    header:this.replace_header,
+                    footer:this.replace_footer,
+                    content:this.replace_content
+		        });
 		        this.dialog = false
+		        this.dialog_use_this = false;
             },
 	        decoder (html) {
 		        let decoder = document.createElement('div')

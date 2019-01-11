@@ -93,6 +93,13 @@ class ModelExtensionDVisualizeTemplate extends Model
                 $response['date_modified'] = $db_saved_template_setting['date_modified'];
             }
             $response['source'] = $source;
+            if (file_exists(DIR_CONFIG.'/d_visual_designer_template/'.$codename.'.php')) {
+                $response['vdf'] = true;
+                // $this->config->load('d_visual_designer_template/'.$codename.'.php');
+                // if ($this->confi g->get('header_'.$codename.'_visualize')) {
+                 $response['vdh'] = true;
+                // }
+            }
             $response['setting'] = $setting;
             foreach ($this->getAvailableSkines($setting['codename']) as $skin) {
                 $response['skines'][$skin] = $this->getSCSSVariables( $setting['codename'], $skin);
@@ -100,7 +107,6 @@ class ModelExtensionDVisualizeTemplate extends Model
             }
             $response['preview']['desktop'] = $this->imageResize('catalog/' . $this->codename . '/template/' . $codename . '/preview/desktop.png');
             $response['preview']['mobile'] = $this->imageResize('catalog/' . $this->codename . '/template/' . $codename . '/preview/mobile.png');
-
             $result[$codename] = $response;
         }
         return $result;
