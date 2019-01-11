@@ -54,6 +54,7 @@
     "d_quickcheckout": ">= 1.0.0"
   },
   "files": [
+    "system/config/d_visualize/template/default.sql",
     "admin/controller/extension/module/d_visualize.php",
     "admin/language/en-gb/extension/module/d_visualize.php",
     "admin/language/english/extension/module/d_visualize.php",

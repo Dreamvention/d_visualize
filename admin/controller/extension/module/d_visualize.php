@@ -284,9 +284,14 @@ class ControllerExtensionModuleDVisualize extends Controller
         $local['marketplace']['explore_all_themes'] = 'Explore all themes';
 
 
+        $local['forms']['radius'] = 'Form radius';
+        $local['forms']['font_size'] = 'Form font size';
+        $local['forms']['shadow'] = 'Form focus box shadow';
+
+
         $local['marketplace']['free'] = 'Free';
         $local['marketplace']['testing'] = 'eTesting';
-        $local['marketplace']['passed'] = 'Passed';
+        $local['marketplac  e']['passed'] = 'Passed';
         $local['marketplace']['free'] = 'Free';
 
         $local['error']['load_content'] = $this->language->get('error_load_content');

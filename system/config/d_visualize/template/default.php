@@ -321,6 +321,11 @@ $_['d_visualize_template_default_setting'] = array(
         ''
     ),
 );
+$_['d_visualize_template_default_demo_data'] = array(
+    'text'        => 'Default Opencart',
+    'description' => '<h4>Demo Data for Default Theme</h4><p>You will replace all the products, categories, reviews with the default settings. It is a great starting point to understend how the Default theme works. You can then edit the posts to fit your needs. Remeber that this option will delete anything that you already have in your Store so please be carefule. We adivise you to do a database backup first.</p>',
+    'sql'         => 'default.sql'
+);
 $_['events'] = array(
 //    'catalog/view/product/category/before' => 'extension/d_visualize/template/default/default/view_product_category_before',
 );

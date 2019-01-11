@@ -89,6 +89,10 @@ class ControllerExtensionDVisualizeSetting extends Controller
     {
         $active_template = json_decode(html_entity_decode($this->request->post['active_template'], ENT_QUOTES, 'UTF-8'));
         $this->session->data['success']='You changed content';
+        $this->load->model('extension/d_visualize/extension_helper');
+        $this->model_extension_d_visualize_extension_helper->installDemoData($active_template);
+
         $this->response->setOutput(json_encode(array('success' => $this->session->data['success'])));
     }
+
 }
