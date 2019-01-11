@@ -122,6 +122,7 @@
     "catalog/view/theme/d_visualize/template/common/success.twig",
     "catalog/view/theme/d_visualize/template/common/typographic.twig",
 
+
     "catalog/view/theme/d_visualize/template/component/button/default.twig",
     "catalog/view/theme/d_visualize/template/component/form_group/default.twig",
     "catalog/view/theme/d_visualize/template/component/input/default.twig",
@@ -157,6 +158,23 @@
     "catalog/view/theme/d_visualize/template/component/product_category/default.twig",
     "catalog/view/theme/d_visualize/template/component/product_product/default.twig",
     "catalog/view/theme/d_visualize/template/component/product_review/default.twig",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/button/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_button_continue/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_product_list/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_product_sort/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_product_sort/hydrus.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_product_thumb/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_product_thumb/hydrus.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_product_thumb/opencart.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/d_product_thumb/default-expanded.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/form_group/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/input/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/input_group/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/product/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/product_category/opencart.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/product_product/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/product_tabs/default.css",
+    "catalog/view/theme/d_visualize/stylesheet/vz-component/product_thumbnails/default.css",
 
     "catalog/view/theme/d_visualize/template/error/not_found.twig",
 

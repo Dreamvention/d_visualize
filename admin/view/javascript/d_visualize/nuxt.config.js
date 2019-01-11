@@ -80,7 +80,7 @@ module.exports = {
 	},
 	loading: {color: '#6db3ff'},
 	router: {
-		mode: 'hash',
+		mode: 'hash', // only this mode
 	},
 	css: [
 		'~/assets/style/app.styl',

@@ -69,6 +69,17 @@ $_['d_visualize_template_default_setting'] = array(
             ),
             'scripts' => array()
         ),
+        'checkout\/checkout' => array(
+            'layout'  => array(
+                'component' => array(
+                    'checkout_engine' => array(
+                        'editable' => true,
+                        'template' => 'd_visualize/template/component/checkout_cart/',
+                    ),
+                ),
+            ),
+            'scripts' => array()
+        ),
         'information\/contact' => array(
             'layout'  => array(
                 'component' => array(

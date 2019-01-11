@@ -43,19 +43,26 @@
 	export default {
 		data: ()=>({
 			load: LOAD,
+            sds:1
+
+
 		}),
 		computed: {
 			...mapGetters({
 				opData: 'opencart/opData',
 				loading: 'load/loading',
 				error: 'error/message',
-			})
+			}),
+			sdss() {
+				return this.sds+'sd';
+			},
 		},
 		head() {
 			return {
 				title: this.opData.title,
 			};
 		},
+
 		components: {
 			TopLine
 		}
