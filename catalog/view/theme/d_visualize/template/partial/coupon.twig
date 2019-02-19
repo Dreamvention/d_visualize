@@ -1,0 +1,38 @@
+<div class="vz-coupon panel panel-default">
+    <div class="panel-heading">
+        <h4 class="heading-h4 panel-title"><a href="#collapse-coupon" class="accordion-toggle" data-toggle="collapse"
+                                              data-parent="#accordion">{{ heading_title }} <i
+                        class="fa fa-caret-down"></i></a></h4>
+    </div>
+    <div id="collapse-coupon" class="panel-collapse collapse">
+        <div class="panel-body">
+            {% include component.form_group.template with component.form_group|merge({
+                type:'input_group',
+                text_input:entry_coupon,
+                input_group:{
+                    input:{
+                        type:'text',
+                        id:'input-coupon',
+                        name:'coupon',
+                        value:coupon,
+                        placeholder:entry_coupon,
+                        classes:'',
+                        text_input:entry_coupon,
+                    },
+                    button:{
+                        type:'button',
+                        value:button_coupon,
+                        id:'button-coupon',
+                        style:'primary'
+                    }
+                }
+            }) %}
+        </div>
+    </div>
+    <script type="text/javascript"><!--
+		$(document).ready(function () {
+			Total_coupon.init();
+		});
+		//--></script>
+</div>
+

@@ -1,0 +1,37 @@
+{{ header }}
+<style>
+    #__nuxt .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #content {
+        flex: 1 1 100%;
+    }
+</style>
+{% if constant('VERSION')>'3.0.0.0' %}
+    <style>
+        .v-menu__content {
+            margin-left: -235px;
+            margin-top: -60px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .v-menu__content {
+                margin-left: 0;
+                margin-top: 0;
+            }
+        }
+    </style>
+{% endif %}
+
+{{ column_left }}
+<div id="content">
+    {{ app|raw }}
+</div>
+{{ footer }}

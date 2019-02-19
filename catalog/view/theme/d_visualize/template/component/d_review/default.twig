@@ -1,0 +1,59 @@
+<form class="vz-review vz-review--default form-horizontal" id="form-review">
+    <div id="review"></div>
+    <div class="h2">{{ text_write }}</div>
+    {% if review_guest %}
+        {% include component.form_group.template with {form_group:{
+            required:true,
+            label_text:entry_name ,
+            input:{
+                type:'text',
+                id:'input-name',
+                name:'name',
+                value:customer_name,
+                placeholder:'' ,
+            },
+        }} %}
+        {% include component.form_group.template with {form_group:{
+            required:true,
+            label_text:entry_review ,
+            input:{
+                type:'textarea',
+                id:'input-review',
+                name:'text',
+                value:'',
+                placeholder:entry_review ,
+            },
+        }} %}
+        <div class="help-block">{{ text_note }}</div>
+        {% embed component.form_group.template with {form_group:{
+            required:true,
+            label_text:entry_rating ,
+            input:true,
+        }} %}
+            {% block input %}
+                <div class="d-flex align-items-center">
+                {{ entry_bad }}&nbsp;
+                        {% include component.d_rating.template with component.d_rating %}
+                &nbsp;{{ entry_good }}
+                </div>
+            {% endblock %}
+        {% endembed %}
+        <div class="vz-captcha">
+            {{ captcha }}
+        </div>
+        <div class="buttons clearfix">
+            <div class="pull-right">
+                {% include component.button.template with {button:{
+                    id:'button-review',
+                    style:'primary',
+                    data_loading:text_loading,
+                    button:true,
+                    text_button: button_continue
+                }} %}
+
+            </div>
+        </div>
+    {% else %}
+        {{ text_login }}
+    {% endif %}
+</form>

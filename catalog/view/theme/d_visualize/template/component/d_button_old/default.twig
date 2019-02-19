@@ -1,0 +1,51 @@
+<!-- > d_button -->
+<div class="buttons">
+ <div class="vis-back">
+        {% if button_back %}
+            {% include component.button.template with {button:{
+            link:back ,
+            style:'default',
+            classes:'btn-lg',
+            text_button:button_back,
+            }} %}
+        {% endif %}
+    </div>
+    <div class="vis-forward">
+        {% if text_agree %}
+            <div class="agree">
+            <span>
+              {{ text_agree }}
+            </span>
+                {% include component.input.template with component.input|merge({
+                type:'checkbox',
+                name:'agree',
+                value:'1',
+                checked:agree,
+                }) %}
+            </div>
+        {% endif %}
+        {% if continue %}
+            {% include component.button.template with {button:{
+            link:continue ,
+            style:'primary',
+            classes:'btn-lg',
+            text_button:button_continue,
+            }} %}
+        {% elseif button_continue %}
+            {% include component.input.template with component.input|merge({
+            type:'submit',
+            value:button_continue,
+            button:'primary',
+            classes:'btn-shrink btn-block-sm btn-inline'
+            }) %}
+        {% endif %}
+        {% if button_submit %}
+            {% include component.input.template with component.input|merge({
+            type:'submit',
+            value:button_submit,
+            button:'primary',
+            }) %}
+        {% endif %}
+    </div>
+</div>
+<!-- /> d_button -->

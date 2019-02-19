@@ -1,0 +1,150 @@
+<div class="vz-contact-us vz-contact-us--default">
+    <h1 class="heading-h1">{{ heading_title }}</h1>
+    <div class="heading-h2">{{ text_location }}</div>
+    <div class="desk">
+        <div class="row">
+            {% if image %}
+                <div class="col-sm-3"><img src="{{ image }}" alt="{{ store }}" title="{{ store }}"
+                                           class="img-thumbnail"/></div>
+            {% endif %}
+            <div class="col-sm-3">
+                <span class="desk_title">{{ store }}</span>
+                <address class="desk_value">
+                    {{ address }}
+                </address>
+                {% if geocode %}
+                    <a href="https://maps.google.com/maps?q={{ geocode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank"
+                       class="btn btn-info"><i class="fa fa-map-marker"></i> {{ button_map }}</a>
+                {% endif %}
+            </div>
+            <div class="col-sm-3">
+                <span class="desk_title">{{ text_telephone }}</span>
+                <span class="desk_value">{{ telephone }}</span>
+                {% if fax %}
+                    <span class="desk_title">{{ text_fax }}</span>
+                    {{ fax }}
+                {% endif %}
+            </div>
+            <div class="col-sm-3">
+                {% if open %}
+                    <span>{{ text_open }}</span><br/>
+                    {{ open }}<br/>
+                    <br/>
+                {% endif %}
+                {% if comment %}
+                    <span>{{ text_comment }}</span><br/>
+                    {{ comment }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if locations %}
+        <h2 class="like-heading-h3">{{ text_store }}</h2>
+        <div class="panel-group" id="accordion">
+            {% for location in locations %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#collapse-location{{ location.location_id }}"
+                               class="accordion-toggle" data-toggle="collapse"
+                               data-parent="#accordion">{{ location.name }} <i
+                                        class="fa fa-caret-down"></i></a></h4>
+                    </div>
+                    <div class="panel-collapse collapse" id="collapse-location{{ location.location_id }}">
+                        <div class="panel-body">
+                            <div class="row">
+                                {% if location.image %}
+                                    <div class="col-sm-3"><img src="{{ location.limage }}" alt="{{ location.name }}"
+                                                               title="{{ location.name }}" class="img-thumbnail"/></div>
+                                {% endif %}
+                                <div class="col-sm-3"><span>{{ location.name }}</span><br/>
+                                    <address>
+                                        {{ location.address }}
+                                    </address>
+                                    {% if location.geocode %}
+                                        <a href="https://maps.google.com/maps?q={{ location.geocode }}&hl={{ location.geocode_hl }}&t=m&z=15"
+                                           target="_blank" class="btn btn-info"><i
+                                                    class="fa fa-map-marker"></i> {{ button_map }}</a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-3"><span>{{ text_telephone }}</span><br>
+                                    {{ location.telephone }}<br/>
+                                    <br/>
+                                    {% if location.fax %}
+                                        <span>{{ text_fax }}</span><br>
+                                        {{ location.fax }}
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-3">
+                                    {% if location.open %}
+                                        <span>{{ text_open }}</span><br/>
+                                        {{ location.open }}<br/>
+                                        <br/>
+                                    {% endif %}
+                                    {% if location.comment %}
+                                        <span>{{ text_comment }}</span><br/>
+                                        {{ location.comment }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+        <fieldset>
+            <h2 class="like-heading-h3">
+                <legend>{{ text_contact }}</legend>
+            </h2>
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_name ,
+                    error:error_name,
+                    required:true,
+                    input:{
+                        type:'text',
+                        id:'input-name',
+                        name:'name',
+                        value:name,
+                        placeholder:entry_name ,
+                    }
+                }
+            } %}
+
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_email ,
+                    error:error_email,
+                    input:{
+                        type:'email',
+                        id:'input-email',
+                        name:'email',
+                        value:email,
+                        placeholder:entry_email ,
+                    }
+                }
+            } %}
+            {% include component.form_group.template with{
+                form_group:{
+                    label_text:entry_enquiry ,
+                    error:error_enquiry,
+                    required:true,
+                    input:{
+                        type:'textarea',
+                        id:'input-enquiry',
+                        name:'enquiry',
+                        value:enquiry,
+                        placeholder:entry_enquiry ,
+                        rows:'5'
+                    }
+                }
+            } %}
+            {{ captcha }}
+        </fieldset>
+        {% include component.d_button_continue.template with component.d_button_continue|merge({
+            button_continue:button_submit
+        }) %}
+    </form>
+</div>

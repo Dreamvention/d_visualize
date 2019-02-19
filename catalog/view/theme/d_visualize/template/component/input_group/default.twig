@@ -1,0 +1,23 @@
+{% set input_group_class = 'input-group vz-input-group' %}
+{% if input_group.classes %}
+    {% set input_group_class = input_group_class ~ ' ' ~ input_group.classes %}
+{% endif %}
+<{{ input_group.tag|default('div') }}
+{% if input_group.id %}id="{{ input_group.id }}"{% endif %} class="{{ input_group_class }}" {% if input_group.atributest %}{{ input_group.atributest|raw }}{% endif %}>
+{% include component.input.template with {input:input_group.input} %}
+<div class="input-group-btn">
+    {% include component.button.template with {button:input_group.button} %}
+</div>
+{#{% if button.button=='true' %}#}
+        {#{% include component.button.template with button|merge({#}
+            {#type:'button',#}
+            {#input_group:true,#}
+        {#}) %}#}
+    {#{% else %}#}
+        {#{% include component.input.template with button|merge({#}
+            {#type:'button',#}
+            {#input_group:true,#}
+            {#atributes:"data-loading-text="~ text_loading#}
+        {#}) %}#}
+    {#{% endif %}#}
+</{{ input_group.tag|default('div') }}>

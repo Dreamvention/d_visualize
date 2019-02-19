@@ -1,0 +1,58 @@
+.content{
+  width: 100%;
+}
+
+.top-line {
+  .container {
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  hr {
+    margin: 0;
+    //margin-left: -15px;
+    //margin-right: -15px;
+    width: calc(100% + 30px);
+  }
+}
+
+.top-buttons {
+  .v-btn {
+    margin-right: 0;
+    border-radius: 2px;
+  }
+}
+
+.opencart {
+  padding: 15px;
+  &__panel {
+    max-width: 100%;
+    margin-top: 15px;
+  }
+  .theme--light.application{
+    background-color: transparent;
+  }
+}
+
+.panel {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  background-color: #f8f9fc;
+  border: 1px solid #dcdcdc;
+  border-top: 1px solid #dcdcdc;
+
+  &__heading {
+    background: #e9ebf4;
+    border-color: #dbdfef;
+
+    .container {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
+}
+
+#__nuxt{
+  position: relative;
+  z-index: 1000;// add some magic numbers for opencart
+}

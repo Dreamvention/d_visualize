@@ -1,34 +1,77 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="well">
-            <h2>{{text_new_customer}}</h2>
-            <p><strong>{{text_register}}</strong></p>
-            <p>{{text_register_account}}</p>
-            <a href="{{register}}" class="btn btn-primary">{{button_continue}}</a></div>
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+    <div class="login-page">
+        {% block heading %}
+        {% endblock %}
+        <div class="row">
+            <div class="col-sm-6 ">
+                <div class="well">
+                    <p class="heading-h3">{{ text_new_customer }}</p>
+                    <p class="heading-h5 heading-subtitle">{{ text_register }}</p>
+                    <p>{{ text_register_account }}</p>
+                    <div class="d-flex justify-content-end">
+                        {% include component.button.template with {button:{
+                        link:register ,
+                        style:'primary',
+                        classes:'btn-shrink',
+                        text_button:button_continue,
+                        }} %}
+                        </div>
+                    </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="well">
+                    <p class="heading-h3">{{ text_returning_customer }}</p>
+                    <p class="heading-h5">{{ text_i_am_returning_customer }}</p>
+                    <form action="{{ action }}" method="post" enctype="multipart/form-data">
+                        {% include component.form_group.template with{
+                            form_group:{
+                                label_text:entry_email ,
+                                error:error_email,
+                                input:{
+                                    type:'email',
+                                    id:'input-email',
+                                    name:'email',
+                                    value:email,
+                                    placeholder:entry_email ,
+                                }
+                            }
+                        } %}
+
+
+                        <p class="heading-h3">{{ text_your_password }}</p>
+                        {% include component.form_group.template with{
+                            form_group:{
+                                label_text:entry_password ,
+                                error:error_password,
+                                input:{
+                                    type:'password',
+                                    id:'input-password',
+                                    name:'password',
+                                    value:password,
+                                    placeholder:entry_password ,
+                                }
+                            }
+                        } %}
+
+                        <a href="{{ forgotten }}" class="password-forgot">{{ text_forgotten }}</a>
+                        {% if constant('VERSION') < '3.0.0.0' %}
+                            {% include component.d_button_continue.template with component.d_button_continue|merge({
+                                button_submit:true,
+                                button_continue:button_login
+                            }) %}
+                        {% else %}
+                            {% include component.d_button_continue.template with component.d_button_continue|merge({
+                                button_continue: button_login,
+                            }) %}
+                        {% endif %}
+                        {% if redirect %}
+                            <input type="hidden" name="redirect" value="{{ redirect }}"/>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6">
-          <div class="well">
-            <h2>{{text_returning_customer}}</h2>
-            <p><strong>{{text_i_am_returning_customer}}</strong></p>
-            <form action="{{action}}" method="post" enctype="multipart/form-data">
-              <div class="form-group">
-                <label class="control-label" for="input-email">{{entry_email}}</label>
-                <input type="text" name="email" value="{{email}}" placeholder="{{entry_email}}" id="input-email" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="input-password">{{entry_password}}</label>
-                <input type="password" name="password" value="{{password}}" placeholder="{{entry_password}}" id="input-password" class="form-control" />
-                <a href="{{forgotten}}">{{text_forgotten}}</a></div>
-              <input type="submit" value="{{button_login}}" class="btn btn-primary" />
-              {% if redirect %}
-                <input type="hidden" name="redirect" value="{{redirect}}" />
-              {% endif %}
-            </form>
-          </div>
-        </div>
-      </div>
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    </div>
+{% endblock %}

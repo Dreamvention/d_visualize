@@ -1,0 +1,29 @@
+.fz {
+  font-size: fz(2);
+}
+
+.rem {
+  font-size: rem(14);
+}
+
+.rem-2x {
+  font-size: rem(28);
+}
+
+.lh {
+  line-height: lh(20px, 16px);
+}
+
+.z-p {
+  position: relative;
+}
+
+.z-a-1 {
+  position: absolute;
+  z-index: z('backdrop');
+}
+
+.z-a-2 {
+  position: absolute;
+  z-index: z('modal');
+}

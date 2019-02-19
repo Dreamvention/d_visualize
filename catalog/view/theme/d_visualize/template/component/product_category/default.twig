@@ -1,0 +1,43 @@
+<div id="product-category" class="vz-product_category vz-product_category_default">
+    <h1 class="heading-h1 vz-product_category__heading">{{ heading_title }}</h1>
+    {% if description and not component.product_category.description_after_content =='true' %}
+        <div class="vz-product_category__description">{{ description }}</div>
+    {% endif %}
+    {% if categories %}
+        <div class="vz-product_category__categories">
+            {#<h3>{{ text_refine }}</h3>#}
+            <div class="vz-category_list row">
+                <div class="col-4">
+                    {% for category in categories %}
+                    <div class="vz-category_list_content"><a href="{{ category.href }}">{{ category.name }}</a>
+                    </div>
+                    {% if loop.index % 3 == 0 %}
+                </div>
+                <div class="col-4">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% include component.d_product_list.template with  component.d_product_list %}
+    {% if not categories %}
+        {% if not products %}
+            <p>{{ text_empty }}</p>
+            <div class="buttons">
+                <div class="pull-right">
+                    {% include component.button.template with {button:{
+                        button: true,
+                        id:'button-cart',
+                        style:'secondary',
+                        text_button:button_cart,
+                        title:button_cart,
+                    }}%}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+
+

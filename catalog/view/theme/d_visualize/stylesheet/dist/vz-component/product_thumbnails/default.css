@@ -1,0 +1,42 @@
+.vz-product-product__thumbnails {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+}
+.vz-product-product__thumbnails__item {
+    padding: 0.35714rem;
+    border: 0.07143rem solid #ddd;
+    -webkit-border-radius: 0.28571rem;
+            border-radius: 0.28571rem;
+    margin-bottom: 1.42857rem;
+    margin-left: 1.42857rem;
+}
+.vz-product-product__thumbnails__item:nth-child(2) {
+    margin-left: 0;
+}
+.vz-product-product__thumbnails__item {
+    -webkit-transition: border-color .35s;
+    transition: border-color .35s;
+}
+.vz-product-product__thumbnails__item:hover {
+    border-color: #337ab7;
+}
+.vz-product-product__thumbnails__item--main {
+    margin-left: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 0 100%;
+        -ms-flex: 1 0 100%;
+            flex: 1 0 100%;
+}
+.vz-product-product__thumbnails__item--main img{
+      margin: auto;
+      display: block;
+    }
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/product_thumbnails/default.css.map */

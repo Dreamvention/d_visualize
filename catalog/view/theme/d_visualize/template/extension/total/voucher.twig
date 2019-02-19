@@ -1,0 +1,39 @@
+<div class="panel panel-default vz-total vz-total--coupon">
+    <div class="panel-heading">
+        <div class="panel-title h4"><a href="#collapse-voucher" data-toggle="collapse" data-parent="#accordion"
+                                        class="accordion-toggle">{{ heading_title }} <i
+                        class="fa fa-caret-down"></i></a></div>
+    </div>
+    <div id="collapse-voucher" class="panel-collapse collapse">
+        <div class="panel-body">
+            {% include component.form_group.template with {form_group:{
+                type:'input_group',
+                label_text:entry_voucher,
+                input_group:{
+                    input:{
+                        type:'text',
+                        id:'input-voucher',
+                        name:'voucher',
+                        value:voucher,
+                        placeholder:entry_voucher,
+                        classes:'',
+                    },
+                    button:{
+                        tag:'input',
+                        type:'button',
+                        value:button_voucher,
+                        text_button:button_voucher,
+                        id:'button-voucher',
+                        style:'primary'
+                    }
+                }
+            }} %}
+          </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"><!--
+	$(document).ready(function () {
+		Total_voucher.init();
+	});
+	//--></script>

@@ -1,6 +1,72 @@
-			{{d_footer}}
-				{% for script in scripts %}
-				<script src="{{script}}"></script>
-				{% endfor %}
-    </body>
-</html>
+{% for script in scripts %}
+    <script src="{{ script }}" type="text/javascript"></script>
+{% endfor %}
+	{#<script src="catalog/view/javascript/d_visualize/lib/cq-prolyfill.js" async></script>#}
+{#pass opencart version to scripts#}
+<script>
+	window.OPENCART_VERISON = '{{ constant('VERSION')}}';
+</script>
+{# only for devs #}
+{% if admin %}
+	<script>
+	window.onbeforeunload = function (event) {
+		if (parent) {
+			parent.postMessage({vz_ifame_loading: {url: event.target.URL}}, "*");
+		}
+	};
+	window.addEventListener('message', function(event) {
+		// IMPORTANT: Check the origin of the data!
+		if (event.data.vz_token
+			&& ~event.origin.indexOf('http://localhost:3000') !== -1 || ~event.origin.indexOf('{{ site_url }}') !== -1) {
+			if (event.data.vz_get_iframe_info) {
+				var route = $('#content').data('route');
+				var location = this.location.href;
+				parent.postMessage({vz_ifame_data: {route: route, location: location}}, "*");
+			}
+			if (event.data.vz_change_component_variation) {
+				//we can't load all components on ajax so we just reload page
+				//at this moment we think that all saved into DB and load this new component's variants
+				this.location.reload();
+			}
+			if (event.data.vz_change_css) {
+				//make a call to server to render css
+				//we have scss compiler so can pass to him variables
+				//we don't save this settings now just pass it onto style section
+				$.ajax({
+					url: 'index.php?route=extension/d_visualize/event/get_css',
+					type: 'post',
+					data: event.data.vz_change_css,
+					success: function (style) {
+						appendStyle('vis-custom-style',style);
+					},
+					failure: function (e) {
+						alert('FAIL TO COMPILE SCSS');
+						console.log(e);
+					}
+				});
+
+			}
+			if (event.data.vz_global_custom_style){
+				appendStyle('viz-global-custom_style',event.data.vz_global_custom_style)
+			}
+			if (event.data.vz_skin_custom_style){
+				appendStyle('viz-skin-custom_style',event.data.vz_skin_custom_style)
+			}
+		}else{
+			console.log('no token')
+		}
+	});
+	function appendStyle(id,style) {
+		var sheetToBeRemoved = document.getElementById(id);
+		if (sheetToBeRemoved){
+			var sheetParent = sheetToBeRemoved.parentNode;
+			sheetParent.removeChild(sheetToBeRemoved);
+		}
+		var sheet = document.createElement('style')
+		sheet.id = id;
+		sheet.innerHTML = style;
+		document.head.appendChild(sheet);
+	}
+</script>
+{% endif %}
+</body></html>

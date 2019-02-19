@@ -1,23 +1,23 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <div class="h1">{{heading_title}}</div>
-      <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+    <h1 class="heading-h1">{{ heading_title }}</h1>
+    <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
-          <legend>{{text_your_details}}</legend>
-          {% include 'd_visualize/template/partial/d_account_field.twig' with {form:'inline'} %}
-          {% for custom_field in custom_fields %}
-            {% if custom_field.location == 'account' %}
-              {% include 'd_visualize/template/partial/d_custom_field.twig' with {form:'inline'} %}
-            {% endif %}
-          {% endfor %}
+            <legend>{{ text_your_details }}</legend>
+            {% include component.d_account_field.template with  component.d_account_field %}
+            {% for custom_field in custom_fields %}
+                {% if custom_field.location == 'account' %}
+                    {% include component.d_custom_field.template with  component.d_custom_field %}
+                {% endif %}
+            {% endfor %}
         </fieldset>
-        {% include 'd_visualize/template/partial/d_button_submit.twig' %}
-      </form>
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
-<script type="text/javascript"><!--
-$(function(){
-    d_custom_field.init();
-})
-//--></script>
+        {% include component.d_button_continue.template %}
+
+    </form>
+    <script type="text/javascript"><!--
+		$(function () {
+			d_custom_field.init();
+		});
+		//--></script>
+{% endblock %}

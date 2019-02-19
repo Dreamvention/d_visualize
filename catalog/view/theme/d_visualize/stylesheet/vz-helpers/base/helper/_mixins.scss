@@ -1,0 +1,386 @@
+@mixin prefixes($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -khtml-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content
+  }
+  &:-moz-placeholder {
+    @content
+  }
+  &::-moz-placeholder {
+    @content
+  }
+  &:-ms-input-placeholder {
+    @content
+  }
+}
+
+@mixin flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin inline-flex {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+}
+
+@mixin transition($for: all, $value: .4s, $animate: ease) {
+  @include prefixes("transition", $for $value $animate)
+}
+
+@mixin border-radius($radius: 4px) {
+  @include prefixes("border-radius", $radius)
+}
+
+@mixin box-shadow($value: 0 0 5px #ccc) {
+  @include prefixes("box-shadow", $value)
+}
+
+@mixin clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+@mixin arrow($direction, $size, $color) {
+  @if $direction == up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+  } @else if $direction == down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+  } @else if $direction == right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+  } @else if $direction == left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+  }
+}
+@mixin push-auto {
+  margin: {
+    left: auto;
+    right: auto;
+  }
+}
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+
+@mixin triangle($color, $direction, $size: 6px, $position: absolute, $round: false) {
+  @include pseudo($pos: $position);
+  width: 0;
+  height: 0;
+  @if $round {
+    border-radius: 3px;
+  }
+  @if $direction == down {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-top: $size solid $color;
+    margin-top: 0 - round( $size / 2.5 );
+  } @else if $direction == up {
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+    border-bottom: $size solid $color;
+    margin-bottom: 0 - round( $size / 2.5 );
+  } @else if $direction == right {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+    margin-right: -$size;
+  } @else if $direction == left {
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+    margin-left: -$size;
+  }
+}
+@mixin retina($image, $width, $height) {
+  @media (min--moz-device-pixel-ratio: 1.3),
+  (-o-min-device-pixel-ratio: 2.6/2),
+  (-webkit-min-device-pixel-ratio: 1.3),
+  (min-device-pixel-ratio: 1.3),
+  (min-resolution: 1.3dppx) {
+    /* Serving 2x image on Retina display */
+    background-image: url($image);
+    background-size: $width $height;
+  }
+}
+@mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: quote($font-name);
+    src: url($file-name + '.eot');
+    src: url($file-name + '.eot?#iefix') format('embedded-opentype'),
+    url($file-name + '.woff') format('woff'),
+    url($file-name + '.ttf') format('truetype'),
+    url($file-name + '.svg##{$font-name}') format('svg');
+    font-weight: $weight;
+    font-style: $style;
+  }
+}
+@mixin center-transform {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@mixin center-y-transform {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+@mixin center-margin($top, $left) {
+  position: absolute;
+  margin-top: - $top / 2;
+  margin-left: - $left / 2;
+  top: 50%;
+  left: 50%;
+}
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+@mixin full-space{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+@mixin mq($width, $type: max) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+@mixin adaptive($el, $type : 'max') {
+  .#{$el} {
+    @content;
+    @each $class, $screen in (xs, 'phone'), (sm, 'phablet'), (md, 'tablet'), (lg, 'desktop'), (xl, 'desktop-wide') {
+      @if ($type == 'min') {
+        @include mq($sc reen, 'min') {
+          &-#{$class} {
+            @content;
+          }
+        }
+      } @else {
+        @include mq($screen) {
+          &-#{$class} {
+            @content;
+          }
+        }
+      }
+    }
+  }
+}
+// –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+//  Google Fonts  v.2.0.0
+// –––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+//
+//  Subset config
+//
+//  Note!
+//  The Latin subset is always included if available and need not be specified.
+//  Please note that if a client browser supports unicode-range the subset parameter
+//  is ignored; the browser will select from the subsets supported by the font to
+//  get what it needs to render the text.
+//  Source: https://developers.google.com/fonts/docs/getting_started
+//
+$google-font-subsets: (
+        'arabic'      : false
+, 'bengali'     : false
+, 'cyrillic'    : false
+, 'cyrillic-ext': false
+, 'devanagari'  : false
+, 'greek'       : false
+, 'greek-ext'   : false
+, 'gujarati'    : false
+, 'hebrew'      : false
+, 'khmer'       : false
+, 'latin'       : false
+, 'latin-ext'   : false
+, 'tamil'       : false
+, 'telugu'      : false
+, 'thai'        : false
+, 'vietnamese'  : false
+) !default;
+
+//
+//  Helper functions
+//
+@function __gf__list-unique($list) {
+  $result: ();
+  @each $item in $list { @if not index($result, $item+''){ $result: append($result, $item+'');} }
+  @each $item in $result { $result: set-nth($result, index($result, $item),unquote($item)); }
+  @return $result;
+}
+@function __gf__str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @return if($index,
+          str-slice($string, 1, $index - 1) + $replace +
+    __gf__str-replace(str-slice($string, $index +
+    str-length($search)), $search, $replace),
+          $string);
+}
+@function __gf__str-explode($string){
+  $list:();
+  @for $i from 1 through str-length($string) { $list: append($list, str-slice($string, $i, $i)); }
+  @return $list;
+}
+//
+//   Google Fonts
+//
+@mixin google-font(
+  $name   : null,     //  string (unquoted will work too)
+  $weights: 400,      //  list or numeric value (100 200 300 400 ...)
+  $styles : normal,   //  list or string (normal and or italic)
+  $text   : null      //  string (don\'t forget to unescape )
+){
+  //  base url
+  $URL: '//fonts.googleapis.com/css?family=';
+
+  //  create global variables
+  @if not variable-exists(__gf__combine){ $__gf__combine: false !global; }
+  @if not variable-exists(__gf__map){ $__gf__map: () !global; }
+  @if not variable-exists(google-font-subsets){ $google-font-subsets: () !global; }
+
+  //  append italic to weights
+  @if index($styles, italic) and not str-index($weights+'',i){
+    $wgt: if(index($styles, normal), $weights, ());
+    @each $weight in $weights { $wgt: append($wgt, $weight + i); }
+    $weights: $wgt;
+  }
+
+  //  reduce and encode text
+  @if $text {
+    $list: __gf__list-unique(__gf__str-explode($text));
+    $text:'&text=';
+    $encode:('!':'%21','#':'%23','$':'%24','&':'%26','\'':'%27',
+            '(':'%28',')':'%29','*':'%2A','+':'%2B',',':'%2C',
+            '/':'%2F',':':'%3A',';':'%3B','=':'%3D','?':'%3F',
+            '@':'%40','[':'%5B',']':'%5D',' ':'%20');
+    @for $i from 1 through length($list) {
+      $char: map-get($encode,nth($list,$i)) or nth($list,$i);
+      $text: $text + $char;
+    }
+  }
+
+  //  subsets from config
+  $subset: '';
+  @each $set, $enabled in $google-font-subsets {
+    @if $enabled {
+      $subset: $subset + if($subset == '', '', ',') + $set;
+    }
+  }
+  $subset: if(str-length($subset) > 0 and $subset != latin, '&subset=' + $subset, '');
+
+  @if $name {
+    //  replace name whitespaces
+    $name: if(type-of($name) == string, unquote($name),$name);
+    $name: __gf__str-replace(inspect($name),' ','+');
+    @if $__gf__combine and not $text {
+      //  add weights to combine map
+      $wgt: map-get($__gf__map, $name) or ();
+      $wgt: __gf__list-unique(join($wgt, $weights, comma));
+      $__gf__map: map-merge($__gf__map, ($name: $wgt)) !global;
+    } @else {
+      //  create query
+      $query: '';
+      @each $weight in $weights { $query: $query + if($query != '', ',', '') + $weight; }
+      $query: __gf__str-replace($query, ' ');
+      $query: $name + if(str-length($query) > 0 and $query != '400',  ':'+ $query, '');
+
+      //  create single immport
+      @at-root { @import url($URL + $query + if($text, $text, '') + $subset); }
+    }
+  } @else {
+    //  set combine flag
+    $__gf__combine: true  !global;
+
+    //  nested includes
+    @content;
+
+    //  convert combine map to query
+    //  (remove weights if just 400)
+    $query:'';
+    @each $font, $weights in $__gf__map {
+      $query: $query + if($query != '', '|', '') + $font +
+                if(length($weights) == 1 and (nth($weights, 1) == '400'),
+                '', ':' + join((), $weights, comma));
+    }
+
+    //  remove query whitespaces
+    $query: __gf__str-replace($query,' ');
+
+    //  create combined immport
+    @at-root { @import url($URL + $query + $subset); }
+
+    //  reset combine flag
+    $__gf__combine: false !global;
+  }
+}
+@mixin text-transformations($variable_list) {
+  @if index($variable_list, 'bold') {
+    font-weight: bold;
+  } @else {
+    font-weight: normal;
+  }
+  @if index($variable_list, 'italic') {
+    font-style: italic;
+  } @else {
+    font-style: normal;
+  }
+  @if index($variable_list, 'underline') {
+    text-decoration: underline;
+  } @else {
+    text-decoration: none;
+  }
+  @if index($variable_list, 'capitalize') {
+    text-transform: capitalize;
+  } @else {
+    text-transform: none;
+  }
+  @if index($variable_list, 'uppercase') {
+    text-transform: uppercase;
+  } @else {
+    text-transform: none;
+  }
+}
+
+// todo sprite

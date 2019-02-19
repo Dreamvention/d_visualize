@@ -1,0 +1,27 @@
+.vz-input{
+    /*fix on bots*/
+    input[type="checkbox"], input[type="radio"] {
+        width: auto;
+        box-shadow: none;
+        margin: 0 5px;
+    }
+    /*radio item*/
+
+    &--radio, &--checkbox {
+        height: auto !important;
+        display: inline-flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+    /*radio list */
+    &-radio-wrap{
+        display: flex;
+        flex-wrap: wrap;
+        .vz-input--radio.vz-input--block{
+            flex: 1 1 100%;
+        }
+    }
+
+
+}

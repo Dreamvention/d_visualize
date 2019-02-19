@@ -1,7 +1,7 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <h1 class="h1">{{heading_title}}</h1>
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+      <h1 class="heading-h1">{{heading_title}}</h1>
       <p>{{text_total}} <b>{{total}}</b>.</p>
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
@@ -39,6 +39,5 @@
         <div class="col-sm-6 text-left">{{pagination}}</div>
         <div class="col-sm-6 text-right">{{results}}</div>
       </div>
-      {% include 'd_visualize/template/partial/d_button_continue.twig' %}
-  {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    {% include component.d_button_continue.template %}
+{% endblock %}

@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title"><a href="#collapse-shipping" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{heading_title}} <i class="fa fa-caret-down"></i></a></h4>
+    </div>
+    <div id="collapse-shipping" class="panel-collapse collapse">
+        <div class="panel-body">
+            <p>{{text_shipping}}</p>
+            <div class="form-horizontal">
+
+                {% include component.form_group.template with component.form_group|merge({
+                    type:'select',
+                    id:'input-country',
+                    name:'country_id',
+                    required: true,
+                    select_values:countries,
+                    select_values_val:'country_id',
+                    select_values_check: country_id,
+                    select_values_name: 'name',
+                    placeholder:text_select,
+                    text_input:entry_country,
+                    error:error_country,
+                }) %}
+                {% include component.form_group.template with component.form_group|merge({
+                    type:'select',
+                    id:'input-zone',
+                    name:'zone_id',
+                    required: true,
+                    select_values:null,
+                    select_values_val:'zone_id',
+                    select_values_check: zone_id,
+                    select_values_name: 'name',
+                    placeholder:text_select,
+                    text_input:entry_zone,
+                    error:error_zone,
+                }) %}
+                {% include component.form_group.template with component.form_group|merge({
+                    type:'text',
+                    id:'input-postcode',
+                    name:'postcode',
+                    required:true,
+                    value:postcode,
+                    text_input:entry_postcode ,
+                    placeholder:entry_postcode ,
+                    error:error_postcode
+                }) %}
+                {% include component.button.template with component.button|merge({
+                    button:true,
+                    id:'button-quote',
+                    style:'primary',
+                    text_button:button_quote
+                }) %}
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript"><!--
+	$(document).ready(function() {
+		Total_shipping.init({
+			shipping_method: '{{shipping_method}}',
+			text_shipping_method: '{{text_shipping_method}}',
+			text_loading: '{{text_loading}}',
+			button_cancel: '{{button_cancel}}',
+			button_shipping: '{{button_shipping}}'
+		});
+		d_address_field.init({
+			zone_id: '{{zone_id}}',
+			text_none: '{{text_none}}',
+			text_select: '{{text_select}}'
+		});
+	});
+	//--></script>

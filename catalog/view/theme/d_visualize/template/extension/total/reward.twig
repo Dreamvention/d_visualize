@@ -1,0 +1,35 @@
+<div class="panel panel-default vz-total vz-total--reward">
+  <div class="panel-heading">
+    <div class="panel-title h4"><a href="#collapse-reward" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{ heading_title }} <i class="fa fa-caret-down"></i></a></div>
+  </div>
+  <div id="collapse-reward" class="panel-collapse collapse">
+    <div class="panel-body">
+      {% include component.form_group.template with {form_group:{
+        type:'input_group',
+        label_text:entry_reward,
+        input_group:{
+          input:{
+            type:'text',
+            id:'input-reward',
+            name:'reward',
+            value:reward,
+            placeholder:entry_reward,
+            classes:'',
+          },
+          button:{
+            tag:'input',
+            type:'submit',
+            text_button:button_reward,
+            id:'button-reward',
+            style:'primary'
+          }
+        }
+      }} %}
+      <script type="text/javascript"><!--
+        $(document).ready(function() {
+          Total_reward.init();
+        });
+        //--></script>
+    </div>
+  </div>
+</div>

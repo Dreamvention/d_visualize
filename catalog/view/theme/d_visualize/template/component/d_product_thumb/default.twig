@@ -1,0 +1,52 @@
+<div class="vz-product-thumb product-thumb vz-product-thumb--default">
+    <div class="vz-product-thumb__image">
+        <a href="{{ product.href }}"><img src="{{ product.thumb }}" alt="{{ product.name }}" title="{{ product.name }}"
+                                          class="img-responsive"/></a>
+    </div>
+    <div class="vz-product-thumb__caption">
+        <h3 class="heading-h3"><a href="{{ product.href }}">{{ product.name }}</a></h3>
+        <p class="vz-product-thumb__description">{{ product.description }}</p>
+                {% if product.price %}
+                    <p class="vz-product-thumb__price">
+                        {% if not product.special %}{{ product.price }}{% else %}
+                            <span class="price-new">{{ product.special }}</span> <span
+                                class="price-old">{{ product.price }}</span>
+                        {% endif %}
+                        {% if product.tax %}
+                            <span class="price-tax">{{ text_tax }} {{ product.tax }}</span>
+                        {% endif %}
+                    </p>
+                {% endif %}
+                {% if product.rating %}
+                    <div class="vz-product-thumb__rating">
+                        {% include component.d_rating.template with component.d_rating|merge({
+                            rating:product.rating,
+                            static_rating:true,
+
+                        }) %}
+                    </div>
+                {% endif %}
+            <div class="vz-product-thumb__buttons">
+                {% include component.button.template with {button:{
+                    onclick:'cart.add('~ product.product_id ~', '~ minimum ~')',
+                    style:'primary',
+                    classes:'btn-buy vz-product-thumb__button',
+                    text_button:button_cart
+                }} %}
+                {% include component.button.template with {button:{
+                    onclick:'wishlist.add('~ product.product_id ~')',
+                    style:'primary',
+                    ghost:true,
+                    classes:'vz-product-thumb__button',
+                    icon:'fas fa-heart'
+                }} %}
+                {% include component.button.template with {button:{
+                    onclick:'compare.add('~ product.product_id ~')',
+                    style:'primary',
+                    ghost:true,
+                    classes:'vz-product-thumb__button',
+                    icon:'fas fa-exchange-alt'
+                }} %}
+            </div>
+    </div>
+</div>

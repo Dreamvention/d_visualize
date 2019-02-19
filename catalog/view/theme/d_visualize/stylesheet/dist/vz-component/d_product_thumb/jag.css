@@ -1,0 +1,91 @@
+.vz-product-thumb {
+    overflow: hidden;
+    z-index: 1;
+    position: relative;
+    width: 100%;
+    display: block;
+    min-height: 28.57143rem;
+    height: 100%
+}
+.vz-product-thumb:hover {
+    overflow: visible;
+    z-index: 2;
+}
+.vz-product-thumb:hover .vz-product-thumb--wrap {
+            position: absolute;
+            width: 100%;
+            background-color: #fff;
+            -webkit-box-shadow: 0 0.21429rem 3.07143rem 0 rgba(0, 0, 0, 0.16);
+                    box-shadow: 0 0.21429rem 3.07143rem 0 rgba(0, 0, 0, 0.16);
+}
+.vz-product-thumb:hover .vz-product-thumb__options  ~ *:not(script) {
+            opacity: 1;
+            display: block;
+}
+.vz-product-thumb .vz-product-thumb__options ~ *:not(script) {
+        display: none;
+}
+.vz-product-thumb .vz-rating {
+        margin-bottom: 1.42857rem;
+}
+.vz-product-thumb .btn-buy {
+        text-transform: uppercase;
+        font-weight: bold;
+}
+.vz-product-thumb--wrap {
+        padding: 1.07143rem;
+}
+.vz-product-thumb__price-block {
+        font-size: 1.14286rem;
+        font-weight: bold;
+        margin-bottom: 0.71429rem;
+}
+.vz-product-thumb__badge {
+        position: absolute;
+        left: 0;
+        background-color: #bd6356;
+        color: #fff;
+        padding:0.35714rem 0.71429rem;
+}
+.vz-product-thumb__brand {
+        font-weight: bold;
+}
+.vz-product-thumb__title {
+        font-size: 1.14286rem;
+}
+.vz-product-thumb__image {
+        position: relative;
+        margin-bottom: 1.07143rem;
+}
+.vz-product-thumb__image img {
+            margin: auto;
+        }
+.vz-product-thumb .jag-heart {
+        position: absolute;
+        right: 0.35714rem;
+        top: 0.35714rem;
+}
+.product-list .vz-product-thumb--wrap{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+        }
+.product-list .vz-product-thumb__title,.product-list .vz-product-thumb__price-block{
+            font-size: 1.78571rem;
+            margin-bottom: 1.07143rem;
+            display: block;
+        }
+.product-list .vz-product-thumb__image{
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 0 30%;
+                -ms-flex: 0 0 30%;
+                    flex: 0 0 30%;
+            margin-right: 1.42857rem;
+        }
+.product-list .vz-product-thumb .btn-buy{
+            width: auto;
+            display: block;
+        }
+
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_jag/catalog/view/theme/d_visualize/stylesheet/dist/vz-component/d_product_thumb/jag.css.map */

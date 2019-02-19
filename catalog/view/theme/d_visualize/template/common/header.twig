@@ -1,66 +1,68 @@
 <!doctype html>
 <!--[if IE]><![endif]-->
-<!--[if IE 8 ]><html dir="{{direction}}" lang="{{lang}}" class="ie8"><![endif]-->
-<!--[if IE 9 ]><html dir="{{direction}}" lang="{{lang}}" class="ie9"><![endif]-->
+<!--[if IE 8 ]>
+<html dir="{{direction}}" lang="{{lang}}" class="ie8"><![endif]-->
+<!--[if IE 9 ]>
+<html dir="{{direction}}" lang="{{lang}}" class="ie9"><![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
-<html dir="{{direction}}" lang="{{lang}}">
+<html dir="{{ direction }}" lang="{{ lang }}">
 <!--<![endif]-->
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>{{title}}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <base href="{{base}}" />
-        {% if description %}
-        <meta name="description" content="{{description}}" />
-        {% endif %}
-        {% if keywords %}
-        <meta name="keywords" content= "{{keywords}}" />
-        {% endif %}
-        {% for meta in metas %}
-            <meta {{meta.property}}="{{meta.meta}}" content="{{meta.content}}"></meta>
-        {% endfor %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#e6ecf7">
+    <base href="{{ base }}"/>
+    {% if description %}
+        <meta name="description" content="{{ description }}"/>
+    {% endif %}
+    {% if keywords %}
+        <meta name="keywords" content="{{ keywords }}"/>
+    {% endif %}
+    {% for meta in metas %}
+        <meta {{ meta.property }}="{{ meta.meta }}" content="{{ meta.content }}"></meta>
+    {% endfor %}
+    {% for link in links %}
+        <link href="{{ link.href }}" rel="{{ link.rel }}"/>
+    {% endfor %}
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    {% for analytic in analytics %}
+        {{ analytic }}
+    {% endfor %}
+    <!-- styles start -->
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
-        {% for link in links %}
-            <link href="{{link.href}}" rel="{{link.rel}}" />
-        {% endfor %}
+    {% for style in pre_styles %}
+        <link href="{{ style }}" type="text/css" rel="stylesheet" media="screen"/>
+    {% endfor %}
+    {#default place for styles all module come here #}
+    {% for style in styles %}
+        <link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}"/>
+    {% endfor %}
+    {% for style in post_styles %}
+        <link href="{{ style }}" type="text/css" rel="stylesheet" media="screen"/>
+    {% endfor %}
 
-        <link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-        <link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-        <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400i,300,700" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="catalog/view/theme/d_visualize/stylesheet/library/animate/animate.min.css">
-        <link rel="stylesheet" href="catalog/view/theme/d_visualize/stylesheet/stylesheet.css">
-        {% for style in styles %}
-            <link href="{{style.href}}" type="text/css" rel="{{style.rel}}" media="{{style.media}}" />
-        {% endfor %}
-
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-        <script>try{Modernizr} catch(e) {document.write('<script src="./assets/js/vendor/modernizr-2.8.3.min.js"><\/script>')}</script>
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script>window.jQuery || document.write('<script src="catalog/view/javascript/jquery/jquery-2.1.1.min.js"><\/script>')</script>
-        <script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/cart.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/compare.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/voucher.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/common/wishlist.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/partial/d_product_sort.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/partial/d_address_field.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/partial/d_custom_field.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/checkout/checkout.js" type="text/javascript"></script>
-        <script src="catalog/view/theme/d_visualize/javascript/product/product.js" type="text/javascript"></script>
-        <!-- dynamic scripts -->
-        {% for script in scripts %}
-            <script src="{{script}}" type="text/javascript"></script>
-        {% endfor %}
-
-        {% for analytic in analytics %}
-            {{analytic}}
-        {% endfor %}
-    </head>
-    <body class="{{class}}">
-        {{d_header}}
+    {% for custom_style in custom_styles %}
+        <style>
+            {{ custom_style }}
+        </style>
+    {% endfor %}
+    <!-- scripts start -->
+    {#d_visualize_pre_scripts#}
+    {% for script in pre_scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+    {# default_scripts #}
+    <!-- dynamic scripts from modules -->
+    {% for script in scripts %}
+        <script src="{{ script }}" type="text/javascript"></script>
+    {% endfor %}
+    <style>
+        /*@import url('https://fonts.googleapis.com/css?family=Alex+Brush');*/
+    </style>
+</head>
+<body class="{{ class }}">

@@ -1,0 +1,216 @@
+{% if options %}
+    <div class="vz-product-options">
+        {% for option in options %}
+            {% if option.type == 'select' %}
+                {% embed component.form_group.template with {
+                    form_group:{
+                        label_text:option.name,
+                        required:option.required,
+                        input:true,
+                    },
+                    option:option
+                } %}
+                    {% block input %}
+                        {% embed component.input.template with {input:{
+                            type:'select',
+                            id:'input-option'~option.product_option_id,
+                            name:'option[' ~ option.product_option_id ~ ']',
+                            placeholder:text_select,
+                            values:option.product_option_value
+                        },
+                        } %}
+                            {% block select_option %}
+                                <option value="{{ option.product_option_value_id }}">{{ option.name }}
+                                    {% if option.price %}
+                                        ({{ option.price_prefix }}{{ option.price }})
+                                    {% endif %}
+                                </option>
+                            {% endblock %}
+                        {% endembed %}
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+            {% if option.type == 'radio' %}
+                {% embed component.form_group.template with {
+                    form_group:{
+                        type:'radio',
+                        label_text:option.name,
+                        required:option.required,
+                        input:true,
+                    },
+                    option:option
+                } %}
+                    {% block input %}
+                        {% embed component.input.template with {input:{
+                            type:'radio',
+                            id:'input-option'~option.product_option_id,
+                            name:'option[' ~ option.product_option_id ~ ']',
+                            values:option.product_option_value,
+                            form:'block'
+                        },
+                        } %}
+                            {% block radio_option %}
+                                <input type="radio" 
+                                name="{{input.name}}"
+                                value="{{option.product_option_value_id}}"
+                                />
+                                {% if option.image %}
+                                 <img src="{{ option.image }}"
+                                        alt="{{ option.name }} {% if option.price %} {{ option.price_prefix }} {{ option.price }} {% endif %}" class="vz-input__option-image"/> {% endif %}
+                                {{ option.name }}
+                                {% if option.price %}
+                                    ({{ option.price_prefix }}{{ option.price }})
+                                {% endif %}
+                            {% endblock %}
+                        {% endembed %}
+                    {% endblock %}
+                {% endembed %}
+            {% endif %}
+            {% if option.type == 'checkbox' %}
+            {% embed component.form_group.template with {
+                form_group:{
+                    type:'checkbox',
+                    label_text:option.name,
+                    required:option.required,
+                    input:true,
+                },
+                option:option
+            } %}
+                {% block input %}
+                    {% embed component.input.template with {input:{
+                        type:'checkbox',
+                        id:'input-option'~option.product_option_id,
+                        name:'option[' ~ option.product_option_id ~ ']',
+                        values:option.product_option_value
+                    },
+                    } %}
+                        {% block checkbox_option %}
+                            <input type="checkbox" 
+                            name="{{input.name}}"
+                            value="{{option.product_option_value_id}}"
+                            class="{{input_classes}}"/>
+                            {% if option.image %}
+                             <img src="{{ option.image }}"
+                                    alt="{{ option.name }} {% if option.price %} {{ option.price_prefix }} {{ option.price }} {% endif %}" class="vz-input__option-image"/> {% endif %}
+                            {{ option.name }}
+                            {% if option.price %}
+                                ({{ option.price_prefix }}{{ option.price }})
+                            {% endif %}
+                        {% endblock %}
+                    {% endembed %}
+                {% endblock %}
+            {% endembed %}
+            {% endif %}
+            {% if option.type == 'text' %}
+                {% include component.form_group.template with {form_group :{
+                    label_text:option.name,
+                    required:option.required,
+                    input:{
+                        type:'text',
+                        id:'input-option'~option.product_option_id,
+                        name:'option[' ~ option.product_option_id ~ ']',
+                        value:option.value ,
+                        placeholder:option.name
+                    }
+                }} %}
+            {% endif %}
+            {% if option.type == 'textarea' %}
+                {% include component.form_group.template with { form_group :{
+                    label_text:option.name,
+                    required:option.required,
+                    input:{
+                        type:'textarea',
+                        id:'input-option'~option.product_option_id,
+                        name:'option[' ~ option.product_option_id ~ ']',
+                        value:option.value ,
+                    }
+                }} %}
+            {% endif %}
+            {% if option.type == 'file' %}
+                {% include component.form_group.template with { form_group :{
+                    label_text:option.name,
+                    required:option.required,
+                    input:{
+                        type:'hidden',
+                        id:'input-option'~option.product_option_id,
+                        name:'option[' ~ option.product_option_id ~ ']',
+                        value:'' ,
+                    },
+                    button:{
+                        button: true,
+                        id:'button-upload'~ option.product_option_id ,
+                        style:'default',
+                        classes:'btn-block',
+                        text_button:'<i
+                    class="fa fa-upload"></i> '~ button_upload ,
+                        title:"",
+                    }
+                }} %}
+
+            {% endif %}
+            {% if option.type == 'date' %}
+                {% include component.form_group.template with {
+                    form_group:{
+                        label_text:option.name,
+                        required:option.required,
+                        input_group:{
+                            classes:'date',
+                            input:{
+                                type:'date',
+                                id:'input-option' ~ option.product_option_id,
+                                name:'option[' ~ option.product_option_id ~ ']',
+                                value: option.value,
+                            },
+                            button:{
+                                style:'default',
+                                icon:'fa fa-calendar',
+                            }
+                        }
+                    }
+                } %}
+            {% endif %}
+            {% if option.type == 'datetime' %}
+                {% include component.form_group.template with {
+                    form_group:{
+                        label_text:option.name,
+                        required:option.required,
+                        input_group:{
+                            classes:'datetime',
+                            input:{
+                                type:'datetime',
+                                id:'input-option' ~ option.product_option_id,
+                                name:'option[' ~ option.product_option_id ~ ']',
+                                value: option.value,
+                            },
+                            button:{
+                                style:'default',
+                                icon:'fa fa-calendar',
+                            }
+                        }
+                    }
+                } %}
+            {% endif %}
+            {% if option.type == 'time' %}
+                {% include component.form_group.template with {
+                    form_group:{
+                        label_text:option.name,
+                        required:option.required,
+                        input_group:{
+                            classes:'time',
+                            input:{
+                                type:'time',
+                                id:'input-option' ~ option.product_option_id,
+                                name:'option[' ~ option.product_option_id ~ ']',
+                                value: option.value,
+                            },
+                            button:{
+                                style:'default',
+                                icon:'fa fa-calendar',
+                            }
+                        }
+                    }
+                } %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

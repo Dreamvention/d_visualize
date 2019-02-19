@@ -1,0 +1,69 @@
+@import "../base/variables";
+
+.vz-button {
+  padding: var(--padding-button);
+  &.active, &:focus, &.active:focus {
+    :not(.btn-link) {
+      box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    }
+    outline: 0;
+  }
+  /*size */
+  &.btn-lg {
+    font-size: 18px;
+  }
+  &.btn-sm {
+    font-size: 16px;
+  }
+  &.btn-link {
+    color: var(--link-color);
+    &:hover {
+      color: var(--link-color-hover);
+    }
+  }
+  &.btn-primary {
+    @extend %btn_primary
+  }
+  &.btn-danger {
+    @extend %btn_danger
+  }
+  &.btn-default {
+    @extend %btn_default
+  }
+  &.btn-warning {
+  @extend %btn_warning
+  }
+  &.btn-info {
+    background: var(--color-info);
+    border: var(--border-info);
+    border-color: var(--color-info-darken);
+    &:hover {
+      background: var(--color-info-darken);
+      border-color: var(--color-info-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-info-darkenx2);
+      border-color: var(--color-info-darkenx3);
+      outline: none;
+    }
+  }
+
+  &.btn-success {
+    background: var(--color-success);
+    border: var(--border-success);
+    border-color: var(--color-success-darken);
+    &:hover {
+      background: var(--color-success-darken);
+      border-color: var(--color-success-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-success-darkenx2);
+      border-color: var(--color-success-darkenx3);
+      outline: none;
+    }
+  }
+}
+
+.vz-button-group {
+
+}

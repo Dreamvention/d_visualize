@@ -1,0 +1,68 @@
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+    <h1 class="heading-h1">{{ heading_title }}</h1>
+    <p>{{ text_description }}</p>
+    <form class="form-horizontal">
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_code ,
+                input:{
+                    type:'textarea',
+                    id:'input-code',
+                    name:'code',
+                    value:code,
+                    placeholder:entry_code ,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_generator ,
+                input:{
+                    type:'text',
+                    id:'input-generator',
+                    name:'generator',
+                    value:generator,
+                    placeholder:entry_generator ,
+                }
+            }
+        } %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_link ,
+                input:{
+                    type:'textarea',
+                    id:'input-link',
+                    name:'link',
+                    value:link,
+                    placeholder:entry_link ,
+                }
+            }
+        } %}
+    </form>
+
+    {% include component.d_button_continue.template with component.d_button_continue %}
+    <script type="text/javascript"><!--
+		$('input[name=\'product\']').autocomplete({
+			'source': function (request, response) {
+				$.ajax({
+					url: 'index.php?route=account/tracking/autocomplete&filter_name=' + encodeURIComponent(request) + '&tracking=' + encodeURIComponent($('#input-code').val()),
+					dataType: 'json',
+					success: function (json) {
+						response($.map(json, function (item) {
+							return {
+								label: item['name'],
+								value: item['link']
+							};
+						}));
+					}
+				});
+			},
+			'select': function (item) {
+				$('input[name=\'product\']').val(item['label']);
+				$('textarea[name=\'link\']').val(item['value']);
+			}
+		});
+		//--></script>
+{% endblock %}

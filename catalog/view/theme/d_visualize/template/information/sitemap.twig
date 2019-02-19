@@ -1,56 +1,60 @@
-{{header}}
-  {% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-  {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <div class="h1">{{heading_title}}</div>
-      <div class="row">
+{#it's mean in layout template#}
+{% extends template %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="heading-h1">{{ heading_title }}</h1>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-sm-6">
-          <ul>
-            {% for category in categories %}
-            <li><a href="{{category.href}}">{{category.name}}</a>
-              {% if category.children %}
-              <ul>
-                {% for children in category.children %}
-                <li><a href="{{children.href}}">{{children.name}}</a>
-                  {% if children.children %}
-                  <ul>
-                    {% for child in children.children %}
-                    <li><a href="{{child.href}}">{{child.name}}</a></li>
-                    {% endfor %}
-                  </ul>
-                  {% endif %}
+            <ul class="list">
+                {% for category in categories %}
+                    <li class="list-item"><a href="{{ category.href }}" class="link">{{ category.name }}</a>
+                        {% if category.children %}
+                            <ul class="list">
+                                {% for children in category.children %}
+                                    <li class="list-item"><a href="{{ children.href }}" class="link">{{ children.name }}</a>
+                                        {% if children.children %}
+                                            <ul class="list">
+                                                {% for child in children.children %}
+                                                    <li class="list-item"><a href="{{ child.href }}" class="link">{{ child.name }}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <ul class="list">
+                <li class="list-item"><a href="{{ special }}" class="link">{{ text_special }}</a></li>
+                <li class="list-item"><a href="{{ account }}" class="link">{{ text_account }}</a>
+                    <ul class="list">
+                        <li class="list-item"><a href="{{ edit }}" class="link">{{ text_edit }}</a></li>
+                        <li class="list-item"><a href="{{ password }}" class="link">{{ text_password }}</a></li>
+                        <li class="list-item"><a href="{{ address }}" class="link">{{ text_address }}</a></li>
+                        <li class="list-item"><a href="{{ history }}" class="link">{{ text_history }}</a></li>
+                        <li class="list-item"><a href="{{ download }}" class="link">{{ text_download }}</a></li>
+                    </ul>
                 </li>
-                {% endfor %}
-              </ul>
-              {% endif %}
-            </li>
-            {% endfor %}
-          </ul>
+                <li class="list-item"><a href="{{ cart }}" class="link">{{ text_cart }}</a></li>
+                <li class="list-item"><a href="{{ checkout }}" class="link">{{ text_checkout }}</a></li>
+                <li class="list-item"><a href="{{ search }}" class="link">{{ text_search }}</a></li>
+                <li class="list-item">{{text_information}}
+                    <ul class="list">
+                        {% for information in informations %}
+                            <li class="list-item"><a href="{{ information.href }}" class="link">{{ information.title }}</a></li>
+                        {% endfor %}
+                        <li class="list-item"><a href="{{ contact }}">{{ text_contact }}</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        <div class="col-sm-6">
-          <ul>
-            <li><a href="{{special}}">{{text_special}}</a></li>
-            <li><a href="{{account}}">{{text_account}}</a>
-              <ul>
-                <li><a href="{{edit}}">{{text_edit}}</a></li>
-                <li><a href="{{password}}">{{text_password}}</a></li>
-                <li><a href="{{address}}">{{text_address}}</a></li>
-                <li><a href="{{history}}">{{text_history}}</a></li>
-                <li><a href="{{download}}">{{text_download}}</a></li>
-              </ul>
-            </li>
-            <li><a href="{{cart}}">{{text_cart}}</a></li>
-            <li><a href="{{checkout}}">{{text_checkout}}</a></li>
-            <li><a href="{{search}}">{{text_search}}</a></li>
-            <li>{{text_information}}
-              <ul>
-                {% for information in informations %}
-                <li><a href="{{information.href}}">{{information.title}}</a></li>
-                {% endfor %}
-                <li><a href="{{contact}}">{{text_contact}}</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-  {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+.loader {
+  .la-timer {
+    color: var(--color-main);
+  }
+  &.normal {
+    position: absolute;
+  }
+  &.auto-saving {
+    display: none;
+    &.mini {
+      display: inline-block;
+    }
+  }
+}
+
+.loading > .container-fluid:not(.auto-saving) {
+  .panel {
+    opacity: .5;
+    pointer-events: none;
+    flex: 1 1 100%;
+    width: 100%;
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel-body {
+  min-height: 500px;
+}
+
+.sync-loader {
+  flex: 1;
+margin-left: rem(20);
+  .fa {
+    font-size: 36px;
+  }
+}
+
+.auto-saving .panel .panel-heading {
+  justify-content: space-between;
+}
+
+.loader{
+  i:hover{
+    animation: a 2s infinite linear
+  }
+}

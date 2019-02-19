@@ -1,0 +1,48 @@
+@import url("//fonts.googleapis.com/css?family=Open+Sans");
+body, html {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.3;
+  width: 100%; }
+
+h1, h2, h3, h4, h5, h6, .heading-h1, .heading-h2, .heading-h3, .heading-h4, .heading-h5, .heading-h6 {
+  color: #444;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  text-transform: none;
+  text-transform: none; }
+
+/* default font size */
+.fa {
+  font-size: 14px; }
+
+/* Override the bootstrap defaults */
+h1, .heading-h1 {
+  font-size: 28px; }
+
+h2, .heading-h2 {
+  font-size: 25.2px; }
+
+h3, .heading-h3 {
+  font-size: 16.8px; }
+
+h4, .heading-h4 {
+  font-size: 16.8px; }
+
+h5, .heading-h5 {
+  font-size: 14px; }
+
+h6, .heading-h6 {
+  font-size: 11.2px; }
+
+a, .link {
+  color: #23a1d1; }
+
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/302/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/default/default.css.map */

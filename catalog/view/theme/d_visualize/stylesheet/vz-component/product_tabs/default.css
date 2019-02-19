@@ -1,0 +1,13 @@
+.vz-product-product__tabs {
+  &__nav {
+    margin-bottom: 15px;
+    &__item {
+    }
+  }
+  &__content {
+    &__pane{}
+    &__pane--active{
+
+    }
+  }
+}

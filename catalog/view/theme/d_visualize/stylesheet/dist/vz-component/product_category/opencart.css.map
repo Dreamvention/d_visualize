@@ -1,0 +1,1 @@
+{"version":3,"sources":["opencart.css"],"names":[],"mappings":"AACE;GACC;EAEC;MACE,sBAAgB;KACjB","file":"../../../../../../../../../../../../../../opencart.css","sourcesContent":[".vz-product_category {\r\n  &_description {\r\n  }\r\n  &_opencart {\r\n    .img-thumbnail{\r\n      max-width: 90px;\r\n    }\r\n  }\r\n}"]}

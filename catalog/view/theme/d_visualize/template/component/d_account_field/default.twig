@@ -1,0 +1,67 @@
+<!-- > d_account_field_default -->
+<div class="vz-account-filed">
+    <div style="display: {% if customer_groups|length > 1 %} block {% else %} none {% endif %};">
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_customer_group,
+                required:true,
+                error:error_customer_group,
+                input:{
+                    type:'radio',
+                    id:'input-customer_group',
+                    name:'customer_group_id',
+                    text:'name',
+                    value: 'customer_group_id',
+                    values: customer_groups,
+                    checked: customer_group_id,
+                }
+            }
+        } %}
+    </div>
+
+    {% include component.d_name_field.template %}
+    {% include component.form_group.template with{
+        form_group:{
+            label_text:entry_email ,
+            error:error_email,
+            required:true,
+            input:{
+                type:'text',
+                id:'input-email',
+                name:'email',
+                value:email,
+                placeholder:entry_email ,
+            }
+        }
+    } %}
+    {% include component.form_group.template with{
+        form_group:{
+            label_text:entry_telephone ,
+            error:error_telephone,
+            required:true,
+            input:{
+                type:'text',
+                id:'input-telephone',
+                name:'telephone',
+                value:telephone,
+                placeholder:entry_telephone ,
+            }
+        }
+    } %}
+    {% if constant('VERSION') < '3.0.0.0' %}
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:entry_fax ,
+                error:error_fax,
+                input:{
+                    type:'text',
+                    id:'input-fax',
+                    name:'fax',
+                    value:fax,
+                    placeholder:entry_fax ,
+                }
+            }
+        } %}
+    {% endif %}
+</div>
+<!-- /> d_account_field_default -->

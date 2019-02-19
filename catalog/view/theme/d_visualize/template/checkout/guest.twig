@@ -1,48 +1,58 @@
+{#this var need to prevent error displaying before render#}
+    {% set error_then = true %}
 <div class="row">
-  <div class="col-sm-6">
-      <fieldset id="account">
-        <legend>{{text_your_details}}</legend>
-        {% include 'd_visualize/template/partial/d_account_field.twig' %}
-        {% for custom_field in custom_fields %}
-          {% if custom_field.location == 'account' %}
-            {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
-          {% endif %}
-        {% endfor %}
-      </fieldset>
-  </div>
-  <div class="col-sm-6">
-    <fieldset id="address">
-      <legend>{{text_your_address}}</legend>
-      {% include 'd_visualize/template/partial/d_address_field.twig' %}
-      {% for custom_field in custom_fields %}
-        {% if custom_field.location == 'address' %}
-          {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
+    <div class="col-sm-6">
+        <fieldset id="account">
+            <legend>{{ text_your_details }}</legend>
+            {% include component.d_account_field.template with component.d_account_field %}
+            {% for custom_field in custom_fields %}
+                {% if custom_field.location == 'account' %}
+                    {% include component.d_custom_field.template with (custom_field) %}
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+    </div>
+    <div class="col-sm-6">
+        <fieldset id="address">
+            <legend>{{ text_your_address }}</legend>
+            {% include component.d_address_field.template with component.d_address_field %}
+            {% for custom_field in custom_fields %}
+                {% if custom_field.location == 'address' %}
+                    {% include component.d_custom_field.template with (custom_field) %}
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+        {{ captcha }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        {% if shipping_required %}
+            {% include component.input.template with {input:{
+            type:'checkbox',
+            name:'shipping_address',
+            value:1 ,
+            checked: shipping_address,
+            text_input: entry_shipping,
+            }} %}
         {% endif %}
-      {% endfor %}
-    </fieldset>
-    {{captcha}}
-  </div>
-</div>
-{% if shipping_required %}
-<div class="checkbox">
-  <label>
-    <input type="checkbox" name="shipping_address" value="1" {% if shipping_address %}checked="checked"{% endif %} />
-    {{entry_shipping}}</label>
-</div>
-{% endif %}
-<div class="buttons">
-  <div class="pull-right">
-    <input type="button" value="{{button_continue}}" id="button-guest" data-loading-text="{{text_loading}}" class="btn btn-primary" />
-  </div>
-</div>
+        {% include component.d_button_continue.template with component.d_button_continue|merge({
+            button: true,
+            id:"button-guest",
+            button_continue: button_continue,
+            text_agree:false
+        }) %}
+    </div>
+    {% set error_then = false %}
 
+</div>
 <script type="text/javascript"><!--
-$(function(){
-    d_address_field.init({
-        zone_id: '{{zone_id}}',
-        text_none: '{{text_none}}',
-        text_select: '{{text_select}}'
-    });
-    d_custom_field.init();
-})
-//--></script>
+	$(function () {
+		d_address_field.init({
+			zone_id: '{{ zone_id }}',
+			text_none: '{{ text_none }}',
+			text_select: '{{ text_select }}'
+		});
+		d_custom_field.init();
+	});
+	//--></script>

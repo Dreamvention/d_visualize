@@ -1,0 +1,14 @@
+.vz-template-thumb {
+  padding: 20px;
+  max-width: 250px;
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+  &.active {
+    outline: 1px solid red;
+  }
+}
+
+.vz-theme-preview, .vz-theme-thumbs {
+  display: flex;
+}

@@ -1,0 +1,31 @@
+.vz-theme-preview {
+  &-images {
+    max-width: 550px;
+    position: relative;
+    padding-right: 40px;
+  }
+  &__img{
+    position: relative;
+    overflow: hidden;
+    &__overlay {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+    }
+    &--mobile {
+      position: absolute;
+      width: 25%;
+      right: 0;
+      bottom: 0;
+      .vz-theme-preview__img__overlay {
+        right: 5px;
+        left: 5px;
+      }
+    }
+  }
+  &__description{
+    padding-left: 20px;
+  }
+  margin-bottom: 40px;
+}

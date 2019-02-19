@@ -1,33 +1,69 @@
 <div class="row">
   <div class="col-sm-6">
-    <h2>{{text_new_customer}}</h2>
-    <p>{{text_checkout}}</p>
-    <div class="radio">
-      <label>
-        <input type="radio" name="account" value="register" {% if account == 'register' %}checked="checked"{% endif %} />
-        {{text_register}}</label>
-    </div>
-    {% if checkout_guest %}
-    <div class="radio">
-      <label>
-        <input type="radio" name="account" value="guest" {% if account == 'guest' %}checked="checked"{% endif %} />
-        {{text_guest}}</label>
-    </div>
-    {% endif %}
+    <div class="h2">{{text_new_customer}}</div>
+
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:text_checkout,
+              input:{
+                  type:'radio',
+                  form:'block',
+                  name:'account',
+                  text: 'name',
+                  checked: account,
+                  values: [{ 'value':'register','name': text_register},{'value':'guest','name':text_guest}],
+              }
+          }
+      } %}
+
+
     <p>{{text_register_account}}</p>
-    <input type="button" value="{{button_continue}}" id="button-account" data-loading-text="{{text_loading}}" class="btn btn-primary" />
+      {% include component.button.template with {button:{
+          button:true,
+          id:'button-account',
+          text_loading:text_loading,
+          style:'primary',
+          text_button:button_continue
+      }} %}
   </div>
   <div class="col-sm-6">
     <h2>{{text_returning_customer}}</h2>
     <p>{{text_i_am_returning_customer}}</p>
-    <div class="form-group">
-      <label class="control-label" for="input-email">{{entry_email}}</label>
-      <input type="text" name="email" value="" placeholder="{{entry_email}}" id="input-email" class="form-control" />
-    </div>
-    <div class="form-group">
-      <label class="control-label" for="input-password">{{entry_password}}</label>
-      <input type="password" name="password" value="" placeholder="{{entry_password}}" id="input-password" class="form-control" />
-      <a href="{{forgotten}}">{{text_forgotten}}</a></div>
-    <input type="button" value="{{button_login}}" id="button-login" data-loading-text="{{text_loading}}" class="btn btn-primary" />
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_email ,
+              error:error_email,
+              input:{
+                  type:'email',
+                  id:'input-email',
+                  name:'email',
+                  value:email,
+                  placeholder:entry_email ,
+              }
+          }
+      } %}
+      {% include component.form_group.template with{
+          form_group:{
+              label_text:entry_password ,
+              error:error_password,
+              input:{
+                  type:'password',
+                  id:'input-password',
+                  name:'password',
+                  value:password,
+                  placeholder:entry_password ,
+              }
+          }
+      } %}
+
+    <a href="{{ forgotten }}" class="password-forgot  d-block" style="margin-bottom: 20px">{{ text_forgotten }}</a>
+
+      {% include component.button.template with {button:{
+          button:true,
+          id:'button-login',
+          text_loading:text_loading,
+          style:'primary',
+          text_button:button_login
+      }} %}
   </div>
 </div>

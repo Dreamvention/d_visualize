@@ -1,0 +1,15 @@
+.vz-input {
+  &--sm {
+    .vz-input__label {
+      padding: 2px 7px;
+    }
+    .vz-input__input.form-control {
+      padding: 2px 7px;
+      font-size: 12px;
+      height: 29px;
+    }
+  }
+  &__label{
+    font-weight: var(--font-normal);
+  }
+}

@@ -1,24 +1,6 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-        <div class="h2">{{heading_title}}</div>
-        {% if products %}
-          {% include 'd_visualize/template/partial/d_product_sort.twig' %}
-          <div class="row">
-            {% for product in products %}
-              {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
-            {% endfor %}
-          </div>
-          <div class="row">
-            <div class="col-sm-6 text-left">{{pagination}}</div>
-            <div class="col-sm-6 text-right">{{results}}</div>
-          </div>
-        {% else %}
-            <p>{{text_empty}}</p>
-            <div class="buttons">
-              <div class="pull-right"><a href="{{continue}}" class="btn btn-default">{{button_continue}}</a></div>
-            </div>
-        {% endif %}
-
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+    <div class="h2">{{heading_title}}</div>
+    {% include component.d_product_list.template with  component.d_product_list %}
+{% endblock %}

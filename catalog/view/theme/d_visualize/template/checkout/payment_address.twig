@@ -1,59 +1,71 @@
 <form class="form-horizontal">
-  {% if addresses %}
-    <div class="radio">
-      <label>
-        <input type="radio" name="payment_address" value="existing" checked="checked" />
-        {{text_address_existing}}</label>
-    </div>
-    <div id="payment-existing">
-      <select name="address_id" class="form-control">
-        {% for address in addresses %}
-          <option value="{{address.address_id}}" {% if address.address_id == address_id %}selected="selected"{% endif %}>{{address.firstname}} {{address.lastname}}, {{address.address_1}}, {{address.city}}, {{address.zone}}, {{address.country}}</option>
+    {% if addresses %}
+        {% include component.input.template with {input:{
+            type:'radio',
+            name:'payment_address',
+            value:'existing',
+            checked:true,
+            text_input:text_address_existing,
+        }} %}
+        <div id="payment-existing">
+            <select name="address_id" class="form-control">
+                {% for address in addresses %}
+                    <option value="{{ address.address_id }}"
+                            {% if address.address_id == address_id %}selected="selected"{% endif %}>{{ address.firstname }} {{ address.lastname }}
+                        , {{ address.address_1 }}, {{ address.city }}, {{ address.zone }}
+                        , {{ address.country }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% include component.input.template with {input:{
+            type:'radio',
+            name:'payment_address',
+            value:'new',
+            text_input:text_address_new,
+        }} %}
+    {% endif %}
+    <br/>
+    {#this var need to prevent error displaying before render#}
+    {% set error_then = true %}
+    {% set form = 'inline' %}
+    <div id="payment-new" style="display:{% if addresses %}none{% else %}block{% endif %};">
+        {% include component.d_name_field.template with component.d_name_field %}
+        {% include component.d_address_field.template with component.d_address_field %}
+        {% for custom_field in custom_fields %}
+            {% if custom_field.location == 'address' %}
+                {% include component.d_custom_field.template with component.d_custom_field|merge({custom_field:custom_field}) %}
+            {% endif %}
         {% endfor %}
-      </select>
+
     </div>
-    <div class="radio">
-      <label>
-        <input type="radio" name="payment_address" value="new" />
-        {{text_address_new}}</label>
-    </div>
-  {% endif %}
-  <br />
-  <div id="payment-new" style="display:{% if addresses %}none{% else %}block{% endif %}">
-    {% include 'd_visualize/template/partial/d_name_field.twig' with {form:'inline'} %}
-    {% include 'd_visualize/template/partial/d_address_field.twig' with {form:'inline'} %}
-    {% for custom_field in custom_fields %}
-      {% if custom_field.location == 'address' %}
-        {% set custom_field = custom_field|merge({form:'inline', location:false}) %}
-        {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
-      {% endif %}
-    {% endfor %}
-  </div>
-  <div class="buttons clearfix">
-    <div class="pull-right">
-      <input type="button" value="{{button_continue}}" id="button-payment-address" data-loading-text="{{text_loading}}" class="btn btn-primary" />
-    </div>
-  </div>
+    {% set error_then = false %}
+    {% set form = '' %}
+    {% include component.d_button_continue.template with component.d_button_continue|merge({
+        button: true,
+        id:"button-payment-address",
+        button_continue: button_continue,
+        text_agree: false
+    }) %}
 </form>
 
 <script type="text/javascript"><!--
 
-$('input[name=\'payment_address\']').on('change', function() {
-  if (this.value == 'new') {
-    $('#payment-existing').hide();
-    $('#payment-new').show();
-  } else {
-    $('#payment-existing').show();
-    $('#payment-new').hide();
-  }
-});
+	$('input[name=\'payment_address\']').on('change', function () {
+		if (this.value == 'new') {
+			$('#payment-existing').hide();
+			$('#payment-new').show();
+		} else {
+			$('#payment-existing').show();
+			$('#payment-new').hide();
+		}
+	});
 
-$(function(){
-    d_address_field.init({
-        zone_id: '{{zone_id}}',
-        text_none: '{{text_none}}',
-        text_select: '{{text_select}}'
-    });
-    d_custom_field.init();
-})
-//--></script>
+	$(function () {
+		d_address_field.init({
+			zone_id: '{{ zone_id }}',
+			text_none: '{{ text_none }}',
+			text_select: '{{ text_select }}'
+		});
+		d_custom_field.init();
+	});
+	//--></script>

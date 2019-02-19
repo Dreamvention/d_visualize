@@ -1,90 +1,104 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <div class="h2">{{heading_title}}</div>
-      <p>{{text_account_already}}</p>
-      <form action="{{action}}" method="post" enctype="multipart/form-data" class="form-horizontal">
-        <fieldset id="account">
-          <legend>{{text_your_details}}</legend>
-          {% include 'd_visualize/template/partial/d_account_field.twig' with {form:'inline'} %}
-          {% for custom_field in custom_fields %}
-            {% if custom_field.location == 'account' %}
-              {% set custom_field = custom_field|merge({form:'inline'}) %}
-              {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
+{% extends template %}
+{% block content %}
+    <div class="register-page">
+        <div class="h1">{{ heading_title }}</div>
+        <p>{{ text_account_already }}</p>
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+            {% if not customer_logged %}
+                <fieldset id="account">
+                    <div class="h3">{{ text_your_details }}</div>
+                    <div >
+                        {% include component.d_account_field.template %}
+                        {% for custom_field in custom_fields %}
+                            {% if custom_field.location =='account'%}
+                                {% include component.d_custom_field.template with custom_field %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </fieldset>
+                {% if constant('VERSION') < '3.0.0.0' %}
+                    <fieldset id="address">
+                        <h3>{{ text_your_address }}</h3>
+                        {% include component.d_address_field.template %}
+                        {% for custom_field in custom_fields %}
+                            {% if custom_field.location =='address'%}
+                                        {% include component.d_custom_field.template with custom_field %}
+                            {% endif %}
+                        {% endfor %}
+                    </fieldset>
+                {% endif %}
             {% endif %}
-          {% endfor %}
-        </fieldset>
-        <fieldset id="address">
-          <legend>{{text_your_address}}</legend>
-          {% include 'd_visualize/template/partial/d_address_field.twig' with {form:'inline'} %}
-          {% for custom_field in custom_fields %}
-            {% if custom_field.location == 'address' %}
-              {% set custom_field = custom_field|merge({form:'inline'}) %}
-              {% include 'd_visualize/template/partial/d_custom_field.twig' with custom_field %}
+             
+            {% block affiliate %}
+            {% endblock %}
+            {% if not customer_logged %}
+            {% block password %}
+            <fieldset class="password">
+                <h3>{{ text_your_password }}</h3>
+                {% include component.form_group.template with{
+                    form_group:{
+                        label_text:entry_password ,
+                        error:error_password,
+                        input:{
+                            type:'password',
+                            id:'input-password',
+                            name:'password',
+                            value:password,
+                            placeholder:entry_password ,
+                        }
+                    }
+                } %}
+                {% include component.form_group.template with{
+                    form_group:{
+                        label_text:entry_confirm ,
+                        error:error_confirm,
+                        input:{
+                            type:'password',
+                            id:'input-confirm',
+                            name:'confirm',
+                            value:confirm,
+                            placeholder:entry_confirm ,
+                        }
+                    }
+                } %}
+            </fieldset>
+            {% endblock %}
             {% endif %}
-          {% endfor %}
-        </fieldset>
-        <fieldset>
-          <legend>{{text_your_password}}</legend>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-password">{{entry_password}}</label>
-            <div class="col-sm-10">
-              <input type="password" name="password" value="{{password}}" placeholder="{{entry_password}}" id="input-password" class="form-control" />
-              {% if error_password %}
-              <div class="text-danger">{{error_password}}</div>
-              {% endif %}
-            </div>
-          </div>
-          <div class="form-group required">
-            <label class="col-sm-2 control-label" for="input-confirm">{{entry_confirm}}</label>
-            <div class="col-sm-10">
-              <input type="password" name="confirm" value="{{confirm}}" placeholder="{{entry_confirm}}" id="input-confirm" class="form-control" />
-              {% if error_confirm %}
-              <div class="text-danger">{{error_confirm}}</div>
-              {% endif %}
-            </div>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>{{text_newsletter}}</legend>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{entry_newsletter}}</label>
-            <div class="col-sm-10">
-              <label class="radio-inline">
-                <input type="radio" name="newsletter" value="1" {% if newsletter %}checked="checked"{% endif %} />
-                {{text_yes}}</label>
-              <label class="radio-inline">
-                <input type="radio" name="newsletter" value="0" {% if not newsletter %}checked="checked"{% endif %} />
-                {{text_no}}</label>
-            </div>
-          </div>
-        </fieldset>
-        {{captcha}}
-        {% if text_agree %}
-        <div class="buttons">
-          <div class="pull-right">{{text_agree}}
-            <input type="checkbox" name="agree" value="1" {% if agree %}checked="checked"{% endif %} />
-            &nbsp;
-            <input type="submit" value="{{button_continue}}" class="btn btn-primary" />
-          </div>
-        </div>
-        {% else %}
-        <div class="buttons">
-          <div class="pull-right">
-            <input type="submit" value="{{button_continue}}" class="btn btn-primary" />
-          </div>
-        </div>
-        {% endif %}
-      </form>
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
-<script type="text/javascript"><!--
-$(function(){
-    d_address_field.init({
-        zone_id: '{{zone_id}}',
-        text_none: '{{text_none}}',
-        text_select: '{{text_select}}'
-    });
-    d_custom_field.init();
-})
-//--></script>
+            {% block newslatter %}
+            <fieldset class="newslatter">
+                <div class="h3">{{ text_newsletter }}</div>
+                {% include component.form_group.template with{
+                    form_group:{
+                        label_text:entry_newsletter ,
+                        error:error_newsletter,
+                        form:'inline',
+                        type:'radio',
+                        input:{
+                            type:'radio',
+                            name:'newsletter',
+                            value: newsletter,
+                            checked: newsletter,
+                            text_input:entry_newsletter ,
+                            values: [{ 'value':1,'text': text_yes},{'value':0,'text':text_no}],
+                        }
+                    }
+                } %}
+            </fieldset>
+            {% endblock %}
+            {{ captcha }}
+            {% include component.d_button_continue.template  %}
+        </form>
+        <script type="text/javascript"><!--
+			$(function () {
+				d_address_field.init({
+					zone_id: '{{ zone_id }}',
+					text_none: '{{ text_none }}',
+					text_select: '{{ text_select }}'
+				});
+				d_custom_field.init();
+			});
+
+			//--></script>
+    </div>
+
+{% endblock %}

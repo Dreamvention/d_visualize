@@ -1,0 +1,78 @@
+.vz-edit {
+  &-menu {
+    position: relative;
+    padding-right: 5px;
+    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 300px;
+    &__heading {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      margin-bottom: 20px;
+      &_close {
+        position: absolute;
+        left: -5px;
+        top: 0;
+        padding: 15px;
+        font-size: 18px;
+        border: 1px solid transparent;
+        line-height: 1;
+        display: inline-block;
+        &:hover {
+          border: 1px solid gray;
+        }
+      }
+
+    }
+    /* set styles when menu have small size*/
+    .menu-hidden & {
+      max-width: 70px;
+      > * {
+        display: none;
+      }
+      .vz-edit-menu__heading,
+      .vz-edit-controls {
+        display: block;
+      }
+      .vz-edit-menu__heading {
+        padding: 0;
+        .menu_heading_publish {
+          display: none;
+        }
+        &_close {
+          position: relative;
+        }
+      }
+    }
+    .edit_vd & {
+      > * {
+        display: none;
+      }
+      .vz-edit-menu__heading,
+      .vz-edit-controls,
+      .vz-edit-vdh {
+        display: block;
+      }
+    }
+    /* this set styles when edit component*/
+    .edit-component & {
+      &__change-theme {
+        display: none;
+      }
+      .vz-edit-navigation {
+        opacity: 0;
+        height: 0;
+        overflow: hidden;
+      }
+
+    }
+
+  }
+}
+
+.vz-edit-back {
+}

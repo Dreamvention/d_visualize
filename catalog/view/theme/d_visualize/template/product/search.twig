@@ -1,90 +1,90 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+    <div id="product-search">
+        <div class="h2">{{ heading_title }}</div>
 
-      <div class="h2">{{heading_title}}</div>
-
-      <label class="control-label" for="input-search">{{entry_search}}</label>
-      <div class="row">
-        <div class="col-sm-4">
-          <input type="text" name="search" value="{{search}}" placeholder="{{text_keyword}}" id="input-search" class="form-control" />
-        </div>
-        <div class="col-sm-3">
-          <select name="category_id" class="form-control">
-            <option value="0">{{text_category}}</option>
-            {% for category in categories %}
-              {% if category.category_id == category_id %}
-                <option value="{{category.category_id}}" selected="selected">{{category.name}}</option>
-              {% else %}
-                <option value="{{category.category_id}}">{{category.name}}</option>
-              {% endif %}
-
-              {% for child in children %}
-                {% if child.category_id == category_id %}
-                  <option value="{{child.category_id}}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
-                {% else %}
-                  <option value="{{child.category_id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
-                {% endif %}
-
-                {% for child in children %}
-                  {% if child.category_id == category_id %}
-                    <option value="{{child.category_id}}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
-                  {% else %}
-                    <option value="{{child.category_id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{child.name}}</option>
-                  {% endif %}
-                {% endfor %}
-              {% endfor %}
-            {% endfor %}
-          </select>
-        </div>
-        <div class="col-sm-3">
-          <label class="checkbox-inline">
-            {% if sub_category %}
-              <input type="checkbox" name="sub_category" value="1" checked="checked" />
-            {% else %}
-              <input type="checkbox" name="sub_category" value="1" />
-            {% endif %}
-            {{text_sub_category}}</label>
-        </div>
-      </div>
-      <p>
-        <label class="checkbox-inline">
-          {% if description %}
-            <input type="checkbox" name="description" value="1" id="description" checked="checked" />
-          {% else %}
-            <input type="checkbox" name="description" value="1" id="description" />
-          {% endif %}
-          {{entry_description}}</label>
-      </p>
-      <input type="button" value="{{button_search}}" id="button-search" class="btn btn-primary" />
-
-        <div class="h2">{{text_search}}</div>
-        {% if products %}
-          {% include 'd_visualize/template/partial/d_product_sort.twig' %}
-          <div class="row">
-            {% for product in products %}
-              {% include 'd_visualize/template/partial/d_product_thumb.twig' with product %}
-            {% endfor %}
-          </div>
-          <div class="row">
-            <div class="col-sm-6 text-left">{{pagination}}</div>
-            <div class="col-sm-6 text-right">{{results}}</div>
-          </div>
-        {% endif %} {#-- products --#}
-
-        {% if not categories %}
-          {% if not products %}
-            <p>{{text_empty}}</p>
-            <div class="buttons">
-              <div class="pull-right"><a href="{{continue}}" class="btn btn-primary">{{button_continue}}</a></div>
+        <label class="control-label" for="input-search">{{ entry_search }}</label>
+        <div class="row">
+            <div class="col-sm-4">
+                {% include component.input.template with component.input|merge({
+                type:'text',
+                id:'input-search',
+                name:'search',
+                value:search,
+                placeholder:text_keyword ,
+                }) %}
+                {#<input type="text" name="search" value="{{search}}" placeholder="{{text_keyword}}" id="input-search" class="form-control" />#}
             </div>
-          {% endif %}
-        {% endif %}
+            <div class="col-sm-3">
+                <select name="category_id" class="form-control">
+                    <option value="0">{{ text_category }}</option>
+                    {% for category in categories %}
+                        {% if category.category_id == category_id %}
+                            <option value="{{ category.category_id }}" selected="selected">{{ category.name }}</option>
+                        {% else %}
+                            <option value="{{ category.category_id }}">{{ category.name }}</option>
+                        {% endif %}
+                        {% for child in children %}
+                            {% if child.category_id == category_id %}
+                                <option value="{{ child.category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ child.name }}</option>
+                            {% else %}
+                                <option value="{{ child.category_id }}">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ child.name }}</option>
+                            {% endif %}
 
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
-<script type="text/javascript"><!--
-$(document).ready(function() {
-	Search.init();
-});
---></script>
+                            {% for child in children %}
+                                {% if child.category_id == category_id %}
+                                    <option value="{{ child.category_id }}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ child.name }}</option>
+                                {% else %}
+                                    <option value="{{ child.category_id }}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ child.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-sm-3">
+
+                <label class="checkbox-inline">
+                    {% include component.input.template with component.input|merge({
+                    type:'checkbox',
+                    name:'sub_category',
+                    value:'1',
+                    checked:sub_category,
+                    }) %}
+                    {{ text_sub_category }}
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label class="checkbox-inline">
+                    {% include component.input.template with component.input|merge({
+                    type:'checkbox',
+                    id:'description',
+                    name:'description',
+                    value:'1',
+                    checked:description,
+                    }) %}
+                    {{ entry_description }}
+                </label>
+                {% include component.input.template with component.input|merge({
+                type:'button',
+                id:'button-search',
+                style:'primary',
+                value:button_search,
+                }) %}
+            </div>
+        </div>
+        {#<input type="button" value="{{button_search}}" id="button-search" class="btn btn-primary" />#}
+        <div class="h2">{{ text_search }}</div>
+        {% include component.d_product_list.template with  component.d_product_list %}
+
+        <script type="text/javascript"><!--
+			$(document).ready(function () {
+				Search.init();
+			});
+			--></script>
+    </div>
+{% endblock %}

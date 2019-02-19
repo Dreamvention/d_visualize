@@ -1,0 +1,41 @@
+<div id="product-category" class="vz-product_category vz-product_category_opencart">
+<h2 class="heading-h2 vz-product_category__heading">{{ heading_title }}</h2>
+    <div class="vz-product_category__description">
+        {% if thumb or description %}
+            <div class="row">
+                {% if thumb %}
+                    <div class="col-sm-2"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail" /></div>
+                {% endif %}
+                    <div class="col-sm-10">{{ description }}</div>
+            <hr>
+        {% endif %}
+        {% if categories %}
+            <div class="heading-h3">{{ text_refine }}</div>
+            {% if categories|length <= 5 %}
+                <div class="row">
+                    <div class="col-sm-3">
+                        <ul>
+                            {% for category in categories %}
+                                <li><a href="{{ category.href }}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">{% for category in categories|batch((categories|length / 4)|round(1, 'ceil')) %}
+                        <div class="col-sm-3">
+                            <ul>
+                                {% for child in category %}
+                                    <li><a href="{{ child.href }}">{{ child.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}</div>
+                <br />
+            {% endif %}
+        {% endif %}
+    </div>
+    {% include component.d_product_list.template with  component.d_product_list %}
+</div>
+
+

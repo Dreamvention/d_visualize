@@ -1,7 +1,8 @@
-{{header}}
-  {% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-  {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <div class="h1">{{heading_title}}</div>
-      {{description}}
-  {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+    <h1 class="heading-h1">{{heading_title}}</h1>
+    <div class="entry-description">
+        {{description}}
+    </div>
+{% endblock %}

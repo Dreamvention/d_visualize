@@ -1,0 +1,23 @@
+{% if setting.display.value %}
+    <!-- > breadcrumb -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="breadcrumb vz-breadcrumb vz-breadcrumb--default">
+                    {% set count = 0 %}
+                    {% for breadcrumb in breadcrumbs %}
+                        {% set count = count + 1 %}
+
+                        {% if count == breadcrumbs|length %}
+                            <li class="vz-breadcrumb__item vz-breadcrumb__item--last">{{ breadcrumb.text }}</li>
+                        {% else %}
+                            <li class="vz-breadcrumb__item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /> breadcrumb -->
+{% endif %}

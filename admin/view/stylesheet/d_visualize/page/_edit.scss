@@ -1,0 +1,16 @@
+.edit {
+  display: flex;
+  flex-direction: column;
+  #column-left, footer, header {
+    display: none;
+  }
+  #column-left + #content {
+    margin-left: 0;
+  }
+}
+
+.vz-edit {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 100%;
+}

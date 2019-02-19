@@ -1,7 +1,7 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <h2>{{heading_title}}</h2>
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+      <h2 class="heading-h2">{{heading_title}}</h2>
       <table class="table table-bordered table-hover">
         <thead>
         <tr>
@@ -66,5 +66,4 @@
         </tbody>
       </table>
       {{buttons}}
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+{% endblock %}

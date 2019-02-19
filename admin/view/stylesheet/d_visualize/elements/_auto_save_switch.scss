@@ -1,0 +1,10 @@
+.auto-save{
+  .custom-switch{
+    color: var(--p_black);
+    &.active{
+      color: var(--color-info);
+    }
+  }
+
+
+}

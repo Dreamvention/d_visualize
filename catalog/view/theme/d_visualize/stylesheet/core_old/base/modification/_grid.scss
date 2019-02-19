@@ -1,0 +1,11 @@
+@include adaptive(mb-no) {
+    margin-bottom: 0 !important;
+}
+
+@include adaptive(fl-no) {
+    float: none !important;
+}
+
+.align-middle {
+    @include align-middle;
+}

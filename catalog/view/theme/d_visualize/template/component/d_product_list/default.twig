@@ -1,0 +1,19 @@
+<div class="vz-products-list vz-products-list--default">
+    {% if products %}
+        {% include component.d_product_sort.template with component.d_product_sort %}
+        <div class="row vz-products-list--row">
+            {% for product in products %}
+                <div class="product-layout product-list col-12">
+                    {% include component.d_product_thumb.template with component.d_product_thumb|merge(product) %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row vz-products-list--row vz-products-list--row-results">
+            <div class="vz-products-list__pagination">{{ pagination }}</div>
+            <div class="vz-products-list__results">{{ results }}</div>
+        </div>
+    {% else %}
+        <p>{{ text_empty }}</p>
+        {% include component.d_button_continue.template with component.d_button_continue %}
+    {% endif %}
+</div>

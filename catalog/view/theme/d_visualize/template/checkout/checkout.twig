@@ -1,92 +1,93 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <h1>{{heading_title}}</h1>
-      <div class="panel-group" id="accordion">
+{#it's mean in layout template#}
+{% extends template %}
+
+{% block content %}
+    <h1 class="heading-h1">{{heading_title}}</h1>
+    <div class="panel-group" id="accordion">
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">{{text_checkout_option}}</h4>
-          </div>
-          <div class="panel-collapse collapse" id="collapse-checkout-option">
-            <div class="panel-body"></div>
-          </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{text_checkout_option}}</h4>
+            </div>
+            <div class="panel-collapse collapse" id="collapse-checkout-option">
+                <div class="panel-body"></div>
+            </div>
         </div>
         {% if account == 'guest' %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">{{text_checkout_payment_address}}</h4>
-          </div>
-          <div class="panel-collapse collapse" id="collapse-payment-address">
-            <div class="panel-body"></div>
-          </div>
-        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{text_checkout_payment_address}}</h4>
+                </div>
+                <div class="panel-collapse collapse" id="collapse-payment-address">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
         {% else %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">{{text_checkout_account}}</h4>
-          </div>
-          <div class="panel-collapse collapse" id="collapse-payment-address">
-            <div class="panel-body"></div>
-          </div>
-        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{text_checkout_account}}</h4>
+                </div>
+                <div class="panel-collapse collapse" id="collapse-payment-address">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
         {% endif %}
         {% if shipping_required %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">{{text_checkout_shipping_address}}</h4>
-          </div>
-          <div class="panel-collapse collapse" id="collapse-shipping-address">
-            <div class="panel-body"></div>
-          </div>
-        </div>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">{{text_checkout_shipping_method}}</h4>
-          </div>
-          <div class="panel-collapse collapse" id="collapse-shipping-method">
-            <div class="panel-body"></div>
-          </div>
-        </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{text_checkout_shipping_address}}</h4>
+                </div>
+                <div class="panel-collapse collapse" id="collapse-shipping-address">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">{{text_checkout_shipping_method}}</h4>
+                </div>
+                <div class="panel-collapse collapse" id="collapse-shipping-method">
+                    <div class="panel-body"></div>
+                </div>
+            </div>
         {% endif %}
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">{{text_checkout_payment_method}}</h4>
-          </div>
-          <div class="panel-collapse collapse" id="collapse-payment-method">
-            <div class="panel-body"></div>
-          </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{text_checkout_payment_method}}</h4>
+            </div>
+            <div class="panel-collapse collapse" id="collapse-payment-method">
+                <div class="panel-body"></div>
+            </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">
-            <h4 class="panel-title">{{text_checkout_confirm}}</h4>
-          </div>
-          <div class="panel-collapse collapse" id="collapse-checkout-confirm">
-            <div class="panel-body"></div>
-          </div>
+            <div class="panel-heading">
+                <h4 class="panel-title">{{text_checkout_confirm}}</h4>
+            </div>
+            <div class="panel-collapse collapse" id="collapse-checkout-confirm">
+                <div class="panel-body"></div>
+            </div>
         </div>
-      </div>
-    {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    </div>
 
-<script type="text/javascript"><!--
-$(function(){
-    Checkout.init({
-        account: '{{(not logged) ? (account) ? account: "register" : "logged" }}',
-        shipping_required: {{(shipping_required) ? 'true' : 'false' }},
-        step: 'account',
-        $account: $('#collapse-checkout-option'),
-        $payment_address: $('#collapse-payment-address'),
-        $shipping_address: $('#collapse-shipping-address'),
-        $shipping_method: $('#collapse-shipping-method'),
-        $payment_method: $('#collapse-payment-method'),
-        $confirm: $('#collapse-checkout-confirm'),
-        text_checkout_account: '{{text_checkout_account}}',
-        text_checkout_option: '{{text_checkout_option}}',
-        text_checkout_payment_address: '{{text_checkout_payment_address}}',
-        text_checkout_shipping_address: '{{text_checkout_shipping_address}}',
-        text_checkout_shipping_method: '{{text_checkout_shipping_method}}',
-        text_checkout_payment_method: '{{text_checkout_payment_method}}',
-        text_checkout_confirm: '{{text_checkout_confirm}}'
-    });
-})
-//--></script>
+    <script type="text/javascript"><!--
+		$(function(){
+			Checkout.init({
+				account: '{{(not logged) ? (account) ? account: "register" : "logged" }}',
+				shipping_required: {{(shipping_required) ? 'true' : 'false' }},
+				step: 'account',
+				$account: $('#collapse-checkout-option'),
+				$payment_address: $('#collapse-payment-address'),
+				$shipping_address: $('#collapse-shipping-address'),
+				$shipping_method: $('#collapse-shipping-method'),
+				$payment_method: $('#collapse-payment-method'),
+				$confirm: $('#collapse-checkout-confirm'),
+				text_checkout_account: '{{text_checkout_account}}',
+				text_checkout_option: '{{text_checkout_option}}',
+				text_checkout_payment_address: '{{text_checkout_payment_address}}',
+				text_checkout_shipping_address: '{{text_checkout_shipping_address}}',
+				text_checkout_shipping_method: '{{text_checkout_shipping_method}}',
+				text_checkout_payment_method: '{{text_checkout_payment_method}}',
+				text_checkout_confirm: '{{text_checkout_confirm}}',
+				text_select: '{{text_select}}'
+			});
+		})
+		//--></script>
+{% endblock %}

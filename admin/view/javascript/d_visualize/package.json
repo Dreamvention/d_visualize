@@ -1,0 +1,39 @@
+{
+  "name": "nuxt_vurify",
+  "version": "1.0.0",
+  "description": "My stellar Nuxt.js project",
+  "author": "paveldrvn",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.4",
+    "cross-env": "^5.2.0",
+    "dotenv": "^5.0.1",
+    "node-sass": "^4.10.0",
+    "nuxt": "^2.2.0",
+    "nuxt-fontawesome": "^0.3.0",
+    "sass-loader": "^7.1.0",
+    "url-parse": "^1.4.4",
+    "vue-codemirror": "^4.0.5",
+    "vue-color": "^2.7.0",
+    "vue-i18n": "^7.6.0",
+    "vue-truncate-filter": "^1.1.7",
+    "vuetify": "^1.3.5"
+  },
+  "devDependencies": {
+    "@nuxtjs/moment": "^1.1.0",
+    "moment": "^2.23.0",
+    "nodemon": "^1.18.6",
+    "postcss-custom-properties": "^8.0.9",
+    "postcss-pxtorem": "^4.0.1",
+    "precss": "^3.1.2",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vuetify-loader": "^1.0.8"
+  }
+}

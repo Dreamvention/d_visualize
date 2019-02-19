@@ -1,0 +1,19 @@
+.vz-input-group {
+  display: flex;
+  flex: 1 1 100%;
+  .input-group-btn {
+      flex: 1 1 auto;
+      width: auto;
+      .vz-button {
+        height: 100%;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+      }
+    }
+  .vz-input--text {
+      input {
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+  }
+}

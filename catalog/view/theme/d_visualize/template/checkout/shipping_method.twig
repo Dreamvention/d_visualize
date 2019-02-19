@@ -1,34 +1,46 @@
 {% if error_warning %}
-<div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{error_warning}}</div>
+    <div class="alert alert-warning"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>
 {% endif %}
+
 {% if shipping_methods %}
-  <p>{{text_shipping_method}}</p>
-  {% for shipping_method in shipping_methods %}
-    <p><strong>{{shipping_method.title}}</strong></p>
-    {% if not shipping_method.error %}
-      {% for quote in shipping_method.quote %}
-      <div class="radio">
-        <label>
-          <input type="radio" name="shipping_method" value="{{quote.code}}" {% if quote.code == code %}checked="checked"{% endif %} />
-          {{quote.title}} - {{quote.text}}</label>
-      </div>
-      {% endfor %}
-    {% else %}
-    <div class="alert alert-danger">{{shipping_method.error}}</div>
-    {% endif %}
-  {% endfor %}
+    <div class="shipping-methods">
+        <p>{{ text_shipping_method }}</p>
+        {% for shipping_method in shipping_methods %}
+            <p><strong>{{ shipping_method.title }}</strong></p>
+            {% if not shipping_method.error %}
+                {% for quote in shipping_method.quote %}
+                    <div class="radio shipping-methods__item">
+                        <label>
+                            <input type="radio" name="shipping_method" value="{{ quote.code }}"
+                                   {% if quote.code == code %}checked="checked"{% endif %} />
+                            {{ quote.title }} - {{ quote.text }}</label>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-danger">{{ shipping_method.error }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endif %}
-<p><strong>{{text_comments}}</strong></p>
-<p>
-  <textarea name="comment" rows="8" class="form-control">{{comment}}</textarea>
-</p>
-<div class="buttons">
-  <div class="pull-right">
-    <input type="button" value="{{button_continue}}" id="button-shipping-method" data-loading-text="{{text_loading}}" class="btn btn-primary" />
-  </div>
-</div>
+        {% include component.form_group.template with{
+            form_group:{
+                label_text:text_comments ,
+                input:{
+                    type:'textarea',
+                    name:'comment',
+                    value:comment,
+                    rows:"8"
+                }
+            }
+        } %}
+  {% include component.d_button_continue.template with component.d_button_continue|merge({
+      button: true,
+      id:"button-shipping-method",
+      button_continue: button_continue,
+      text_agree:false
+  }) %}
 <script>
-if($('#collapse-shipping-method [name=\'shipping_method\']:checked').val() == undefined){
-  $('#collapse-shipping-method [name=\'shipping_method\']').first().attr('checked','checked');
-}
+	if ($('#collapse-shipping-method [name=\'shipping_method\']:checked').val() == undefined) {
+		$('#collapse-shipping-method [name=\'shipping_method\']').first().attr('checked', 'checked');
+	}
 </script>

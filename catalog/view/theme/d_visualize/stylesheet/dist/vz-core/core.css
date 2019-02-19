@@ -1,0 +1,26 @@
+.form-horizontal .vz-form-group{
+    margin-left: 0;
+    margin-right: 0;
+  }
+.vz-thumbnail {
+  border: none;
+  margin-bottom: 0;
+}
+.vz-extension__featured .swiper-viewport{
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.vz-extension__featured__heading{
+}
+.vz-extension__slideshow .swiper-viewport{
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+.vz-extension__slideshow__heading{
+}
+
+/*# sourceMappingURL=C:/OpenServer/domains/localhost/201/d_visualize/catalog/view/theme/d_visualize/stylesheet/dist/vz-core/core.css.map */

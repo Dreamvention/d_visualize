@@ -1,18 +1,11 @@
 {% if currencies|length > 1 %}
 <form action="{{action}}" method="post" enctype="multipart/form-data" id="currency" class="dropdown currency">
     <a class="dropdown-toggle title" data-toggle="dropdown">
-      {% for currency in currencies %}
-        {% if currency.symbol_left %}
-          {% if currency.code == code %}
-          <strong>{{currency.symbol_left}}</strong>
-          {% endif %}
-        {% endif %}
-        {% if currency.symbol_right %}
-          {% if currency.code == code %}
-          <strong>{{symbol_right}}</strong>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
+        {% for currency in currencies %}
+            {% if currency.symbol_left and currency.code == code %}
+                <strong>{{ currency.symbol_left }}</strong> {% elseif currency.symbol_right and currency.code == code %}
+                <strong>{{ currency.symbol_right }}</strong> {% endif %}
+        {% endfor %}
       <span class="hidden-xs hidden-sm hidden-md">{{text_currency}}</span> <i class="fa fa-caret-down"></i>
     </a>
     <ul class="dropdown-menu">

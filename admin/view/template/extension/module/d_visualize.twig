@@ -1,0 +1,44 @@
+{# location: admin/view #}
+{{ header }}{{ column_left }}
+<div id="content">
+    <div id="visualize">
+        <visualize></visualize>
+    </div>
+</div>
+{% for vueTemplate in vueTemplates %}
+    {{ content(vueTemplate,'.vue') }}
+{% endfor %}
+<script type="text/javascript">
+	$(document).ready(function () {
+		d_visualize.initState({{ state|json_encode }});
+		Vue.directive(VueModelVuex)
+		Vue.use(Vuex);
+		Vue.use(new VueOptions({{ options|json_encode }}));
+		var router = new VueRouter({
+			"routes": d_visualize.routes
+		});
+		var store = new Vuex.Store(d_visualize);
+		// sync(store, router)
+		const unsync = sync(store, router)
+		var local = {{ local|json_encode }};
+			app = new Vue({
+				"store": store,
+				"router": router,
+				"i18n": new VueI18n({
+					locale: '{{ language_id }}',
+					messages: local
+				}),
+				"methods": {
+					o: function (value) {
+						return value;
+					}
+				}
+
+			}).$mount('#visualize');
+		store.dispatch('LOAD_CONTENT');
+		$('body').on('click', '#save_and_stay', function () {
+			store.dispatch('SAVE_CONTENT');
+		});
+	});
+</script>
+{{ footer }}

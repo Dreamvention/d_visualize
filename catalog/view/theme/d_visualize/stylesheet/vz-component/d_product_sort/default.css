@@ -1,0 +1,49 @@
+.vz-product-sort--default {
+  margin-bottom: 20px;
+}
+.vz-product-sort--default .vz-button {
+  padding: 0;
+}
+
+.vz-button-view .vz-button {
+  padding: 5px 10px;
+  &.active {
+    background: var(--color-primary);
+  }
+}
+.vz-product-sort--default {
+  .vz-input--select {
+    padding-bottom: 1px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    .vz-input__label{
+      text-align: center;
+      margin-bottom: 0;
+      order:1;
+      flex: 1 0 auto;
+      padding: 0 10px;
+    }
+    .vz-input__input{
+      border: none;
+      border-radius: 0 4px 4px 0 ;
+      border-left: 1px solid #ccc;
+      order:2;
+      flex: 1 1 100%;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.vz-product-sort__col{
+  &-limits,&-sorts{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    label{
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{% set form_group_class = 'form-group vz-form-group vz-form-group--' ~  type %}
+{% set form_group_label_class = 'control-label vz-control-label vz-control-label--' ~  type %}
+{% set form_group_input_class = 'form-control vz-form-control vz-form-control--' ~  type %}
+{% set form_group_div_class = 'vz-form-group__inputs' %}
+{% if error_then %}
+    {% set error = false %}
+{% endif %}
+
+{% if classes %}
+    {% set form_group_input_class = form_group_input_class ~ ' ' ~ classes %}
+{% endif %}
+
+{% if required %}
+    {% set form_group_class = form_group_class ~ ' vz-form-group--required required' %}
+{% endif %}
+{% if error %}
+    {% set form_group_class = form_group_class ~ ' vz-form-group--has-error has-error' %}
+{% endif %}
+{% if setting.form is defined %}
+    {% set  form = setting.form.value %}
+{% endif %}
+{% if form == 'inline' %}
+    {% set form_group_class = form_group_class ~ ' row' %}
+    {% set form_group_label_class = form_group_label_class ~ ' col-sm-2' %}
+    {% set form_group_div_class = form_group_div_class ~ ' col-sm-10' %}
+{% endif %}
+
+{% if type=='email' or type=='text' or type=='submit' or type=='password' %}
+    <div class="{{ form_group_class }} ">
+        <label class="{{ form_group_label_class }} "
+               for="{{ id }}"><span>{{ text_input }}</span></label>
+        <div class="{{ form_group_div_class }}">
+            {% include component.input.template with component.input|merge({
+                type:type,
+                id:id,
+                name:name,
+                value:value,
+                placeholder:placeholder,
+            }) %}
+            {% if error %}
+                <div class="text-danger">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% elseif type=='datetime' %}
+    use input group
+    {#<div class="{{ form_group_class }} ">#}
+        {#<label class="{{ form_group_label_class }} "#}
+               {#for="{{ id }}"><span>{{ text_input }}</span></label>#}
+        {#<div class="{{ form_group_div_class }}">#}
+            {#<div class="input-group date">#}
+                {#<input type="text" name="{{ name }}" value="{{ value }}"#}
+                       {#placeholder="{{ placeholder }}"#}
+                       {#data-date-format="YYYY-MM-DD HH:mm" id="{{ id }}"#}
+                       {#class="{{ form_group_input_class }}"/>#}
+                {#<span class="input-group-btn">#}
+                        {#{% include component.button.template with {button:{#}
+                            {#button: true,#}
+                            {#style:'primary',#}
+                            {#classes:'',#}
+                            {#text_button:'<i class="fa fa-calendar"></i>',#}
+                        {#}) %}#}
+                {#</span></div>#}
+            {#{% if error %}#}
+                {#<div class="text-danger">{{ error }}</div>#}
+            {#{% endif %}#}
+        {#</div>#}
+    {#</div>#}
+
+{% elseif type=='date' %}
+    please use input group for this
+{% elseif type=='radio' %}
+    <div class="{{ form_group_class }} ">
+        {% if text_input %}
+            <label class="{{ form_group_label_class }} "
+                   for="{{ id }}"><span>{{ text_input }}</span></label>
+        {% endif %}
+        <div class="{{ form_group_div_class }}">
+            {% for radio in radio_values %}
+                {% include component.input.template with component.input|merge({
+                    type:'radio',
+                    name: name,
+                    value: radio[radio_values_val] ,
+                    checked: radio[radio_values_val] == radio_values_check,
+                    text_input:radio[radio_values_name]
+                }) %}
+            {% endfor %}
+            {% if error %}
+                <div class="text-danger">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% elseif type=='select' %}
+    <div class="{{ form_group_class }} ">
+        <label class="{{ form_group_label_class }} "
+               for="{{ id }}"><span>{{ text_input }}</span></label>
+        <div class="{{ form_group_div_class }}">
+            {% include component.input.template with component.input|merge({
+                type:'select',
+                id:id,
+                select_values:select_values,
+                select_values_val:select_values_val,
+                select_values_check_val: select_values_check,
+                select_values_check: select_values_check,
+                select_values_name: select_values_name,
+                placeholder:placeholder,
+                text_input:'',
+                custom:custom
+            }) %}
+            {% if error %}
+                <div class="text-danger">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% elseif type=='input_group' %}
+    <div class="{{ form_group_class }} ">
+        <label class="{{ form_group_label_class }} "
+               for="{{ id }}"><span>{{ text_input }}</span></label>
+        <div class="{{ form_group_div_class }}">
+            {% include component.input_group.template with component.input_group|merge({
+                input: input_group.input,
+                button: input_group.button,
+            }) %}
+            {% if error %}
+                <div class="text-danger">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
+{% elseif type=='textarea' %}
+    <div class="{{ form_group_class }} ">
+        <label class="{{ form_group_label_class }} "
+               for="{{ id }}"><span>{{ text_input }}</span></label>
+        <div class="{{ form_group_div_class }}">
+            <textarea
+                    name="{{ name }}"
+                    rows="10"
+                    placeholder="{{ placeholder }}"
+                    id="{{ id }}"
+                    class="{{ form_group_input_class }}">{{ value|raw }}</textarea>
+        </div>
+        {% if error %}
+            <div class="text-danger">{{ error }}</div>
+        {% endif %}
+    </div>
+{% endif %}

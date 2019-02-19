@@ -1,0 +1,9 @@
+.vz-product_category {
+  &_description {
+  }
+  &_opencart {
+    .img-thumbnail{
+      max-width: 90px;
+    }
+  }
+}

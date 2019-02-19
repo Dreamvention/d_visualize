@@ -1,0 +1,14 @@
+@import "../base/import";
+
+:--heading {
+  font-family: var(--font-main);
+  font-weight: var(--font-light);
+  @media (--tablet) {
+  }
+}
+
+@each $heading in ($headings) {
+  .like-heading-$heading, $heading {
+    font-size: var(--font-size-$heading);
+  }
+}

@@ -1,0 +1,185 @@
+<!-- > d_custom_field -->
+{% if type == 'select' %}
+    {#todo fix this #}
+    {% include component.form_group.template with{
+        form_group:{
+            id:guest_custom_field ? 'payment-':'' ~ 'custom-field'~ custom_field_id,
+            classes:'custom-field',
+            atributest:'data-sort='~sort_order,
+            required: true,
+            label_text:name,
+            error: error_custom_field.custom_field_id,
+            input:{
+                type:'select',
+                id:'input-' ~ guest_custom_field ? 'payment-':'' ~ 'custom-field'~ custom_field_id,
+                name:'custom_field[' ~location ~']'~ '['~custom_field_id ~ ']',
+                classes:'field',
+                value:country,
+                values:custom_field_value,
+                select_values_check_val:'custom_field_value_id',
+                select_values_name:'name',
+                custom_selection: ' {% if register_custom_field %}
+                            <option value="{{ cfv_elem.custom_field_value_id }}"
+                                    {% if cfv_elem.custom_field_value_id == register_custom_field.custom_field_id %}selected="selected"{% endif %}>{{ cfv_elem.name }}</option>
+                        {% elseif guest_custom_field %}
+                            <option value="{{ cfv_elem.custom_field_value_id }}"
+                                    {% if cfv_elem.custom_field_value_id == guest_custom_field.custom_field_id %}selected="selected"{% endif %}>{{ cfv_elem.name }}</option>
+                        {% elseif account_custom_field %}
+                            <option value="{{ cfv_elem.custom_field_value_id }}"
+                                    {% if cfv_elem.custom_field_value_id == account_custom_field.custom_field_id %}selected="selected"{% endif %}>{{ cfv_elem.name }}</option>
+                        {% else %}
+                            <option value="{{ cfv_elem.custom_field_value_id }}">{{ cfv_elem.name }}</option>
+                        {% endif %}'
+            }
+        }
+    } %}
+{% endif %}
+{% if type == 'radio' %}
+    <div class="row"><div class="col-12"><div class="text-center">this custom field is not supported in v2</div></div></div>
+{% endif %}
+{% if type == 'checkbox' %}
+    <div class="row"><div class="col-12"><div class="text-center">this custom field is not supported in v2</div></div></div>
+{% endif %}
+{% if type == 'text' %}
+    {% include component.form_group.template with {
+        form_group:{
+            id: 'custom-field' ~ custom_field_id ,
+            classes:'custom-field',
+            atributest:'data-sort='~sort_order,
+            required: true,
+            label_text:name,
+            error: error_custom_field.custom_field_id,
+            input:{
+                type:'text',
+                id:'input-custom-field'~custom_field_id,
+                name:'custom_field[' ~location ~']'~ '['~custom_field_id ~ ']',
+                value: register_custom_field.custom_field_id ? register_custom_field.custom_field_id : value ,
+                classes:'field',
+            },
+        }
+    } %}
+
+{% endif %}
+{% if type == 'textarea' %}
+    {% include component.form_group.template with {
+        form_group:{
+            id: 'custom-field' ~ custom_field_id ,
+            classes:'custom-field',
+            atributest:'data-sort='~sort_order,
+            required: true,
+            label_text:name,
+            error: error_custom_field.custom_field_id,
+            input:{
+                type:'textarea',
+                id:'input-custom-field'~custom_field_id,
+                name:'custom_field[' ~location ~']'~ '['~custom_field_id ~ ']',
+                value: register_custom_field.custom_field_id ? register_custom_field.custom_field_id : value ,
+                classes:'field',
+            },
+        }
+    } %}
+
+{% endif %}
+{% if type == 'file' %}
+    {% include component.form_group.template with {
+        form_group:{
+            id: 'custom-field' ~ custom_field_id ,
+            classes:'custom-field',
+            atributest:'data-sort='~sort_order,
+            label_text:name,
+            required: true,
+            error: error_custom_field.custom_field_id,
+            input_group:{
+                input:{
+                    type:'hidden',
+                    id:'input-custom-field'~custom_field_id,
+                    name:'custom_field[' ~location ~']'~ '['~custom_field_id ~ ']',
+                    value: register_custom_field.custom_field_id ? register_custom_field.custom_field_id : value ,
+                    classes:'field',
+                },
+                button:{
+                    id:"button-custom-field" ~ custom_field_id ,
+                    style:'primary',
+                    text_button:'<i class="fa fa-upload"></i>'~button_upload ,
+                }
+            }
+        }
+    } %}
+{% endif %}
+{% if type == 'date' %}
+    {% include component.form_group.template with {
+        form_group:{
+            id: 'custom-field' ~ custom_field_id ,
+            classes:'custom-field',
+            atributest:'data-sort='~sort_order,
+            label_text:name,
+            error: error_custom_field.custom_field_id,
+            input_group:{
+                classes:'date',
+                input:{
+                    type:'date',
+                    id:'input-custom-field'~custom_field_id,
+                    name:'custom_field[' ~location ~']'~ '['~custom_field_id ~ ']',
+                    value: register_custom_field.custom_field_id ? register_custom_field.custom_field_id : value ,
+                    classes:'field',
+                },
+                button:{
+                    style:'primary',
+                    icon:'fa fa-calendar',
+                }
+            }
+        }
+    } %}
+{% endif %}
+{% if type == 'time' %}
+    {% include component.form_group.template with {
+        form_group:{
+            id: 'custom-field' ~ custom_field_id ,
+            classes:'custom-field',
+            atributest:'data-sort='~sort_order,
+            label_text:name,
+            error: error_custom_field.custom_field_id,
+            input_group:{
+                classes:'time',
+                input:{
+                    type:'text',
+                    id:'input-custom-field'~custom_field_id,
+                    name:'custom_field[' ~location ~']'~ '['~custom_field_id ~ ']',
+                    value: register_custom_field.custom_field_id ? register_custom_field.custom_field_id : value ,
+                    classes:'field',
+                },
+                button:{
+                    style:'primary',
+                    icon:'fa fa-clock',
+                }
+            }
+        }
+    } %}
+{% endif %}
+{% if type == 'datetime' %}
+    {% include component.form_group.template with {
+        form_group:{
+            id: 'custom-field' ~ custom_field_id ,
+            classes:'custom-field',
+            atributest:'data-sort='~sort_order,
+            label_text:name,
+            error: error_custom_field.custom_field_id,
+            input_group:{
+                classes:'datetime',
+                input:{
+                    type:'datetime',
+                    id:'input-custom-field'~custom_field_id,
+                    name:'custom_field[' ~location ~']'~ '['~custom_field_id ~ ']',
+                    value: register_custom_field.custom_field_id ? register_custom_field.custom_field_id : value ,
+                    classes:'field',
+                },
+                button:{
+                    style:'primary',
+                    icon:'fa fa-calendar',
+                }
+            }
+        }
+    } %}
+
+{% endif %}
+<!-- /> d_custom_field -->

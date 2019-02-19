@@ -1,0 +1,91 @@
+.vz-button {
+  padding: var(--padding-button);
+  font-size: 16px;
+  border-radius: 0px;
+  &.btn-link{
+    color: var(--link-color);
+    &:hover{
+      text-decoration: none;
+      color: var(--link-color-hover);
+    }
+  }
+  &.btn-primary {
+    background: var(--color-primary);
+    border: var(--border-primary);
+    border-color: var(--color-primary-darken);
+    &:hover, &:focus:active {
+      background: var(--color-primary-darken);
+      border-color: var(--color-primary-darkenx3);
+    }
+  }
+  &.btn-danger {
+    background: var(--color-danger);
+    border: var(--border-danger);
+    border-color: var(--color-danger-darken);
+    &:hover {
+      background: var(--color-danger-darken);
+      border-color: var(--color-danger-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-danger-darkenx2);
+      border-color: var(--color-danger-darkenx3);
+      outline: none;
+    }
+  }
+  &.btn-warning {
+    background: var(--color-warning);
+    border: var(--border-warning);
+    border-color: var(--color-warning-darken);
+    &:hover {
+      background: var(--color-warning-darken);
+      border-color: var(--color-warning-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-warning-darkenx2);
+      border-color: var(--color-warning-darkenx3);
+      outline: none;
+    }
+  }
+  &.btn-info {
+    background: var(--color-info);
+    border: var(--border-info);
+    border-color: var(--color-info-darken);
+    &:hover {
+      background: var(--color-info-darken);
+      border-color: var(--color-info-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-info-darkenx2);
+      border-color: var(--color-info-darkenx3);
+      outline: none;
+    }
+  }
+  &.btn-default {
+    background: var(--color-default);
+    border: var(--border-default);
+    border-color: var(--color-default-darken);
+    &:hover {
+      background: var(--color-default-darken);
+      border-color: var(--color-default-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-default-darkenx2);
+      border-color: var(--color-default-darkenx3);
+      outline: none;
+    }
+  }
+  &.btn-success {
+    background: var(--color-success);
+    border: var(--border-success);
+    border-color: var(--color-success-darken);
+    &:hover {
+      background: var(--color-success-darken);
+      border-color: var(--color-success-darkenx3);
+    }
+    &:focus:active {
+      background: var(--color-success-darkenx2);
+      border-color: var(--color-success-darkenx3);
+      outline: none;
+    }
+  }
+}

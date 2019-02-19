@@ -1,0 +1,7 @@
+@import "../base/variables";
+.vz-button-view .vz-button{
+  @extend %btn_default;
+  &.active{
+    background-color: #e7e7e7;
+  }
+}

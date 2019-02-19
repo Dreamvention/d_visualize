@@ -1,9 +1,9 @@
-{{header}}
-{% include 'd_visualize/template/partial/d_breadcrumb.twig' %}
-    {% include 'd_visualize/template/partial/d_layout_open.twig' %}
-      <h1 class="h2">{{heading_title}}</h1>
+{#it's mean in layout template#}
+{% extends template %}
+{% block content %}
+      <h1 class="heading-h1">{{heading_title}}</h1>
       {% if products %}
-      <table class="table table-bordered table-hover">
+      <table class="table vis-table table-bordered table-hover">
         <thead>
           <tr>
             <td class="text-center">{{column_image}}</td>
@@ -36,8 +36,21 @@
               </div>
               {% endif %}
             </td>
-            <td class="text-right"><button type="button" onclick="cart.add('{{product.product_id}}');" data-toggle="tooltip" title="{{button_cart}}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></button>
-              <a href="{{product.remove}}" data-toggle="tooltip" title="{{button_remove}}" class="btn btn-danger"><i class="fa fa-times"></i></a></td>
+            <td class="text-right">
+                {% include component.button.template with {button:{
+                onclick: 'cart.add('~product.product_id~')',
+                style:'primary',
+                icon:'fa fa-shopping-cart',
+                }} %}
+                {% include component.button.template with {button:{
+                link: product.remove,
+                style:'danger',
+                classes: 'ghost',
+                icon:'fa fa-times',
+                }} %}
+                {#{% include component.product_remove.template with ({#}
+                    {#remove_link:#}
+                {#}) %}#}
           </tr>
           {% endfor %}
         </tbody>
@@ -45,6 +58,5 @@
       {% else %}
       <p>{{text_empty}}</p>
       {% endif %}
-      {% include 'd_visualize/template/partial/d_button_continue.twig' %}
-  {% include 'd_visualize/template/partial/d_layout_close.twig' %}
-{{footer}}
+    {% include component.d_button_continue.template %}
+{% endblock %}

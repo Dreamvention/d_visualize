@@ -1,24 +1,2 @@
-<!-- > d_button -->
-<div class="buttons clearfix">
-  <div class="pull-left">
-    {% if button_back %}
-    <a href="{{back}}" class="btn btn-default">{{button_back}}</a>
-    {% endif %}
-  </div>
-  <div class="pull-right">
-    {% if text_agree %}
-      {{text_agree}}
-      <input type="checkbox" name="agree" value="1" {% if agree %}checked="checked"{% endif %} />
-      &nbsp;
-    {% endif %}
-    {% if continue %}
-      <a href="{{continue}}" class="btn btn-primary">{{button_continue}}</a>
-    {% elseif button_continue %}
-      <input type="submit" value="{{button_continue}}" class="btn btn-primary" />
-    {% endif %}
-    {% if button_submit %}
-      <input type="submit" value="{{button_submit}}" class="btn btn-primary" />
-    {% endif %}
-  </div>
-</div>
-<!-- /> d_button -->
+{#can't use context wia no usesfull and overwriten component #}
+{% include partial.d_button.component.d_button.template %}
