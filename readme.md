@@ -1,4 +1,9 @@
-Admin editor you can find in 
+# Visualize Module
+
+
+# Instructions
+
+> Admin editor you can find in 
 admin/view/javascript/d_visualize/
 
 it's fully nuxt.js app - with some modifications of axios module 
@@ -8,4 +13,12 @@ it's fully nuxt.js app - with some modifications of axios module
     - build - is used for generation static assets for module production .env is also nessesary dev=false 
     - start - is not used for me
     - generate - also not apply feature
-   
+
+
+# Installation:
+
+- With Shopunity module
+
+- With Opencart Extension Installer
+
+- By uploading files with FTP
