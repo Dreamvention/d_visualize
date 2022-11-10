@@ -15,7 +15,7 @@
     "cross-env": "^5.2.0",
     "dotenv": "^5.0.1",
     "node-sass": "^4.10.0",
-    "nuxt": "^2.2.0",
+    "nuxt": "^2.15.8",
     "nuxt-fontawesome": "^0.3.0",
     "sass-loader": "^7.1.0",
     "url-parse": "^1.4.4",
