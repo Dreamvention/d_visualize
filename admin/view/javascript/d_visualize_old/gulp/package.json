@@ -16,7 +16,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "postcss": "6.0.23",
     "gulp-strip-css-comments": "^2.0.0",
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.20.12",
     "@babel/preset-env": "^7.0.0",
     "autoprefixer": "^6.5.4"
   },
